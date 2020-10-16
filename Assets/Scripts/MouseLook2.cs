@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class MouseLook2 : MonoBehaviour
+public class MouseLook2 : NetworkBehaviour
 {
     public Transform eyes;
     public int sens = 1;
@@ -23,8 +24,12 @@ public class MouseLook2 : MonoBehaviour
     }
 
     // Update is called once per frame
+    [Client]
     void Update()
     {
+        if (!hasAuthority)
+            return;
+
         if (!pause)
         {
             Cursor.lockState = CursorLockMode.Locked;

@@ -1,44 +1,74 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class PlayerMovement : MonoBehaviour
+[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(CapsuleCollider))]
+public class PlayerMovement : NetworkBehaviour
 {
-    private float xAxis;
-    private float zAxis;
-    private Rigidbody rb;
+	private Rigidbody rbody;
+	private CapsuleCollider coll;
+	public float speed = 10.0f;
+	public float gravity = 10.0f;
+	public float maxVelocityChange = 10.0f;
+	public bool canJump = true;
+	public float jumpHeight = 2.0f;
+	private bool grounded = false;
 
-    public int speed = 5;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-        rb = GetComponent<Rigidbody>();
-    }
 
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-        xAxis = Input.GetAxis("Horizontal");
-        zAxis = Input.GetAxis("Vertical");
-        if (xAxis > 0)
-        {
-            rb.AddForce(transform.right * speed);
-        }
-        else if (xAxis < 0)
-        {
-            rb.AddForce(transform.right * -speed);
-        }
+	void Awake()
+	{
+		rbody = GetComponent<Rigidbody>();
+		coll = GetComponent<CapsuleCollider>();
+		rbody.freezeRotation = true;
+		rbody.useGravity = false;
+	}
+	
+	[Client]
+	void FixedUpdate()
+	{
+		if (!hasAuthority)
+            return;
+		if (grounded)
+		{
+			// Calculate how fast we should be moving
+			Vector3 targetVelocity = new Vector3(Input.GetAxis(Keybinds.Horizontal), 0, Input.GetAxis(Keybinds.Vertical));
+			targetVelocity = transform.TransformDirection(targetVelocity);
+			targetVelocity *= speed;
 
-        if(zAxis > 0)
-        {
-            rb.AddForce(transform.forward * speed);
-        }
-        else if (zAxis < 0)
-        {
-            rb.AddForce(transform.forward * -speed);
-        }
-       
-    }
+			// Apply a force that attempts to reach our target velocity
+			Vector3 velocity = rbody.velocity;
+			Vector3 velocityChange = (targetVelocity - velocity);
+			velocityChange.x = Mathf.Clamp(velocityChange.x, -maxVelocityChange, maxVelocityChange);
+			velocityChange.z = Mathf.Clamp(velocityChange.z, -maxVelocityChange, maxVelocityChange);
+			velocityChange.y = 0;
+			rbody.AddForce(velocityChange, ForceMode.VelocityChange);
+
+			// Jump
+			if (canJump && Input.GetKeyDown(Keybinds.Jump))
+			{
+				rbody.velocity += new Vector3(velocity.x, CalculateJumpVerticalSpeed(), velocity.z);
+			}
+		}
+
+		// We apply gravity manually for more tuning control
+		rbody.AddForce(new Vector3(0, -gravity * rbody.mass, 0));
+
+		grounded = false;
+	}
+
+	void OnCollisionStay()
+	{
+		grounded = true;
+	}
+
+	float CalculateJumpVerticalSpeed()
+	{
+		// From the jump height and gravity we deduce the upwards speed 
+		// for the character to reach at the apex.
+		return Mathf.Sqrt(2 * jumpHeight * gravity);
+	}
+
 }

@@ -78,7 +78,8 @@ public class GlassRefraction : MonoBehaviour
     {
         if(other.tag == "Bullet")
         {
-            other.GetComponent<Bullet>().ExitGlass();
+            //ExitGlass does not exist, could be a merge error or its not implemented yet
+            //other.GetComponent<Bullet>().ExitGlass();
         }
     }
 
