@@ -124,10 +124,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 8387939993200145741}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4214b62f1987036488b7e3a0be303254, type: 3}
+  m_Script: {fileID: 11500000, guid: 22ebb3d1f5bb5b244bae2e7e60006f3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxBounces: 4
+  myShot:
+    damage: 0
+    maxBounces: 0
+    numBounces: 0
 --- !u!114 &1367506407914131753
 MonoBehaviour:
   m_ObjectHideFlags: 0
