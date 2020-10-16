@@ -47,6 +47,7 @@ public class SteamLobby : MonoBehaviour
         UnityEngine.Debug.Log("Search for lobbies");
         for (int i = 1; i < networkManager.maxConnections; ++i)
         {
+            UnityEngine.Debug.Log(i + " open spaces");
             SteamMatchmaking.AddRequestLobbyListFilterSlotsAvailable(i);
             m_LobbyMatchListCallResult.Set(SteamMatchmaking.RequestLobbyList());
         }
@@ -67,15 +68,18 @@ public class SteamLobby : MonoBehaviour
 
     private void OnGameLobbyJoinRequested(GameLobbyJoinRequested_t callback)
     {
+        UnityEngine.Debug.Log("Join request:" + callback.m_steamIDLobby);
         SteamMatchmaking.JoinLobby(callback.m_steamIDLobby);
     }
 
     private void OnLobbyEntered(LobbyEnter_t callback)
     {
+        UnityEngine.Debug.Log(NetworkServer.active);
         if (NetworkServer.active) { return; }
-
+        UnityEngine.Debug.Log(HostAddressKey);
         string hostAddress = SteamMatchmaking.GetLobbyData(new CSteamID(callback.m_ulSteamIDLobby), HostAddressKey);
-
+        UnityEngine.Debug.Log(callback.m_ulSteamIDLobby);
+        UnityEngine.Debug.Log(hostAddress);
         networkManager.networkAddress = hostAddress;
         networkManager.StartClient();
 
@@ -85,11 +89,13 @@ public class SteamLobby : MonoBehaviour
     void OnLobbyMatchList(LobbyMatchList_t pCallback, bool bIOFailure)
     {
         
-        UnityEngine.Debug.Log(pCallback.m_nLobbiesMatching);
+        UnityEngine.Debug.Log(pCallback.m_nLobbiesMatching+ " lobbies found");
         if (pCallback.m_nLobbiesMatching > 0)
         {
-            //UnityEngine.Debug.Log(SteamMatchmaking.GetLobbyByIndex(0));
-            SteamMatchmaking.JoinLobby(SteamMatchmaking.GetLobbyByIndex(0));
+            int index = (int)pCallback.m_nLobbiesMatching - 1;
+            UnityEngine.Debug.Log(SteamMatchmaking.GetLobbyByIndex(index));
+            //lobbyEntered.Set(SteamMatchmaking.JoinLobby(SteamMatchmaking.GetLobbyByIndex(index)));
+            SteamMatchmaking.JoinLobby(SteamMatchmaking.GetLobbyByIndex(index));
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
+using System.Security.Cryptography;
 
 public class Shooting : NetworkBehaviour
 {
@@ -146,7 +147,7 @@ public class Shooting : NetworkBehaviour
         currentlyFiring = false;
         yield return null;
     }
-
+    
     IEnumerator FireBullet(int weaponSlot, Weapon.FireMode fireMode)
     {
         //We are currently firing
@@ -160,6 +161,9 @@ public class Shooting : NetworkBehaviour
             GameObject b = Instantiate(fireMode.bulletPrefab, eyes.transform.position, eyes.transform.rotation);
             //Assign it its properties
             b.GetComponent<Bullet>().Initialize(fireMode);
+            NetworkServer.Spawn(b);
+            //CmdSpawnBullet(fireMode, eyes.transform);
+
             //Play the firing audio
             GetComponent<AudioSource>().PlayOneShot(fireMode.firingSound);
             //Wait
@@ -169,6 +173,14 @@ public class Shooting : NetworkBehaviour
         currentlyFiring = false;
     }
 
+    /*[Command]
+    void CmdSpawnBullet(Weapon.FireMode fireMode, Transform bulletStart)
+    {
+        GameObject b = Instantiate(fireMode.bulletPrefab, bulletStart.position, bulletStart.rotation);
+        //Assign it its properties
+        b.GetComponent<Bullet>().Initialize(fireMode);
+        NetworkServer.Spawn(b);
+    }*/
     //Boolean that checks if a weapon has single-fired
     bool GetButtonFired(Weapon.FireKey key)
     {
