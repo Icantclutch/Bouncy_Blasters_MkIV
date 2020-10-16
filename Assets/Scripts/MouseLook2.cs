@@ -21,6 +21,12 @@ public class MouseLook2 : NetworkBehaviour
         camTargetRot = eyes.localRotation;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+        if (hasAuthority) {
+            eyes.gameObject.SetActive(true);
+        }
+        else {
+            eyes.gameObject.SetActive(false);
+        }
     }
 
     // Update is called once per frame
