@@ -38,6 +38,8 @@ public class RaycastReflection : MonoBehaviour
 
     void Update()
     {
+        lineRenderer.enabled = Input.GetKey(Keybinds.Zoom);
+
         //clamp the number of reflections between 1 and int capacity  
         nReflections = Mathf.Clamp(nReflections, 1, nReflections);
         //cast a new ray forward, from the current attached game object position  

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class Bullet : MonoBehaviour
 {
@@ -21,7 +22,7 @@ public class Bullet : MonoBehaviour
     public Shot myShot;
 
     // Initialize the bullet
-    public void Initialize(Weapon.FireMode myFireMode)
+    public virtual void Initialize(Weapon.FireMode myFireMode)
     {
         //Initialize shot
         myShot = new Shot();
@@ -30,25 +31,24 @@ public class Bullet : MonoBehaviour
         myShot.maxBounces = myFireMode.maxBounces;
 
         //Set bullet speed
-        Vel(transform.forward * myFireMode.fireSpeed * 100);
+        Vel(transform.forward, myFireMode.fireSpeed * 100);
 
-        Destroy(gameObject, 3f); //REMOVE AFTER DEBUGGING
+        //Destroy(gameObject, 3f); //REMOVE AFTER DEBUGGING
     }
 
     // Update is called once per frame
-    void Update()
+    public virtual void Update()
     {
         if(myShot.numBounces == myShot.maxBounces)
         {
             DestroyBullet();
         }
-        
     }
 
-    public void Vel(Vector3 vel)
+    public virtual void Vel(Vector3 vel, float speed)
     {
         rb = GetComponent<Rigidbody>();
-        rb.AddForce(vel);
+        rb.AddForce(vel * speed);
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -67,8 +67,8 @@ public class Bullet : MonoBehaviour
         myShot.numBounces++;
     }
 
-    public void DestroyBullet()
+    public void DestroyBullet(float time = 0)
     {
-        Destroy(gameObject);
+        Destroy(gameObject, time);
     }
 }
