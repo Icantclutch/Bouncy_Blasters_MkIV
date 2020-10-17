@@ -18,12 +18,17 @@ public class SteamLobby : MonoBehaviour
     //protected LobbyMetaData[] m_Data;
 
     private const string HostAddressKey = "HostAddress";
-    
+    private const string GameKey = "GameName";
+    private const string GameName = "BouncyBlasters";
+
     private NetworkManager networkManager;
+
+    private bool lobbyFound = false;
 
     private void Start()
     {
         networkManager = GetComponent<NetworkManager>();
+        lobbyFound = false;
 
         if (!SteamManager.Initialized) { return; }
 
@@ -45,14 +50,23 @@ public class SteamLobby : MonoBehaviour
     public void JoinLobby()
     {
         UnityEngine.Debug.Log("Search for lobbies");
+        StartCoroutine(SearchForLobby());
+    }
+    IEnumerator SearchForLobby()
+    {
+        
         for (int i = 1; i < networkManager.maxConnections; ++i)
         {
+            if (lobbyFound)
+                break;
             UnityEngine.Debug.Log(i + " open spaces");
             SteamMatchmaking.AddRequestLobbyListFilterSlotsAvailable(i);
             m_LobbyMatchListCallResult.Set(SteamMatchmaking.RequestLobbyList());
+            yield return new WaitForSeconds(2);
         }
+        
+       
     }
-
     private void OnLobbyCreated(LobbyCreated_t callback)
     {
         if(callback.m_eResult != EResult.k_EResultOK)
@@ -64,6 +78,7 @@ public class SteamLobby : MonoBehaviour
         networkManager.StartHost();
 
         SteamMatchmaking.SetLobbyData(new CSteamID(callback.m_ulSteamIDLobby), HostAddressKey, SteamUser.GetSteamID().ToString());
+        SteamMatchmaking.SetLobbyData(new CSteamID(callback.m_ulSteamIDLobby), GameKey, GameName);
     }
 
     private void OnGameLobbyJoinRequested(GameLobbyJoinRequested_t callback)
@@ -90,12 +105,17 @@ public class SteamLobby : MonoBehaviour
     {
         
         UnityEngine.Debug.Log(pCallback.m_nLobbiesMatching+ " lobbies found");
-        if (pCallback.m_nLobbiesMatching > 0)
+        for (int i = 0; i < pCallback.m_nLobbiesMatching; ++i)
         {
-            int index = (int)pCallback.m_nLobbiesMatching - 1;
-            UnityEngine.Debug.Log(SteamMatchmaking.GetLobbyByIndex(index));
-            //lobbyEntered.Set(SteamMatchmaking.JoinLobby(SteamMatchmaking.GetLobbyByIndex(index)));
-            SteamMatchmaking.JoinLobby(SteamMatchmaking.GetLobbyByIndex(index));
+            
+            if (SteamMatchmaking.GetLobbyData(SteamMatchmaking.GetLobbyByIndex(i), GameKey) == GameName)
+            {
+                UnityEngine.Debug.Log("Game Name: " + SteamMatchmaking.GetLobbyData(SteamMatchmaking.GetLobbyByIndex(i), GameKey));
+                UnityEngine.Debug.Log(SteamMatchmaking.GetLobbyByIndex(i));
+                //lobbyEntered.Set(SteamMatchmaking.JoinLobby(SteamMatchmaking.GetLobbyByIndex(index)));
+                SteamMatchmaking.JoinLobby(SteamMatchmaking.GetLobbyByIndex(i));
+                lobbyFound = true;
+            }
         }
     }
 }
