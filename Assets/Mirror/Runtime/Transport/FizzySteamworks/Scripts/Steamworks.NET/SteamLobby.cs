@@ -62,7 +62,7 @@ public class SteamLobby : MonoBehaviour
             UnityEngine.Debug.Log(i + " open spaces");
             SteamMatchmaking.AddRequestLobbyListFilterSlotsAvailable(i);
             m_LobbyMatchListCallResult.Set(SteamMatchmaking.RequestLobbyList());
-            yield return new WaitForSeconds(2);
+            yield return new WaitForSeconds(1);
         }
         
        
