@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -53,6 +54,7 @@ public class Weapon : ScriptableObject
         //Bullet prefab
         public GameObject bulletPrefab;
         //Audio clip
+        [NonSerialized]
         public AudioClip firingSound;
     }
 }
