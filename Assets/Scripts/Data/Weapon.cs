@@ -56,5 +56,22 @@ public class Weapon : ScriptableObject
         //Audio clip
         [NonSerialized]
         public AudioClip firingSound;
+
+        public FireMode Clone()
+        {
+            FireMode fireMode = new FireMode();
+            fireMode.key = this.key;
+            fireMode.fireType = this.fireType;
+            fireMode.shotsFiredAtOnce = this.shotsFiredAtOnce;
+            fireMode.ammoUsedEachShot = this.ammoUsedEachShot;
+            fireMode.bulletDamage = this.bulletDamage;
+            fireMode.fireSpeed = this.fireSpeed;
+            fireMode.fireRate = this.fireRate;
+            fireMode.maxBounces = this.maxBounces;
+            fireMode.bulletPrefab = this.bulletPrefab;
+            fireMode.firingSound = this.firingSound;
+
+            return fireMode;
+        }
     }
 }

@@ -33,7 +33,7 @@ public class Shooting : NetworkBehaviour
 
     private void ActiveFireModeUpdated(Weapon.FireMode oldFireMode, Weapon.FireMode newFireMode)
     {
-        activeFireMode = newFireMode;
+        activeFireMode = newFireMode.Clone();
 
     }
 
@@ -165,7 +165,7 @@ public class Shooting : NetworkBehaviour
         currentlyFiring = true;
         //Subtract from the ammo
         playerWeapons[weaponSlot].currentAmmo -= fireMode.ammoUsedEachShot;
-        activeFireMode = fireMode;
+        activeFireMode = fireMode.Clone();
         for (int i = 0; i < fireMode.shotsFiredAtOnce; i++)
         {
             //Summon the bullet
