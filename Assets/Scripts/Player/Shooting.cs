@@ -185,14 +185,16 @@ public class Shooting : NetworkBehaviour
         //We are no longer firing
         currentlyFiring = false;
     }
-    [Client]
-    void SpawnBullet()
-    {
-        CmdSpawnBullet();
-    }
+    
 
     [Command]
     void CmdSpawnBullet()
+    {
+        RpcSpawnBullet();
+    }
+
+    [ClientRpc]
+    void RpcSpawnBullet()
     {
         //Weapon.FireMode fireMode = new Weapon.FireMode();
         GameObject b = Instantiate(activeFireMode.bulletPrefab, eyes.transform.position, eyes.transform.rotation);
@@ -200,6 +202,7 @@ public class Shooting : NetworkBehaviour
         b.GetComponent<Bullet>().Initialize(activeFireMode);
         NetworkServer.Spawn(b);
     }
+
     //Boolean that checks if a weapon has single-fired
     bool GetButtonFired(Weapon.FireKey key)
     {
