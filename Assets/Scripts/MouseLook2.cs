@@ -5,6 +5,8 @@ using Mirror;
 
 public class MouseLook2 : NetworkBehaviour
 {
+    [SerializeField] private GameObject UI = null;
+
     public Transform eyes;
     public int sens = 1;
     private Quaternion charTargetRot;
@@ -23,9 +25,11 @@ public class MouseLook2 : NetworkBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         if (hasAuthority) {
             eyes.gameObject.SetActive(true);
+            UI.SetActive(true);
         }
         else {
             eyes.gameObject.SetActive(false);
+            UI.SetActive(false);
         }
     }
 
