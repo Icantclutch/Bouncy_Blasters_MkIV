@@ -72,8 +72,8 @@ public class SteamLobby : MonoBehaviour
             lobbyMatchListCallResult.Set(SteamMatchmaking.RequestLobbyList());
             yield return new WaitForSeconds(1);
         }
-        
-       
+        UnityEngine.Debug.Log("Could not find a lobby");
+
     }
     private void OnLobbyCreated(LobbyCreated_t callback)
     {
