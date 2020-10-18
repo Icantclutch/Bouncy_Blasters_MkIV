@@ -122,7 +122,7 @@ public class Shooting : NetworkBehaviour
     {
         foreach(Weapon.FireMode current in playerWeapons[currentWeapon].weapon.fireModes)
         {
-            activeFireMode = current;
+            //activeFireMode = current;
             if (playerWeapons[currentWeapon].currentCooldown <= 0 && playerWeapons[currentWeapon].currentAmmo >= current.ammoUsedEachShot)
             {
                 if (current.fireType == Weapon.FireType.Automatic)
@@ -165,7 +165,7 @@ public class Shooting : NetworkBehaviour
         currentlyFiring = true;
         //Subtract from the ammo
         playerWeapons[weaponSlot].currentAmmo -= fireMode.ammoUsedEachShot;
-
+        activeFireMode = fireMode;
         for (int i = 0; i < fireMode.shotsFiredAtOnce; i++)
         {
             //Summon the bullet
@@ -176,6 +176,7 @@ public class Shooting : NetworkBehaviour
             //NetworkServer.Spawn(b);
             //SpawnBullet(fireMode, eyes.transform);
             //CmdSpawnBullet(fireMode, eyes.transform);
+            
             CmdSpawnBullet();
             //Play the firing audio
             
