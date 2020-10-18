@@ -24,11 +24,19 @@ public class MouseLook2 : NetworkBehaviour
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         if (hasAuthority) {
-            eyes.gameObject.SetActive(true);
+            //eyes.gameObject.SetActive(true);
+            for (int i = 0; i < eyes.childCount; i++)
+            {
+                eyes.GetChild(i).gameObject.SetActive(true);
+            }
             UI.SetActive(true);
         }
         else {
-            eyes.gameObject.SetActive(false);
+            //eyes.gameObject.SetActive(false);
+            for (int i = 0; i < eyes.childCount; i++)
+            {
+                eyes.GetChild(i).gameObject.SetActive(false);
+            }
             UI.SetActive(false);
         }
     }

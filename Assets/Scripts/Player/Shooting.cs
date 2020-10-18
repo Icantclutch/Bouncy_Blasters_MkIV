@@ -200,7 +200,7 @@ public class Shooting : NetworkBehaviour
         GameObject b = Instantiate(activeFireMode.bulletPrefab, eyes.transform.position, eyes.transform.rotation);
         //Assign it its properties
         b.GetComponent<Bullet>().Initialize(activeFireMode);
-        NetworkServer.Spawn(b);
+        //NetworkServer.Spawn(b);
     }
 
     //Boolean that checks if a weapon has single-fired
