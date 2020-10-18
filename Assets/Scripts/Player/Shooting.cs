@@ -165,7 +165,7 @@ public class Shooting : NetworkBehaviour
             //CmdSpawnBullet(fireMode, eyes.transform);
 
             //Play the firing audio
-            GetComponent<AudioSource>().PlayOneShot(fireMode.firingSound);
+            GetComponent<AudioSource>().PlayOneShot(fireMode.firingSound, .5f);
             //Wait
             yield return new WaitForSeconds(fireMode.fireRate);
         }
