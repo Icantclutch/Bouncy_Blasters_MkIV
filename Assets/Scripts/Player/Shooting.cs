@@ -167,7 +167,7 @@ public class Shooting : NetworkBehaviour
             //Play the firing audio
             GetComponent<AudioSource>().PlayOneShot(fireMode.firingSound, .5f);
             //Wait
-            yield return new WaitForSeconds(fireMode.fireRate);
+            yield return new WaitForSeconds(60 / fireMode.fireRate);
         }
         //We are no longer firing
         currentlyFiring = false;
