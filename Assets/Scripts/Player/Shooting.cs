@@ -33,7 +33,7 @@ public class Shooting : NetworkBehaviour
 
     private void ActiveFireModeUpdated(Weapon.FireMode oldFireMode, Weapon.FireMode newFireMode)
     {
-        //activeFireMode = newFireMode;
+        activeFireMode = newFireMode;
 
     }
 
