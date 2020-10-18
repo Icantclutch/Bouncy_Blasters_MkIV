@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 using System.Security.Cryptography;
+using System;
 
 public class Shooting : NetworkBehaviour
 {
@@ -26,6 +27,15 @@ public class Shooting : NetworkBehaviour
     public List<WeaponSlot> playerWeapons = new List<WeaponSlot>();
     //Bool used to make sure firing doesn't occur at the same time
     public bool currentlyFiring = false;
+
+    [SyncVar(hook = nameof(ActiveFireModeUpdated))]
+    private Weapon.FireMode activeFireMode;
+
+    private void ActiveFireModeUpdated(Weapon.FireMode oldFireMode, Weapon.FireMode newFireMode)
+    {
+        activeFireMode = newFireMode.Clone();
+
+    }
 
     // Update is called once per frame
     [Client]
@@ -112,6 +122,7 @@ public class Shooting : NetworkBehaviour
     {
         foreach(Weapon.FireMode current in playerWeapons[currentWeapon].weapon.fireModes)
         {
+            //activeFireMode = current;
             if (playerWeapons[currentWeapon].currentCooldown <= 0 && playerWeapons[currentWeapon].currentAmmo >= current.ammoUsedEachShot)
             {
                 if (current.fireType == Weapon.FireType.Automatic)
@@ -154,33 +165,45 @@ public class Shooting : NetworkBehaviour
         currentlyFiring = true;
         //Subtract from the ammo
         playerWeapons[weaponSlot].currentAmmo -= fireMode.ammoUsedEachShot;
-
+        activeFireMode = fireMode.Clone();
         for (int i = 0; i < fireMode.shotsFiredAtOnce; i++)
         {
             //Summon the bullet
-            GameObject b = Instantiate(fireMode.bulletPrefab, eyes.transform.position, eyes.transform.rotation);
+            //GameObject b = Instantiate(fireMode.bulletPrefab, eyes.transform.position, eyes.transform.rotation);
             //Assign it its properties
-            b.GetComponent<Bullet>().Initialize(fireMode);
-            NetworkServer.Spawn(b);
+            //b.GetComponent<Bullet>().Initialize(fireMode);
+            //GetComponent<AudioSource>().PlayOneShot(fireMode.firingSound, .5f);
+            //NetworkServer.Spawn(b);
+            //SpawnBullet(fireMode, eyes.transform);
             //CmdSpawnBullet(fireMode, eyes.transform);
-
+            
+            CmdSpawnBullet();
             //Play the firing audio
-            GetComponent<AudioSource>().PlayOneShot(fireMode.firingSound, .5f);
+            
             //Wait
             yield return new WaitForSeconds(60 / fireMode.fireRate);
         }
         //We are no longer firing
         currentlyFiring = false;
     }
+    
 
-    /*[Command]
-    void CmdSpawnBullet(Weapon.FireMode fireMode, Transform bulletStart)
+    [Command]
+    void CmdSpawnBullet()
     {
-        GameObject b = Instantiate(fireMode.bulletPrefab, bulletStart.position, bulletStart.rotation);
+        RpcSpawnBullet();
+    }
+
+    [ClientRpc]
+    void RpcSpawnBullet()
+    {
+        //Weapon.FireMode fireMode = new Weapon.FireMode();
+        GameObject b = Instantiate(activeFireMode.bulletPrefab, eyes.transform.position, eyes.transform.rotation);
         //Assign it its properties
-        b.GetComponent<Bullet>().Initialize(fireMode);
-        NetworkServer.Spawn(b);
-    }*/
+        b.GetComponent<Bullet>().Initialize(activeFireMode);
+        //NetworkServer.Spawn(b);
+    }
+
     //Boolean that checks if a weapon has single-fired
     bool GetButtonFired(Weapon.FireKey key)
     {
