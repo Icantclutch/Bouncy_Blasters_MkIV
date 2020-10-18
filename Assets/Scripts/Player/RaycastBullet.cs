@@ -48,8 +48,10 @@ public class RaycastBullet : Bullet
                     hit.transform.SendMessage("Hit", myShot);
 
                     //If its an enemy, break
-                    if (hit.transform.CompareTag("Enemy"))
+                    if (hit.transform.CompareTag("Player"))
                     {
+                        Debug.Log("Bullet has hit a player");
+                        hit.transform.GetComponent<PlayerHealth>().DealDamage(myShot.damage[myShot.numBounces]);
                         break;
                     }
                 }

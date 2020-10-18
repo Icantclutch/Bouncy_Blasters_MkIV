@@ -560,6 +560,8 @@ GameObject:
   - component: {fileID: 2002431689}
   - component: {fileID: 2481527806247492334}
   - component: {fileID: 7484909023382101332}
+  - component: {fileID: -5991319999705344379}
+  - component: {fileID: 6357882283531535464}
   m_Layer: 10
   m_Name: Player
   m_TagString: Untagged
@@ -850,6 +852,33 @@ MonoBehaviour:
   localPositionSensitivity: 0.01
   localRotationSensitivity: 0.01
   localScaleSensitivity: 0.01
+--- !u!114 &-5991319999705344379
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4357171600822209692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 326c0a5e49b5d4448beed243129c0142, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6357882283531535464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4357171600822209692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1849fe1ad4a91541a744209e1ec400d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxSuitCharge: 100
+  currentCharge: 0
+  playerTeamNumber: 0
 --- !u!1 &8047590803137001872
 GameObject:
   m_ObjectHideFlags: 0

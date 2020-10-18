@@ -33,6 +33,7 @@ public class Weapon : ScriptableObject
     [System.Serializable]
     public class FireMode
     {
+
         //The key used to fire this specific mode
         public FireKey key;
         //Fire rate type of the weapon, determines what happens when clicking
@@ -42,7 +43,7 @@ public class Weapon : ScriptableObject
         //The amount of ammo used each shot
         public int ammoUsedEachShot;
         //The damage of each bullet
-        public int bulletDamage;
+        public List<int> bulletDamage;
         //The speed the projectile is fired
         public int fireSpeed;
         //The cooldown before a shot can be fired again, typically used for automatic weapons

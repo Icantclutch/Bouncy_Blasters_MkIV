@@ -8,11 +8,12 @@ public class Bullet : MonoBehaviour
     [System.Serializable]
     public class Shot
     {
-        //how much damage the shot does
-        public int damage;
+        //how much raw damage the shot does
+        public List<int> damage;
         //how many bounces the shot has had so far
         public int maxBounces;
         //how many times the shot has bounced
+        [Tooltip("Numner of times the laser has bounced")]
         public int numBounces = 0;
     }
 
