@@ -74,6 +74,6 @@ public class Bullet : MonoBehaviour
 
     public void DestroyBullet(float time = 0)
     {
-        Destroy(gameObject, time);
+        //Destroy(gameObject, time);
     }
 }
