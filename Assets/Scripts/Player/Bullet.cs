@@ -74,6 +74,7 @@ public class Bullet : MonoBehaviour
 
     public void DestroyBullet(float time = 0)
     {
+        Debug.Log("Whats Triggering Me");
         //Destroy(gameObject, time);
     }
 }
