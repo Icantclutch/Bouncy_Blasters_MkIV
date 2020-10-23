@@ -15,6 +15,8 @@ public class Bullet : MonoBehaviour
         //how many times the shot has bounced
         [Tooltip("Numner of times the laser has bounced")]
         public int numBounces = 0;
+        //Player sourced from
+        public PlayerReference playerSource;
     }
 
     //Rigidbody
@@ -23,13 +25,15 @@ public class Bullet : MonoBehaviour
     public Shot myShot;
 
     // Initialize the bullet
-    public virtual void Initialize(Weapon.FireMode myFireMode)
+    public virtual void Initialize(Weapon.FireMode myFireMode, PlayerReference playerSource)
     {
         //Initialize shot
         myShot = new Shot();
         //Set values
         myShot.damage = myFireMode.bulletDamage;
         myShot.maxBounces = myFireMode.maxBounces;
+        //Assign player
+        myShot.playerSource = playerSource;
 
         //Set bullet speed
         Vel(transform.forward, myFireMode.fireSpeed * 100);
@@ -55,7 +59,7 @@ public class Bullet : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         //Send message to hit object
-        collision.transform.SendMessage("Hit", myShot);
+        collision.transform.SendMessage("Hit", myShot, SendMessageOptions.DontRequireReceiver);
 
         //If its an enemy, destroy the bullet
         if (collision.transform.CompareTag("Enemy"))
