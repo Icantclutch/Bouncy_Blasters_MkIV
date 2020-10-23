@@ -32,9 +32,38 @@ public class PlayerSpawnSystem : MonoBehaviour
     {
         if(spawnPoints.Count > 0)
         {
-            PlayerSpawnPoint spawnPoint = spawnPoints[0];
-            player.transform.position = spawnPoint.transform.position;
-            player.transform.rotation = spawnPoint.transform.rotation;
+            List<PlayerSpawnPoint> points = new List<PlayerSpawnPoint>();
+            PlayerSpawnPoint spawnPoint = null;
+            foreach (PlayerSpawnPoint point in spawnPoints) {
+                if (respawn != point.isRespawnRoom && initialSpawn == point.isStartingPoint)
+                {
+                    //int playerTeam = player.GetComponent<>().team;
+                    int playerTeam = 0;
+                    if (initialSpawn && playerTeam == point.team)
+                    {
+                        points.Add(point);
+                    }
+                    else if(!initialSpawn && (playerTeam == point.team || point.team == 0))
+                    {
+                        points.Add(point);
+                    }
+                    
+                }
+
+            }
+            foreach(PlayerSpawnPoint point in points)
+            {
+                if (!spawnPoint)
+                {
+                    spawnPoint = point;
+                }
+            }
+
+            if (spawnPoint != null)
+            {
+                player.transform.position = spawnPoint.transform.position;
+                player.transform.rotation = spawnPoint.transform.rotation;
+            }
         }
     }
 }

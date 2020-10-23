@@ -10,6 +10,7 @@ public static class Keybinds
     public static KeyCode SecondaryFire = KeyCode.Mouse2; //Middle click secondary fire
     public static KeyCode GrenadeFire = KeyCode.G; //G grenade fire
     public static KeyCode Reload = KeyCode.R; //R Reload weapon
+    public static KeyCode SwapWeapon = KeyCode.Q; //Q Swap weapon
 
     //Movement
     public static KeyCode Jump = KeyCode.Space; //Space jump

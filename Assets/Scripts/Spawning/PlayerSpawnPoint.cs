@@ -6,11 +6,11 @@ using UnityEngine;
 public class PlayerSpawnPoint : MonoBehaviour
 {
     [SerializeField]
-    private int team { get; }
+    public int team = 0;
     [SerializeField]
-    private bool isRespawnRoom = false;
+    public bool isRespawnRoom = false;
     [SerializeField]
-    private bool isStartingPoint = false;
+    public bool isStartingPoint = false;
 
 
     private void Awake()
