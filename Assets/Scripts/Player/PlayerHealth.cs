@@ -14,7 +14,7 @@ public class PlayerHealth : HitInteraction
 
     //The team that the player is on
     [SerializeField]
-    private int playerTeamNumber;
+    private int playerTeamNumber { get; }
 
     //reference to ther scrips
     private PlayerReference myReference;
@@ -49,6 +49,7 @@ public class PlayerHealth : HitInteraction
         currentCharge = 0;
         //TODO Call to game controller to teleport player to designated spawn point
         Debug.Log("Player has died, Teleporting to respawn room (not implemented)");
+        PlayerSpawnSystem.SpawnPlayer(gameObject);
     }
 
     public void AssignTeam(int teamNum) 

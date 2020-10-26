@@ -1,22 +1,12 @@
-﻿using System.Collections;
+﻿using Mirror;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerSpawnSystem : MonoBehaviour
+public class PlayerSpawnSystem : NetworkBehaviour
 {
-    private static List<PlayerSpawnPoint> spawnPoints;
+    private static List<PlayerSpawnPoint> spawnPoints = new List<PlayerSpawnPoint>();
     
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public static void AddSpawnPoint(PlayerSpawnPoint spawnPoint)
     {
@@ -37,8 +27,8 @@ public class PlayerSpawnSystem : MonoBehaviour
             foreach (PlayerSpawnPoint point in spawnPoints) {
                 if (respawn != point.isRespawnRoom && initialSpawn == point.isStartingPoint)
                 {
-                    //int playerTeam = player.GetComponent<>().team;
-                    int playerTeam = 0;
+                    int playerTeam = player.GetComponent<PlayerHealth>().playerTeamNumber;
+                    //int playerTeam = 0;
                     if (initialSpawn && playerTeam == point.team)
                     {
                         points.Add(point);
@@ -51,18 +41,24 @@ public class PlayerSpawnSystem : MonoBehaviour
                 }
 
             }
+            if(points.Count > 0)
+            {
+                spawnPoint = points[Random.Range(0, points.Count)];
+            }
+            /*
             foreach(PlayerSpawnPoint point in points)
             {
                 if (!spawnPoint)
                 {
                     spawnPoint = point;
                 }
-            }
+            }*/
 
             if (spawnPoint != null)
             {
                 player.transform.position = spawnPoint.transform.position;
                 player.transform.rotation = spawnPoint.transform.rotation;
+                player.transform.Find("Eyes").rotation = spawnPoint.transform.rotation;
             }
         }
     }
