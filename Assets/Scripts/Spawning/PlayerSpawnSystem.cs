@@ -71,7 +71,7 @@ public class PlayerSpawnSystem : NetworkBehaviour
             {
                 player.transform.position = spawnPoint.transform.position;
                 player.transform.rotation = spawnPoint.transform.rotation;
-                player.transform.Find("Eyes").rotation = spawnPoint.transform.rotation;
+                //player.transform.Find("Eyes").rotation = spawnPoint.transform.rotation;
             }
         }
     }

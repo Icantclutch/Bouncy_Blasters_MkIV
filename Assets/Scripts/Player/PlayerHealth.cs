@@ -30,7 +30,7 @@ public class PlayerHealth : HitInteraction
     void Update()
     {
         //charge check to see if the player has reached the damage threshold for being teleported.
-        if (currentCharge > maxSuitCharge)
+        if (currentCharge >= maxSuitCharge)
         {
             TeleportPlayer();
         }
