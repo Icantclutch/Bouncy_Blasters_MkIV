@@ -24,13 +24,16 @@ public class PlayerMovement : NetworkBehaviour
 		coll = GetComponent<CapsuleCollider>();
 		rbody.freezeRotation = true;
 		rbody.useGravity = false;
+		
+	}
+    private void Start()
+    {
 		if (hasAuthority)
 		{
 			PlayerSpawnSystem.SpawnPlayer(gameObject);
 		}
 	}
-	
-	[Client]
+    [Client]
 	void FixedUpdate()
 	{
 		if (!hasAuthority)
