@@ -32,7 +32,7 @@ public class Weapon : ScriptableObject
     public List<FireMode> fireModes;
 
     [System.Serializable]
-    public class FireMode
+    public struct FireMode
     {
 
         //The key used to fire this specific mode
@@ -50,28 +50,18 @@ public class Weapon : ScriptableObject
         //The cooldown before a shot can be fired again, typically used for automatic weapons
         public float fireRate;
         //Max bounces
-        public int maxBounces;
+        public int maxBounces { 
+            get {
+                if (bulletDamage != null)
+                    return Mathf.Max(bulletDamage.Count - 1, 0);
+                else
+                    return 0;
+            } 
+        }
         //Bullet prefab
-        public GameObject bulletPrefab;
+        public string bulletPrefabName;
         //Audio clip
         [NonSerialized]
         public AudioClip firingSound;
-
-        public FireMode Clone()
-        {
-            FireMode fireMode = new FireMode();
-            fireMode.key = this.key;
-            fireMode.fireType = this.fireType;
-            fireMode.shotsFiredAtOnce = this.shotsFiredAtOnce;
-            fireMode.ammoUsedEachShot = this.ammoUsedEachShot;
-            fireMode.bulletDamage = this.bulletDamage;
-            fireMode.fireSpeed = this.fireSpeed;
-            fireMode.fireRate = this.fireRate;
-            fireMode.maxBounces = this.maxBounces;
-            fireMode.bulletPrefab = this.bulletPrefab;
-            fireMode.firingSound = this.firingSound;
-
-            return fireMode;
-        }
     }
 }

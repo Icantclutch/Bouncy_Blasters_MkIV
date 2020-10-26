@@ -2,17 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HitInteraction : MonoBehaviour
+public abstract class HitInteraction : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public abstract void Hit(Bullet.Shot shot);
 }

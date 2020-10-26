@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerHealth : MonoBehaviour
+public class PlayerHealth : HitInteraction
 {
     //The max charge of the player. This variable should not change in execution
     [SerializeField]
@@ -16,9 +16,13 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField]
     private int playerTeamNumber;
 
+    //reference to ther scrips
+    private PlayerReference myReference;
+
     // Start is called before the first frame update
     void Start()
     {
+        myReference = GetComponent<PlayerReference>();
         currentCharge = 0;
     }
 
@@ -50,5 +54,10 @@ public class PlayerHealth : MonoBehaviour
     public void AssignTeam(int teamNum) 
     {
         playerTeamNumber = teamNum;
-    } 
+    }
+
+    public override void Hit(Bullet.Shot shot)
+    {
+        
+    }
 }

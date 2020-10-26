@@ -51,7 +51,7 @@ public class RaycastReflection : MonoBehaviour
         //set the number of points to be the same as the number of reflections  
         nPoints = nReflections;
         //make the lineRenderer have nPoints  
-        lineRenderer.SetVertexCount(nPoints);
+        lineRenderer.positionCount = nPoints;
         //Set the first point of the line at the current attached game object position  
         lineRenderer.SetPosition(0, goTransform.position);
 
@@ -80,7 +80,7 @@ public class RaycastReflection : MonoBehaviour
                     if (nReflections == 1)
                     {
                         //add a new vertex to the line renderer  
-                        lineRenderer.SetVertexCount(++nPoints);
+                        lineRenderer.positionCount = ++nPoints;
                     }
 
                     //set the position of the next vertex at the line renderer to be the same as the hit point  
@@ -106,7 +106,7 @@ public class RaycastReflection : MonoBehaviour
                     //Debug.Log("Object name: " + hit.transform.name);
 
                     //add a new vertex to the line renderer  
-                    lineRenderer.SetVertexCount(++nPoints);
+                    lineRenderer.positionCount = ++nPoints;
                     //set the position of the next vertex at the line renderer to be the same as the hit point  
                     lineRenderer.SetPosition(i + 1, hit.point);
                 }

@@ -28,13 +28,15 @@ public class Shooting : NetworkBehaviour
     //Bool used to make sure firing doesn't occur at the same time
     public bool currentlyFiring = false;
 
-    [SyncVar(hook = nameof(ActiveFireModeUpdated))]
-    private Weapon.FireMode activeFireMode;
+    //Player reference
+    private PlayerReference myReference;
 
-    private void ActiveFireModeUpdated(Weapon.FireMode oldFireMode, Weapon.FireMode newFireMode)
+    [SyncVar]
+    private Weapon.FireMode currentFireMode;
+
+    private void Start()
     {
-        activeFireMode = newFireMode.Clone();
-
+        myReference = GetComponent<PlayerReference>();
     }
 
     // Update is called once per frame
@@ -43,23 +45,31 @@ public class Shooting : NetworkBehaviour
     {
         if (!hasAuthority)
             return;
+        //currentProjectile = activeFireMode.bulletPrefab;
+
+
+        //Switch held weapon
+        if (Input.GetKeyDown(Keybinds.SwapWeapon))
+        {
+            currentWeapon++;
+            //loop around if at the end
+            if (currentWeapon >= playerWeapons.Count)
+                currentWeapon = 0;
+        }
+
         //Loop through any existing weapons to tick down cooldowns
         foreach(WeaponSlot w in playerWeapons)
         {
             if(w.currentCooldown > 0)
                 w.currentCooldown -= Time.deltaTime;
+
+            if (w.currentCooldown < 0)
+                w.currentCooldown = 0;
         }
 
         //Only do weapon stuff if the player actually has a weapon and isn't firing
         if (playerWeapons.Count > 0 && !currentlyFiring)
         {
-            //Check to make sure the player is on a weapon that exists
-            //If not, switch them to their first weapon
-            if(currentWeapon >= playerWeapons.Count)
-            {
-                currentWeapon = 0;
-            }
-
             //If the weapon has a set key for swapping modes
             if(playerWeapons[currentWeapon].weapon.modeSwapKey != Weapon.FireKey.None)
             {
@@ -95,22 +105,22 @@ public class Shooting : NetworkBehaviour
         }
 
         //Quick reference for the current fire mode
-        Weapon.FireMode current = playerWeapons[currentWeapon].weapon.fireModes[playerWeapons[currentWeapon].currentFiringMode];
-        if (playerWeapons[currentWeapon].currentCooldown <= 0 && playerWeapons[currentWeapon].currentAmmo >= current.ammoUsedEachShot)
+        currentFireMode = playerWeapons[currentWeapon].weapon.fireModes[playerWeapons[currentWeapon].currentFiringMode];
+        if (playerWeapons[currentWeapon].currentCooldown <= 0 && playerWeapons[currentWeapon].currentAmmo >= currentFireMode.ammoUsedEachShot)
         {
-            if (current.fireType == Weapon.FireType.Automatic)
+            if (currentFireMode.fireType == Weapon.FireType.Automatic)
             {
-                if (GetButtonHeld(current.key))
+                if (GetButtonHeld(currentFireMode.key))
                 {
-                    StartCoroutine(FireBullet(currentWeapon, current));
+                    Cmd_ServerFireBullet();
                     return;
                 }
             }
             else
             {
-                if (GetButtonFired(current.key))
+                if (GetButtonFired(currentFireMode.key))
                 {
-                    StartCoroutine(FireBullet(currentWeapon, current));
+                    Cmd_ServerFireBullet();
                     return;
                 }
             }
@@ -122,27 +132,34 @@ public class Shooting : NetworkBehaviour
     {
         foreach(Weapon.FireMode current in playerWeapons[currentWeapon].weapon.fireModes)
         {
-            //activeFireMode = current;
-            if (playerWeapons[currentWeapon].currentCooldown <= 0 && playerWeapons[currentWeapon].currentAmmo >= current.ammoUsedEachShot)
+            currentFireMode = current;
+            if (playerWeapons[currentWeapon].currentCooldown <= 0 && playerWeapons[currentWeapon].currentAmmo >= currentFireMode.ammoUsedEachShot)
             {
-                if (current.fireType == Weapon.FireType.Automatic)
+                if (currentFireMode.fireType == Weapon.FireType.Automatic)
                 {
-                    if (GetButtonHeld(current.key))
+                    if (GetButtonHeld(currentFireMode.key))
                     {
-                        StartCoroutine(FireBullet(currentWeapon, current));
+                        Cmd_ServerFireBullet();
                         return;
                     }
                 }
                 else
                 {
-                    if (GetButtonFired(current.key))
+                    if (GetButtonFired(currentFireMode.key))
                     {
-                        StartCoroutine(FireBullet(currentWeapon, current));
+                        Cmd_ServerFireBullet();
                         return;
                     }
                 }
             }
         }
+    }
+
+    //Server reference for firing bullets
+    [Command]
+    void Cmd_ServerFireBullet()
+    {
+        StartCoroutine(FireBullet(currentWeapon));
     }
 
     //Reload function
@@ -159,49 +176,31 @@ public class Shooting : NetworkBehaviour
         yield return null;
     }
     
-    IEnumerator FireBullet(int weaponSlot, Weapon.FireMode fireMode)
+    IEnumerator FireBullet(int weaponSlot)
     {
         //We are currently firing
         currentlyFiring = true;
         //Subtract from the ammo
-        playerWeapons[weaponSlot].currentAmmo -= fireMode.ammoUsedEachShot;
-        activeFireMode = fireMode.Clone();
-        for (int i = 0; i < fireMode.shotsFiredAtOnce; i++)
+        playerWeapons[weaponSlot].currentAmmo -= currentFireMode.ammoUsedEachShot;
+        //Fetch Bullet Prefab from Network Manager
+        GameObject bulletPrefab = NetworkManager.singleton.spawnPrefabs.Find(b => b.name.Equals(currentFireMode.bulletPrefabName));
+        //Fire each shot
+        for (int i = 0; i < currentFireMode.shotsFiredAtOnce; i++)
         {
             //Summon the bullet
-            //GameObject b = Instantiate(fireMode.bulletPrefab, eyes.transform.position, eyes.transform.rotation);
+            GameObject b = NetworkManager.Instantiate(bulletPrefab, eyes.transform.position, eyes.transform.rotation);
             //Assign it its properties
-            //b.GetComponent<Bullet>().Initialize(fireMode);
-            //GetComponent<AudioSource>().PlayOneShot(fireMode.firingSound, .5f);
-            //NetworkServer.Spawn(b);
-            //SpawnBullet(fireMode, eyes.transform);
-            //CmdSpawnBullet(fireMode, eyes.transform);
-            
-            CmdSpawnBullet();
+            b.GetComponent<Bullet>().Initialize(currentFireMode, myReference);
+
+            NetworkServer.Spawn(b);
             //Play the firing audio
-            
+            //GetComponent<AudioSource>().PlayOneShot(fireMode.firingSound, .5f);
+
             //Wait
-            yield return new WaitForSeconds(60 / fireMode.fireRate);
+            yield return new WaitForSeconds(60 / currentFireMode.fireRate);
         }
         //We are no longer firing
         currentlyFiring = false;
-    }
-    
-
-    [Command]
-    void CmdSpawnBullet()
-    {
-        RpcSpawnBullet();
-    }
-
-    [ClientRpc]
-    void RpcSpawnBullet()
-    {
-        //Weapon.FireMode fireMode = new Weapon.FireMode();
-        GameObject b = Instantiate(activeFireMode.bulletPrefab, eyes.transform.position, eyes.transform.rotation);
-        //Assign it its properties
-        b.GetComponent<Bullet>().Initialize(activeFireMode);
-        //NetworkServer.Spawn(b);
     }
 
     //Boolean that checks if a weapon has single-fired

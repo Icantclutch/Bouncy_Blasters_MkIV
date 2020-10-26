@@ -11,15 +11,15 @@ public class RaycastBullet : Bullet
     //Reflectable layermask
     public LayerMask reflectable;
 
-    public override void Initialize(Weapon.FireMode myFireMode)
+    public override void Initialize(Weapon.FireMode myFireMode, PlayerReference playerSource)
     {
         lineRenderer = GetComponent<LineRenderer>();
-        base.Initialize(myFireMode);
+        base.Initialize(myFireMode, playerSource);
     }
 
     public override void Update()
     {
-        
+        //Needs to remain empty to override base
     }
 
     public override void Vel(Vector3 vel, float speed)
@@ -45,7 +45,7 @@ public class RaycastBullet : Bullet
                 if (hit.transform.GetComponent<HitInteraction>())
                 {
                     //Send hit message
-                    hit.transform.SendMessage("Hit", myShot);
+                    hit.transform.SendMessage("Hit", myShot, SendMessageOptions.DontRequireReceiver);
 
                     //If its an enemy, break
                     if (hit.transform.CompareTag("Player"))
