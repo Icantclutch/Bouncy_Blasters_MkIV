@@ -24,6 +24,10 @@ public class PlayerMovement : NetworkBehaviour
 		coll = GetComponent<CapsuleCollider>();
 		rbody.freezeRotation = true;
 		rbody.useGravity = false;
+		if (hasAuthority)
+		{
+			PlayerSpawnSystem.SpawnPlayer(gameObject);
+		}
 	}
 	
 	[Client]
@@ -52,7 +56,10 @@ public class PlayerMovement : NetworkBehaviour
 				rbody.velocity += new Vector3(velocity.x, CalculateJumpVerticalSpeed(), velocity.z);
 			}
 		}
-
+        if (Input.GetKeyUp(KeyCode.Return))
+        {
+			PlayerSpawnSystem.SpawnPlayer(gameObject);
+		}
 		// We apply gravity manually for more tuning control
 		rbody.AddForce(new Vector3(0, -gravity * rbody.mass, 0));
 

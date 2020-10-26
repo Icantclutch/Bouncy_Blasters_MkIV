@@ -34,7 +34,7 @@ public class RaycastBullet : Bullet
         RaycastHit hit;
 
         //Loop through reflections
-        for(int i = 0; i < myShot.maxBounces; i++)
+        for(int i = 0; i <= myShot.maxBounces; i++)
         {
             //Cast ray
             if(Physics.Raycast(ray, out hit, 100, reflectable))
