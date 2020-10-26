@@ -27,7 +27,7 @@ public class PlayerSpawnSystem : NetworkBehaviour
             foreach (PlayerSpawnPoint point in spawnPoints) {
                 if (respawn != point.isRespawnRoom && initialSpawn == point.isStartingPoint)
                 {
-                    int playerTeam = player.GetComponent<PlayerHealth>().playerTeamNumber;
+                    int playerTeam = player.GetComponent<PlayerHealth>().GetTeam();
                     //int playerTeam = 0;
                     if (initialSpawn && playerTeam == point.team)
                     {

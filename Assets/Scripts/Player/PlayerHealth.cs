@@ -14,7 +14,7 @@ public class PlayerHealth : HitInteraction
 
     //The team that the player is on
     [SerializeField]
-    private int playerTeamNumber { get; }
+    private int playerTeamNumber;
 
     //reference to ther scrips
     private PlayerReference myReference;
@@ -56,7 +56,10 @@ public class PlayerHealth : HitInteraction
     {
         playerTeamNumber = teamNum;
     }
-
+    public int GetTeam()
+    {
+        return playerTeamNumber;
+    }
     public override void Hit(Bullet.Shot shot)
     {
         
