@@ -12,7 +12,14 @@ public class PlayerSpawnPoint : MonoBehaviour
     [SerializeField]
     public bool isStartingPoint = false;
 
-
+    private List<Color> teamColors = new List<Color>()
+    {
+        Color.grey,
+        Color.blue,
+        Color.red,
+        Color.green,
+        Color.magenta
+    };
     private void Awake()
     {
         PlayerSpawnSystem.AddSpawnPoint(GetComponent<PlayerSpawnPoint>());
@@ -24,7 +31,10 @@ public class PlayerSpawnPoint : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.blue;
+        if(team < teamColors.Count)
+            Gizmos.color = teamColors[team];
+        else
+            Gizmos.color = Color.grey;
         Gizmos.DrawSphere(transform.position, 1f);
         Gizmos.color = Color.green;
         Gizmos.DrawLine(transform.position, transform.position + transform.forward*2);
