@@ -7,10 +7,16 @@ using UnityEngine.UI;
 public class LoadoutMenuButtons : MonoBehaviour
 {
     [SerializeField]
-    private List<Weapon> weaponList;
+    private List<Weapon> _weaponList;
 
     [SerializeField]
-    private Button LoadoutPrefab;
+    private Button _weaponButtonPrefab;
+
+    [SerializeField]
+    private List<Slider> _statSliderList;
+
+    [SerializeField]
+    private List<Text> _statValueList;
 
     // Start is called before the first frame update
     void Start()
@@ -26,10 +32,24 @@ public class LoadoutMenuButtons : MonoBehaviour
 
     private void PopulateLoadoutScreen()
     {
-        for(int i = 0; i < weaponList.Count; i++)
+        for(int i = 0; i < _weaponList.Count; i++)
         {
-            Button b = Instantiate(LoadoutPrefab, gameObject.transform);
-            b.GetComponentInChildren<Text>().text = weaponList[i].name;
+            Button b = Instantiate(_weaponButtonPrefab, gameObject.transform);
+            b.GetComponent<LoadoutWeaponButton>().wep = _weaponList[i];
+            b.GetComponent<LoadoutWeaponButton>().SetupButton();
         }
     }
+
+    public void UpdateLoadoutStats(List<int> stats)
+    {
+  
+        for(int i = 0; i < stats.Count; i++)
+        {
+            _statSliderList[i].value = stats[i];
+            _statValueList[i].text = stats[i].ToString();
+        }
+     
+    }
+
+   
 }
