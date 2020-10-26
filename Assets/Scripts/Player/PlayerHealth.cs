@@ -49,13 +49,17 @@ public class PlayerHealth : HitInteraction
         currentCharge = 0;
         //TODO Call to game controller to teleport player to designated spawn point
         Debug.Log("Player has died, Teleporting to respawn room (not implemented)");
+        PlayerSpawnSystem.SpawnPlayer(gameObject);
     }
 
     public void AssignTeam(int teamNum) 
     {
         playerTeamNumber = teamNum;
     }
-
+    public int GetTeam()
+    {
+        return playerTeamNumber;
+    }
     public override void Hit(Bullet.Shot shot)
     {
         

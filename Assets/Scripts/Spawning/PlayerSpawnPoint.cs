@@ -12,6 +12,7 @@ public class PlayerSpawnPoint : MonoBehaviour
     [SerializeField]
     public bool isStartingPoint = false;
 
+    //List of colors to be used with Gizmo display based on the set team
     private List<Color> teamColors = new List<Color>()
     {
         Color.grey,
@@ -29,6 +30,7 @@ public class PlayerSpawnPoint : MonoBehaviour
         PlayerSpawnSystem.RemoveSpawnPoint(GetComponent<PlayerSpawnPoint>());
     }
 
+    //Draw a sphere to show where the spawn points are in the Unity editor
     private void OnDrawGizmos()
     {
         if(team < teamColors.Count)
