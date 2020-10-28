@@ -20,12 +20,16 @@ public class Shooting : NetworkBehaviour
     }
 
     //Where the player's eyes are
+    [SyncVar]
     public Transform eyes;
     //The current weapon the player is using
+    [SyncVar]
     public int currentWeapon = 0;
     //List of weapons the player has
+    [SyncVar]
     public List<WeaponSlot> playerWeapons = new List<WeaponSlot>();
     //Bool used to make sure firing doesn't occur at the same time
+    [SyncVar]
     public bool currentlyFiring = false;
 
     //Player reference
@@ -46,7 +50,6 @@ public class Shooting : NetworkBehaviour
         if (!hasAuthority)
             return;
         //currentProjectile = activeFireMode.bulletPrefab;
-
 
         //Switch held weapon
         if (Input.GetKeyDown(Keybinds.SwapWeapon))
@@ -139,6 +142,7 @@ public class Shooting : NetworkBehaviour
                 {
                     if (GetButtonHeld(currentFireMode.key))
                     {
+                        Debug.Log("Held");
                         Cmd_ServerFireBullet();
                         return;
                     }
@@ -147,6 +151,7 @@ public class Shooting : NetworkBehaviour
                 {
                     if (GetButtonFired(currentFireMode.key))
                     {
+                        Debug.Log("Fired");
                         Cmd_ServerFireBullet();
                         return;
                     }
