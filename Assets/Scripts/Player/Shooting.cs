@@ -164,6 +164,9 @@ public class Shooting : NetworkBehaviour
     [Command]
     void Cmd_ServerFireBullet()
     {
+        GameObject test = NetworkManager.Instantiate(new GameObject());
+        ClientScene.RegisterPrefab(test);
+        NetworkServer.Spawn(test);
         StartCoroutine(FireBullet(currentWeapon));
     }
 
