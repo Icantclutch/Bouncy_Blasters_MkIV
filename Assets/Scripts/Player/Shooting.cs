@@ -54,10 +54,7 @@ public class Shooting : NetworkBehaviour
         //Switch held weapon
         if (Input.GetKeyDown(Keybinds.SwapWeapon))
         {
-            currentWeapon++;
-            //loop around if at the end
-            if (currentWeapon >= playerWeapons.Count)
-                currentWeapon = 0;
+            Cmd_SwapWeapon();
         }
 
         //Loop through any existing weapons to tick down cooldowns
@@ -205,6 +202,15 @@ public class Shooting : NetworkBehaviour
         NetworkServer.Spawn(b);
         //Play the firing audio
         //GetComponent<AudioSource>().PlayOneShot(fireMode.firingSound, .5f);
+    }
+
+    [Command]
+    void Cmd_SwapWeapon()
+    {
+        currentWeapon++;
+        //loop around if at the end
+        if (currentWeapon >= playerWeapons.Count)
+            currentWeapon = 0;
     }
 
     //Boolean that checks if a weapon has single-fired
