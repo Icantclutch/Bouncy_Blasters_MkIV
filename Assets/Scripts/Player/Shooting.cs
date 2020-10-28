@@ -54,10 +54,7 @@ public class Shooting : NetworkBehaviour
         //Switch held weapon
         if (Input.GetKeyDown(Keybinds.SwapWeapon))
         {
-            currentWeapon++;
-            //loop around if at the end
-            if (currentWeapon >= playerWeapons.Count)
-                currentWeapon = 0;
+            Cmd_SwapWeapon();
         }
 
         //Loop through any existing weapons to tick down cooldowns
@@ -182,7 +179,7 @@ public class Shooting : NetworkBehaviour
         for (int i = 0; i < currentFireMode.shotsFiredAtOnce; i++)
         {
             //Fire bullet over server
-            Cmd_ServerFireBullet();
+            Cmd_ServerFireBullet(currentFireMode.bulletPrefabName);
             //Wait
             yield return new WaitForSeconds(60 / currentFireMode.fireRate);
         }
@@ -192,11 +189,11 @@ public class Shooting : NetworkBehaviour
 
     //Server reference for firing bullets
     [Command]
-    void Cmd_ServerFireBullet()
+    void Cmd_ServerFireBullet(string bullet)
     {
-        Debug.Log(currentFireMode.bulletPrefabName);
+        Debug.Log(currentFireMode);
         //Fetch Bullet Prefab from Network Manager
-        GameObject bulletPrefab = NetworkManager.singleton.spawnPrefabs.Find(bu => bu.name.Equals(currentFireMode.bulletPrefabName));
+        GameObject bulletPrefab = NetworkManager.singleton.spawnPrefabs.Find(bu => bu.name.Equals(bullet));
         //Summon the bullet
         GameObject b = Instantiate(bulletPrefab, eyes.transform.position, eyes.transform.rotation);
         //Assign it its properties
@@ -205,6 +202,15 @@ public class Shooting : NetworkBehaviour
         NetworkServer.Spawn(b);
         //Play the firing audio
         //GetComponent<AudioSource>().PlayOneShot(fireMode.firingSound, .5f);
+    }
+
+    [Command]
+    void Cmd_SwapWeapon()
+    {
+        currentWeapon++;
+        //loop around if at the end
+        if (currentWeapon >= playerWeapons.Count)
+            currentWeapon = 0;
     }
 
     //Boolean that checks if a weapon has single-fired

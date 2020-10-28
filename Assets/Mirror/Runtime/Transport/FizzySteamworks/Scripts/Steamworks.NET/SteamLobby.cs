@@ -40,12 +40,19 @@ public class SteamLobby : MonoBehaviour
 
     }
 
-    public void HostLobby()
+    public void HostPublicLobby()
     {
         //Deactivate the host button so they can't press it again
         button.SetActive(false);
         //Create a lobby only friends can join with a max number of players, from the network manager
         SteamMatchmaking.CreateLobby(ELobbyType.k_ELobbyTypePublic, networkManager.maxConnections);
+    }
+    public void HostPrivateLobby()
+    {
+        //Deactivate the host button so they can't press it again
+        button.SetActive(false);
+        //Create a lobby only friends can join with a max number of players, from the network manager
+        SteamMatchmaking.CreateLobby(ELobbyType.k_ELobbyTypePrivate, networkManager.maxConnections);
     }
 
     public void JoinLobby()
@@ -72,7 +79,12 @@ public class SteamLobby : MonoBehaviour
             lobbyMatchListCallResult.Set(SteamMatchmaking.RequestLobbyList());
             yield return new WaitForSeconds(1);
         }
-        UnityEngine.Debug.Log("Could not find a lobby");
+        yield return new WaitForSeconds(1);
+        if (!lobbyFound)
+        {
+            UnityEngine.Debug.Log("Could not find a lobby, Creating a new lobby");
+            HostPublicLobby();
+        }
 
     }
     private void OnLobbyCreated(LobbyCreated_t callback)
@@ -95,7 +107,7 @@ public class SteamLobby : MonoBehaviour
     //Handles joining through the Steam interface
     private void OnGameLobbyJoinRequested(GameLobbyJoinRequested_t callback)
     {
-        UnityEngine.Debug.Log("Join request:" + callback.m_steamIDLobby);
+        //UnityEngine.Debug.Log("Join request:" + callback.m_steamIDLobby);
         //Calls OnLobbyEntered()
         SteamMatchmaking.JoinLobby(callback.m_steamIDLobby);
     }
@@ -109,10 +121,10 @@ public class SteamLobby : MonoBehaviour
         if (NetworkServer.active) { return; }
 
         //Get the lobby host's Steam ID
-        UnityEngine.Debug.Log(HostAddressKey);
+        //UnityEngine.Debug.Log(HostAddressKey);
         string hostAddress = SteamMatchmaking.GetLobbyData(new CSteamID(callback.m_ulSteamIDLobby), HostAddressKey);
-        UnityEngine.Debug.Log(callback.m_ulSteamIDLobby);
-        UnityEngine.Debug.Log(hostAddress);
+        //UnityEngine.Debug.Log(callback.m_ulSteamIDLobby);
+        //UnityEngine.Debug.Log(hostAddress);
 
         //Set the networkAddress to the host's Steam ID and start the client
         networkManager.networkAddress = hostAddress;
@@ -125,7 +137,7 @@ public class SteamLobby : MonoBehaviour
     void OnLobbyMatchList(LobbyMatchList_t pCallback, bool bIOFailure)
     {
         //Search through the list of lobbies
-        UnityEngine.Debug.Log(pCallback.m_nLobbiesMatching+ " lobbies found");
+        //UnityEngine.Debug.Log(pCallback.m_nLobbiesMatching+ " lobbies found");
         for (int i = 0; i < pCallback.m_nLobbiesMatching; ++i)
         {
             //Make sure lobby is for bouncy blasters
