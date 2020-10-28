@@ -14,7 +14,8 @@ public class Shooting : NetworkBehaviour
         //The current fire mode, used only if the weapon has a mode-swap key
         public int currentFiringMode = 0;
         //the current amount of ammo the weapon has
-        public int currentAmmo  = 0;
+        [SyncVar]
+        public int currentAmmo = 0;
         //the current cooldown on firing
         public float currentCooldown = 0;
     }
@@ -162,7 +163,7 @@ public class Shooting : NetworkBehaviour
         currentlyFiring = true;
 
         //Improve once animations are implemented
-        playerWeapons[currentWeapon].currentAmmo = playerWeapons[currentWeapon].weapon.ammoCount;
+        Cmd_Reload();
 
         //Disable firing when reloading is done
         currentlyFiring = false;
@@ -211,6 +212,12 @@ public class Shooting : NetworkBehaviour
         //loop around if at the end
         if (currentWeapon >= playerWeapons.Count)
             currentWeapon = 0;
+    }
+
+    [Command]
+    void Cmd_Reload()
+    {
+        playerWeapons[currentWeapon].currentAmmo = playerWeapons[currentWeapon].weapon.ammoCount;
     }
 
     //Boolean that checks if a weapon has single-fired
