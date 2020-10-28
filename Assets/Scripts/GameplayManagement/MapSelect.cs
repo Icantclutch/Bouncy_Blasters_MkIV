@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class MapSelect : MonoBehaviour
 {
+   [Tooltip("List of scenes that have been added to the build settings and can be cylced through as playable maps/scenes")]
     [SerializeField]
     private List<string> _mapNames;
 
