@@ -28,7 +28,7 @@ public class RaycastBullet : Bullet
         base.Initialize(myFireMode, playerSource);
     }
     
-    [ClientRpc]
+    [Server]
     public override void Update()
     {
         if (lineRenderer.positionCount > 1)
