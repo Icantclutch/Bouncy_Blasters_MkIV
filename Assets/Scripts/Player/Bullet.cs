@@ -39,8 +39,6 @@ public class Bullet : NetworkBehaviour
 
         //Set bullet speed
         Vel(transform.forward, myFireMode.fireSpeed * 100);
-
-        //Destroy(gameObject, 3f); //REMOVE AFTER DEBUGGING
     }
 
     [Server]
@@ -78,9 +76,8 @@ public class Bullet : NetworkBehaviour
     }
 
     [Server]
-    public void DestroyBullet(float time = 0)
+    public void DestroyBullet()
     {
-        Debug.Log("Whats Triggering Me");
-        //Destroy(gameObject, time);
+        NetworkServer.Destroy(gameObject);
     }
 }
