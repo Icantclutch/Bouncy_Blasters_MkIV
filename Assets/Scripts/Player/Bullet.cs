@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using Mirror;
 
-public class Bullet : MonoBehaviour
+public class Bullet : NetworkBehaviour
 {
     [System.Serializable]
     public class Shot
@@ -24,6 +25,7 @@ public class Bullet : MonoBehaviour
     //Shot info
     public Shot myShot;
 
+    [Server]
     // Initialize the bullet
     public virtual void Initialize(Weapon.FireMode myFireMode, PlayerReference playerSource)
     {
@@ -37,10 +39,9 @@ public class Bullet : MonoBehaviour
 
         //Set bullet speed
         Vel(transform.forward, myFireMode.fireSpeed * 100);
-
-        //Destroy(gameObject, 3f); //REMOVE AFTER DEBUGGING
     }
 
+    [Server]
     // Update is called once per frame
     public virtual void Update()
     {
@@ -50,12 +51,14 @@ public class Bullet : MonoBehaviour
         }
     }
 
+    [Server]
     public virtual void Vel(Vector3 vel, float speed)
     {
         rb = GetComponent<Rigidbody>();
         rb.AddForce(vel * speed);
     }
 
+    [Server]
     private void OnCollisionEnter(Collision collision)
     {
         //Send message to hit object
@@ -72,9 +75,9 @@ public class Bullet : MonoBehaviour
         myShot.numBounces++;
     }
 
-    public void DestroyBullet(float time = 0)
+    [Server]
+    public void DestroyBullet()
     {
-        Debug.Log("Whats Triggering Me");
-        //Destroy(gameObject, time);
+        NetworkServer.Destroy(gameObject);
     }
 }

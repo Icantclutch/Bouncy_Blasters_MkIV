@@ -56,7 +56,7 @@ public class PlayerMovement : NetworkBehaviour
 			// Jump
 			if (canJump && Input.GetKeyDown(Keybinds.Jump))
 			{
-				rbody.velocity += new Vector3(velocity.x, CalculateJumpVerticalSpeed(), velocity.z);
+				rbody.velocity += new Vector3(0, CalculateJumpVerticalSpeed(), 0);
 			}
 		}
         if (Input.GetKeyUp(KeyCode.Return))

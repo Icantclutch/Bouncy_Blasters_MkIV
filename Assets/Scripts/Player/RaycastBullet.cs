@@ -2,28 +2,72 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using Mirror;
 
 public class RaycastBullet : Bullet
 {
     //Line renderer
     private LineRenderer lineRenderer;
 
+    //Speed
+    [SyncVar]
+    public float bulletSpeed;
+
     //Reflectable layermask
     public LayerMask reflectable;
 
+    //Laser positions
+    private Vector3 laserDestroyA;
+    private Vector3 laserDestroyB;
+    private float destroyLerp = 0;
+
+    [Server]
     public override void Initialize(Weapon.FireMode myFireMode, PlayerReference playerSource)
     {
         lineRenderer = GetComponent<LineRenderer>();
         base.Initialize(myFireMode, playerSource);
     }
-
+    
     public override void Update()
     {
-        //Needs to remain empty to override base
+        if (lineRenderer.positionCount > 1)
+        {
+            if(laserDestroyA == laserDestroyB)
+            {
+                laserDestroyA = lineRenderer.GetPosition(0);
+                laserDestroyB = lineRenderer.GetPosition(1);
+                destroyLerp = 0;
+            }
+
+            //Increase the lerp,
+            destroyLerp += Time.deltaTime * bulletSpeed / Vector3.Distance(laserDestroyA, laserDestroyB);
+            if (destroyLerp > 1)
+                destroyLerp = 1;
+            //Set the position of the first point
+            lineRenderer.SetPosition(0, Vector3.Lerp(laserDestroyA, laserDestroyB, destroyLerp));
+
+            if(lineRenderer.GetPosition(0) == laserDestroyB)
+            {
+                //Pull points
+                Vector3[] newArray = new Vector3[lineRenderer.positionCount];
+                lineRenderer.GetPositions(newArray);
+                newArray = newArray.Skip(1).ToArray();
+                //Set new length
+                lineRenderer.positionCount -= 1;
+                //Set new positions
+                lineRenderer.SetPositions(newArray);
+            }
+        } else
+        {
+            //Destroy the bullet
+            DestroyBullet();
+        }
     }
 
+    [Server]
     public override void Vel(Vector3 vel, float speed)
     {
+        bulletSpeed = speed;
         //Create the array of vec3 points in the line and add the starting point
         List<Vector3> bouncePoints = new List<Vector3>();
         bouncePoints.Add(transform.position);
@@ -74,46 +118,5 @@ public class RaycastBullet : Bullet
         Vector3[] arrayVecs = bouncePoints.ToArray();
         lineRenderer.positionCount = arrayVecs.Length;
         lineRenderer.SetPositions(arrayVecs);
-
-        StartCoroutine(FancyDestroy(speed));
-    }
-
-    IEnumerator FancyDestroy(float speed)
-    {
-        //loop through each position
-        while(lineRenderer.positionCount > 1)
-        {
-            //Get start, end, and direction
-            Vector3 start = lineRenderer.GetPosition(0);
-            Vector3 end = lineRenderer.GetPosition(1);
-
-            //Create lerp
-            float lerp = 0;
-            //when start != end
-            while (lineRenderer.GetPosition(0) != lineRenderer.GetPosition(1))
-            {
-                //Set the position of the first point
-                lineRenderer.SetPosition(0, Vector3.Lerp(start, end, lerp));
-                //Increase the lerp,
-                lerp += Time.deltaTime * speed/Vector3.Distance(start, end);
-                //Wait
-                yield return null;
-            }
-
-            //Pull points
-            Vector3[] newArray = new Vector3[lineRenderer.positionCount];
-            lineRenderer.GetPositions(newArray);
-            newArray = newArray.Skip(1).ToArray();
-            //Set new length
-            lineRenderer.positionCount -= 1;
-            //Set new positions
-            lineRenderer.SetPositions(newArray);
-
-            //Wait
-            yield return null;
-        }
-
-        //Destroy the bullet
-        DestroyBullet();
     }
 }
