@@ -40,12 +40,19 @@ public class SteamLobby : MonoBehaviour
 
     }
 
-    public void HostLobby()
+    public void HostPublicLobby()
     {
         //Deactivate the host button so they can't press it again
         button.SetActive(false);
         //Create a lobby only friends can join with a max number of players, from the network manager
         SteamMatchmaking.CreateLobby(ELobbyType.k_ELobbyTypePublic, networkManager.maxConnections);
+    }
+    public void HostPrivateLobby()
+    {
+        //Deactivate the host button so they can't press it again
+        button.SetActive(false);
+        //Create a lobby only friends can join with a max number of players, from the network manager
+        SteamMatchmaking.CreateLobby(ELobbyType.k_ELobbyTypePrivate, networkManager.maxConnections);
     }
 
     public void JoinLobby()
@@ -76,7 +83,7 @@ public class SteamLobby : MonoBehaviour
         if (!lobbyFound)
         {
             UnityEngine.Debug.Log("Could not find a lobby, Creating a new lobby");
-            HostLobby();
+            HostPublicLobby();
         }
 
     }
