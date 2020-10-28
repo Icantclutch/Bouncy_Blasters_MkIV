@@ -194,10 +194,11 @@ public class Shooting : NetworkBehaviour
     [Command]
     void Cmd_ServerFireBullet()
     {
+        Debug.Log(currentFireMode.bulletPrefabName);
         //Fetch Bullet Prefab from Network Manager
         GameObject bulletPrefab = NetworkManager.singleton.spawnPrefabs.Find(bu => bu.name.Equals(currentFireMode.bulletPrefabName));
         //Summon the bullet
-        GameObject b = NetworkManager.Instantiate(bulletPrefab, eyes.transform.position, eyes.transform.rotation);
+        GameObject b = Instantiate(bulletPrefab, eyes.transform.position, eyes.transform.rotation);
         //Assign it its properties
         b.GetComponent<Bullet>().Initialize(currentFireMode, myReference);
         //Spawn on server
