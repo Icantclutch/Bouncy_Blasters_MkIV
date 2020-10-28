@@ -7,6 +7,8 @@ public class PlayerSpawnSystem : NetworkBehaviour
 {
     //List of all of the spawn points in the scene
     private static List<PlayerSpawnPoint> spawnPoints = new List<PlayerSpawnPoint>();
+    //List of all players using the spawn system
+    private static List<GameObject> players = new List<GameObject>();
 
     public static void AddSpawnPoint(PlayerSpawnPoint spawnPoint)
     {
@@ -16,6 +18,16 @@ public class PlayerSpawnSystem : NetworkBehaviour
     public static void RemoveSpawnPoint(PlayerSpawnPoint spawnPoint)
     {
         spawnPoints.Remove(spawnPoint);
+    }
+
+    public static void AddPlayer(GameObject player)
+    {
+        players.Add(player);
+    }
+
+    public static void RemovePlayer(GameObject player)
+    {
+        players.Remove(player);
     }
 
     //Sets the player's position to a chosen spawn point
@@ -49,24 +61,47 @@ public class PlayerSpawnSystem : NetworkBehaviour
             }
 
             //Choose a random acceptable spawn point
-            //Temporary, until below loop is made
+            //Temporary, until below loop is made, also ensures a spawnpoint is chosen
             if(points.Count > 0)
             {
                 spawnPoint = points[Random.Range(0, points.Count)];
             }
 
-            /*
+
             //Go though list of acceptable spawn points and choose one
-            //To-do: choose spawn point furthest away from enemy players
-            foreach(PlayerSpawnPoint point in points)
+            //Chooses spawn point furthest away from other players
+            //To-do: based on teams of players?
+            if (players.Count > 1)
             {
-                if (!spawnPoint)
+                float distanceAway = 0;
+                foreach (PlayerSpawnPoint point in points)
                 {
-                    spawnPoint = point;
+                    //Loop to find the other player closest to the curren spawnpoint
+                    float closestPlayerDistance = float.MaxValue;
+                    foreach (GameObject p in players)
+                    {
+                        //Do not check it if it is the respawning player
+                        if (p != player)
+                        {
+                            //Calculate distance between player and spawnpoint
+                            float distance = (p.transform.position - point.transform.position).magnitude;
+                            if (distance < closestPlayerDistance)
+                            {
+                                closestPlayerDistance = distance;
+                            }
+                        }
+                    }
+                    //use current spawn point if it is further away from other players then previously checked points
+                    if (closestPlayerDistance > distanceAway)
+                    {
+                        distanceAway = closestPlayerDistance;
+                        spawnPoint = point;
+                    }
                 }
-            }*/
+            }
 
             //Only set the players transform if a spawn point was found
+            //Todo: Rotation is not being set, might be something with the mouseLook script
             if (spawnPoint != null)
             {
                 player.transform.position = spawnPoint.transform.position;

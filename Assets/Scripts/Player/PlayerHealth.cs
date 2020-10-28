@@ -64,4 +64,14 @@ public class PlayerHealth : HitInteraction
     {
         
     }
+
+    //Add and remove player from the SpawnSystem
+    private void Awake()
+    {
+        PlayerSpawnSystem.AddPlayer(gameObject);
+    }
+    private void OnDestroy()
+    {
+        PlayerSpawnSystem.RemovePlayer(gameObject);
+    }
 }
