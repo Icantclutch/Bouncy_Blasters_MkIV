@@ -7,16 +7,16 @@ using UnityEngine.UI;
 public class LoadoutMenuButtons : MonoBehaviour
 {
     [SerializeField]
-    private List<Weapon> _weaponList;
+    private List<Weapon> _weaponList = null;
 
     [SerializeField]
-    private Button _weaponButtonPrefab;
+    private Button _weaponButtonPrefab = null;
 
     [SerializeField]
-    private List<Slider> _statSliderList;
+    private List<Slider> _statSliderList = null;
 
     [SerializeField]
-    private List<Text> _statValueList;
+    private List<Text> _statValueList = null;
 
     // Start is called before the first frame update
     void Start()
