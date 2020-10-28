@@ -115,7 +115,7 @@ public class Shooting : NetworkBehaviour
             {
                 if (GetButtonHeld(currentFireMode.key))
                 {
-                    Cmd_ServerFireBullet();
+                    StartCoroutine(FireBullet(currentWeapon));
                     return;
                 }
             }
@@ -123,7 +123,7 @@ public class Shooting : NetworkBehaviour
             {
                 if (GetButtonFired(currentFireMode.key))
                 {
-                    Cmd_ServerFireBullet();
+                    StartCoroutine(FireBullet(currentWeapon));
                     return;
                 }
             }
@@ -142,8 +142,7 @@ public class Shooting : NetworkBehaviour
                 {
                     if (GetButtonHeld(currentFireMode.key))
                     {
-                        Debug.Log("Held");
-                        Cmd_ServerFireBullet();
+                        StartCoroutine(FireBullet(currentWeapon));
                         return;
                     }
                 }
@@ -151,23 +150,12 @@ public class Shooting : NetworkBehaviour
                 {
                     if (GetButtonFired(currentFireMode.key))
                     {
-                        Debug.Log("Fired");
-                        Cmd_ServerFireBullet();
+                        StartCoroutine(FireBullet(currentWeapon));
                         return;
                     }
                 }
             }
         }
-    }
-
-    //Server reference for firing bullets
-    [Command]
-    void Cmd_ServerFireBullet()
-    {
-        GameObject test = NetworkManager.Instantiate(new GameObject());
-        ClientScene.RegisterPrefab(test);
-        NetworkServer.Spawn(test);
-        StartCoroutine(FireBullet(currentWeapon));
     }
 
     //Reload function
@@ -190,25 +178,32 @@ public class Shooting : NetworkBehaviour
         currentlyFiring = true;
         //Subtract from the ammo
         playerWeapons[weaponSlot].currentAmmo -= currentFireMode.ammoUsedEachShot;
-        //Fetch Bullet Prefab from Network Manager
-        GameObject bulletPrefab = NetworkManager.singleton.spawnPrefabs.Find(b => b.name.Equals(currentFireMode.bulletPrefabName));
         //Fire each shot
         for (int i = 0; i < currentFireMode.shotsFiredAtOnce; i++)
         {
-            //Summon the bullet
-            GameObject b = NetworkManager.Instantiate(bulletPrefab, eyes.transform.position, eyes.transform.rotation);
-            //Assign it its properties
-            b.GetComponent<Bullet>().Initialize(currentFireMode, myReference);
-
-            NetworkServer.Spawn(b);
-            //Play the firing audio
-            //GetComponent<AudioSource>().PlayOneShot(fireMode.firingSound, .5f);
-
+            //Fire bullet over server
+            Cmd_ServerFireBullet();
             //Wait
             yield return new WaitForSeconds(60 / currentFireMode.fireRate);
         }
         //We are no longer firing
         currentlyFiring = false;
+    }
+
+    //Server reference for firing bullets
+    [Command]
+    void Cmd_ServerFireBullet()
+    {
+        //Fetch Bullet Prefab from Network Manager
+        GameObject bulletPrefab = NetworkManager.singleton.spawnPrefabs.Find(bu => bu.name.Equals(currentFireMode.bulletPrefabName));
+        //Summon the bullet
+        GameObject b = NetworkManager.Instantiate(bulletPrefab, eyes.transform.position, eyes.transform.rotation);
+        //Assign it its properties
+        b.GetComponent<Bullet>().Initialize(currentFireMode, myReference);
+        //Spawn on server
+        NetworkServer.Spawn(b);
+        //Play the firing audio
+        //GetComponent<AudioSource>().PlayOneShot(fireMode.firingSound, .5f);
     }
 
     //Boolean that checks if a weapon has single-fired
