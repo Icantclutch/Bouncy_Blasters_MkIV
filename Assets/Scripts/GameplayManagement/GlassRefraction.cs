@@ -28,8 +28,7 @@ public class GlassRefraction : MonoBehaviour
             Vector2 initialYZ;
 
             Vector3 glassBulletVelocity;
-            Vector2 glassXZ;
-            Vector2 glassYZ;
+            
 
             Vector3 contactPoint;
             Vector3 glassNormal;
