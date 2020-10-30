@@ -25,12 +25,19 @@ public class RaycastBullet : Bullet
     public override void Initialize(Weapon.FireMode myFireMode, PlayerReference playerSource)
     {
         lineRenderer = GetComponent<LineRenderer>();
+        Rpc_PlayerInit();
         base.Initialize(myFireMode, playerSource);
+    }
+
+    [ClientRpc]
+    private void Rpc_PlayerInit()
+    {
+        lineRenderer = GetComponent<LineRenderer>();
     }
     
     public override void Update()
     {
-        if (lineRenderer.positionCount > 1)
+        /*if (lineRenderer.positionCount > 1)
         {
             if(laserDestroyA == laserDestroyB)
             {
@@ -60,8 +67,9 @@ public class RaycastBullet : Bullet
         } else
         {
             //Destroy the bullet
-            DestroyBullet();
+            //DestroyBullet();
         }
+        */
     }
 
     [Server]
@@ -88,6 +96,7 @@ public class RaycastBullet : Bullet
                 //Check to see if it hit something
                 if (hit.transform.GetComponent<HitInteraction>())
                 {
+                    Debug.Log("Hit");
                     //Send hit message
                     hit.transform.SendMessage("Hit", myShot, SendMessageOptions.DontRequireReceiver);
 
@@ -115,8 +124,13 @@ public class RaycastBullet : Bullet
             }
         }
         //Apply the line to the linerenderer
-        Vector3[] arrayVecs = bouncePoints.ToArray();
-        lineRenderer.positionCount = arrayVecs.Length;
-        lineRenderer.SetPositions(arrayVecs);
+        Rpc_UpdateClientLines(bouncePoints.ToArray());
+    }
+
+    [ClientRpc]
+    void Rpc_UpdateClientLines(Vector3[] vectors)
+    {
+        lineRenderer.positionCount = vectors.Length;
+        lineRenderer.SetPositions(vectors);
     }
 }
