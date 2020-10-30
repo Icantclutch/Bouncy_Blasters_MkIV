@@ -37,7 +37,7 @@ public class RaycastBullet : Bullet
     
     public override void Update()
     {
-        /*if (lineRenderer.positionCount > 1)
+        if (lineRenderer.positionCount > 1)
         {
             if(laserDestroyA == laserDestroyB)
             {
@@ -67,9 +67,8 @@ public class RaycastBullet : Bullet
         } else
         {
             //Destroy the bullet
-            //DestroyBullet();
+            DestroyBullet();
         }
-        */
     }
 
     [Server]
