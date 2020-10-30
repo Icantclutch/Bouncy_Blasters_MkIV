@@ -22,12 +22,20 @@ public class RaycastBullet : Bullet
     private float destroyLerp = 0;
 
     [Server]
-    public override void Initialize(Weapon.FireMode myFireMode, PlayerReference playerSource)
+    public override void Initialize(List<int> damage, int bounces, float fireSpeed)
     {
         lineRenderer = GetComponent<LineRenderer>();
-        base.Initialize(myFireMode, playerSource);
+        Rpc_PlayerInit();
+        base.Initialize(damage, bounces, fireSpeed);
+    }
+
+    [ClientRpc]
+    private void Rpc_PlayerInit()
+    {
+        lineRenderer = GetComponent<LineRenderer>();
     }
     
+    [Server]
     public override void Update()
     {
         if (lineRenderer.positionCount > 1)
@@ -57,6 +65,11 @@ public class RaycastBullet : Bullet
                 //Set new positions
                 lineRenderer.SetPositions(newArray);
             }
+
+            //Update the Client
+            Vector3[] temp = new Vector3[lineRenderer.positionCount];
+            lineRenderer.GetPositions(temp);
+            Rpc_UpdateClientLines(temp);
         } else
         {
             //Destroy the bullet
@@ -88,6 +101,7 @@ public class RaycastBullet : Bullet
                 //Check to see if it hit something
                 if (hit.transform.GetComponent<HitInteraction>())
                 {
+                    /*
                     //Send hit message
                     hit.transform.SendMessage("Hit", myShot, SendMessageOptions.DontRequireReceiver);
 
@@ -98,6 +112,7 @@ public class RaycastBullet : Bullet
                         hit.transform.GetComponent<PlayerHealth>().DealDamage(myShot.damage[myShot.numBounces]);
                         break;
                     }
+                    */
                 }
                 //Increase reflection count
                 myShot.numBounces++;
@@ -115,8 +130,13 @@ public class RaycastBullet : Bullet
             }
         }
         //Apply the line to the linerenderer
-        Vector3[] arrayVecs = bouncePoints.ToArray();
-        lineRenderer.positionCount = arrayVecs.Length;
-        lineRenderer.SetPositions(arrayVecs);
+        Rpc_UpdateClientLines(bouncePoints.ToArray());
+    }
+
+    [ClientRpc]
+    void Rpc_UpdateClientLines(Vector3[] vectors)
+    {
+        lineRenderer.positionCount = vectors.Length;
+        lineRenderer.SetPositions(vectors);
     }
 }

@@ -15,6 +15,7 @@ public class PlayerMovement : NetworkBehaviour
 	public bool canJump = true;
 	public float jumpHeight = 2.0f;
 	private bool grounded = false;
+	private bool hasJumped = false;
 
 
 
@@ -54,9 +55,16 @@ public class PlayerMovement : NetworkBehaviour
 			rbody.AddForce(velocityChange, ForceMode.VelocityChange);
 
 			// Jump
-			if (canJump && Input.GetKeyDown(Keybinds.Jump))
+			if (canJump && Input.GetKeyDown(Keybinds.Jump) && !hasJumped)
 			{
+
 				rbody.velocity += new Vector3(0, CalculateJumpVerticalSpeed(), 0);
+
+
+				rbody.velocity += new Vector3(velocity.x, CalculateJumpVerticalSpeed(), velocity.z);
+				hasJumped = true;
+
+
 			}
 		}
         if (Input.GetKeyUp(KeyCode.Return))
@@ -65,6 +73,11 @@ public class PlayerMovement : NetworkBehaviour
 		}
 		// We apply gravity manually for more tuning control
 		rbody.AddForce(new Vector3(0, -gravity * rbody.mass, 0));
+
+		if (rbody.velocity.y == 0)
+        {
+			hasJumped = false;
+        }
 
 		grounded = false;
 	}

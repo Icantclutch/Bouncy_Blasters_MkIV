@@ -7,7 +7,7 @@ using Mirror;
 public class Bullet : NetworkBehaviour
 {
     [System.Serializable]
-    public class Shot
+    public struct Shot
     {
         //how much raw damage the shot does
         public List<int> damage;
@@ -15,30 +15,28 @@ public class Bullet : NetworkBehaviour
         public int maxBounces;
         //how many times the shot has bounced
         [Tooltip("Numner of times the laser has bounced")]
-        public int numBounces = 0;
-        //Player sourced from
-        public PlayerReference playerSource;
+        public int numBounces;
     }
 
     //Rigidbody
     private Rigidbody rb;
     //Shot info
+    [SyncVar]
     public Shot myShot;
 
     [Server]
     // Initialize the bullet
-    public virtual void Initialize(Weapon.FireMode myFireMode, PlayerReference playerSource)
+    public virtual void Initialize(List<int> damage, int bounces, float fireSpeed)
     {
         //Initialize shot
         myShot = new Shot();
         //Set values
-        myShot.damage = myFireMode.bulletDamage;
-        myShot.maxBounces = myFireMode.maxBounces;
-        //Assign player
-        myShot.playerSource = playerSource;
+        myShot.damage = damage;
+        myShot.maxBounces = bounces;
+        myShot.numBounces = 0;
 
         //Set bullet speed
-        Vel(transform.forward, myFireMode.fireSpeed * 100);
+        Vel(transform.forward, fireSpeed * 100);
     }
 
     [Server]
