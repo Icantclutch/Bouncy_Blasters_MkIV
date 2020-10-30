@@ -30,7 +30,7 @@ public class RaycastBullet : Bullet
     
     public override void Update()
     {
-        if (lineRenderer.positionCount > 1)
+        /*if (lineRenderer.positionCount > 1)
         {
             if(laserDestroyA == laserDestroyB)
             {
@@ -62,6 +62,7 @@ public class RaycastBullet : Bullet
             //Destroy the bullet
             DestroyBullet();
         }
+        */
     }
 
     [Server]
@@ -88,6 +89,7 @@ public class RaycastBullet : Bullet
                 //Check to see if it hit something
                 if (hit.transform.GetComponent<HitInteraction>())
                 {
+                    Debug.Log("Hit");
                     //Send hit message
                     hit.transform.SendMessage("Hit", myShot, SendMessageOptions.DontRequireReceiver);
 
