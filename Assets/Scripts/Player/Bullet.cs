@@ -26,17 +26,17 @@ public class Bullet : NetworkBehaviour
 
     [Server]
     // Initialize the bullet
-    public virtual void Initialize(Weapon.FireMode myFireMode, PlayerReference playerSource)
+    public virtual void Initialize(List<int> damage, int bounces, float fireSpeed)
     {
         //Initialize shot
         myShot = new Shot();
         //Set values
-        myShot.damage = myFireMode.bulletDamage;
-        myShot.maxBounces = myFireMode.maxBounces;
+        myShot.damage = damage;
+        myShot.maxBounces = bounces;
         myShot.numBounces = 0;
 
         //Set bullet speed
-        Vel(transform.forward, myFireMode.fireSpeed * 100);
+        Vel(transform.forward, fireSpeed * 100);
     }
 
     [Server]
