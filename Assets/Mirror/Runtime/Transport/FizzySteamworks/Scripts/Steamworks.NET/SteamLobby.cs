@@ -25,6 +25,14 @@ public class SteamLobby : MonoBehaviour
 
     private bool lobbyFound = false;
 
+    private struct Lobby
+    {
+        public CSteamID m_SteamID;
+        string lobbyName;
+        string gamemode;
+
+    };
+
     private void Start()
     {
         networkManager = GetComponent<NetworkManager>();
