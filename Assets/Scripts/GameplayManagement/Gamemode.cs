@@ -1,27 +1,39 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Gamemode
 {
-    public string gamemodeName;
-    public List<Team> teamList;
+  
+  
 
     public int maxScore;
     public int startingScore;
 
     public int matchTime;
-
-    public Gamemode(string modeName,int mScore, int sScore, int time, List<Team> teams)
+  
+    public int selectedGameMode;
+    public Gamemode(int mode, int mScore, int sScore, int time)
     {
-        gamemodeName = modeName;
+        selectedGameMode = mode;
         maxScore = mScore;
         startingScore = sScore;
         matchTime = time;
-        teamList = teams;
+
+    
     }
 
    
+    public void TDM()
+    {
+        Debug.Log("TDM");
+    }
+
+    public void Hardpt()
+    {
+        Debug.Log("HardPt");
+    }
     /* 
      public void GameModeName()
      {
