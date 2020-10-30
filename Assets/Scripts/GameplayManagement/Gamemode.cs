@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class Gamemode
 {
-  
-  
 
     public int maxScore;
     public int startingScore;
@@ -24,7 +22,13 @@ public class Gamemode
     
     }
 
-   
+    //Functions that act as a single Update() call for a given gamemode
+    /* 
+   public void GameModeName()
+   {
+      The operation of the gamemode goes here
+   }
+   */
     public void TDM()
     {
         Debug.Log("TDM");
@@ -34,11 +38,6 @@ public class Gamemode
     {
         Debug.Log("HardPt");
     }
-    /* 
-     public void GameModeName()
-     {
-        The operation of the gamemode goes here
-     }
-     */
+ 
 
 }

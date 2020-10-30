@@ -15,31 +15,32 @@ public class GameManagement : MonoBehaviour
     //A bool for pausing the match
     private bool _gamePaused;
 
+    /*
+     This is a function delegate. This allows the functions to be treated and passed as variables
+     The Gamemode class has different function for executing various gamemodes
+     And the GameManagement script (This one) gets which gamemode should be executed and thus will 
+     call the appropriate function from Gamemode.cs
+     */
     private delegate void _matchDelegate();
-    _matchDelegate matchMode;
+    _matchDelegate gamemodeExecution;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        matchGamemode = new Gamemode(0, 25, 0, 300);
-
-
-        _matchTimer = (float)matchGamemode.matchTime;
-        switch (matchGamemode.selectedGameMode)
-        {
-            case 0:
-                matchMode = matchGamemode.TDM;
-                break;
-            case 1:
-                matchMode = matchGamemode.Hardpt;
-                break;
-        }
+        _gamePaused = true;
+  
     }
    
     // Update is called once per frame
     void Update()
     {
+        if(matchGamemode != null)
+        {
+            //Allow the match to start
+            _gamePaused = false;
+        }
+
         //If the game is paused, freeze the match timer
         if (!_gamePaused)
         {
@@ -47,7 +48,7 @@ public class GameManagement : MonoBehaviour
            
         }
         //Execute the gamemode specific instructions
-        matchMode();
+        gamemodeExecution();
 
         //Does a Score and timer check to see if there is a winner
         CheckMatchEnd();
@@ -98,5 +99,25 @@ public class GameManagement : MonoBehaviour
     {
         //Game is Tied
         _gamePaused = true;
+    }
+
+    public void SetUpMatch(Gamemode game, Team a, Team b)
+    {
+        matchGamemode = game;
+        teamA = a;
+        teamB = b;
+
+        switch (matchGamemode.selectedGameMode)
+        {
+            case 0:
+                gamemodeExecution = matchGamemode.TDM;
+                break;
+            case 1:
+                gamemodeExecution = matchGamemode.Hardpt;
+                break;
+        }
+
+
+        _matchTimer = (float)matchGamemode.matchTime;
     }
 }
