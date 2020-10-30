@@ -17,6 +17,6 @@ public static class Keybinds
     public static KeyCode Crouch = KeyCode.LeftControl; //Left control crouch
     public static string Horizontal = "Horizontal"; //Left/Right movement axis
     public static string Vertical = "Vertical"; //Forward/Bakc movement axis
-    public static string MouseX = "MouseX"; //Mouse Horizontal
-    public static string MouseY = "MouseY"; //Mouse Vertical
+    public static string MouseX = "Mouse X"; //Mouse Horizontal
+    public static string MouseY = "Mouse Y"; //Mouse Vertical
 }
