@@ -45,13 +45,19 @@ public class GameManagement : MonoBehaviour
         if (!_gamePaused)
         {
             _matchTimer -= Time.deltaTime;
-           
-        }
-        //Execute the gamemode specific instructions
-        gamemodeExecution();
 
-        //Does a Score and timer check to see if there is a winner
-        CheckMatchEnd();
+
+            //Execute the gamemode specific instructions
+            gamemodeExecution();
+
+            //Does a Score and timer check to see if there is a winner
+            CheckMatchEnd();
+
+
+
+
+        }
+       
        
 
 
