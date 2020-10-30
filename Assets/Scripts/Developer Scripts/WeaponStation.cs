@@ -14,6 +14,6 @@ public class WeaponStation : HitInteraction
         newSlot.currentAmmo = stationWeapon.ammoCount;
 
         //Give it to the player
-        shot.playerSource.playerShooting.playerWeapons[0] = newSlot;
+        //shot.playerSource.playerShooting.playerWeapons[0] = newSlot;
     }
 }

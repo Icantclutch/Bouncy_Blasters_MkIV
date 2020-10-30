@@ -197,10 +197,10 @@ public class Shooting : NetworkBehaviour
         GameObject bulletPrefab = NetworkManager.singleton.spawnPrefabs.Find(bu => bu.name.Equals(bullet));
         //Summon the bullet
         GameObject b = Instantiate(bulletPrefab, eyes.transform.position, eyes.transform.rotation);
-        //Assign it its properties
-        b.GetComponent<Bullet>().Initialize(currentFireMode, myReference);
         //Spawn on server
         NetworkServer.Spawn(b);
+        //Assign it its properties
+        b.GetComponent<Bullet>().Initialize(currentFireMode, myReference);
         //Play the firing audio
         //GetComponent<AudioSource>().PlayOneShot(fireMode.firingSound, .5f);
     }

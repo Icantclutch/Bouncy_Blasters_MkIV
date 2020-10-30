@@ -60,7 +60,7 @@ public class RaycastBullet : Bullet
         } else
         {
             //Destroy the bullet
-            DestroyBullet();
+            //DestroyBullet();
         }
         */
     }
@@ -117,8 +117,13 @@ public class RaycastBullet : Bullet
             }
         }
         //Apply the line to the linerenderer
-        Vector3[] arrayVecs = bouncePoints.ToArray();
-        lineRenderer.positionCount = arrayVecs.Length;
-        lineRenderer.SetPositions(arrayVecs);
+        Rpc_UpdateClientLines(bouncePoints.ToArray());
+    }
+
+    [ClientRpc]
+    void Rpc_UpdateClientLines(Vector3[] vectors)
+    {
+        lineRenderer.positionCount = vectors.Length;
+        lineRenderer.SetPositions(vectors);
     }
 }
