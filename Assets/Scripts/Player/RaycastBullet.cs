@@ -38,17 +38,10 @@ public class RaycastBullet : Bullet
     [Server]
     public override void Update()
     {
-        if (lineRenderer.positionCount > 1)
+        if (lineRenderer.positionCount >= 2)
         {
-            if(laserDestroyA == laserDestroyB)
-            {
-                laserDestroyA = lineRenderer.GetPosition(0);
-                laserDestroyB = lineRenderer.GetPosition(1);
-                destroyLerp = 0;
-            }
-
             //Increase the lerp,
-            destroyLerp += Time.deltaTime * bulletSpeed / Vector3.Distance(laserDestroyA, laserDestroyB);
+            destroyLerp += (Time.deltaTime * bulletSpeed) / (Vector3.Distance(laserDestroyA, laserDestroyB) * 10);
             if (destroyLerp > 1)
                 destroyLerp = 1;
             //Set the position of the first point
@@ -64,6 +57,13 @@ public class RaycastBullet : Bullet
                 lineRenderer.positionCount -= 1;
                 //Set new positions
                 lineRenderer.SetPositions(newArray);
+                if (lineRenderer.positionCount >= 2)
+                {
+                    //Reset lerping
+                    laserDestroyA = lineRenderer.GetPosition(0);
+                    laserDestroyB = lineRenderer.GetPosition(1);
+                    destroyLerp = 0;
+                }
             }
 
             //Update the Client
@@ -129,8 +129,18 @@ public class RaycastBullet : Bullet
                 break;
             }
         }
+        //Assign points
+        Vector3[] bounces = bouncePoints.ToArray();
+        lineRenderer.positionCount = bounces.Length;
+        lineRenderer.SetPositions(bounces);
+
+        //Set up vanishing
+        laserDestroyA = lineRenderer.GetPosition(0);
+        laserDestroyB = lineRenderer.GetPosition(1);
+        destroyLerp = 0;
+
         //Apply the line to the linerenderer
-        Rpc_UpdateClientLines(bouncePoints.ToArray());
+        Rpc_UpdateClientLines(bounces);
     }
 
     [ClientRpc]
