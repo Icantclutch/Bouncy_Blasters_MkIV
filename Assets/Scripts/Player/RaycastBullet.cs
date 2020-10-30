@@ -25,7 +25,14 @@ public class RaycastBullet : Bullet
     public override void Initialize(Weapon.FireMode myFireMode, PlayerReference playerSource)
     {
         lineRenderer = GetComponent<LineRenderer>();
+        Rpc_PlayerInit();
         base.Initialize(myFireMode, playerSource);
+    }
+
+    [ClientRpc]
+    private void Rpc_PlayerInit()
+    {
+        lineRenderer = GetComponent<LineRenderer>();
     }
     
     public override void Update()
