@@ -51,10 +51,9 @@ public class MouseLook2 : NetworkBehaviour
         if (!pause)
         {
             Cursor.lockState = CursorLockMode.Locked;
-            float yRot = Input.GetAxis(Keybinds.MouseX) * sens;
-            float xRot = Input.GetAxis(Keybinds.MouseY) * sens;
-            Debug.Log("y rotation: " + yRot);
-            Debug.Log("y rotation: " + xRot);
+            float yRot = Input.GetAxis("Mouse Y") * sens;
+            float xRot = Input.GetAxis("Mouse X") * sens;
+
             charTargetRot *= Quaternion.Euler(0f, xRot, 0f);
             camTargetRot *= Quaternion.Euler(-yRot, 0f, 0f);
 
