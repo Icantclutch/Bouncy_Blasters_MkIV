@@ -34,9 +34,7 @@ public class ProjectileMove : MonoBehaviour
         {
             speed = 0;
             ContactPoint contact = co.contacts[0];
-            print(contact.normal);
             Quaternion rot = Quaternion.FromToRotation(Vector3.up, contact.normal);
-            print(rot);
             Vector3 pos = contact.point;
             Instantiate(explosionPrefab, pos, rot);
            // explosionPrefab.transform.Find("Particle").transform.localRotation = (Quaternion.FromToRotation(Vector3.Reflect(SavedPos, contact.normal), Vector3.up) * rot);

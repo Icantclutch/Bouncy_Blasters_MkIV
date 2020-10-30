@@ -42,7 +42,7 @@ public class SpawnProjectiles : MonoBehaviour
             }
 
             ShakeScript.shakeDuration = 0.3f;
-
+            //ShakeScript
 
         } else
         {
