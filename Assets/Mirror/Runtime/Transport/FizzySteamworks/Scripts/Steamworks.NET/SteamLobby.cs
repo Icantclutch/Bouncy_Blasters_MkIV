@@ -8,6 +8,15 @@ using System.Diagnostics;
 
 public class SteamLobby : MonoBehaviour
 {
+    public struct Lobby
+    {
+        public CSteamID steamID;
+        public string lobbyName;
+        public string gamemode;
+        public int numOfPlayers;
+        public int playerLimit;
+    };
+
     [SerializeField] private GameObject button = null;
 
     //Callback variables to handle Steam calls
@@ -23,15 +32,11 @@ public class SteamLobby : MonoBehaviour
 
     private NetworkManager networkManager;
 
+    private List<Lobby> lobbies = new List<Lobby>();
+
     private bool lobbyFound = false;
 
-    private struct Lobby
-    {
-        public CSteamID m_SteamID;
-        string lobbyName;
-        string gamemode;
-
-    };
+    
 
     private void Start()
     {
@@ -65,6 +70,8 @@ public class SteamLobby : MonoBehaviour
 
     public void JoinLobby()
     {
+        lobbies.Clear();
+        
         //Start coroutine to search for lobbies, starting with the most full lobbies
         UnityEngine.Debug.Log("Search for lobbies");
         StartCoroutine(SearchForLobby());
@@ -77,7 +84,10 @@ public class SteamLobby : MonoBehaviour
         {
             //Stop searching if an open lobby is found
             if (lobbyFound)
+            {
+                SteamMatchmaking.JoinLobby(lobbies[0].steamID);
                 break;
+            }
 
             //Filter search for lobbies with only i open slots
             UnityEngine.Debug.Log(i + " open spaces");
@@ -156,11 +166,24 @@ public class SteamLobby : MonoBehaviour
 
                 //Join lobby (Calls OnLobbyEntered)
                 UnityEngine.Debug.Log("Game Name: " + SteamMatchmaking.GetLobbyData(SteamMatchmaking.GetLobbyByIndex(i), GameKey));
-                SteamMatchmaking.JoinLobby(SteamMatchmaking.GetLobbyByIndex(i));
+                StoreLobbyInfo(SteamMatchmaking.GetLobbyByIndex(i));
+                
 
                 //Sets flag to stop searching
                 lobbyFound = true;
             }
         }
+    }
+
+    void StoreLobbyInfo(CSteamID lobbyID)
+    {
+        Lobby lobby = new Lobby();
+        lobby.steamID = lobbyID;
+        lobby.lobbyName = SteamMatchmaking.GetLobbyData(lobbyID, "LobbyName");
+        lobby.gamemode = SteamMatchmaking.GetLobbyData(lobbyID, "Gamemode");
+        lobby.numOfPlayers = SteamMatchmaking.GetNumLobbyMembers(lobbyID);
+        lobby.playerLimit = SteamMatchmaking.GetLobbyMemberLimit(lobbyID);
+
+        lobbies.Add(lobby);
     }
 }
