@@ -35,6 +35,7 @@ public class RaycastBullet : Bullet
         lineRenderer = GetComponent<LineRenderer>();
     }
     
+    [Server]
     public override void Update()
     {
         if (lineRenderer.positionCount > 1)
@@ -64,6 +65,11 @@ public class RaycastBullet : Bullet
                 //Set new positions
                 lineRenderer.SetPositions(newArray);
             }
+
+            //Update the Client
+            Vector3[] temp = new Vector3[lineRenderer.positionCount];
+            lineRenderer.GetPositions(temp);
+            Rpc_UpdateClientLines(temp);
         } else
         {
             //Destroy the bullet
