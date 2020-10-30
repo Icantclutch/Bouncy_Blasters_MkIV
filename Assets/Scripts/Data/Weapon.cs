@@ -34,7 +34,6 @@ public class Weapon : ScriptableObject
     [System.Serializable]
     public struct FireMode
     {
-
         //The key used to fire this specific mode
         public FireKey key;
         //Fire rate type of the weapon, determines what happens when clicking

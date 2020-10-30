@@ -22,11 +22,11 @@ public class RaycastBullet : Bullet
     private float destroyLerp = 0;
 
     [Server]
-    public override void Initialize(Weapon.FireMode myFireMode, PlayerReference playerSource)
+    public override void Initialize(List<int> damage, int bounces, float fireSpeed)
     {
         lineRenderer = GetComponent<LineRenderer>();
         Rpc_PlayerInit();
-        base.Initialize(myFireMode, playerSource);
+        base.Initialize(damage, bounces, fireSpeed);
     }
 
     [ClientRpc]
@@ -96,7 +96,7 @@ public class RaycastBullet : Bullet
                 //Check to see if it hit something
                 if (hit.transform.GetComponent<HitInteraction>())
                 {
-                    Debug.Log("Hit");
+                    /*
                     //Send hit message
                     hit.transform.SendMessage("Hit", myShot, SendMessageOptions.DontRequireReceiver);
 
@@ -107,6 +107,7 @@ public class RaycastBullet : Bullet
                         hit.transform.GetComponent<PlayerHealth>().DealDamage(myShot.damage[myShot.numBounces]);
                         break;
                     }
+                    */
                 }
                 //Increase reflection count
                 myShot.numBounces++;
