@@ -15,6 +15,8 @@ public class SteamLobby : MonoBehaviour
         public string gamemode;
         public int numOfPlayers;
         public int playerLimit;
+        //look into if we can get info
+        public int ping;
     };
 
     [SerializeField] private GameObject button = null;
