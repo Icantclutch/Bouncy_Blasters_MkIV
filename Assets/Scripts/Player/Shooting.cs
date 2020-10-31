@@ -42,6 +42,11 @@ public class Shooting : NetworkBehaviour
     private void Start()
     {
         myReference = GetComponent<PlayerReference>();
+        //Set ammo at start
+        for(int i = 0; i < playerWeapons.Count; i++)
+        {
+            Cmd_Reload(i, playerWeapons[i].weapon.ammoCount);
+        }
     }
 
     // Update is called once per frame
@@ -163,7 +168,7 @@ public class Shooting : NetworkBehaviour
         currentlyFiring = true;
 
         //Improve once animations are implemented
-        Cmd_Reload(playerWeapons[currentWeapon].weapon.ammoCount);
+        Cmd_Reload(currentWeapon, playerWeapons[currentWeapon].weapon.ammoCount);
 
         //Disable firing when reloading is done
         currentlyFiring = false;
@@ -174,14 +179,12 @@ public class Shooting : NetworkBehaviour
     {
         //We are currently firing
         currentlyFiring = true;
-        //Subtract from the ammo
-        playerWeapons[weaponSlot].currentAmmo -= currentFireMode.ammoUsedEachShot;
         //Fire each shot
         for (int i = 0; i < currentFireMode.shotsFiredAtOnce; i++)
         {
             Debug.Log(currentFireMode.maxBounces);
             //Fire bullet over server
-            Cmd_ServerFireBullet(currentFireMode.bulletPrefabName, currentFireMode.bulletDamage, currentFireMode.maxBounces, currentFireMode.fireSpeed);
+            Cmd_ServerFireBullet(currentFireMode.bulletPrefabName, currentFireMode.bulletDamage, currentFireMode.maxBounces, currentFireMode.fireSpeed, currentFireMode.ammoUsedEachShot);
             //Wait
             yield return new WaitForSeconds(60 / currentFireMode.fireRate);
         }
@@ -191,8 +194,10 @@ public class Shooting : NetworkBehaviour
 
     //Server reference for firing bullets
     [Command]
-    void Cmd_ServerFireBullet(string bullet, List<int> damage, int bounces, float fireSpeed)
+    void Cmd_ServerFireBullet(string bullet, List<int> damage, int bounces, float fireSpeed, int ammoSpent)
     {
+        //Subtract from the ammo
+        playerWeapons[currentWeapon].currentAmmo -= ammoSpent;
         //Fetch Bullet Prefab from Network Manager
         GameObject bulletPrefab = NetworkManager.singleton.spawnPrefabs.Find(bu => bu.name.Equals(bullet));
         //Summon the bullet
@@ -217,9 +222,9 @@ public class Shooting : NetworkBehaviour
     }
 
     [Command]
-    void Cmd_Reload(int ammoCount)
+    void Cmd_Reload(int weapon, int ammoCount)
     {
-        playerWeapons[currentWeapon].currentAmmo = ammoCount;
+        playerWeapons[weapon].currentAmmo = ammoCount;
     }
 
     //Boolean that checks if a weapon has single-fired
