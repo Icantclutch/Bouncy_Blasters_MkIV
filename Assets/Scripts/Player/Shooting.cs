@@ -163,7 +163,7 @@ public class Shooting : NetworkBehaviour
         currentlyFiring = true;
 
         //Improve once animations are implemented
-        Cmd_Reload();
+        Cmd_Reload(playerWeapons[currentWeapon].weapon.ammoCount);
 
         //Disable firing when reloading is done
         currentlyFiring = false;
@@ -217,9 +217,9 @@ public class Shooting : NetworkBehaviour
     }
 
     [Command]
-    void Cmd_Reload()
+    void Cmd_Reload(int ammoCount)
     {
-        playerWeapons[currentWeapon].currentAmmo = playerWeapons[currentWeapon].weapon.ammoCount;
+        playerWeapons[currentWeapon].currentAmmo = ammoCount;
     }
 
     //Boolean that checks if a weapon has single-fired
