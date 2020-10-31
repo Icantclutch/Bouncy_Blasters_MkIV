@@ -16,6 +16,8 @@ public class Bullet : NetworkBehaviour
         //how many times the shot has bounced
         [Tooltip("Numner of times the laser has bounced")]
         public int numBounces;
+        //The team of the player that fired the bullet
+        public int playerID;
     }
 
     //Rigidbody
@@ -26,7 +28,7 @@ public class Bullet : NetworkBehaviour
 
     [Server]
     // Initialize the bullet
-    public virtual void Initialize(List<int> damage, int bounces, float fireSpeed)
+    public virtual void Initialize(List<int> damage, int bounces, float fireSpeed, int playerId)
     {
         //Initialize shot
         myShot = new Shot();
@@ -34,6 +36,7 @@ public class Bullet : NetworkBehaviour
         myShot.damage = damage;
         myShot.maxBounces = bounces;
         myShot.numBounces = 0;
+        myShot.playerID = playerId;
 
         //Set bullet speed
         Vel(transform.forward, fireSpeed * 100);

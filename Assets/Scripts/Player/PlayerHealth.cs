@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
+using System;
 
 public class PlayerHealth : HitInteraction
 {
@@ -15,11 +16,6 @@ public class PlayerHealth : HitInteraction
     [SyncVar]
     private int currentCharge;
 
-    //The team that the player is on
-    [SerializeField]
-    [SyncVar]
-    private int playerTeamNumber;
-
     //reference to ther scrips
     private PlayerReference myReference;
 
@@ -27,7 +23,8 @@ public class PlayerHealth : HitInteraction
     void Start()
     {
         myReference = GetComponent<PlayerReference>();
-        currentCharge = 0;
+        SetCharge(0);
+        AssignTeam(0);
     }
 
     [Server]
@@ -36,43 +33,50 @@ public class PlayerHealth : HitInteraction
         //charge check to see if the player has reached the damage threshold for being teleported.
         if (currentCharge >= maxSuitCharge)
         {
-            TeleportPlayer();
+            Respawn();
         }
         
     }
 
     [Server]
-    private void TeleportPlayer()
+    //Holds all the servserside calls for respawning the player, 
+    private void Respawn()
     {
         currentCharge = 0;
+
+        //Teleport the player
+        Rpc_TeleportPlayer();
+    }
+
+    [TargetRpc]
+    private void Rpc_TeleportPlayer()
+    {
         //TODO Call to game controller to teleport player to designated spawn point
         Debug.Log("Player has died, Teleporting to respawn room (not implemented)");
         PlayerSpawnSystem.SpawnPlayer(gameObject);
     }
 
     [Server]
-    public void AssignTeam(int teamNum) 
-    {
-        playerTeamNumber = teamNum;
-    }
-
-    public int GetTeam()
-    {
-        return playerTeamNumber;
-    }
     public override void Hit(Bullet.Shot shot)
     {
-        //Deal damage
-        currentCharge += shot.damage[shot.numBounces];
-        //Debug Message
-        Rpc_DebugOutput(shot.damage[shot.numBounces]);
+        //Get the source object
+        int shotTeam = NetworkIdentity.spawned[Convert.ToUInt32(shot.playerID)].GetComponent<HitInteraction>().GetTeam();
+        int myTeam = this.GetTeam();
+
+        //Check if the source is not on your team
+        if (CheckTeamConflict(shotTeam, myTeam))
+        {
+            //Deal damage
+            currentCharge += shot.damage[shot.numBounces];
+        }
+
     }
 
-    //Debug to be removed
-    [ClientRpc]
-    public void Rpc_DebugOutput(int damage)
+    //Sets the players charge to a certain value
+    [Server]
+    public void SetCharge(int value)
     {
-        Debug.Log("Player was dealt damage: " + damage + ", and now has health of: " + currentCharge);
+        currentCharge = value;
     }
 
     //Add and remove player from the SpawnSystem

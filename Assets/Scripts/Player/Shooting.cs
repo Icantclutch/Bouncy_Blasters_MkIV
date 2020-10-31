@@ -199,8 +199,10 @@ public class Shooting : NetworkBehaviour
         GameObject b = Instantiate(bulletPrefab, eyes.transform.position, eyes.transform.rotation);
         //Spawn on server
         NetworkServer.Spawn(b);
+        //Get the player's id
+        int playerID = Convert.ToInt32(GetComponent<NetworkIdentity>().netId);
         //Assign it its properties
-        b.GetComponent<Bullet>().Initialize(damage, bounces, fireSpeed);
+        b.GetComponent<Bullet>().Initialize(damage, bounces, fireSpeed, playerID);
         //Play the firing audio
         //GetComponent<AudioSource>().PlayOneShot(fireMode.firingSound, .5f);
     }

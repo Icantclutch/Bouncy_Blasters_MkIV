@@ -22,11 +22,11 @@ public class RaycastBullet : Bullet
     private float destroyLerp = 0;
 
     [Server]
-    public override void Initialize(List<int> damage, int bounces, float fireSpeed)
+    public override void Initialize(List<int> damage, int bounces, float fireSpeed, int playerId)
     {
         lineRenderer = GetComponent<LineRenderer>();
         Rpc_PlayerInit();
-        base.Initialize(damage, bounces, fireSpeed);
+        base.Initialize(damage, bounces, fireSpeed, playerId);
     }
 
     [ClientRpc]
