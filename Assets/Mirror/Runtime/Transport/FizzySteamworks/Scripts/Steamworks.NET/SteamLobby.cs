@@ -5,6 +5,7 @@ using System;
 using Mirror;
 using Steamworks;
 using System.Diagnostics;
+using UnityEngine.UI;
 
 public class SteamLobby : MonoBehaviour
 {
@@ -20,7 +21,7 @@ public class SteamLobby : MonoBehaviour
     };
 
     [SerializeField] private GameObject button = null;
-
+    [SerializeField] private Dropdown lobbyDropDown = null;
     //Callback variables to handle Steam calls
     protected Callback<LobbyCreated_t> lobbyCreated;
     protected Callback<GameLobbyJoinRequested_t> gameLobbyJoinRequested;
@@ -187,5 +188,7 @@ public class SteamLobby : MonoBehaviour
         lobby.playerLimit = SteamMatchmaking.GetLobbyMemberLimit(lobbyID);
 
         lobbies.Add(lobby);
+        if(lobbyDropDown)
+            lobbyDropDown.AddOptions(new List<string> { lobby.lobbyName});
     }
 }
