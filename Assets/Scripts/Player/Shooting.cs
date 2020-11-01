@@ -40,11 +40,14 @@ public class Shooting : NetworkBehaviour
     [SyncVar]
     private Weapon.FireMode currentFireMode;
 
-    [TargetRpc]
+    
     private void Start()
     {
         myReference = GetComponent<PlayerReference>();
-        
+
+        if (!hasAuthority)
+            return;
+
         //Set ammo at start
         Cmd_SetAmmos(playerWeapons.Count);
 
