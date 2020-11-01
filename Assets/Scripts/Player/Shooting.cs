@@ -34,6 +34,7 @@ public class Shooting : NetworkBehaviour
 
     }
 
+    [SyncVar]
     //the current amount of ammo each weapon has
     public WeaponSyncList currentAmmo = new WeaponSyncList();
 
@@ -205,7 +206,6 @@ public class Shooting : NetworkBehaviour
         //Fire each shot
         for (int i = 0; i < currentFireMode.shotsFiredAtOnce; i++)
         {
-            Debug.Log(currentFireMode.maxBounces);
             //Fire bullet over server
             Cmd_ServerFireBullet(currentFireMode.bulletPrefabName, currentFireMode.bulletDamage, currentFireMode.maxBounces, currentFireMode.fireSpeed, currentFireMode.ammoUsedEachShot);
             //Wait
