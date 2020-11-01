@@ -40,7 +40,6 @@ public class Shooting : NetworkBehaviour
     [SyncVar]
     private Weapon.FireMode currentFireMode;
 
-    [Client]
     private void Start()
     {
         myReference = GetComponent<PlayerReference>();
@@ -49,10 +48,12 @@ public class Shooting : NetworkBehaviour
             return;
 
         //Set ammo at start
+        Debug.Log(playerWeapons.Count);
         Cmd_SetAmmos(playerWeapons.Count);
 
         for (int i = 0; i < playerWeapons.Count; i++)
         {
+            Debug.Log(playerWeapons[i].weapon.ammoCount);
             Cmd_Reload(i, playerWeapons[i].weapon.ammoCount);
         }
     }
