@@ -8,42 +8,18 @@ using System;
 public class Shooting : NetworkBehaviour
 {
     [System.Serializable]
-    public struct WeaponSlot {
+    public class WeaponSlot {
         //The weapon in this slot
         public Weapon weapon;
         //The current fire mode, used only if the weapon has a mode-swap key
-        public int currentFiringMode;
-        //the current amount of ammo the weapon has
-        [SyncVar]
-        public int currentAmmo;
+        public int currentFiringMode = 0;
         //the current cooldown on firing
-        public float currentCooldown;
-
-        public void SetFiringMode(int mode)
-        {
-            currentFiringMode = mode;
-        }
-
-        public void SetCurrentAmmo(int ammo)
-        {
-            currentAmmo = ammo;
-        }
-
-        public void ReduceCurrentAmmo(int ammo)
-        {
-            currentAmmo -= ammo;
-        }
-
-        public void SetCurrentCooldown(float cooldown)
-        {
-            currentCooldown = cooldown;
-        }
-
-        public void ReduceCurrentCooldown(float cooldown)
-        {
-            currentCooldown -= cooldown;
-        }
+        public float currentCooldown = 0;
     }
+
+    //the current amount of ammo each weapon has
+    [SyncVar]
+    public List<int> currentAmmo = new List<int>();
 
     //Where the player's eyes are
     [SyncVar]
@@ -67,8 +43,11 @@ public class Shooting : NetworkBehaviour
     private void Start()
     {
         myReference = GetComponent<PlayerReference>();
+        
         //Set ammo at start
-        for(int i = 0; i < playerWeapons.Count; i++)
+        Cmd_SetAmmos(playerWeapons.Count);
+
+        for (int i = 0; i < playerWeapons.Count; i++)
         {
             Cmd_Reload(i, playerWeapons[i].weapon.ammoCount);
         }
@@ -92,10 +71,10 @@ public class Shooting : NetworkBehaviour
         foreach(WeaponSlot w in playerWeapons)
         {
             if(w.currentCooldown > 0)
-                w.ReduceCurrentCooldown(Time.deltaTime);
+                w.currentCooldown -= Time.deltaTime;
 
             if (w.currentCooldown < 0)
-                w.SetCurrentCooldown(0);
+                w.currentCooldown = 0;
         }
 
         //Only do weapon stuff if the player actually has a weapon and isn't firing
@@ -127,17 +106,17 @@ public class Shooting : NetworkBehaviour
         if (GetButtonFired(playerWeapons[currentWeapon].weapon.modeSwapKey))
         {
             //Increment firing mode
-            playerWeapons[currentWeapon].SetFiringMode(playerWeapons[currentWeapon].currentFiringMode + 1);
+            playerWeapons[currentWeapon].currentFiringMode++;
             //If firing mode goes over the number of firing modes the gun has, loop back to 0
             if(playerWeapons[currentWeapon].currentFiringMode >= playerWeapons[currentWeapon].weapon.fireModes.Count)
             {
-                playerWeapons[currentWeapon].SetFiringMode(0);
+                playerWeapons[currentWeapon].currentFiringMode = 0;
             }
         }
 
         //Quick reference for the current fire mode
         currentFireMode = playerWeapons[currentWeapon].weapon.fireModes[playerWeapons[currentWeapon].currentFiringMode];
-        if (playerWeapons[currentWeapon].currentCooldown <= 0 && playerWeapons[currentWeapon].currentAmmo >= currentFireMode.ammoUsedEachShot)
+        if (playerWeapons[currentWeapon].currentCooldown <= 0 && currentAmmo[currentWeapon] >= currentFireMode.ammoUsedEachShot)
         {
             if (currentFireMode.fireType == Weapon.FireType.Automatic)
             {
@@ -164,7 +143,7 @@ public class Shooting : NetworkBehaviour
         foreach(Weapon.FireMode current in playerWeapons[currentWeapon].weapon.fireModes)
         {
             currentFireMode = current;
-            if (playerWeapons[currentWeapon].currentCooldown <= 0 && playerWeapons[currentWeapon].currentAmmo >= currentFireMode.ammoUsedEachShot)
+            if (playerWeapons[currentWeapon].currentCooldown <= 0 && currentAmmo[currentWeapon] >= currentFireMode.ammoUsedEachShot)
             {
                 if (currentFireMode.fireType == Weapon.FireType.Automatic)
                 {
@@ -222,7 +201,7 @@ public class Shooting : NetworkBehaviour
     void Cmd_ServerFireBullet(string bullet, List<int> damage, int bounces, float fireSpeed, int ammoSpent)
     {
         //Subtract from the ammo
-        playerWeapons[currentWeapon].ReduceCurrentAmmo(ammoSpent);
+        currentAmmo[currentWeapon] -= ammoSpent;
         //Fetch Bullet Prefab from Network Manager
         GameObject bulletPrefab = NetworkManager.singleton.spawnPrefabs.Find(bu => bu.name.Equals(bullet));
         //Summon the bullet
@@ -247,9 +226,19 @@ public class Shooting : NetworkBehaviour
     }
 
     [Command]
+    void Cmd_SetAmmos(int weapons)
+    {
+        currentAmmo.Clear();
+        for(int i = 0; i < weapons; i++)
+        {
+            currentAmmo.Add(0);
+        }
+    }
+
+    [Command]
     void Cmd_Reload(int weapon, int ammoCount)
     {
-        playerWeapons[weapon].SetCurrentAmmo(ammoCount);
+       currentAmmo[weapon] = ammoCount;
     }
 
     //Boolean that checks if a weapon has single-fired
