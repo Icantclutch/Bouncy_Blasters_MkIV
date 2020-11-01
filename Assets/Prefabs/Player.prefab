@@ -664,16 +664,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  currentAmmo: 0000000000000000
   eyes: {fileID: 4357171599887525653}
   currentWeapon: 0
   playerWeapons:
   - weapon: {fileID: 11400000, guid: 898c54f11012cc4428f3409180073d3f, type: 2}
     currentFiringMode: 1
-    currentAmmo: 100
     currentCooldown: 1
   - weapon: {fileID: 11400000, guid: 9b35180f2f1d02a4bbf668420a4a891c, type: 2}
     currentFiringMode: 1
-    currentAmmo: 100
     currentCooldown: 1
   currentlyFiring: 0
 --- !u!114 &4357171600822209691
@@ -884,9 +883,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1849fe1ad4a91541a744209e1ec400d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  teamNumber: 0
   maxSuitCharge: 100
   currentCharge: 0
-  playerTeamNumber: 0
 --- !u!114 &1858988357766041485
 MonoBehaviour:
   m_ObjectHideFlags: 0
