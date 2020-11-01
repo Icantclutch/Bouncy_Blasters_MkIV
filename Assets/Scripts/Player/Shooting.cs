@@ -40,7 +40,7 @@ public class Shooting : NetworkBehaviour
     [SyncVar]
     private Weapon.FireMode currentFireMode;
 
-    
+    [Client]
     private void Start()
     {
         myReference = GetComponent<PlayerReference>();
