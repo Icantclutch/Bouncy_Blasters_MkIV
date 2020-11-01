@@ -73,7 +73,7 @@ public class SteamLobby : MonoBehaviour
 
     public void JoinLobby()
     {
-        lobbies.Clear();
+        //lobbies.Clear();
         
         //Start coroutine to search for lobbies, starting with the most full lobbies
         UnityEngine.Debug.Log("Search for lobbies");
@@ -81,7 +81,8 @@ public class SteamLobby : MonoBehaviour
     }
     IEnumerator SearchForLobby()
     {
-        
+        lobbies.Clear();
+        lobbyDropDown.ClearOptions();
         //Search for lobbies by open slots, starting with 1 open slot
         for (int i = 1; i < networkManager.maxConnections; ++i)
         {
@@ -108,6 +109,23 @@ public class SteamLobby : MonoBehaviour
         }
 
     }
+
+    IEnumerator RefreshLobbyList()
+    {
+        lobbies.Clear();
+        lobbyDropDown.ClearOptions();
+        for (int i = 1; i < networkManager.maxConnections; ++i)
+        {
+
+            //Filter search for lobbies with only i open slots
+            //UnityEngine.Debug.Log(i + " open spaces");
+            SteamMatchmaking.AddRequestLobbyListFilterSlotsAvailable(i);
+
+            //Make a call request, OnLobbyMatchList() will be called when call is completed
+            lobbyMatchListCallResult.Set(SteamMatchmaking.RequestLobbyList());
+            yield return new WaitForSeconds(1);
+        }
+    }
     private void OnLobbyCreated(LobbyCreated_t callback)
     {
         //Re-enable button and do nothing else if Steam lobby failed to be made
@@ -123,6 +141,7 @@ public class SteamLobby : MonoBehaviour
         //Set the Steam lobby data that will be needed by other players in order to join
         SteamMatchmaking.SetLobbyData(new CSteamID(callback.m_ulSteamIDLobby), HostAddressKey, SteamUser.GetSteamID().ToString());
         SteamMatchmaking.SetLobbyData(new CSteamID(callback.m_ulSteamIDLobby), GameKey, GameName);
+        SteamMatchmaking.SetLobbyData(new CSteamID(callback.m_ulSteamIDLobby), "LobbyName", networkManager.onlineScene);
     }
 
     //Handles joining through the Steam interface
@@ -190,5 +209,18 @@ public class SteamLobby : MonoBehaviour
         lobbies.Add(lobby);
         if(lobbyDropDown)
             lobbyDropDown.AddOptions(new List<string> { lobby.lobbyName});
+    }
+
+    public void StartRefresh()
+    {
+        StartCoroutine(RefreshLobbyList());
+    }
+
+    public void JoinSelectedLobby()
+    {
+        if (lobbyDropDown)
+        {
+            SteamMatchmaking.JoinLobby(lobbies[lobbyDropDown.value].steamID);
+        }
     }
 }
