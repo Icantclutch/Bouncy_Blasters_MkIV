@@ -114,17 +114,17 @@ public class SteamLobby : MonoBehaviour
     {
         lobbies.Clear();
         lobbyDropDown.ClearOptions();
-        for (int i = 1; i < networkManager.maxConnections; ++i)
-        {
+        //for (int i = 1; i < networkManager.maxConnections; ++i)
+        //{
 
             //Filter search for lobbies with only i open slots
             //UnityEngine.Debug.Log(i + " open spaces");
-            SteamMatchmaking.AddRequestLobbyListFilterSlotsAvailable(i);
+            //SteamMatchmaking.AddRequestLobbyListFilterSlotsAvailable(i);
 
             //Make a call request, OnLobbyMatchList() will be called when call is completed
             lobbyMatchListCallResult.Set(SteamMatchmaking.RequestLobbyList());
             yield return new WaitForSeconds(1);
-        }
+        //}
     }
     private void OnLobbyCreated(LobbyCreated_t callback)
     {
