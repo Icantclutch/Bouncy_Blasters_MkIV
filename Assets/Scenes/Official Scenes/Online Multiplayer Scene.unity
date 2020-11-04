@@ -332,7 +332,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 725121374}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 767812343}
+        m_TargetAssemblyTypeName: SteamLobby, Mirror
+        m_MethodName: StartRefresh
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &725121374
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -371,6 +383,126 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 725121371}
   m_CullTransparentMesh: 0
+--- !u!1001 &767812342
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 74261901, guid: bf5bf063424b9564eb10b7894371b148, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 173
+      objectReference: {fileID: 0}
+    - target: {fileID: 74261901, guid: bf5bf063424b9564eb10b7894371b148, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -155
+      objectReference: {fileID: 0}
+    - target: {fileID: 403755327, guid: bf5bf063424b9564eb10b7894371b148, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1029891889, guid: bf5bf063424b9564eb10b7894371b148, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1179697113, guid: bf5bf063424b9564eb10b7894371b148, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 210
+      objectReference: {fileID: 0}
+    - target: {fileID: 1179697113, guid: bf5bf063424b9564eb10b7894371b148, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -155
+      objectReference: {fileID: 0}
+    - target: {fileID: 1794108972, guid: bf5bf063424b9564eb10b7894371b148, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -459
+      objectReference: {fileID: 0}
+    - target: {fileID: 1794108972, guid: bf5bf063424b9564eb10b7894371b148, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 96
+      objectReference: {fileID: 0}
+    - target: {fileID: 425590579435277465, guid: bf5bf063424b9564eb10b7894371b148, type: 3}
+      propertyPath: m_Name
+      value: NetworkManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 425590579435277476, guid: bf5bf063424b9564eb10b7894371b148, type: 3}
+      propertyPath: offlineScene
+      value: Assets/Scenes/Official Scenes/Online Multiplayer Scene.unity
+      objectReference: {fileID: 0}
+    - target: {fileID: 425590579435277477, guid: bf5bf063424b9564eb10b7894371b148, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.054829013
+      objectReference: {fileID: 0}
+    - target: {fileID: 425590579435277477, guid: bf5bf063424b9564eb10b7894371b148, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 14.621347
+      objectReference: {fileID: 0}
+    - target: {fileID: 425590579435277477, guid: bf5bf063424b9564eb10b7894371b148, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -11.976827
+      objectReference: {fileID: 0}
+    - target: {fileID: 425590579435277477, guid: bf5bf063424b9564eb10b7894371b148, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 425590579435277477, guid: bf5bf063424b9564eb10b7894371b148, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 425590579435277477, guid: bf5bf063424b9564eb10b7894371b148, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 425590579435277477, guid: bf5bf063424b9564eb10b7894371b148, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 425590579435277477, guid: bf5bf063424b9564eb10b7894371b148, type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 425590579435277477, guid: bf5bf063424b9564eb10b7894371b148, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 425590579435277477, guid: bf5bf063424b9564eb10b7894371b148, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 425590579435277477, guid: bf5bf063424b9564eb10b7894371b148, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 425590579435277479, guid: bf5bf063424b9564eb10b7894371b148, type: 3}
+      propertyPath: button
+      value: 
+      objectReference: {fileID: 1471421193}
+    - target: {fileID: 425590580625034966, guid: bf5bf063424b9564eb10b7894371b148, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 425590580670305786, guid: bf5bf063424b9564eb10b7894371b148, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 425590581227743585, guid: bf5bf063424b9564eb10b7894371b148, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: bf5bf063424b9564eb10b7894371b148, type: 3}
+--- !u!114 &767812343 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 425590579435277479, guid: bf5bf063424b9564eb10b7894371b148, type: 3}
+  m_PrefabInstance: {fileID: 767812342}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93b6afae28f1cd644afd3e983d423f77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &853846977
 GameObject:
   m_ObjectHideFlags: 0
@@ -728,6 +860,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1127167348}
   m_CullTransparentMesh: 0
+--- !u!1 &1471421193 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 425590580670305786, guid: bf5bf063424b9564eb10b7894371b148, type: 3}
+  m_PrefabInstance: {fileID: 767812342}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1479712099
 GameObject:
   m_ObjectHideFlags: 0
@@ -929,7 +1066,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1557486242}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 767812343}
+        m_TargetAssemblyTypeName: SteamLobby, Mirror
+        m_MethodName: JoinLobby
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1557486242
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1299,7 +1448,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1773925586}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 767812343}
+        m_TargetAssemblyTypeName: SteamLobby, Mirror
+        m_MethodName: HostPublicLobby
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1773925586
 MonoBehaviour:
   m_ObjectHideFlags: 0
