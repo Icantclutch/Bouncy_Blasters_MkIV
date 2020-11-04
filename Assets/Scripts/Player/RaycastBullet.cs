@@ -22,11 +22,11 @@ public class RaycastBullet : Bullet
     private float destroyLerp = 0;
 
     [Server]
-    public override void Initialize(List<int> damage, int bounces, float fireSpeed)
+    public override void Initialize(List<int> damage, int bounces, float fireSpeed, int playerId)
     {
         lineRenderer = GetComponent<LineRenderer>();
         Rpc_PlayerInit();
-        base.Initialize(damage, bounces, fireSpeed);
+        base.Initialize(damage, bounces, fireSpeed, playerId);
     }
 
     [ClientRpc]
@@ -41,7 +41,7 @@ public class RaycastBullet : Bullet
         if (lineRenderer.positionCount >= 2)
         {
             //Increase the lerp,
-            destroyLerp += (Time.deltaTime * bulletSpeed) / (Vector3.Distance(laserDestroyA, laserDestroyB) * 10);
+            destroyLerp += (Time.deltaTime * bulletSpeed) / (Vector3.Distance(laserDestroyA, laserDestroyB));
             if (destroyLerp > 1)
                 destroyLerp = 1;
             //Set the position of the first point
@@ -101,18 +101,15 @@ public class RaycastBullet : Bullet
                 //Check to see if it hit something
                 if (hit.transform.GetComponent<HitInteraction>())
                 {
-                    /*
+                    
                     //Send hit message
                     hit.transform.SendMessage("Hit", myShot, SendMessageOptions.DontRequireReceiver);
 
                     //If its an enemy, break
                     if (hit.transform.CompareTag("Player"))
                     {
-                        Debug.Log("Bullet has hit a player");
-                        hit.transform.GetComponent<PlayerHealth>().DealDamage(myShot.damage[myShot.numBounces]);
                         break;
                     }
-                    */
                 }
                 //Increase reflection count
                 myShot.numBounces++;

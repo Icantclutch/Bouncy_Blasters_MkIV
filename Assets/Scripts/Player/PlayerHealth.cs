@@ -1,20 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
+using System;
 
 public class PlayerHealth : HitInteraction
 {
     //The max charge of the player. This variable should not change in execution
     [SerializeField]
+    [SyncVar]
     private int maxSuitCharge = 100;
 
     //The current charge of the player. This variable will change based on the players charge
     [SerializeField]
+    [SyncVar]
     private int currentCharge;
-
-    //The team that the player is on
-    [SerializeField]
-    private int playerTeamNumber;
 
     //reference to ther scrips
     private PlayerReference myReference;
@@ -23,46 +23,60 @@ public class PlayerHealth : HitInteraction
     void Start()
     {
         myReference = GetComponent<PlayerReference>();
-        currentCharge = 0;
+        SetCharge(0);
+        AssignTeam(0);
     }
 
-    // Update is called once per frame
+    [Server]
     void Update()
     {
         //charge check to see if the player has reached the damage threshold for being teleported.
         if (currentCharge >= maxSuitCharge)
         {
-            TeleportPlayer();
+            Respawn();
         }
         
     }
 
-    //Public 
-    public void DealDamage(int damage)
-    {
-        currentCharge += damage;
-        Debug.Log("Player was dealt damage: " + damage + ", and now has health of: " + currentCharge);
-    }
-
-    private void TeleportPlayer()
+    [Server]
+    //Holds all the servserside calls for respawning the player, 
+    private void Respawn()
     {
         currentCharge = 0;
+
+        //Teleport the player
+        Rpc_TeleportPlayer();
+    }
+
+    [TargetRpc]
+    private void Rpc_TeleportPlayer()
+    {
         //TODO Call to game controller to teleport player to designated spawn point
         Debug.Log("Player has died, Teleporting to respawn room (not implemented)");
         PlayerSpawnSystem.SpawnPlayer(gameObject);
     }
 
-    public void AssignTeam(int teamNum) 
-    {
-        playerTeamNumber = teamNum;
-    }
-    public int GetTeam()
-    {
-        return playerTeamNumber;
-    }
+    [Server]
     public override void Hit(Bullet.Shot shot)
     {
-        
+        //Get the source object
+        int shotTeam = NetworkIdentity.spawned[Convert.ToUInt32(shot.playerID)].GetComponent<HitInteraction>().GetTeam();
+        int myTeam = this.GetTeam();
+
+        //Check if the source is not on your team
+        if (CheckTeamConflict(shotTeam, myTeam) && Convert.ToUInt32(shot.playerID) != GetComponent<NetworkIdentity>().netId)
+        {
+            //Deal damage
+            currentCharge += shot.damage[shot.numBounces];
+        }
+
+    }
+
+    //Sets the players charge to a certain value
+    [Server]
+    public void SetCharge(int value)
+    {
+        currentCharge = value;
     }
 
     //Add and remove player from the SpawnSystem

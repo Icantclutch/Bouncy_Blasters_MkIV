@@ -14,7 +14,6 @@ public class Shooting : NetworkBehaviour
         //The current fire mode, used only if the weapon has a mode-swap key
         public int currentFiringMode = 0;
         //the current amount of ammo the weapon has
-        [SyncVar]
         public int currentAmmo = 0;
         //the current cooldown on firing
         public float currentCooldown = 0;
@@ -42,6 +41,14 @@ public class Shooting : NetworkBehaviour
     private void Start()
     {
         myReference = GetComponent<PlayerReference>();
+
+        if (!hasAuthority)
+            return;
+
+        for(int i = 0; i < playerWeapons.Count; i++)
+        {
+            playerWeapons[i].currentAmmo = playerWeapons[i].weapon.ammoCount;
+        }
     }
 
     // Update is called once per frame
@@ -163,7 +170,7 @@ public class Shooting : NetworkBehaviour
         currentlyFiring = true;
 
         //Improve once animations are implemented
-        Cmd_Reload();
+        playerWeapons[currentWeapon].currentAmmo = playerWeapons[currentWeapon].weapon.ammoCount;
 
         //Disable firing when reloading is done
         currentlyFiring = false;
@@ -174,12 +181,11 @@ public class Shooting : NetworkBehaviour
     {
         //We are currently firing
         currentlyFiring = true;
-        //Subtract from the ammo
-        playerWeapons[weaponSlot].currentAmmo -= currentFireMode.ammoUsedEachShot;
         //Fire each shot
         for (int i = 0; i < currentFireMode.shotsFiredAtOnce; i++)
         {
-            Debug.Log(currentFireMode.maxBounces);
+            //Subtract from the ammo
+            playerWeapons[currentWeapon].currentAmmo -= currentFireMode.ammoUsedEachShot;
             //Fire bullet over server
             Cmd_ServerFireBullet(currentFireMode.bulletPrefabName, currentFireMode.bulletDamage, currentFireMode.maxBounces, currentFireMode.fireSpeed);
             //Wait
@@ -199,8 +205,10 @@ public class Shooting : NetworkBehaviour
         GameObject b = Instantiate(bulletPrefab, eyes.transform.position, eyes.transform.rotation);
         //Spawn on server
         NetworkServer.Spawn(b);
+        //Get the player's id
+        int playerID = Convert.ToInt32(GetComponent<NetworkIdentity>().netId);
         //Assign it its properties
-        b.GetComponent<Bullet>().Initialize(damage, bounces, fireSpeed);
+        b.GetComponent<Bullet>().Initialize(damage, bounces, fireSpeed, playerID);
         //Play the firing audio
         //GetComponent<AudioSource>().PlayOneShot(fireMode.firingSound, .5f);
     }
@@ -212,12 +220,6 @@ public class Shooting : NetworkBehaviour
         //loop around if at the end
         if (currentWeapon >= playerWeapons.Count)
             currentWeapon = 0;
-    }
-
-    [Command]
-    void Cmd_Reload()
-    {
-        playerWeapons[currentWeapon].currentAmmo = playerWeapons[currentWeapon].weapon.ammoCount;
     }
 
     //Boolean that checks if a weapon has single-fired

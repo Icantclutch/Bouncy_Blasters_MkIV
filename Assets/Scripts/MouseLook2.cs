@@ -55,9 +55,12 @@ public class MouseLook2 : NetworkBehaviour
             float xRot = Input.GetAxis(Keybinds.MouseX) * sens;
             charTargetRot *= Quaternion.Euler(0f, xRot, 0f);
             camTargetRot *= Quaternion.Euler(-yRot, 0f, 0f);
-
+            
+            camTargetRot.x = Mathf.Clamp(camTargetRot.x, -.7f, .7f);
+            camTargetRot.w = Mathf.Clamp(camTargetRot.w, .6f, .7f);
             gameObject.transform.localRotation = charTargetRot;
             eyes.transform.localRotation = camTargetRot;
+
 
         }
         else
