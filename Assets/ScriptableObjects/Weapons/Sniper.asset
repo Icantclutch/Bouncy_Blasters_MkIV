@@ -10,17 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 051091bf8e78303498016bff5eb44b1c, type: 3}
-  m_Name: Marksmen Blaster
+  m_Name: Sniper
   m_EditorClassIdentifier: 
-  name: Marksman Blaster
-  ammoCount: 10
+  name: Beam Rifle
+  ammoCount: 3
+  reserveAmmo: 9
   modeSwapKey: 0
   fireModes:
   - key: 1
     fireType: 0
     shotsFiredAtOnce: 1
     ammoUsedEachShot: 1
-    bulletDamage: 0e0000002d000000550000006900000091000000
+    bulletDamage: 14000000320000006400000096000000c8000000
     fireSpeed: 1
-    fireRate: 250
-    bulletPrefabName: 
+    fireRate: 20
+    bulletPrefabName: LaserBullet

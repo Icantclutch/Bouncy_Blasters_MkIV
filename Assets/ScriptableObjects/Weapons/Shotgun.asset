@@ -13,14 +13,15 @@ MonoBehaviour:
   m_Name: Shotgun
   m_EditorClassIdentifier: 
   name: Shotgun
-  ammoCount: 25
+  ammoCount: 5
+  reserveAmmo: 15
   modeSwapKey: 0
   fireModes:
   - key: 1
     fireType: 0
-    shotsFiredAtOnce: 5
-    ammoUsedEachShot: 5
+    shotsFiredAtOnce: 1
+    ammoUsedEachShot: 1
     bulletDamage: 040000000f000000
     fireSpeed: 1
     fireRate: 50
-    bulletPrefabName: 
+    bulletPrefabName: LaserShotgunBullet
