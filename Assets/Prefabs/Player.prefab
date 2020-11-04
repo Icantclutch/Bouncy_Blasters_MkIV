@@ -60,13 +60,13 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 10
+  orthographic size: 15
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingPath: -1
-  m_TargetTexture: {fileID: 8400000, guid: 63025bb359fa5634eb689ab3b6ad79b9, type: 2}
+  m_TargetTexture: {fileID: 8400000, guid: 9e1ac789e857fce49976fdf7f2744f8a, type: 2}
   m_TargetDisplay: 1
   m_TargetEye: 3
   m_HDR: 0
@@ -664,15 +664,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  currentAmmo: 0500000005000000
   eyes: {fileID: 4357171599887525653}
   currentWeapon: 0
   playerWeapons:
   - weapon: {fileID: 11400000, guid: 898c54f11012cc4428f3409180073d3f, type: 2}
     currentFiringMode: 1
+    currentAmmo: 0
     currentCooldown: 1
   - weapon: {fileID: 11400000, guid: 9b35180f2f1d02a4bbf668420a4a891c, type: 2}
     currentFiringMode: 1
+    currentAmmo: 0
     currentCooldown: 1
   currentlyFiring: 0
 --- !u!114 &4357171600822209691
@@ -994,7 +995,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 8400000, guid: 63025bb359fa5634eb689ab3b6ad79b9, type: 2}
+  m_Texture: {fileID: 8400000, guid: 9e1ac789e857fce49976fdf7f2744f8a, type: 2}
   m_UVRect:
     serializedVersion: 2
     x: 0
