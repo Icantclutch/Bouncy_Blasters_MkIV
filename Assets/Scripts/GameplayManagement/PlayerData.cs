@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
 
@@ -35,6 +36,12 @@ public class PlayerData
     public void AddPlayerScore(int score)
     {
         playerScore += score;
+        playerTeam.UpdateTeamScore();
+    }
+
+    public void SetPlayerScore(int score)
+    {
+        playerScore = score;
         playerTeam.UpdateTeamScore();
     }
 }
