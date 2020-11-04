@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Rifle
   m_EditorClassIdentifier: 
   name: Rifle
-  ammoCount: 30
+  ammoCount: 20
+  reserveAmmo: 60
   modeSwapKey: 0
   fireModes:
   - key: 1
@@ -22,5 +23,5 @@ MonoBehaviour:
     ammoUsedEachShot: 1
     bulletDamage: 0b0000001e0000002d0000004b000000
     fireSpeed: 1
-    fireRate: 600
+    fireRate: 450
     bulletPrefabName: LaserBullet

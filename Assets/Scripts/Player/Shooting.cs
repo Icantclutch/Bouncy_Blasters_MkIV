@@ -15,6 +15,8 @@ public class Shooting : NetworkBehaviour
         public int currentFiringMode = 0;
         //the current amount of ammo the weapon has
         public int currentAmmo = 0;
+        //the current amount of ammo the weapon has in reserve
+        public int currentReserve = 0;
         //the current cooldown on firing
         public float currentCooldown = 0;
     }
@@ -48,6 +50,7 @@ public class Shooting : NetworkBehaviour
         for(int i = 0; i < playerWeapons.Count; i++)
         {
             playerWeapons[i].currentAmmo = playerWeapons[i].weapon.ammoCount;
+            playerWeapons[i].currentReserve = playerWeapons[i].weapon.reserveAmmo;
         }
     }
 
@@ -87,8 +90,8 @@ public class Shooting : NetworkBehaviour
                 NormalWeaponFire();
             }
 
-            //Reload
-            if (Input.GetKeyDown(Keybinds.Reload))
+            //Reload if button is pressed and there is any reserve ammo
+            if (Input.GetKeyDown(Keybinds.Reload) && playerWeapons[currentWeapon].currentReserve > 0)
             {
                 StartCoroutine(Reload());
             }
@@ -170,7 +173,19 @@ public class Shooting : NetworkBehaviour
         currentlyFiring = true;
 
         //Improve once animations are implemented
-        playerWeapons[currentWeapon].currentAmmo = playerWeapons[currentWeapon].weapon.ammoCount;
+        //For loop repeating a number of times equal to the missing ammo.
+        for(int i = playerWeapons[currentWeapon].currentAmmo; i < playerWeapons[currentWeapon].weapon.ammoCount; i++)
+        {
+            //If any reserve ammo is left, reload by one
+            if(playerWeapons[currentWeapon].currentReserve > 0)
+            {
+                playerWeapons[currentWeapon].currentAmmo++;
+                playerWeapons[currentWeapon].currentReserve--;
+            } else //Break if no ammo left
+            {
+                break;
+            }
+        }
 
         //Disable firing when reloading is done
         currentlyFiring = false;

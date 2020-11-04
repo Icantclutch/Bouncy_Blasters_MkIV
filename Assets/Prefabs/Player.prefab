@@ -66,7 +66,7 @@ Camera:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingPath: -1
-  m_TargetTexture: {fileID: 8400000, guid: 63025bb359fa5634eb689ab3b6ad79b9, type: 2}
+  m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 1
   m_TargetEye: 3
   m_HDR: 0
@@ -664,15 +664,38 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  currentAmmo: 0500000005000000
   eyes: {fileID: 4357171599887525653}
   currentWeapon: 0
   playerWeapons:
   - weapon: {fileID: 11400000, guid: 898c54f11012cc4428f3409180073d3f, type: 2}
     currentFiringMode: 1
+    currentAmmo: 0
+    currentReserve: 0
     currentCooldown: 1
   - weapon: {fileID: 11400000, guid: 9b35180f2f1d02a4bbf668420a4a891c, type: 2}
     currentFiringMode: 1
+    currentAmmo: 0
+    currentReserve: 0
+    currentCooldown: 1
+  - weapon: {fileID: 11400000, guid: 32108748ebb75e1429209511b5126ea0, type: 2}
+    currentFiringMode: 1
+    currentAmmo: 0
+    currentReserve: 0
+    currentCooldown: 1
+  - weapon: {fileID: 11400000, guid: 993d167284fdeb043a71f9b88767c988, type: 2}
+    currentFiringMode: 1
+    currentAmmo: 0
+    currentReserve: 0
+    currentCooldown: 1
+  - weapon: {fileID: 11400000, guid: 1518e378af3b8224faa2847972dcf40e, type: 2}
+    currentFiringMode: 1
+    currentAmmo: 0
+    currentReserve: 0
+    currentCooldown: 1
+  - weapon: {fileID: 11400000, guid: 4b0e05704a033844a942d3787ec11a08, type: 2}
+    currentFiringMode: 1
+    currentAmmo: 0
+    currentReserve: 0
     currentCooldown: 1
   currentlyFiring: 0
 --- !u!114 &4357171600822209691
@@ -994,7 +1017,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 8400000, guid: 63025bb359fa5634eb689ab3b6ad79b9, type: 2}
+  m_Texture: {fileID: 0}
   m_UVRect:
     serializedVersion: 2
     x: 0
