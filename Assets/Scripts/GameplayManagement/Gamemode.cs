@@ -22,22 +22,7 @@ public class Gamemode
     
     }
 
-    //Functions that act as a single Update() call for a given gamemode
-    /* 
-   public void GameModeName()
-   {
-      The operation of the gamemode goes here
-   }
-   */
-    public void TDM()
-    {
-        Debug.Log("TDM");
-    }
-
-    public void Hardpt()
-    {
-        Debug.Log("HardPt");
-    }
+   
  
 
 }
