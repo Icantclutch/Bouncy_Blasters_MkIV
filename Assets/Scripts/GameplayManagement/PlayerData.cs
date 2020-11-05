@@ -7,7 +7,7 @@ using UnityEngine.SocialPlatforms.Impl;
 
 public class PlayerData : NetworkBehaviour
 {
-    public string playerName;
+    public string playerName = "";
     public int playerNum;
 
     public int playerElims;
