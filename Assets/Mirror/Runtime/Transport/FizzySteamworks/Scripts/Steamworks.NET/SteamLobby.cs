@@ -9,6 +9,11 @@ using UnityEngine.UI;
 
 public class SteamLobby : MonoBehaviour
 {
+    public struct Player
+    {
+        public CSteamID steamID;
+        public string playerName;
+    };
     public struct Lobby
     {
         public CSteamID steamID;
@@ -16,6 +21,7 @@ public class SteamLobby : MonoBehaviour
         public string gamemode;
         public int numOfPlayers;
         public int playerLimit;
+        //public List<Player> players;
         //look into if we can get info
         public int ping;
     };
@@ -34,6 +40,8 @@ public class SteamLobby : MonoBehaviour
     private const string GameName = "BouncyBlasters";
 
     private NetworkManager networkManager;
+    public static CSteamID lobbyId;
+
 
     private List<Lobby> lobbies = new List<Lobby>();
 
@@ -135,13 +143,15 @@ public class SteamLobby : MonoBehaviour
             return;
         }
 
+        lobbyId = new CSteamID(callback.m_ulSteamIDLobby);
+
         //Start the host through Mirror 
         networkManager.StartHost();
         
         //Set the Steam lobby data that will be needed by other players in order to join
-        SteamMatchmaking.SetLobbyData(new CSteamID(callback.m_ulSteamIDLobby), HostAddressKey, SteamUser.GetSteamID().ToString());
-        SteamMatchmaking.SetLobbyData(new CSteamID(callback.m_ulSteamIDLobby), GameKey, GameName);
-        SteamMatchmaking.SetLobbyData(new CSteamID(callback.m_ulSteamIDLobby), "LobbyName", networkManager.onlineScene);
+        SteamMatchmaking.SetLobbyData(lobbyId, HostAddressKey, SteamUser.GetSteamID().ToString());
+        SteamMatchmaking.SetLobbyData(lobbyId, GameKey, GameName);
+        SteamMatchmaking.SetLobbyData(lobbyId, "LobbyName", networkManager.onlineScene);
     }
 
     //Handles joining through the Steam interface
@@ -218,7 +228,7 @@ public class SteamLobby : MonoBehaviour
 
     public void JoinSelectedLobby()
     {
-        if (lobbyDropDown)
+        if (lobbyDropDown && lobbies.Count > 0)
         {
             SteamMatchmaking.JoinLobby(lobbies[lobbyDropDown.value].steamID);
         }

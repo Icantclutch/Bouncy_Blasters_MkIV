@@ -16,10 +16,10 @@ public class PlayerData
 
     public int playerScore;
 
-    public PlayerData(Team team)
+    public PlayerData(Team team, string name = "Name")
     {
         playerTeam = team;
-        playerName = "Generic Player Name";
+        playerName = name;
         playerElims = 0;
         playerDeaths = 0;
         playerScore = 0;
