@@ -1,10 +1,11 @@
-﻿using System.Collections;
+﻿using Mirror;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
 
-public class PlayerData
+public class PlayerData : NetworkBehaviour
 {
     public string playerName;
     public int playerNum;

@@ -7,6 +7,7 @@ public class LobbyManager : NetworkBehaviour
 {
     public List<PlayerData> players;
     public Gamemode gamemode;
+    public List<Team> teams;
 
     private NetworkManager networkManager;
 
@@ -45,6 +46,10 @@ public class LobbyManager : NetworkBehaviour
         {
             //To-do:
             //Set up components needed for gamemode
+            //Create Gamemode
+            //Create teams
+            //Setup Game Management
+
             //Change scene
             //SpawnPlayers
         }
