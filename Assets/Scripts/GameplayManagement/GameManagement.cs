@@ -142,7 +142,7 @@ public class GameManagement : MonoBehaviour
       The operation of the gamemode goes here
    }
    */
-    public void TDM()
+    private void TDM()
     {
         for(int i = 0; i < playerList.Count; i++)
         {
@@ -151,7 +151,7 @@ public class GameManagement : MonoBehaviour
 
     }
 
-    public void Hardpt()
+    private void Hardpt()
     {
         Debug.Log("HardPt");
     }
