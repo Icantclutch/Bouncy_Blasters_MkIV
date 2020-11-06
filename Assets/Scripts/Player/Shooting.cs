@@ -235,6 +235,9 @@ public class Shooting : NetworkBehaviour
         //Fire each shot
         for (int i = 0; i < currentFireMode.shotsFiredAtOnce; i++)
         {
+            //Play audio of firing
+            GetComponent<AudioSource>().PlayOneShot(GetComponent<AudioSource>().clip);
+
             //Subtract from the ammo
             playerWeapons[currentWeapon].currentAmmo -= currentFireMode.ammoUsedEachShot;
             //Fire bullet over server
