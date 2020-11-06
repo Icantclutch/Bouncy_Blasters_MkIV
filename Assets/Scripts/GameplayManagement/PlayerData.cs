@@ -14,12 +14,14 @@ public class PlayerData : NetworkBehaviour
     public int playerDeaths;
 
     public Team playerTeam;
+    public int team;
 
     public int playerScore;
 
-    public PlayerData(Team team, string name = "Name")
+    public PlayerData(Team team, int teamNum = 0, string name = "Name")
     {
         playerTeam = team;
+        this.team = teamNum;
         playerName = name;
         playerElims = 0;
         playerDeaths = 0;

@@ -5,13 +5,17 @@ using Mirror;
 
 public class LobbyManager : NetworkBehaviour
 {
-    public List<PlayerData> players;
-    public Gamemode gamemode;
-    public List<Team> teams;
+    private List<PlayerData> players;
+    private Gamemode gamemode;
+    private Team teamA, teamB;
+    
 
     private NetworkManager networkManager;
 
     public int minPlayersNeeded = 2;
+    public string mapName = "";
+
+    public GameManagement gameManager;
     // Start is called before the first frame update
     void Start()
     {
@@ -46,12 +50,34 @@ public class LobbyManager : NetworkBehaviour
         {
             //To-do:
             //Set up components needed for gamemode
-            //Create Gamemode
+            //Create Gamemode: default of DeathMatch temporarily
+            gamemode = new Gamemode(0, 30, 0, 420);
             //Create teams
+            List<PlayerData> teamPlayers = new List<PlayerData>();
+            foreach (PlayerData player in players)
+            {
+                if(player.team == 1)
+                {
+                    teamPlayers.Add(player);
+                }
+            }
+            teamA = new Team("Nova",teamPlayers);
+            teamPlayers.Clear();
+            foreach (PlayerData player in players)
+            {
+                if (player.team == 2)
+                {
+                    teamPlayers.Add(player);
+                }
+            }
+            teamB = new Team("Super Nova", teamPlayers);
             //Setup Game Management
+            gameManager.SetUpMatch(gamemode, teamA, teamB);
 
             //Change scene
+            networkManager.ServerChangeScene(mapName);
             //SpawnPlayers
+
         }
     }
 
