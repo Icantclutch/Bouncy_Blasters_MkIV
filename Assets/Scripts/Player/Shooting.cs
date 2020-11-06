@@ -185,7 +185,8 @@ public class Shooting : NetworkBehaviour
     }
 
     //Fully Reload and recharge for when the player respawns
-    public void FullReload()
+    [ClientRpc]
+    public void Rpc_FullReload()
     {
         for (int i = 0; i < playerWeapons.Count; i++)
         {
