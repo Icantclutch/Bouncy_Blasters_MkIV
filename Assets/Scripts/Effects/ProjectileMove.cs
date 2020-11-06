@@ -37,11 +37,8 @@ public class ProjectileMove : MonoBehaviour
             Quaternion rot = Quaternion.FromToRotation(Vector3.up, contact.normal);
             Vector3 pos = contact.point;
             Instantiate(explosionPrefab, pos, rot);
-           // explosionPrefab.transform.Find("Particle").transform.localRotation = (Quaternion.FromToRotation(Vector3.Reflect(SavedPos, contact.normal), Vector3.up) * rot);
 
             Destroy(gameObject);
-            //gameObject.transform.localRotation = Quaternion.FromToRotation(Vector3.Reflect(gameObject.transform.position, Vector3.up), contact.normal);
-            // vfx.transform.localRotation = rotateToMouse.GetRotation();
         }
     }
 }
