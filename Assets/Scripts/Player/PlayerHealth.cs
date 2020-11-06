@@ -68,6 +68,11 @@ public class PlayerHealth : HitInteraction
         {
             //Deal damage
             currentCharge += shot.damage[shot.numBounces];
+            if(currentCharge >= maxSuitCharge)
+            {
+                NetworkIdentity.spawned[Convert.ToUInt32(shot.playerID)].GetComponent<PlayerData>().AddPlayerElim();
+                GetComponent<PlayerData>().AddPlayerDeaths();
+            }
         }
 
     }

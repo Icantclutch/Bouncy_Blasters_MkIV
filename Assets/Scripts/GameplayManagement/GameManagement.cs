@@ -31,6 +31,7 @@ public class GameManagement : MonoBehaviour
     void Start()
     {
         _gamePaused = true;
+        SetUpMatch(new Gamemode(0, 30, 0, 420), new Team("Nova", new List<PlayerData>()), new Team("Super Nova", new List<PlayerData>()));
   
     }
    
@@ -145,7 +146,18 @@ public class GameManagement : MonoBehaviour
         _matchTimer = (float)matchGamemode.matchTime;
     }
 
-
+    public void JoinTeam(PlayerData player)
+    {
+        playerList.Add(player);
+        if(player.team == 1)
+        {
+            teamA.playerList.Add(player);
+        }
+        else if (player.team == 2)
+        {
+            teamB.playerList.Add(player);
+        }
+    }
     //Functions that act as a single Update() call for a given gamemode
     /* 
    public void GameModeName()
