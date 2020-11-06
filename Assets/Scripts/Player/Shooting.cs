@@ -34,6 +34,7 @@ public class Shooting : NetworkBehaviour
     [SyncVar]
     public bool currentlyFiring = false;
 
+    public bool active = false;
     //Player reference
     private PlayerReference myReference;
 
@@ -58,7 +59,7 @@ public class Shooting : NetworkBehaviour
     [Client]
     void Update()
     {
-        if (!hasAuthority)
+        if (!hasAuthority || !active)
             return;
         //currentProjectile = activeFireMode.bulletPrefab;
 

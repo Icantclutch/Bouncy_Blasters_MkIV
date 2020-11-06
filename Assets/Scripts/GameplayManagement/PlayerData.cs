@@ -61,8 +61,9 @@ public class PlayerData : NetworkBehaviour
     [ClientRpc]
     public void RpcSpawnPlayer()
     {
-        transform.Find("Player").gameObject.SetActive(true);
+        //transform.Find("Player").gameObject.SetActive(true);
         GetComponent<Shooting>().enabled = true;
+        GetComponent<Shooting>().active = true;
         GetComponent<PlayerMovement>().enabled = true;
         GetComponent<MouseLook2>().enabled = true;
         GetComponent<PlayerReference>().enabled = true;
