@@ -46,10 +46,16 @@ public class PlayerHealth : HitInteraction
     private void Respawn()
     {
         currentCharge = 0;
-        GetComponent<AudioSource>().PlayOneShot(_deathClip, .5f);
-        GetComponent<Shooting>().Rpc_FullReload();
+        Rpc_DeathSounds();
         //Teleport the player
         Rpc_TeleportPlayer();
+    }
+
+    [ClientRpc]
+    private void Rpc_DeathSounds()
+    {
+        GetComponent<AudioSource>().PlayOneShot(_deathClip, .5f);
+        GetComponent<Shooting>().Rpc_FullReload();
     }
 
     [TargetRpc]
