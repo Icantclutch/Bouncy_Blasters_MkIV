@@ -64,7 +64,7 @@ public class PlayerHealth : HitInteraction
         int myTeam = this.GetTeam();
 
         //Check if the source is not on your team
-        if (CheckTeamConflict(shotTeam, myTeam) && Convert.ToUInt32(shot.playerID) != GetComponent<NetworkIdentity>().netId)
+        if (CheckTeamConflict(shotTeam, myTeam))// && Convert.ToUInt32(shot.playerID) != GetComponent<NetworkIdentity>().netId)
         {
             //Deal damage
             currentCharge += shot.damage[shot.numBounces];
