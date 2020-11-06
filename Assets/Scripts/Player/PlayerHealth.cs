@@ -16,6 +16,9 @@ public class PlayerHealth : HitInteraction
     [SyncVar]
     private int currentCharge;
 
+    [SerializeField]
+    private AudioClip _deathClip;
+
     //reference to ther scrips
     private PlayerReference myReference;
 
@@ -43,6 +46,7 @@ public class PlayerHealth : HitInteraction
     private void Respawn()
     {
         currentCharge = 0;
+        GetComponent<AudioSource>().PlayOneShot(_deathClip, .5f);
         GetComponent<Shooting>().Rpc_FullReload();
         //Teleport the player
         Rpc_TeleportPlayer();
@@ -68,6 +72,11 @@ public class PlayerHealth : HitInteraction
         {
             //Deal damage
             currentCharge += shot.damage[shot.numBounces];
+            if(currentCharge >= maxSuitCharge)
+            {
+                NetworkIdentity.spawned[Convert.ToUInt32(shot.playerID)].GetComponent<PlayerData>().AddPlayerElim();
+                GetComponent<PlayerData>().AddPlayerDeaths();
+            }
         }
 
     }
