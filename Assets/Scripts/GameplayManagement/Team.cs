@@ -11,11 +11,15 @@ public class Team
 
     public List<PlayerData> playerList;
 
-    public Team(string name, int score, List<PlayerData> players)
+    public Team(string name, List<PlayerData> players,  int score = 0)
     {
         teamName = name;
         teamScore = score;
         playerList = players;
+        foreach(PlayerData player in playerList)
+        {
+            player.playerTeam = this;
+        }
     }
 
 

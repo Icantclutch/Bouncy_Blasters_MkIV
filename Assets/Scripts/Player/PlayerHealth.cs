@@ -79,6 +79,11 @@ public class PlayerHealth : HitInteraction
         currentCharge = value;
     }
 
+    public int GetCharge()
+    {
+        return currentCharge;
+    }
+
     //Add and remove player from the SpawnSystem
     private void Awake()
     {

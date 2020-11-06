@@ -26,6 +26,8 @@ public class Weapon : ScriptableObject
     public string name;
     //The amount of ammo in the gun
     public int ammoCount;
+    //The amount of ammo kept in reserve
+    public int reserveAmmo;
     //button used to swap between fire modes, optional
     public FireKey modeSwapKey;
     //List of fire modes

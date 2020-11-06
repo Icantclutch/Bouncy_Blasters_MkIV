@@ -7,6 +7,8 @@ public class GameManagement : MonoBehaviour
 {
     public Team teamA;
     public Team teamB;
+
+    private List<PlayerData> playerList;
       
     public Gamemode matchGamemode;
     
@@ -35,9 +37,13 @@ public class GameManagement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(matchGamemode != null)
+        if(matchGamemode == null)
         {
             //Allow the match to start
+            _gamePaused = true;
+        }
+        else
+        {
             _gamePaused = false;
         }
 
@@ -50,18 +56,20 @@ public class GameManagement : MonoBehaviour
             //Execute the gamemode specific instructions
             gamemodeExecution();
 
+            //Printing match score
+            InvokeRepeating("DebugTeamScore", 5f, 5f);
+
             //Does a Score and timer check to see if there is a winner
             CheckMatchEnd();
-
-
-
-
         }
-       
-       
-
-
     }
+
+    private void DebugTeamScore()
+    {
+        Debug.Log("Team A Score: " + teamA.teamScore);
+        Debug.Log("Team B Score: " + teamB.teamScore);
+    }
+
 
     //Function for checking if the match should end
     private void CheckMatchEnd()
@@ -107,23 +115,55 @@ public class GameManagement : MonoBehaviour
         _gamePaused = true;
     }
 
+    //Function to be called that sets up the match. THE USE OF THIS FUNCTION MAY CHANGE DEPENDING ON HOW THE MATCH IS LOADED
     public void SetUpMatch(Gamemode game, Team a, Team b)
     {
         matchGamemode = game;
         teamA = a;
         teamB = b;
+        for (int i = 0; i < teamA.playerList.Count; i++)
+        {
+            playerList.Add(teamA.playerList[i]);
+        }
+        for (int i = 0; i < teamB.playerList.Count; i++)
+        {
+            playerList.Add(teamB.playerList[i]);
+        }
+
 
         switch (matchGamemode.selectedGameMode)
         {
             case 0:
-                gamemodeExecution = matchGamemode.TDM;
+                gamemodeExecution = TDM;
                 break;
             case 1:
-                gamemodeExecution = matchGamemode.Hardpt;
+                gamemodeExecution = Hardpt;
                 break;
         }
 
 
         _matchTimer = (float)matchGamemode.matchTime;
+    }
+
+
+    //Functions that act as a single Update() call for a given gamemode
+    /* 
+   public void GameModeName()
+   {
+      The operation of the gamemode goes here
+   }
+   */
+    private void TDM()
+    {
+        for(int i = 0; i < playerList.Count; i++)
+        {
+            playerList[i].SetPlayerScore(playerList[i].playerElims);
+        }
+
+    }
+
+    private void Hardpt()
+    {
+        Debug.Log("HardPt");
     }
 }

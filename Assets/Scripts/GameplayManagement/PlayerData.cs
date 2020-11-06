@@ -1,29 +1,74 @@
-﻿using System.Collections;
+﻿using Mirror;
+using System;
+using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
 
-public class PlayerData
+public class PlayerData : NetworkBehaviour
 {
-    public string playerName;
+    public string playerName = "";
     public int playerNum;
 
     public int playerElims;
     public int playerDeaths;
-
+    [NonSerialized]
     public Team playerTeam;
+    public int team;
 
     public int playerScore;
 
-    public PlayerData(Team team)
+    private LobbyManager _lobbyManager;
+    private bool inLobby = false;
+    /*
+    public PlayerData(int teamNum = 0, string name = "Name")
     {
-        playerTeam = team;
-        playerName = "Generic Player Name";
+        this.team = teamNum;
+        playerName = name;
         playerElims = 0;
         playerDeaths = 0;
         playerScore = 0;
+    }*/
+    private void Start()
+    {
+        //DontDestroyOnLoad(this.gameObject);
+    }
+    void Update()
+    {
+        if (!_lobbyManager)
+        {
+            _lobbyManager = GameObject.FindGameObjectWithTag("Management").GetComponent<LobbyManager>();
+        }
+        else
+        {
+            if (!inLobby)
+            {
+                //_lobbyManager.AddPlayer(this);
+                CmdJoinLobby();
+                inLobby = true;
+            }
+        }
+
     }
 
+    [Command]
+    private void CmdJoinLobby()
+    {
+        _lobbyManager.AddPlayer(this);
+    }
+
+    [ClientRpc]
+    public void RpcSpawnPlayer()
+    {
+        //transform.Find("Player").gameObject.SetActive(true);
+        GetComponent<Shooting>().enabled = true;
+        GetComponent<Shooting>().active = true;
+        GetComponent<PlayerMovement>().enabled = true;
+        GetComponent<MouseLook2>().enabled = true;
+        GetComponent<PlayerReference>().enabled = true;
+        PlayerSpawnSystem.SpawnPlayer(gameObject);
+    }
     public void AddPlayerElim()
     {
         playerElims += 1;
@@ -35,6 +80,12 @@ public class PlayerData
     public void AddPlayerScore(int score)
     {
         playerScore += score;
+        playerTeam.UpdateTeamScore();
+    }
+
+    public void SetPlayerScore(int score)
+    {
+        playerScore = score;
         playerTeam.UpdateTeamScore();
     }
 }

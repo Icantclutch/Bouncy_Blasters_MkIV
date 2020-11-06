@@ -428,12 +428,20 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 425590579435277465, guid: bf5bf063424b9564eb10b7894371b148, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 425590579435277476, guid: bf5bf063424b9564eb10b7894371b148, type: 3}
       propertyPath: offlineScene
       value: Assets/Scenes/Official Scenes/Online Multiplayer Scene.unity
       objectReference: {fileID: 0}
+    - target: {fileID: 425590579435277476, guid: bf5bf063424b9564eb10b7894371b148, type: 3}
+      propertyPath: onlineScene
+      value: Assets/Scenes/Official Scenes/OnlineLobby Scene.unity
+      objectReference: {fileID: 0}
+    - target: {fileID: 425590579435277476, guid: bf5bf063424b9564eb10b7894371b148, type: 3}
+      propertyPath: playerPrefab
+      value: 
+      objectReference: {fileID: 4357171600822209692, guid: 15f26efee5296cf4e9e81750cb80f7b1, type: 3}
     - target: {fileID: 425590579435277477, guid: bf5bf063424b9564eb10b7894371b148, type: 3}
       propertyPath: m_LocalPosition.x
       value: 210
@@ -493,6 +501,10 @@ PrefabInstance:
     - target: {fileID: 425590581227743585, guid: bf5bf063424b9564eb10b7894371b148, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3830410252758617540, guid: bf5bf063424b9564eb10b7894371b148, type: 3}
+      propertyPath: sceneId
+      value: 1369559109
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bf5bf063424b9564eb10b7894371b148, type: 3}
