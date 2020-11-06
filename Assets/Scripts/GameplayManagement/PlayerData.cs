@@ -52,6 +52,15 @@ public class PlayerData : NetworkBehaviour
     {
         _lobbyManager.AddPlayer(this);
     }
+
+    [ClientRpc]
+    public void RpcSpawnPlayer()
+    {
+        transform.Find("Player").gameObject.SetActive(true);
+        GetComponent<Shooting>().enabled = true;
+        GetComponent<PlayerMovement>().enabled = true;
+        GetComponent<MouseLook2>().enabled = true;
+    }
     public void AddPlayerElim()
     {
         playerElims += 1;

@@ -88,20 +88,12 @@ public class LobbyManager : NetworkBehaviour
             //SpawnPlayers
             foreach (PlayerData player in players)
             {
-                RpcSpawnPlayer(player);
+                player.RpcSpawnPlayer();
             }
         }
     }
 
-    [ClientRpc]
-    private void RpcSpawnPlayer(PlayerData player)
-    {
-        player.transform.Find("Player").gameObject.SetActive(true);
-        player.GetComponent<Shooting>().enabled = true;
-        player.GetComponent<PlayerMovement>().enabled = true;
-        player.GetComponent<MouseLook2>().enabled = true;
-    }
-
+  
     public void DisplayPlayers()
     {
         foreach(PlayerData player in players)
