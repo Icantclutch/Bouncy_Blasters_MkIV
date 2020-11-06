@@ -21,7 +21,7 @@ public class PlayerData : NetworkBehaviour
 
     private LobbyManager _lobbyManager;
     private bool inLobby = false;
-
+    /*
     public PlayerData(int teamNum = 0, string name = "Name")
     {
         this.team = teamNum;
@@ -29,10 +29,10 @@ public class PlayerData : NetworkBehaviour
         playerElims = 0;
         playerDeaths = 0;
         playerScore = 0;
-    }
+    }*/
     private void Start()
     {
-        DontDestroyOnLoad(this.gameObject);
+        //DontDestroyOnLoad(this.gameObject);
     }
     void Update()
     {
