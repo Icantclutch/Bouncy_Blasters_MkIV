@@ -49,6 +49,7 @@ public class OnlineLobbyButtons : MonoBehaviour
     {
         _networkManager.GetComponent<LobbyManager>().SetMap(_mapName.text);
         _networkManager.GetComponent<LobbyManager>().SetGamemode(_gamemodeInt, 30, 0, 420);
+        _networkManager.GetComponent<LobbyManager>().StartGame();
     }
 
 }
