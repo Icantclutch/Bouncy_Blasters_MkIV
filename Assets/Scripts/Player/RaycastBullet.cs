@@ -24,6 +24,7 @@ public class RaycastBullet : Bullet
     [Server]
     public override void Initialize(List<int> damage, int bounces, float fireSpeed, int playerId)
     {
+        gameObject.name = bounces.ToString();
         lineRenderer = GetComponent<LineRenderer>();
         Rpc_PlayerInit();
         base.Initialize(damage, bounces, fireSpeed, playerId);
@@ -80,15 +81,17 @@ public class RaycastBullet : Bullet
     [Server]
     public override void Vel(Vector3 vel, float speed)
     {
-        bulletSpeed = speed;
+        bulletSpeed = speed * 100;
         //Create the array of vec3 points in the line and add the starting point
         List<Vector3> bouncePoints = new List<Vector3>();
         bouncePoints.Add(transform.position);
-        Debug.Log(bouncePoints.Count);
 
         //Create ray that transfers through loops and raycasthit
         Ray ray = new Ray(transform.position, vel);
         RaycastHit hit;
+
+        //Checks for floor bouncing
+        bool floor = false;
 
         //Loop through reflections
         for(int i = 0; i <= myShot.maxBounces; i++)
@@ -101,14 +104,26 @@ public class RaycastBullet : Bullet
                 //Check to see if it hit something
                 if (hit.transform.GetComponent<HitInteraction>())
                 {
-                    
+                    //If the second hit is on a player and floor is active, reduce the bounce count
+                    if (hit.transform.CompareTag("Player") && floor)
+                    {
+                        myShot.numBounces = 0;
+                    } else
+                    {
+                        floor = false;
+                    }
+
                     //Send hit message
                     hit.transform.SendMessage("Hit", myShot, SendMessageOptions.DontRequireReceiver);
+
 
                     //If its an enemy, break
                     if (hit.transform.CompareTag("Player"))
                     {
                         break;
+                    } else if(hit.transform.CompareTag("Floor") && i == 0) //If its first bounce is off the floor, set floor true
+                    {
+                        floor = true;
                     }
                 }
                 //Increase reflection count
