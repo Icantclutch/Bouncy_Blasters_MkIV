@@ -49,6 +49,7 @@ public class LobbyManager : NetworkBehaviour
     {
         mapName = map;
     }
+    [Server]
     public void StartGame()
     {
         //To-do: check if is host
@@ -87,12 +88,18 @@ public class LobbyManager : NetworkBehaviour
             //SpawnPlayers
             foreach (PlayerData player in players)
             {
-                player.transform.Find("Player").gameObject.SetActive(true);
-                player.GetComponent<Shooting>().enabled = true;
-                player.GetComponent<PlayerMovement>().enabled = true;
-                player.GetComponent<MouseLook2>().enabled = true;
+                RpcSpawnPlayer(player);
             }
         }
+    }
+
+    [ClientRpc]
+    private void RpcSpawnPlayer(PlayerData player)
+    {
+        player.transform.Find("Player").gameObject.SetActive(true);
+        player.GetComponent<Shooting>().enabled = true;
+        player.GetComponent<PlayerMovement>().enabled = true;
+        player.GetComponent<MouseLook2>().enabled = true;
     }
 
     public void DisplayPlayers()

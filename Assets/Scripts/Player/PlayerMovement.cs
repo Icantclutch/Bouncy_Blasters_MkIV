@@ -21,14 +21,15 @@ public class PlayerMovement : NetworkBehaviour
 
 	void Awake()
 	{
-		rbody = GetComponentInChildren<Rigidbody>();
-		coll = GetComponentInChildren<CapsuleCollider>();
-		rbody.freezeRotation = true;
-		rbody.useGravity = false;
+		
 		
 	}
     private void Start()
     {
+		rbody = GetComponentInChildren<Rigidbody>();
+		coll = GetComponentInChildren<CapsuleCollider>();
+		rbody.freezeRotation = true;
+		rbody.useGravity = false;
 		if (hasAuthority)
 		{
 			PlayerSpawnSystem.SpawnPlayer(gameObject);
