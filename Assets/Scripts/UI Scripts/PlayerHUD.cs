@@ -9,11 +9,12 @@ public class PlayerHUD : MonoBehaviour
 
     [SerializeField]
     private Text _batteryCountText;
-    private int _batteryCount;
+
+    private Weapon wep;
 
     [SerializeField]
     private Text _reserveBatteryCountText;
-    private int _reserveBatteryCount;
+   
 
     [SerializeField]
     private Text _teamAScoreText;
@@ -32,28 +33,23 @@ public class PlayerHUD : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
         _networkManager = GameObject.FindGameObjectWithTag("Management").GetComponent<NetworkManager>();
-        _batteryCount = GetComponent<Shooting>().playerWeapons[GetComponent<Shooting>().currentWeapon].currentAmmo;
-        _reserveBatteryCount = GetComponent<Shooting>().playerWeapons[GetComponent<Shooting>().currentWeapon].currentReserve;
+
         //_teamAScore = _networkManager.GetComponent<GameManagement>().teamA.teamScore;
         //_teamBScore = _networkManager.GetComponent<GameManagement>().teamB.teamScore;
-        _playerHealth = GetComponent<PlayerHealth>().GetCharge();
+        //_playerHealth = GetComponent<PlayerHealth>().GetCharge();
     }
 
     // Update is called once per frame
     void Update()
     {
-        /*
-        _batteryCountText.text = _batteryCount.ToString();
-        _reserveBatteryCountText.text = _reserveBatteryCount.ToString();
-        _teamAScoreText.text = _teamAScore.ToString();
-        _teamBScoreText.text = _teamBScore.ToString();
-        _playerHealthText.text = _playerHealth.ToString();*/
-        _networkManager = GameObject.FindGameObjectWithTag("Management").GetComponent<NetworkManager>();
-        _batteryCount = GetComponent<Shooting>().playerWeapons[GetComponent<Shooting>().currentWeapon].currentAmmo;
-        _reserveBatteryCount = GetComponent<Shooting>().playerWeapons[GetComponent<Shooting>().currentWeapon].currentReserve;
-        //_teamAScore = _networkManager.GetComponent<GameManagement>().teamA.teamScore;
-        //_teamBScore = _networkManager.GetComponent<GameManagement>().teamB.teamScore;
-        _playerHealth = GetComponent<PlayerHealth>().GetCharge();
+
+        _batteryCountText.text = GetComponent<Shooting>().playerWeapons[GetComponent<Shooting>().currentWeapon].currentAmmo.ToString();
+        _reserveBatteryCountText.text = GetComponent<Shooting>().playerWeapons[GetComponent<Shooting>().currentWeapon].currentReserve.ToString();
+        //_teamAScoreText.text = _teamAScore.ToString();
+        //_teamBScoreText.text = _teamBScore.ToString();
+        _playerHealthText.text = GetComponent<PlayerHealth>().GetCharge().ToString(); ;
+
     }
 }
