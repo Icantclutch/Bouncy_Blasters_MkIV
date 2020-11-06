@@ -35,8 +35,8 @@ public class PlayerHUD : MonoBehaviour
         _networkManager = GameObject.FindGameObjectWithTag("Management").GetComponent<NetworkManager>();
         _batteryCount = GetComponent<Shooting>().playerWeapons[GetComponent<Shooting>().currentWeapon].currentAmmo;
         _reserveBatteryCount = GetComponent<Shooting>().playerWeapons[GetComponent<Shooting>().currentWeapon].currentReserve;
-        _teamAScore = _networkManager.GetComponent<GameManagement>().teamA.teamScore;
-        _teamBScore = _networkManager.GetComponent<GameManagement>().teamB.teamScore;
+        //_teamAScore = _networkManager.GetComponent<GameManagement>().teamA.teamScore;
+        //_teamBScore = _networkManager.GetComponent<GameManagement>().teamB.teamScore;
         _playerHealth = GetComponent<PlayerHealth>().GetCharge();
     }
 
@@ -52,8 +52,8 @@ public class PlayerHUD : MonoBehaviour
         _networkManager = GameObject.FindGameObjectWithTag("Management").GetComponent<NetworkManager>();
         _batteryCount = GetComponent<Shooting>().playerWeapons[GetComponent<Shooting>().currentWeapon].currentAmmo;
         _reserveBatteryCount = GetComponent<Shooting>().playerWeapons[GetComponent<Shooting>().currentWeapon].currentReserve;
-        _teamAScore = _networkManager.GetComponent<GameManagement>().teamA.teamScore;
-        _teamBScore = _networkManager.GetComponent<GameManagement>().teamB.teamScore;
+        //_teamAScore = _networkManager.GetComponent<GameManagement>().teamA.teamScore;
+        //_teamBScore = _networkManager.GetComponent<GameManagement>().teamB.teamScore;
         _playerHealth = GetComponent<PlayerHealth>().GetCharge();
     }
 }
