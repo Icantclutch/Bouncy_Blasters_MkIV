@@ -41,6 +41,9 @@ public class Shooting : NetworkBehaviour
     [SyncVar]
     private Weapon.FireMode currentFireMode;
 
+
+    private float _rechargeHoldTime = 1.5f;
+
     private void Start()
     {
         myReference = GetComponent<PlayerReference>();
@@ -95,6 +98,19 @@ public class Shooting : NetworkBehaviour
             if (Input.GetKeyDown(Keybinds.Reload) && playerWeapons[currentWeapon].currentReserve > 0)
             {
                 StartCoroutine(Reload());
+
+            }
+            if (Input.GetKey(Keybinds.Reload))
+            {
+                _rechargeHoldTime -= Time.deltaTime;
+                if(_rechargeHoldTime <= 0)
+                {
+                    StartCoroutine(Recharge());
+                }
+            }
+            if (Input.GetKeyUp(Keybinds.Reload))
+            {
+                _rechargeHoldTime = 1.5f;
             }
         }
 
@@ -192,7 +208,26 @@ public class Shooting : NetworkBehaviour
         currentlyFiring = false;
         yield return null;
     }
-    
+
+    //Recharge function
+    IEnumerator Recharge()
+    {
+        //Set firing so you can't shoot while recharging
+        currentlyFiring = true;
+
+        //Improve once animations are implemented
+        //While loop to recharge ammo to max reserves
+        if (playerWeapons[currentWeapon].currentReserve < playerWeapons[currentWeapon].weapon.reserveAmmo)
+        {
+            playerWeapons[currentWeapon].currentReserve++;
+
+        }
+
+        //Disable firing when reloading is done
+        currentlyFiring = false;
+        yield return null;
+    }
+
     IEnumerator FireBullet(int weaponSlot)
     {
         //We are currently firing
