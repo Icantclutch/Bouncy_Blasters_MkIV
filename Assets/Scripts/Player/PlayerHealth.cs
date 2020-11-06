@@ -43,7 +43,7 @@ public class PlayerHealth : HitInteraction
     private void Respawn()
     {
         currentCharge = 0;
-
+        GetComponent<Shooting>().FullReload();
         //Teleport the player
         Rpc_TeleportPlayer();
     }

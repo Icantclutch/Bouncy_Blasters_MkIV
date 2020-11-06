@@ -4,6 +4,7 @@ using UnityEngine;
 using Mirror;
 using System.Security.Cryptography;
 using System;
+using Steamworks;
 
 public class Shooting : NetworkBehaviour
 {
@@ -180,6 +181,16 @@ public class Shooting : NetworkBehaviour
                     }
                 }
             }
+        }
+    }
+
+    //Fully Reload and recharge for when the player respawns
+    public void FullReload()
+    {
+        for (int i = 0; i < playerWeapons.Count; i++)
+        {
+            playerWeapons[i].currentAmmo = playerWeapons[i].weapon.ammoCount;
+            playerWeapons[i].currentReserve = playerWeapons[i].weapon.reserveAmmo;
         }
     }
 
