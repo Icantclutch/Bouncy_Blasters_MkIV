@@ -1,4 +1,5 @@
 ﻿using Mirror;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.UIElements;
@@ -12,7 +13,7 @@ public class PlayerData : NetworkBehaviour
 
     public int playerElims;
     public int playerDeaths;
-
+    [NonSerialized]
     public Team playerTeam;
     public int team;
 
@@ -28,6 +29,10 @@ public class PlayerData : NetworkBehaviour
         playerElims = 0;
         playerDeaths = 0;
         playerScore = 0;
+    }
+    private void Start()
+    {
+        DontDestroyOnLoad(this.gameObject);
     }
     void Update()
     {
@@ -60,6 +65,8 @@ public class PlayerData : NetworkBehaviour
         GetComponent<Shooting>().enabled = true;
         GetComponent<PlayerMovement>().enabled = true;
         GetComponent<MouseLook2>().enabled = true;
+        GetComponent<PlayerReference>().enabled = true;
+        PlayerSpawnSystem.SpawnPlayer(gameObject);
     }
     public void AddPlayerElim()
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 
-public class LobbyManager : NetworkBehaviour
+public class LobbyManager : MonoBehaviour
 {
     private List<PlayerData> players;
     private Gamemode gamemode;
@@ -49,7 +49,7 @@ public class LobbyManager : NetworkBehaviour
     {
         mapName = map;
     }
-    [Server]
+    
     public void StartGame()
     {
         //To-do: check if is host
@@ -83,13 +83,17 @@ public class LobbyManager : NetworkBehaviour
             //Setup Game Management
             gameManager.SetUpMatch(gamemode, teamA, teamB);
 
-            //Change scene
-            networkManager.ServerChangeScene(mapName);
+
+            Debug.Log("Enabling player gameobjects");
             //SpawnPlayers
             foreach (PlayerData player in players)
             {
                 player.RpcSpawnPlayer();
             }
+
+            //Change scene
+            networkManager.ServerChangeScene(mapName);
+            
         }
     }
 
