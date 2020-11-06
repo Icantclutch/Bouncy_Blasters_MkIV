@@ -16,6 +16,10 @@ public class Team
         teamName = name;
         teamScore = score;
         playerList = players;
+        foreach(PlayerData player in playerList)
+        {
+            player.playerTeam = this;
+        }
     }
 
 

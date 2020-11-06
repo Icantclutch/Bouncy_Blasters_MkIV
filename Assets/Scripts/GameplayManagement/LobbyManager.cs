@@ -40,7 +40,15 @@ public class LobbyManager : NetworkBehaviour
         players.Remove(player);
         DisplayPlayers();
     }
+    public void SetGamemode(int mode, int mScore, int sScore, int time)
+    {
+        gamemode = new Gamemode(mode, mScore, sScore, time);
+    }
 
+    public void SetMap(string map)
+    {
+        mapName = map;
+    }
     public void StartGame()
     {
         //To-do: check if is host

@@ -18,9 +18,8 @@ public class PlayerData : NetworkBehaviour
 
     public int playerScore;
 
-    public PlayerData(Team team, int teamNum = 0, string name = "Name")
+    public PlayerData(int teamNum = 0, string name = "Name")
     {
-        playerTeam = team;
         this.team = teamNum;
         playerName = name;
         playerElims = 0;
