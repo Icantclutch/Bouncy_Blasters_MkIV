@@ -39,11 +39,18 @@ public class PlayerData : NetworkBehaviour
         {
             if (!inLobby)
             {
-                _lobbyManager.AddPlayer(this);
+                //_lobbyManager.AddPlayer(this);
+                CmdJoinLobby();
                 inLobby = true;
             }
         }
 
+    }
+
+    [Command]
+    private void CmdJoinLobby()
+    {
+        _lobbyManager.AddPlayer(this);
     }
     public void AddPlayerElim()
     {

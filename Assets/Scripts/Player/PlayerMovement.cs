@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 
-[RequireComponent(typeof(Rigidbody))]
-[RequireComponent(typeof(CapsuleCollider))]
+//[RequireComponent(typeof(Rigidbody))]
+//[RequireComponent(typeof(CapsuleCollider))]
 public class PlayerMovement : NetworkBehaviour
 {
 	private Rigidbody rbody;
@@ -21,8 +21,8 @@ public class PlayerMovement : NetworkBehaviour
 
 	void Awake()
 	{
-		rbody = GetComponent<Rigidbody>();
-		coll = GetComponent<CapsuleCollider>();
+		rbody = GetComponentInChildren<Rigidbody>();
+		coll = GetComponentInChildren<CapsuleCollider>();
 		rbody.freezeRotation = true;
 		rbody.useGravity = false;
 		

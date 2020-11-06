@@ -13,7 +13,7 @@ public class LobbyManager : NetworkBehaviour
     private NetworkManager networkManager;
 
     public int minPlayersNeeded = 2;
-    public string mapName = "";
+    public string mapName = "RicochetTest";
 
     public GameManagement gameManager;
     // Start is called before the first frame update
@@ -85,7 +85,13 @@ public class LobbyManager : NetworkBehaviour
             //Change scene
             networkManager.ServerChangeScene(mapName);
             //SpawnPlayers
-
+            foreach (PlayerData player in players)
+            {
+                player.transform.Find("Player").gameObject.SetActive(true);
+                player.GetComponent<Shooting>().enabled = true;
+                player.GetComponent<PlayerMovement>().enabled = true;
+                player.GetComponent<MouseLook2>().enabled = true;
+            }
         }
     }
 
