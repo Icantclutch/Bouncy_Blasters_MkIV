@@ -43,10 +43,17 @@ public class PlayerHUD : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        /*
         _batteryCountText.text = _batteryCount.ToString();
         _reserveBatteryCountText.text = _reserveBatteryCount.ToString();
         _teamAScoreText.text = _teamAScore.ToString();
         _teamBScoreText.text = _teamBScore.ToString();
-        _playerHealthText.text = _playerHealth.ToString();
+        _playerHealthText.text = _playerHealth.ToString();*/
+        _networkManager = GameObject.FindGameObjectWithTag("Management").GetComponent<NetworkManager>();
+        _batteryCount = GetComponent<Shooting>().playerWeapons[GetComponent<Shooting>().currentWeapon].currentAmmo;
+        _reserveBatteryCount = GetComponent<Shooting>().playerWeapons[GetComponent<Shooting>().currentWeapon].currentReserve;
+        _teamAScore = _networkManager.GetComponent<GameManagement>().teamA.teamScore;
+        _teamBScore = _networkManager.GetComponent<GameManagement>().teamB.teamScore;
+        _playerHealth = GetComponent<PlayerHealth>().GetCharge();
     }
 }
