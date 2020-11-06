@@ -56,6 +56,7 @@ public class PlayerData : NetworkBehaviour
     private void CmdJoinLobby()
     {
         _lobbyManager.AddPlayer(this);
+        GameObject.FindGameObjectWithTag("Management").GetComponent<GameManagement>().JoinTeam(this);
     }
 
     [ClientRpc]
