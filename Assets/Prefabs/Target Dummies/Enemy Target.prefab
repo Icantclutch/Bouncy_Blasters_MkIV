@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 9080058562259653696}
   - component: {fileID: 9080058562259653700}
   - component: {fileID: 9080058562259653701}
+  - component: {fileID: 5913946721247588002}
+  - component: {fileID: 7034361905829464094}
   m_Layer: 0
   m_Name: Enemy Target
   m_TagString: Enemy
@@ -208,3 +210,36 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &5913946721247588002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9080058562259653699}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1849fe1ad4a91541a744209e1ec400d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  teamNumber: 0
+  maxSuitCharge: 100
+  currentCharge: 0
+--- !u!114 &7034361905829464094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9080058562259653699}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  serverOnly: 0
+  m_AssetId: 
+  hasSpawned: 0
