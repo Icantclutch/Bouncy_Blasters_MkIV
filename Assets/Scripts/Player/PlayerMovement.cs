@@ -40,7 +40,7 @@ public class PlayerMovement : NetworkBehaviour
     [Client]
 	void FixedUpdate()
 	{
-		Debug.Log("Movement");
+		//Debug.Log("Movement");
 		if (!hasAuthority)
             return;
 		if (grounded)
@@ -49,7 +49,7 @@ public class PlayerMovement : NetworkBehaviour
 			Vector3 targetVelocity = new Vector3(Input.GetAxis(Keybinds.Horizontal), 0, Input.GetAxis(Keybinds.Vertical));
 			targetVelocity = transform.TransformDirection(targetVelocity);
 			targetVelocity *= speed;
-			Debug.Log("Velocity");
+			//Debug.Log("Velocity");
 			// Apply a force that attempts to reach our target velocity
 			Vector3 velocity = rbody.velocity;
 			Vector3 velocityChange = (targetVelocity - velocity);
