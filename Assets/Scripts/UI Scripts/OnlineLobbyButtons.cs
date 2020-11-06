@@ -16,6 +16,7 @@ public class OnlineLobbyButtons : MonoBehaviour
     private Button _nextGamemodeButton;
     [SerializeField]
     private Text _gamemodeName;
+    private int _gamemodeInt = 0;
 
     [SerializeField]
     private Button _startMatchButton;
@@ -27,6 +28,7 @@ public class OnlineLobbyButtons : MonoBehaviour
     void Start()
     {
         _startMatchButton.interactable = false;
+        _startMatchButton.onClick.AddListener(StartMatch);
     }
 
     // Update is called once per frame
@@ -42,4 +44,11 @@ public class OnlineLobbyButtons : MonoBehaviour
         }
 
     }
+
+    private void StartMatch()
+    {
+        _networkManager.GetComponent<LobbyManager>().SetMap(_mapName.text);
+        _networkManager.GetComponent<LobbyManager>().SetGamemode(_gamemodeInt, 30, 0, 420);
+    }
+
 }
