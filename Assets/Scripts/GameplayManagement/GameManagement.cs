@@ -42,6 +42,10 @@ public class GameManagement : MonoBehaviour
             //Allow the match to start
             _gamePaused = true;
         }
+        else
+        {
+            _gamePaused = false;
+        }
 
         //If the game is paused, freeze the match timer
         if (!_gamePaused)
