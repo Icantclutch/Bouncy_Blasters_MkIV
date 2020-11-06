@@ -23,6 +23,7 @@ public class MapSelect : MonoBehaviour
     {
         _nextMap.onClick.AddListener(CycleMap);
         _mapNameText.text = _mapNames[_mapIndex];
+        SelectMap(_mapNames[_mapIndex]);
     }
 
     // Update is called once per frame

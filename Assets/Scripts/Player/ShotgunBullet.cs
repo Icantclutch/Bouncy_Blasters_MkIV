@@ -20,12 +20,12 @@ public class ShotgunBullet : Bullet
         {
             //Get the offset
             Vector3 newDir = new Vector3(
-                transform.eulerAngles.x + Random.Range(-2f, 2f),
-                transform.eulerAngles.y + Random.Range(-2f, 2f),
-                transform.eulerAngles.z + Random.Range(-2f, 2f)
+                transform.eulerAngles.x + Random.Range(-10f, 10f),
+                transform.eulerAngles.y + Random.Range(-10f, 10f),
+                transform.eulerAngles.z
             );
             //Spawn and rotate fired bullet
-            GameObject b = Instantiate(bulletPrefab, transform.position, transform.rotation, null);
+            GameObject b = Instantiate(bulletPrefab, transform.position, transform.rotation);
             b.transform.eulerAngles = newDir;
             //Spawn on server
             NetworkServer.Spawn(b);

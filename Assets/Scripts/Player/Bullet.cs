@@ -39,7 +39,7 @@ public class Bullet : NetworkBehaviour
         myShot.playerID = playerId;
 
         //Set bullet speed
-        Vel(transform.forward, fireSpeed * 100);
+        Vel(transform.forward, fireSpeed);
     }
 
     [Server]
