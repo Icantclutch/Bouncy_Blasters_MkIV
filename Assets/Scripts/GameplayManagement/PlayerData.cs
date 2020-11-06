@@ -18,6 +18,9 @@ public class PlayerData : NetworkBehaviour
 
     public int playerScore;
 
+    private LobbyManager _lobbyManager;
+    private bool inLobby = false;
+
     public PlayerData(int teamNum = 0, string name = "Name")
     {
         this.team = teamNum;
@@ -26,7 +29,22 @@ public class PlayerData : NetworkBehaviour
         playerDeaths = 0;
         playerScore = 0;
     }
+    void Update()
+    {
+        if (!_lobbyManager)
+        {
+            _lobbyManager = GameObject.FindGameObjectWithTag("Management").GetComponent<LobbyManager>();
+        }
+        else
+        {
+            if (!inLobby)
+            {
+                _lobbyManager.AddPlayer(this);
+                inLobby = true;
+            }
+        }
 
+    }
     public void AddPlayerElim()
     {
         playerElims += 1;
