@@ -101,18 +101,20 @@ public class RaycastBullet : Bullet
             {
                 //Add hit point to the list of line points
                 bouncePoints.Add(hit.point);
+
+                //If the second hit is on a player and floor is active, reduce the bounce count
+                if (hit.transform.CompareTag("Player") && floor)
+                {
+                    myShot.numBounces = 0;
+                }
+                else
+                {
+                    floor = false;
+                }
+
                 //Check to see if it hit something
                 if (hit.transform.GetComponent<HitInteraction>())
                 {
-                    //If the second hit is on a player and floor is active, reduce the bounce count
-                    if (hit.transform.CompareTag("Player") && floor)
-                    {
-                        myShot.numBounces = 0;
-                    } else
-                    {
-                        floor = false;
-                    }
-
                     //Send hit message
                     hit.transform.SendMessage("Hit", myShot, SendMessageOptions.DontRequireReceiver);
 
@@ -121,11 +123,15 @@ public class RaycastBullet : Bullet
                     if (hit.transform.CompareTag("Player"))
                     {
                         break;
-                    } else if(hit.transform.CompareTag("Floor") && i == 0) //If its first bounce is off the floor, set floor true
-                    {
-                        floor = true;
                     }
                 }
+
+                //If its first bounce is off the floor, set floor true
+                if (hit.transform.CompareTag("Floor") && i == 0)
+                {
+                    floor = true;
+                }
+
                 //Increase reflection count
                 myShot.numBounces++;
                 //Generate the reflection
