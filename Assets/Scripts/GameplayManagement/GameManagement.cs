@@ -56,12 +56,19 @@ public class GameManagement : MonoBehaviour
             //Execute the gamemode specific instructions
             gamemodeExecution();
 
+            //Printing match score
+            InvokeRepeating("DebugTeamScore", 5f, 5f);
+
             //Does a Score and timer check to see if there is a winner
             CheckMatchEnd();
         }
     }
 
-
+    private void DebugTeamScore()
+    {
+        Debug.Log("Team A Score: " + teamA.teamScore);
+        Debug.Log("Team B Score: " + teamB.teamScore);
+    }
 
 
     //Function for checking if the match should end
