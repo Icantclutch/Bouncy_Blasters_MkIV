@@ -12,15 +12,19 @@ public class CameraShaking : MonoBehaviour
 
 	// How long the object should shake for.
 	public float shakeDuration = 2f;
+	public Transform CamHolderTransform;
 
 	// Amplitude of the shake. A larger value shakes the camera harder.
 	public float shakeAmount = 0.7f;
 	public float decreaseFactor = 1.0f;
 
+
+	bool DONE = true;
+
 	//Getting Destinations
-	public void AddCameraTween(Transform camPos, Transform camLook, float timeToMove, bool blinkStart)
+	public void AddCameraTween(Transform camPos, Transform camLook, float timeToMove)
     {
-		TweensToDo.Add(new CameraTween(camPos, camLook, timeToMove, blinkStart));
+		TweensToDo.Add(new CameraTween(camPos, camLook, timeToMove));
     }
 
 	Vector3 originalPos;
@@ -31,6 +35,10 @@ public class CameraShaking : MonoBehaviour
 		{
 			camTransform = GetComponent(typeof(Transform)) as Transform;
 		}
+		if (CamHolderTransform == null)
+		{
+			CamHolderTransform = camTransform.parent.transform;
+		}
 	}
 
 	void OnEnable()
@@ -38,36 +46,48 @@ public class CameraShaking : MonoBehaviour
 		originalPos = camTransform.localPosition;
 	}
 
-	public void LookAtPosition(Vector3 goPosition, Vector3 lookPosition, float speed)
+	public void LookAtPositionn(Vector3 goPosition, Vector3 lookPosition, float speed)
 	{
 		StartCoroutine(LookAtTransformCorutine(goPosition, lookPosition, speed));
 	}
 
 	public void LookAtPosition(Transform goPosition, Transform lookPosition, float speed)
 	{
-		LookAtPosition(goPosition.position, lookPosition.position, speed);
+		LookAtPositionn(goPosition.position, lookPosition.position, speed);
 	}
 
 	public IEnumerator LookAtTransformCorutine(Vector3 goPosition, Vector3 lookPosition, float speed)
 	{
-		while (camTransform.position != lookPosition)
+		var currentPos = CamHolderTransform.position;
+		var t = 0f;
+		while (t < 1)
 		{
-			camTransform.position = Vector3.Lerp(camTransform.position, goPosition, speed);
-			Vector3 holder = Vector3.Lerp(camTransform.position, goPosition, speed);
+			t += Time.deltaTime / speed;
+
+			Vector3 Holder1 = Vector3.Lerp(currentPos, goPosition, t);
+			CamHolderTransform.position = Holder1;
+
+			Vector3 holder = Vector3.Lerp(camTransform.position, lookPosition, t);
 			camTransform.LookAt(holder);
-			transform.localRotation = Quaternion.LookRotation(transform.forward);
 			yield return new WaitForEndOfFrame();
 		}
+		DONE = true;
+		//Changing DONE allows the camera to continue moving
 	}
 
 	void Update()
 	{
-
 		if (TweensToDo.Count > 0)
 		{
-			CameraTween extra = TweensToDo[0];
-			camTransform.LookAt(extra.camLook);
-			LookAtPosition(extra.camPos, extra.camLook, extra.timeToMove);
+			if (DONE == true)
+			{
+				CameraTween extra = TweensToDo[0];
+				//camTransform.LookAt(extra.camLook);
+				DONE = false;
+				StartCoroutine(LookAtTransformCorutine(extra.camPos.position, extra.camLook.position, extra.timeToMove));
+				TweensToDo.Remove(extra);
+				shakeDuration = 0f;
+			}
 		}
 		else
 		{
