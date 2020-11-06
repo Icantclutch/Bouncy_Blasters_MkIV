@@ -47,6 +47,7 @@ public class PlayerHealth : HitInteraction
     {
         currentCharge = 0;
         Rpc_DeathSounds();
+        GetComponent<Shooting>().Rpc_FullReload();
         //Teleport the player
         Rpc_TeleportPlayer();
     }
@@ -55,7 +56,6 @@ public class PlayerHealth : HitInteraction
     private void Rpc_DeathSounds()
     {
         GetComponent<AudioSource>().PlayOneShot(_deathClip, .5f);
-        GetComponent<Shooting>().Rpc_FullReload();
     }
 
     [TargetRpc]
