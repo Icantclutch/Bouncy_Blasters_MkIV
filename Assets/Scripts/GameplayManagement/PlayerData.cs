@@ -32,7 +32,7 @@ public class PlayerData : NetworkBehaviour
     }*/
     private void Start()
     {
-        //DontDestroyOnLoad(this.gameObject);
+        DontDestroyOnLoad(this.gameObject);
     }
     void Update()
     {

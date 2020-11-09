@@ -26,13 +26,18 @@ public class LobbyManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
     }
+
 
     public void AddPlayer(PlayerData player)
     {
         players.Add(player);
         DisplayPlayers();
+        Debug.Log(networkManager.onlineScene);
+        if(!networkManager.onlineScene.Contains("OnlineLobby Scene"))
+        {
+            player.RpcSpawnPlayer();
+        }
     }
 
     public void RemovePlayer(PlayerData player)
@@ -93,7 +98,9 @@ public class LobbyManager : MonoBehaviour
 
             //Change scene
             networkManager.ServerChangeScene(mapName);
+
             
+
         }
     }
 
