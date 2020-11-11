@@ -5,7 +5,7 @@ using Mirror;
 
 public class LobbyManager : MonoBehaviour
 {
-    private List<PlayerData> players;
+    public List<PlayerData> players;
     private Gamemode gamemode;
     private Team teamA, teamB;
     
@@ -13,6 +13,7 @@ public class LobbyManager : MonoBehaviour
     private NetworkManager networkManager;
 
     public int minPlayersNeeded = 2;
+    public int numOfTeams = 2;
     public string mapName = "RicochetTest";
 
     public GameManagement gameManager;
@@ -104,7 +105,20 @@ public class LobbyManager : MonoBehaviour
         }
     }
 
-  
+    public int CycleTeam(int playerIndex = 0)
+    {
+        if (players.Count > playerIndex) {
+            players[playerIndex].team++;
+            if(players[playerIndex].team > numOfTeams)
+            {
+                players[playerIndex].team = 0;
+            }
+            return players[playerIndex].team;
+        }
+        return -1;
+    }
+
+
     public void DisplayPlayers()
     {
         foreach(PlayerData player in players)
