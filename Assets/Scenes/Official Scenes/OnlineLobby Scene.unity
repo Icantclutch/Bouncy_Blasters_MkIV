@@ -272,7 +272,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: <Team>
+  m_Text: 
 --- !u!222 &98116707
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -498,7 +498,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: <Team>
+  m_Text: 
 --- !u!222 &458799599
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -871,7 +871,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 655844396}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1554063027}
+        m_TargetAssemblyTypeName: OnlineLobbyButtons, Assembly-CSharp
+        m_MethodName: CycleTeam
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 3
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &655844396
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1496,7 +1508,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: <Team>
+  m_Text: 
 --- !u!222 &955852500
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1745,7 +1757,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1223164927}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1554063027}
+        m_TargetAssemblyTypeName: OnlineLobbyButtons, Assembly-CSharp
+        m_MethodName: CycleTeam
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1223164927
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1865,7 +1889,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1283175456}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1554063027}
+        m_TargetAssemblyTypeName: OnlineLobbyButtons, Assembly-CSharp
+        m_MethodName: CycleTeam
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1283175456
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1985,7 +2021,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1310766798}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1554063027}
+        m_TargetAssemblyTypeName: OnlineLobbyButtons, Assembly-CSharp
+        m_MethodName: CycleGamemode
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1310766798
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2078,8 +2126,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _nextMapButton: {fileID: 2142981610}
   _mapName: {fileID: 2005952084}
+  _maps:
+  - Battery Map
+  - RicochetTest
   _nextGamemodeButton: {fileID: 1310766797}
   _gamemodeName: {fileID: 671427429}
+  _gamemodes:
+  - Team Standoff
+  _teamDisplay:
+  - {fileID: 98116706}
+  - {fileID: 1930032738}
+  - {fileID: 458799598}
+  - {fileID: 955852499}
+  _playerNames:
+  - {fileID: 1067292847}
+  - {fileID: 1605059183}
+  - {fileID: 2063979690}
+  - {fileID: 1654763477}
   _startMatchButton: {fileID: 1788850555}
 --- !u!1 &1605059181
 GameObject:
@@ -2593,7 +2656,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: <Team>
+  m_Text: 
 --- !u!222 &1930032739
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2683,7 +2746,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1930571572}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1554063027}
+        m_TargetAssemblyTypeName: OnlineLobbyButtons, Assembly-CSharp
+        m_MethodName: CycleTeam
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1930571572
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3329,7 +3404,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2142981611}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1554063027}
+        m_TargetAssemblyTypeName: OnlineLobbyButtons, Assembly-CSharp
+        m_MethodName: CycleMap
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2142981611
 MonoBehaviour:
   m_ObjectHideFlags: 0

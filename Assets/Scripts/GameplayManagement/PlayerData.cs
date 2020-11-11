@@ -8,6 +8,13 @@ using UnityEngine.SocialPlatforms.Impl;
 
 public class PlayerData : NetworkBehaviour
 {
+    [SyncVar(hook = nameof(HandleSteamIdUpdated))]
+    private ulong _steamId;
+    private void HandleSteamIdUpdated(ulong oldSteamId, ulong newSteamId)
+    {
+
+    }
+
     public string playerName = "";
     public int playerNum;
 
@@ -88,5 +95,10 @@ public class PlayerData : NetworkBehaviour
     {
         playerScore = score;
         playerTeam.UpdateTeamScore();
+    }
+
+    public void SetSteamId(ulong steamId)
+    {
+        _steamId = steamId;
     }
 }
