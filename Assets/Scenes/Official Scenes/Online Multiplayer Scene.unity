@@ -123,6 +123,79 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &155250298
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 155250300}
+  - component: {fileID: 155250299}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &155250299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 155250298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7424c1070fad4ba2a7a96b02fbeb4bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnClientConnected:
+    m_PersistentCalls:
+      m_Calls: []
+  OnClientDataReceived:
+    m_PersistentCalls:
+      m_Calls: []
+  OnClientError:
+    m_PersistentCalls:
+      m_Calls: []
+  OnClientDisconnected:
+    m_PersistentCalls:
+      m_Calls: []
+  OnServerConnected:
+    m_PersistentCalls:
+      m_Calls: []
+  OnServerDataReceived:
+    m_PersistentCalls:
+      m_Calls: []
+  OnServerError:
+    m_PersistentCalls:
+      m_Calls: []
+  OnServerDisconnected:
+    m_PersistentCalls:
+      m_Calls: []
+  port: 7777
+  NoDelay: 1
+  serverMaxMessageSize: 16384
+  serverMaxReceivesPerTick: 10000
+  clientMaxMessageSize: 16384
+  clientMaxReceivesPerTick: 1000
+--- !u!4 &155250300
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 155250298}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -39.21063, y: 4.232921, z: -19.382769}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &218852254
 GameObject:
   m_ObjectHideFlags: 0
@@ -434,21 +507,9 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 425590579435277476, guid: bf5bf063424b9564eb10b7894371b148, type: 3}
-      propertyPath: offlineScene
-      value: Assets/Scenes/Official Scenes/Online Multiplayer Scene.unity
-      objectReference: {fileID: 0}
-    - target: {fileID: 425590579435277476, guid: bf5bf063424b9564eb10b7894371b148, type: 3}
-      propertyPath: onlineScene
-      value: Assets/Scenes/Official Scenes/OnlineLobby Scene.unity
-      objectReference: {fileID: 0}
-    - target: {fileID: 425590579435277476, guid: bf5bf063424b9564eb10b7894371b148, type: 3}
-      propertyPath: playerPrefab
-      value: 
-      objectReference: {fileID: 4357171600822209692, guid: 15f26efee5296cf4e9e81750cb80f7b1, type: 3}
     - target: {fileID: 425590579435277477, guid: bf5bf063424b9564eb10b7894371b148, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 210
+      value: 0.054829013
       objectReference: {fileID: 0}
     - target: {fileID: 425590579435277477, guid: bf5bf063424b9564eb10b7894371b148, type: 3}
       propertyPath: m_LocalPosition.y

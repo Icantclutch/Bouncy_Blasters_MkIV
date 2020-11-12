@@ -2027,11 +2027,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 425590579435277477}
-  - component: {fileID: 425590579435277476}
-  - component: {fileID: 425590579435277466}
   - component: {fileID: 425590579435277478}
   - component: {fileID: 425590579435277467}
   - component: {fileID: 425590579435277479}
+  - component: {fileID: 7405393509088402197}
   - component: {fileID: 425590581150728263}
   - component: {fileID: -9103764452091563807}
   - component: {fileID: -9052893860759769745}
@@ -2057,52 +2056,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &425590579435277476
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 425590579435277465}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8aab4c8111b7c411b9b92cf3dbc5bd4e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dontDestroyOnLoad: 1
-  runInBackground: 1
-  autoStartServerBuild: 1
-  showDebugMessages: 0
-  serverTickRate: 60
-  offlineScene: Assets/Scenes/Testing Scenes/OnlineTestStart.unity
-  onlineScene: Assets/Scenes/Testing Scenes/RicochetTest.unity
-  transport: {fileID: 425590579435277467}
-  networkAddress: localhost
-  maxConnections: 8
-  disconnectInactiveConnections: 0
-  disconnectInactiveTimeout: 60
-  authenticator: {fileID: 0}
-  playerPrefab: {fileID: 3823281443683271674, guid: 1a682162bf981964ca23b292a70821df, type: 3}
-  autoCreatePlayer: 1
-  playerSpawnMethod: 0
-  spawnPrefabs:
-  - {fileID: 8387939993200145741, guid: a309e5d14220ce34894d95e803ff64bb, type: 3}
-  - {fileID: 2922923783899103132, guid: 6b8e0a716df3b37409e2489fca9fbe0f, type: 3}
---- !u!114 &425590579435277466
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 425590579435277465}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6442dc8070ceb41f094e44de0bf87274, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  showGUI: 1
-  offsetX: 0
-  offsetY: 0
 --- !u!114 &425590579435277478
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2170,6 +2123,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   button: {fileID: 425590580670305786}
   lobbyDropDown: {fileID: 1179697114}
+--- !u!114 &7405393509088402197
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 425590579435277465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fb6944edcf5bf4439435a3168e29135, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dontDestroyOnLoad: 1
+  runInBackground: 1
+  autoStartServerBuild: 1
+  showDebugMessages: 0
+  serverTickRate: 60
+  offlineScene: Assets/Scenes/Official Scenes/Online Multiplayer Scene.unity
+  onlineScene: Assets/Scenes/Official Scenes/OnlineLobby Scene.unity
+  transport: {fileID: 425590579435277467}
+  networkAddress: localhost
+  maxConnections: 4
+  disconnectInactiveConnections: 0
+  disconnectInactiveTimeout: 60
+  authenticator: {fileID: 0}
+  playerPrefab: {fileID: 4357171600822209692, guid: 15f26efee5296cf4e9e81750cb80f7b1, type: 3}
+  autoCreatePlayer: 1
+  playerSpawnMethod: 0
+  spawnPrefabs:
+  - {fileID: 8387939993200145741, guid: a309e5d14220ce34894d95e803ff64bb, type: 3}
+  - {fileID: 2922923783899103132, guid: 6b8e0a716df3b37409e2489fca9fbe0f, type: 3}
 --- !u!114 &425590581150728263
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2199,7 +2183,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a97375d59990bd43889bdbe9a20a529, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  players: []
   minPlayersNeeded: 1
+  numOfTeams: 2
   mapName: 
   gameManager: {fileID: -9052893860759769745}
 --- !u!114 &-9052893860759769745
