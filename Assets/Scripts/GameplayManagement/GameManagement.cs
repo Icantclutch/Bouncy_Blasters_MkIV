@@ -5,11 +5,14 @@ using UnityEngine;
 
 public class GameManagement : MonoBehaviour
 {
+    //The Teams for the match
     public Team teamA;
     public Team teamB;
 
+    //List of players in Match
     private List<PlayerData> playerList;
       
+    //The Selected Gamemode
     public Gamemode matchGamemode;
     
     //The timer for the ongoing match
