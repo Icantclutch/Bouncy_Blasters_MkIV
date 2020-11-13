@@ -15,13 +15,14 @@ public class WallSpawning : MonoBehaviour
     //The Y value increase that a wall may need to sit on the ground properly
     public float yBoost = 0f;
     // Start is called before the first frame update
+    public float wallLifeTime = 15;
     void Start()
     {
         //Getting the placeholder transforms for all the wall spots
         objects = GetComponentsInChildren<Transform>();
         
         //Spawn the walls and continue the cycle
-        InvokeRepeating("SpawnWalls", 5f, 8f);
+        InvokeRepeating("SpawnWalls", 5f, wallLifeTime + 0.5f);
     }
 
     // Update is called once per frame
@@ -56,7 +57,7 @@ public class WallSpawning : MonoBehaviour
             Transform spawnSlot = objects[r[i]];
             GameObject wall = Instantiate(spawnable, new Vector3(spawnSlot.position.x, spawnSlot.position.y + yBoost, spawnSlot.position.z), spawnSlot.rotation, spawnableParent);
            
-            Destroy(wall, 7f);
+            Destroy(wall, wallLifeTime);
         }
        
     }
