@@ -6,6 +6,7 @@ using Steamworks;
 
 public class MyNetworkManager : NetworkManager
 {
+    //Overrides OnServerAddPlayer to also get and set the players Steam Id
     public override void OnServerAddPlayer(NetworkConnection conn)
     {
         base.OnServerAddPlayer(conn);

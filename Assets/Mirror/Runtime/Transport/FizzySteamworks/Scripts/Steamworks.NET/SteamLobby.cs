@@ -9,11 +9,14 @@ using UnityEngine.UI;
 
 public class SteamLobby : MonoBehaviour
 {
+    //Might be used in the future to display player info
     public struct Player
     {
         public CSteamID steamID;
         public string playerName;
     };
+
+    //Holds lobby info related to matchmaking
     public struct Lobby
     {
         public CSteamID steamID;
@@ -22,12 +25,14 @@ public class SteamLobby : MonoBehaviour
         public int numOfPlayers;
         public int playerLimit;
         //public List<Player> players;
-        //look into if we can get info
+        //look into if we can get info for:
         public int ping;
     };
 
+    //references to objects in the scene
     [SerializeField] private GameObject button = null;
     [SerializeField] private Dropdown lobbyDropDown = null;
+
     //Callback variables to handle Steam calls
     protected Callback<LobbyCreated_t> lobbyCreated;
     protected Callback<GameLobbyJoinRequested_t> gameLobbyJoinRequested;
@@ -64,6 +69,7 @@ public class SteamLobby : MonoBehaviour
 
     }
 
+    //Makes a CreateLobby call for a public lobby
     public void HostPublicLobby()
     {
         //Deactivate the host button so they can't press it again
@@ -71,6 +77,8 @@ public class SteamLobby : MonoBehaviour
         //Create a lobby only friends can join with a max number of players, from the network manager
         SteamMatchmaking.CreateLobby(ELobbyType.k_ELobbyTypePublic, networkManager.maxConnections);
     }
+
+    //Makes a CreateLobby call for a private lobby
     public void HostPrivateLobby()
     {
         //Deactivate the host button so they can't press it again
@@ -79,6 +87,7 @@ public class SteamLobby : MonoBehaviour
         SteamMatchmaking.CreateLobby(ELobbyType.k_ELobbyTypePrivate, networkManager.maxConnections);
     }
 
+    //Starts the coroutine to find and join an open lobby
     public void JoinLobby()
     {
         //lobbies.Clear();
@@ -87,6 +96,8 @@ public class SteamLobby : MonoBehaviour
         UnityEngine.Debug.Log("Search for lobbies");
         StartCoroutine(SearchForLobby());
     }
+
+    //Coroutine to search for an open lobby and join it, if no lobby is found then it will create a lobby
     IEnumerator SearchForLobby()
     {
         lobbies.Clear();
@@ -118,22 +129,19 @@ public class SteamLobby : MonoBehaviour
 
     }
 
+    //Coroutine to refresh the lobby list info
     IEnumerator RefreshLobbyList()
     {
+        //Reset List and dropdown menu
         lobbies.Clear();
         lobbyDropDown.ClearOptions();
-        //for (int i = 1; i < networkManager.maxConnections; ++i)
-        //{
-
-            //Filter search for lobbies with only i open slots
-            //UnityEngine.Debug.Log(i + " open spaces");
-            //SteamMatchmaking.AddRequestLobbyListFilterSlotsAvailable(i);
-
-            //Make a call request, OnLobbyMatchList() will be called when call is completed
-            lobbyMatchListCallResult.Set(SteamMatchmaking.RequestLobbyList());
-            yield return new WaitForSeconds(1);
-        //}
+        
+        //Make a call request, OnLobbyMatchList() will be called when call is completed
+        lobbyMatchListCallResult.Set(SteamMatchmaking.RequestLobbyList());
+        yield return new WaitForSeconds(1);
     }
+
+    //Called when a CreateLobby call returns
     private void OnLobbyCreated(LobbyCreated_t callback)
     {
         //Re-enable button and do nothing else if Steam lobby failed to be made
@@ -162,10 +170,9 @@ public class SteamLobby : MonoBehaviour
         SteamMatchmaking.JoinLobby(callback.m_steamIDLobby);
     }
 
-    /// <summary>
-    /// Handles joining a lobby and staring the client. It is called when there is a SteamMatchmaking.JoinLobby() call
-    /// </summary>
-    /// <param name="callback">Stores the Lobby's ID</param>
+    
+    // Handles joining a lobby and staring the client. It is called when there is a SteamMatchmaking.JoinLobby() call
+    //callback: Stores the Lobby's ID
     private void OnLobbyEntered(LobbyEnter_t callback)
     {
         if (NetworkServer.active) { return; }
@@ -184,6 +191,7 @@ public class SteamLobby : MonoBehaviour
         button.SetActive(false);
     }
 
+    //Called when a RequestLobbyList call returns with results
     void OnLobbyMatchList(LobbyMatchList_t pCallback, bool bIOFailure)
     {
         //Search through the list of lobbies
@@ -207,6 +215,7 @@ public class SteamLobby : MonoBehaviour
         }
     }
 
+    //Reads in lobby info into a Lobby struct and adds it to the lobby list
     void StoreLobbyInfo(CSteamID lobbyID)
     {
         Lobby lobby = new Lobby();
@@ -221,11 +230,13 @@ public class SteamLobby : MonoBehaviour
             lobbyDropDown.AddOptions(new List<string> { lobby.lobbyName});
     }
 
+    //Starts the coroutine to refresh the lobby list in the dropdown menu
     public void StartRefresh()
     {
         StartCoroutine(RefreshLobbyList());
     }
 
+    //Joins the lobby currently selected in the dropdown menu
     public void JoinSelectedLobby()
     {
         if (lobbyDropDown && lobbies.Count > 0)
