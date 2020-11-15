@@ -38,10 +38,10 @@ public class WallSpawning : MonoBehaviour
                 i--;
             }
         }
-        
+
         for(int i = 0; i < numOfWallsSpawned; i++)
         {
-            
+
             Transform spawnSlot = objects[r[i]];
             GameObject wall = Instantiate(spawnable, new Vector3(spawnSlot.position.x, spawnSlot.position.y + yBoost, spawnSlot.position.z), spawnSlot.rotation, spawnableParent);
            
