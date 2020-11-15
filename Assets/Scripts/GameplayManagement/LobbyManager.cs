@@ -5,13 +5,17 @@ using Mirror;
 
 public class LobbyManager : MonoBehaviour
 {
+    //List of players in the lobby
     public List<PlayerData> players;
+
+    //variables used to setup the game aspects
     private Gamemode gamemode;
     private Team teamA, teamB;
     
-
+    //Reference to the NetworkManager on the same gameobject
     private NetworkManager networkManager;
 
+    
     public int minPlayersNeeded = 2;
     public int numOfTeams = 2;
     public string mapName = "RicochetTest";
@@ -24,10 +28,6 @@ public class LobbyManager : MonoBehaviour
         networkManager = GetComponent<NetworkManager>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-    }
 
 
     public void AddPlayer(PlayerData player)
@@ -35,6 +35,7 @@ public class LobbyManager : MonoBehaviour
         players.Add(player);
         DisplayPlayers();
         Debug.Log(networkManager.onlineScene);
+        //Used for backwards compatability with testing scenes
         if(!networkManager.onlineScene.Contains("OnlineLobby Scene"))
         {
             player.RpcSpawnPlayer();
@@ -60,32 +61,30 @@ public class LobbyManager : MonoBehaviour
     {
         //To-do: check if is host
 
-
         if(networkManager.numPlayers >= minPlayersNeeded)
         {
             //To-do:
             //Set up components needed for gamemode
             //Create Gamemode: default of DeathMatch temporarily
             gamemode = new Gamemode(0, 30, 0, 420);
+            
             //Create teams
-            List<PlayerData> teamPlayers = new List<PlayerData>();
+            List<PlayerData> teamAPlayers = new List<PlayerData>();
+            List<PlayerData> teamBPlayers = new List<PlayerData>();
             foreach (PlayerData player in players)
             {
                 if(player.team == 1)
                 {
-                    teamPlayers.Add(player);
+                    teamAPlayers.Add(player);
                 }
-            }
-            teamA = new Team("Nova",teamPlayers);
-            teamPlayers.Clear();
-            foreach (PlayerData player in players)
-            {
-                if (player.team == 2)
+                else if (player.team == 2)
                 {
-                    teamPlayers.Add(player);
+                    teamBPlayers.Add(player);
                 }
             }
-            teamB = new Team("Super Nova", teamPlayers);
+            teamA = new Team("Nova",teamAPlayers);
+            teamB = new Team("Super Nova", teamBPlayers);
+            
             //Setup Game Management
             gameManager.SetUpMatch(gamemode, teamA, teamB);
 
@@ -99,12 +98,10 @@ public class LobbyManager : MonoBehaviour
 
             //Change scene
             networkManager.ServerChangeScene(mapName);
-
-            
-
         }
     }
 
+    //Cycles a players team based on the numOfTeams
     public int CycleTeam(int playerIndex = 0)
     {
         if (players.Count > playerIndex) {
@@ -115,15 +112,17 @@ public class LobbyManager : MonoBehaviour
             }
             return players[playerIndex].team;
         }
+        //Returns -1 if it could not increment correctly
         return -1;
     }
 
-
+    //Not implemented, will be used
     public void DisplayPlayers()
     {
-        foreach(PlayerData player in players)
+        //Loop through all of the current players
+        /*foreach(PlayerData player in players)
         {
             //Set UI components to display name and team
-        }
+        }*/
     }
 }
