@@ -41,13 +41,14 @@ public class PlayerSpawnSystem : NetworkBehaviour
             List<PlayerSpawnPoint> points = new List<PlayerSpawnPoint>();
             //Spawn point that will be used
             PlayerSpawnPoint spawnPoint = null;
+            int playerTeam = player.GetComponent<PlayerData>().team;
 
             //Loop to find acceptable spawn points
             foreach (PlayerSpawnPoint point in spawnPoints) {
                 //Make sure the parameter booleans are the same with the current spawn point
                 if (respawn != point.isRespawnRoom && initialSpawn == point.isStartingPoint)
                 {
-                    int playerTeam = player.GetComponent<PlayerHealth>().GetTeam();
+                    
 
                     if (initialSpawn && playerTeam == point.team)
                     {
