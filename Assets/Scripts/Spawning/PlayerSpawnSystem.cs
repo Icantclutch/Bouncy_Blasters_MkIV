@@ -33,7 +33,7 @@ public class PlayerSpawnSystem : NetworkBehaviour
     }
 
     //Sets the player's position to a chosen spawn point
-    public static void SpawnPlayer(GameObject player, bool respawn = true, bool initialSpawn = false)
+    public static bool SpawnPlayer(GameObject player, bool respawn = true, bool initialSpawn = false)
     {
         if(spawnPoints.Count > 0)
         {
@@ -110,7 +110,9 @@ public class PlayerSpawnSystem : NetworkBehaviour
                 player.transform.position = spawnPoint.transform.position;
                 player.transform.rotation = spawnPoint.transform.rotation;
                 //player.transform.Find("Eyes").rotation = spawnPoint.transform.rotation;
+                return true;
             }
         }
+        return false;
     }
 }

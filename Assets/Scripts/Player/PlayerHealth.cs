@@ -65,9 +65,15 @@ public class PlayerHealth : HitInteraction
     {
         //TODO Call to game controller to teleport player to designated spawn point
         Debug.Log("Player has died, Teleporting to respawn room (not implemented)");
-        PlayerSpawnSystem.SpawnPlayer(gameObject, false);
-        GetComponent<Shooting>().active = false;
-        StartCoroutine(RespawnPlayer());
+        if (PlayerSpawnSystem.SpawnPlayer(gameObject, false))
+        {
+            GetComponent<Shooting>().active = false;
+            StartCoroutine(RespawnPlayer());
+        }
+        else
+        {
+            PlayerSpawnSystem.SpawnPlayer(gameObject);
+        }
     }
     IEnumerator RespawnPlayer()
     {
