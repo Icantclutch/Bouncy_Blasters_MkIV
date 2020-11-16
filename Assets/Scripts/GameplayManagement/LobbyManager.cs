@@ -125,4 +125,14 @@ public class LobbyManager : MonoBehaviour
             //Set UI components to display name and team
         }*/
     }
+
+    //Run functions to spawn all of the players
+    public void SpawnPlayers()
+    {
+        //SpawnPlayers
+        foreach (PlayerData player in players)
+        {
+            player.RpcSpawnPlayer();
+        }
+    }
 }
