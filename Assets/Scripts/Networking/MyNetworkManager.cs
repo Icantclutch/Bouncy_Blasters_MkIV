@@ -15,4 +15,11 @@ public class MyNetworkManager : NetworkManager
 
         conn.identity.GetComponent<PlayerData>().SetSteamId(steamId.m_SteamID);
     }
+
+    public override void OnClientSceneChanged(NetworkConnection conn)
+    {
+        base.OnClientSceneChanged(conn);
+        conn.identity.GetComponent<PlayerData>().RpcSpawnPlayer();
+    }
+
 }
