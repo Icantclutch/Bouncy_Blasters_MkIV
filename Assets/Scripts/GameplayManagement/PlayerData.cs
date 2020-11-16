@@ -25,8 +25,10 @@ public class PlayerData : NetworkBehaviour
     public int playerDeaths;
     [NonSerialized]
     public Team playerTeam;
+    [SyncVar]
     public int team;
 
+    [SyncVar]
     public int playerScore;
 
     private LobbyManager _lobbyManager;
@@ -62,11 +64,14 @@ public class PlayerData : NetworkBehaviour
 
     }
 
-    [Command]
+    
     private void CmdJoinLobby()
     {
         _lobbyManager.AddPlayer(this);
-        GameObject.FindGameObjectWithTag("Management").GetComponent<GameManagement>().JoinTeam(this);
+        if (!_lobbyManager.gameObject.GetComponent<NetworkManager>().onlineScene.Contains("OnlineLobby Scene"))
+        {
+            GameObject.FindGameObjectWithTag("Management").GetComponent<GameManagement>().JoinTeam(this);
+        }
     }
 
     [ClientRpc]
