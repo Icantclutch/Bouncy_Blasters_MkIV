@@ -12,22 +12,24 @@ public class CameraShaking : MonoBehaviour
 
 	// How long the object should shake for.
 	public float shakeDuration = 2f;
-	public Transform CamHolderTransform;
+	public Transform camHolderTransform;
 
 	// Amplitude of the shake. A larger value shakes the camera harder.
 	public float shakeAmount = 0.7f;
 	public float decreaseFactor = 1.0f;
 
+	//Used for rendering camera movement completion
+	bool done = true;
 
-	bool DONE = true;
+	//Reference to an origin
+	Vector3 originalPos;
 
-	//Getting Destinations
+
+	//Called from other scripts (will be used for the menu system or cinematics)
 	public void AddCameraTween(Transform camPos, Transform camLook, float timeToMove)
     {
 		TweensToDo.Add(new CameraTween(camPos, camLook, timeToMove));
     }
-
-	Vector3 originalPos;
 
 	void Awake()
 	{
@@ -35,43 +37,32 @@ public class CameraShaking : MonoBehaviour
 		{
 			camTransform = GetComponent(typeof(Transform)) as Transform;
 		}
-		if (CamHolderTransform == null)
+		if (camHolderTransform == null)
 		{
-			CamHolderTransform = camTransform.parent.transform;
+			camHolderTransform = camTransform.parent.transform;
 		}
 	}
-
 	void OnEnable()
 	{
 		originalPos = camTransform.localPosition;
 	}
 
-	public void LookAtPositionn(Vector3 goPosition, Vector3 lookPosition, float speed)
-	{
-		StartCoroutine(LookAtTransformCorutine(goPosition, lookPosition, speed));
-	}
-
-	public void LookAtPosition(Transform goPosition, Transform lookPosition, float speed)
-	{
-		LookAtPositionn(goPosition.position, lookPosition.position, speed);
-	}
-
+	//Runs the Ienumtator (Changes DONE on completion)
 	public IEnumerator LookAtTransformCorutine(Vector3 goPosition, Vector3 lookPosition, float speed)
 	{
-		var currentPos = CamHolderTransform.position;
+		var currentPos = camHolderTransform.position;
 		var t = 0f;
 		while (t < 1)
 		{
 			t += Time.deltaTime / speed;
-
 			Vector3 Holder1 = Vector3.Lerp(currentPos, goPosition, t);
-			CamHolderTransform.position = Holder1;
+			camHolderTransform.position = Holder1;
 
 			Vector3 holder = Vector3.Lerp(camTransform.position, lookPosition, t);
 			camTransform.LookAt(holder);
 			yield return new WaitForEndOfFrame();
 		}
-		DONE = true;
+		done = true;
 		//Changing DONE allows the camera to continue moving
 	}
 
@@ -79,11 +70,11 @@ public class CameraShaking : MonoBehaviour
 	{
 		if (TweensToDo.Count > 0)
 		{
-			if (DONE == true)
+			if (done == true)
 			{
 				CameraTween extra = TweensToDo[0];
 				//camTransform.LookAt(extra.camLook);
-				DONE = false;
+				done = false;
 				StartCoroutine(LookAtTransformCorutine(extra.camPos.position, extra.camLook.position, extra.timeToMove));
 				TweensToDo.Remove(extra);
 				shakeDuration = 0f;
