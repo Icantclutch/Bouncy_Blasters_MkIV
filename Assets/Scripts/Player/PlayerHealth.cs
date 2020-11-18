@@ -64,7 +64,7 @@ public class PlayerHealth : HitInteraction
     private void Rpc_TeleportPlayer()
     {
         //TODO Call to game controller to teleport player to designated spawn point
-        Debug.Log("Player has died, Teleporting to respawn room (not implemented)");
+        Debug.Log("Player has died, Teleporting to respawn room");
         if (PlayerSpawnSystem.SpawnPlayer(gameObject, false))
         {
             GetComponent<Shooting>().active = false;
@@ -94,7 +94,8 @@ public class PlayerHealth : HitInteraction
         {
             //Deal damage
             currentCharge += shot.damage[shot.numBounces];
-            if(currentCharge >= maxSuitCharge)
+            NetworkIdentity.spawned[Convert.ToUInt32(shot.playerID)].GetComponent<PlayerAudioController>().RpcOnPlayerClient(0);
+            if (currentCharge >= maxSuitCharge)
             {
                 NetworkIdentity.spawned[Convert.ToUInt32(shot.playerID)].GetComponent<PlayerData>().AddPlayerElim();
                 GetComponent<PlayerData>().AddPlayerDeaths();
