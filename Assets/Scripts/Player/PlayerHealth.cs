@@ -57,7 +57,7 @@ public class PlayerHealth : HitInteraction
     [ClientRpc]
     private void Rpc_DeathSounds()
     {
-        GetComponent<AudioSource>().PlayOneShot(_deathClip, .5f);
+        GetComponent<AudioSource>().PlayOneShot(_deathClip, .25f);
     }
 
     [TargetRpc]
