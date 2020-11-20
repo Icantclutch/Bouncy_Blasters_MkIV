@@ -92,12 +92,12 @@ public class LobbyManager : NetworkBehaviour
             gameManager.SetUpMatch(gamemode, teamA, teamB);
 
 
-            Debug.Log("Enabling player gameobjects");
+            /*Debug.Log("Enabling player gameobjects");
             //SpawnPlayers
             foreach (PlayerData player in players)
             {
                 player.RpcSpawnPlayer();
-            }
+            }*/
 
             //Change scene
             networkManager.ServerChangeScene(mapName);

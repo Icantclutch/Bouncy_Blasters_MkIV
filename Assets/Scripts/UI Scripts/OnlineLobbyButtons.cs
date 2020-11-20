@@ -122,7 +122,7 @@ public class OnlineLobbyButtons : MonoBehaviour
             }
             
             _mapName.text = "" + _maps[mapIndex];
-            Debug.Log(_maps[mapIndex]);
+            //Debug.Log(_maps[mapIndex]);
             _networkManager.GetComponent<LobbyManager>().SetMap(_maps[mapIndex]);
         }
     }

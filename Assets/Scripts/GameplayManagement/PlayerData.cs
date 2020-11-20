@@ -84,7 +84,7 @@ public class PlayerData : NetworkBehaviour
         GetComponent<MouseLook2>().enabled = true;
         GetComponent<PlayerReference>().enabled = true;
         GetComponent<PlayerHUD>().enabled = true;
-        if (!PlayerSpawnSystem.SpawnPlayer(gameObject, true, true)) 
+        //if (!PlayerSpawnSystem.SpawnPlayer(gameObject, true, true)) 
         {
             PlayerSpawnSystem.SpawnPlayer(gameObject);
         }
