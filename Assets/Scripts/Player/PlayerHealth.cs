@@ -97,7 +97,12 @@ public class PlayerHealth : HitInteraction
             NetworkIdentity.spawned[Convert.ToUInt32(shot.playerID)].GetComponent<PlayerAudioController>().RpcOnPlayerClient(0);
             if (currentCharge >= maxSuitCharge)
             {
-                NetworkIdentity.spawned[Convert.ToUInt32(shot.playerID)].GetComponent<PlayerData>().AddPlayerElim();
+                //Prevent adding score to team on self kill
+                if (Convert.ToUInt32(shot.playerID) != GetComponent<NetworkIdentity>().netId)
+                {
+                    NetworkIdentity.spawned[Convert.ToUInt32(shot.playerID)].GetComponent<PlayerData>().AddPlayerElim();
+                }
+               
                 GetComponent<PlayerData>().AddPlayerDeaths();
             }
         }
