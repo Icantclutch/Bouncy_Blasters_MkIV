@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 
-public class LobbyManager : MonoBehaviour
+public class LobbyManager : NetworkBehaviour
 {
     //List of players in the lobby
     public List<PlayerData> players;
 
     //variables used to setup the game aspects
+    [SyncVar]
+    public int gamemodeIndex = 0;
     private Gamemode gamemode;
     private Team teamA, teamB;
     
@@ -18,6 +20,7 @@ public class LobbyManager : MonoBehaviour
     
     public int minPlayersNeeded = 2;
     public int numOfTeams = 2;
+    [SyncVar]
     public string mapName = "RicochetTest";
 
     public GameManagement gameManager;

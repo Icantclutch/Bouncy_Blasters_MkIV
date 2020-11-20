@@ -83,6 +83,7 @@ public class PlayerData : NetworkBehaviour
         GetComponent<PlayerMovement>().enabled = true;
         GetComponent<MouseLook2>().enabled = true;
         GetComponent<PlayerReference>().enabled = true;
+        GetComponent<PlayerHUD>().enabled = true;
         if (!PlayerSpawnSystem.SpawnPlayer(gameObject, true, true)) 
         {
             PlayerSpawnSystem.SpawnPlayer(gameObject);
@@ -112,5 +113,10 @@ public class PlayerData : NetworkBehaviour
     public void SetSteamId(ulong steamId)
     {
         _steamId = steamId;
+    }
+
+    private void OnDestroy()
+    {
+        _lobbyManager.RemovePlayer(this);
     }
 }

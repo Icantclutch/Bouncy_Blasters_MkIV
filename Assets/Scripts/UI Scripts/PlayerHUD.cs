@@ -38,12 +38,13 @@ public class PlayerHUD : MonoBehaviour
 
         _batteryCountText.text = GetComponent<Shooting>().playerWeapons[GetComponent<Shooting>().currentWeapon].currentAmmo.ToString();
         _reserveBatteryCountText.text = GetComponent<Shooting>().playerWeapons[GetComponent<Shooting>().currentWeapon].currentReserve.ToString();
+        _playerHealthText.text = GetComponent<PlayerHealth>().GetCharge().ToString();
+        _playerWeaponText.text = GetComponent<Shooting>().playerWeapons[GetComponent<Shooting>().currentWeapon].weapon.name;
         //_teamAScoreText.text = _teamAScore.ToString();
         _teamAScoreText.text = GetComponent<PlayerData>().playerTeam.teamScore.ToString();
         _teamBScoreText.text = GetComponent<PlayerData>().playerTeam.teamScore.ToString();
         //_teamBScoreText.text = _teamBScore.ToString();
-        _playerHealthText.text = GetComponent<PlayerHealth>().GetCharge().ToString();
-        _playerWeaponText.text = GetComponent<Shooting>().playerWeapons[GetComponent<Shooting>().currentWeapon].weapon.name;
+        
 
     }
 }

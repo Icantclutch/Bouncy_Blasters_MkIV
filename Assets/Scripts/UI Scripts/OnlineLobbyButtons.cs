@@ -49,6 +49,7 @@ public class OnlineLobbyButtons : MonoBehaviour
             if(_maps.Count > 0)
             {
                 _mapName.text = "" + _maps[0];
+                _networkManager.GetComponent<LobbyManager>().SetMap(_mapName.text);
             }
             _nextMapButton.interactable = false;
         }
@@ -81,8 +82,14 @@ public class OnlineLobbyButtons : MonoBehaviour
             {
                 if (i < _networkManager.GetComponent<LobbyManager>().players.Count) {
                     _playerNames[i].text = _networkManager.GetComponent<LobbyManager>().players[i].playerName;
+                    _teamDisplay[i].text = "Team: " + _networkManager.GetComponent<LobbyManager>().players[i].team;
                 }
             }
+            if (_networkManager.GetComponent<LobbyManager>().gamemodeIndex < _gamemodes.Count)
+            {
+                _gamemodeName.text = "" + _gamemodes[_networkManager.GetComponent<LobbyManager>().gamemodeIndex];
+            }
+            _mapName.text = _networkManager.GetComponent<LobbyManager>().mapName;
         }
 
     }
@@ -113,7 +120,10 @@ public class OnlineLobbyButtons : MonoBehaviour
             {
                 mapIndex = 0;
             }
+            
             _mapName.text = "" + _maps[mapIndex];
+            Debug.Log(_maps[mapIndex]);
+            _networkManager.GetComponent<LobbyManager>().SetMap(_maps[mapIndex]);
         }
     }
     public void CycleGamemode()
@@ -125,6 +135,7 @@ public class OnlineLobbyButtons : MonoBehaviour
             {
                 _gamemodeInt = 0;
             }
+            _networkManager.GetComponent<LobbyManager>().gamemodeIndex = _gamemodeInt;
             _gamemodeName.text = "" + _gamemodes[_gamemodeInt];
         }
     }
