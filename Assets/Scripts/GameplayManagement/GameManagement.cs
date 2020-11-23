@@ -29,6 +29,8 @@ public class GameManagement : MonoBehaviour
     private delegate void _matchDelegate();
     _matchDelegate gamemodeExecution;
 
+    public float MatchTimer { get => (int)_matchTimer; }
+
 
     // Start is called before the first frame update
     void Start()

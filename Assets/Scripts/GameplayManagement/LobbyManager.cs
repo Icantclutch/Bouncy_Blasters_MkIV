@@ -27,14 +27,15 @@ public class LobbyManager : NetworkBehaviour
 
     //Object for the match settings
     private LobbyGameSettings _lobbySettings;
+
     // Start is called before the first frame update
     void Start()
     {
         players = new List<PlayerData>();
         networkManager = GetComponent<NetworkManager>();
-        _lobbySettings = GameObject.Find("Game Settings Panel").GetComponent<LobbyGameSettings>();
+       
+        
     }
-
 
 
     public void AddPlayer(PlayerData player)
@@ -73,6 +74,7 @@ public class LobbyManager : NetworkBehaviour
             //To-do:
             //Set up components needed for gamemode
             //Create Gamemode: default of DeathMatch temporarily
+            GetLobbySettings();
             gamemode = new Gamemode(0, _lobbySettings.GetMatchScoreSetting(), 0, _lobbySettings.GetMatchTimeSetting());
             
             //Create teams
@@ -140,6 +142,14 @@ public class LobbyManager : NetworkBehaviour
         foreach (PlayerData player in players)
         {
             player.RpcSpawnPlayer();
+        }
+    }
+
+    private void GetLobbySettings()
+    {
+        if (_lobbySettings == null)
+        {
+            _lobbySettings = GameObject.FindGameObjectWithTag("Settings").GetComponent<LobbyGameSettings>();
         }
     }
 }

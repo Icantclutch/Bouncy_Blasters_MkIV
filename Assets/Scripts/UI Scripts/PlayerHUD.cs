@@ -24,6 +24,9 @@ public class PlayerHUD : MonoBehaviour
   
     [SerializeField]
     private Text _playerWeaponText;
+
+    [SerializeField]
+    private Text _matchTimer;
     private NetworkManager _networkManager;
     
     // Start is called before the first frame update
@@ -43,6 +46,7 @@ public class PlayerHUD : MonoBehaviour
       
         _teamAScoreText.text = _networkManager.GetComponent<GameManagement>().teamA.teamScore.ToString();
         _teamBScoreText.text = _networkManager.GetComponent<GameManagement>().teamB.teamScore.ToString();
+        _matchTimer.text = _networkManager.GetComponent<GameManagement>().MatchTimer.ToString();
      
         
 
