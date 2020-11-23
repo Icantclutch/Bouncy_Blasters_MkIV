@@ -14,9 +14,10 @@ public class GameManagement : NetworkBehaviour
     
     //The Selected Gamemode
     public Gamemode matchGamemode;
-    
-    [SyncVar]
+
+
     //The timer for the ongoing match
+    [SyncVar]
     private float _matchTimer;
     //A bool for pausing the match
     private bool _gamePaused;
