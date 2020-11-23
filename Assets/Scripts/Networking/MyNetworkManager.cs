@@ -26,7 +26,8 @@ public class MyNetworkManager : NetworkManager
     public override void OnClientSceneChanged(NetworkConnection conn)
     {
         base.OnClientSceneChanged(conn);
-        if (!onlineScene.Contains("OnlineLobby Scene"))
+        //conn.identity.GetComponent<PlayerData>().RpcSpawnPlayer();
+        if (!networkSceneName.Contains("OnlineLobby Scene"))
         {
             conn.identity.GetComponent<PlayerData>().SpawnPlayer();
         }
