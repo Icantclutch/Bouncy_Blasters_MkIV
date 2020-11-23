@@ -39,7 +39,7 @@ public class GameManagement : NetworkBehaviour
     {
         _gamePaused = true;
         playerList = new List<PlayerData>();
-        SetUpMatch(new Gamemode(0, 30, 0, 420), new Team("Nova", new List<PlayerData>()), new Team("Super Nova", new List<PlayerData>()));
+        SetUpMatch(new Gamemode(0, 30, 0, 300), new Team("Nova", new List<PlayerData>()), new Team("Super Nova", new List<PlayerData>()));
   
     }
    
@@ -72,17 +72,7 @@ public class GameManagement : NetworkBehaviour
             CheckMatchEnd();
         }
 
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            for (int i = 0; i < teamA.playerList.Count; i++)
-            {
-                Debug.Log("Team A Member: " + teamA.playerList[i]);
-            }
-            for (int i = 0; i < teamB.playerList.Count; i++)
-            {
-                Debug.Log("Team B Member: " + teamB.playerList[i]);
-            }
-        }
+        
     }
 
     private void DebugTeamScore()

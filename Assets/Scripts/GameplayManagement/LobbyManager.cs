@@ -60,6 +60,12 @@ public class LobbyManager : NetworkBehaviour
         gamemode = new Gamemode(mode, mScore, sScore, time);
     }
 
+    public void SetGamemode()
+    {
+        GetLobbySettings();
+        gamemode = new Gamemode(0, _lobbySettings.GetMatchScoreSetting(), 0, _lobbySettings.GetMatchTimeSetting());
+    }
+
     public void SetMap(string map)
     {
         mapName = map;
@@ -74,8 +80,7 @@ public class LobbyManager : NetworkBehaviour
             //To-do:
             //Set up components needed for gamemode
             //Create Gamemode: default of DeathMatch temporarily
-            GetLobbySettings();
-            gamemode = new Gamemode(0, _lobbySettings.GetMatchScoreSetting(), 0, _lobbySettings.GetMatchTimeSetting());
+           
             
             //Create teams
             List<PlayerData> teamAPlayers = new List<PlayerData>();
