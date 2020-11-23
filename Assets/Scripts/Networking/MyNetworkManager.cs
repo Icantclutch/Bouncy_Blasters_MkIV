@@ -26,7 +26,10 @@ public class MyNetworkManager : NetworkManager
     public override void OnClientSceneChanged(NetworkConnection conn)
     {
         base.OnClientSceneChanged(conn);
-        conn.identity.GetComponent<PlayerData>().SpawnPlayer();
+        if (!onlineScene.Contains("OnlineLobby Scene"))
+        {
+            conn.identity.GetComponent<PlayerData>().SpawnPlayer();
+        }
     }
 
     public GameObject GetLocalPlayer()
