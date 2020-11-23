@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class GameManagement : MonoBehaviour
+public class GameManagement : NetworkBehaviour
 {
     //The Teams for the match
     public Team teamA;
@@ -11,7 +11,7 @@ public class GameManagement : MonoBehaviour
 
     //List of players in Match
     private List<PlayerData> playerList;
-      
+    [SyncVar]
     //The Selected Gamemode
     public Gamemode matchGamemode;
     

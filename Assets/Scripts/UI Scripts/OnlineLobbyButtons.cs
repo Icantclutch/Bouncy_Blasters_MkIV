@@ -9,27 +9,27 @@ public class OnlineLobbyButtons : MonoBehaviour
 {
    
     [SerializeField]
-    private Button _nextMapButton;
+    private Button _nextMapButton = null;
     [SerializeField]
-    private Text _mapName;
+    private Text _mapName = null;
     [SerializeField]
-    private List<String> _maps;
+    private List<String> _maps = null;
 
     [SerializeField]
-    private Button _nextGamemodeButton;
+    private Button _nextGamemodeButton = null;
     [SerializeField]
-    private Text _gamemodeName;
+    private Text _gamemodeName = null;
     private int _gamemodeInt = 0;
     [SerializeField]
-    private List<String> _gamemodes;
+    private List<String> _gamemodes = null;
 
     [SerializeField]
-    private List<Text> _teamDisplay;
+    private List<Text> _teamDisplay = null;
     [SerializeField]
-    private List<Text> _playerNames;
+    private List<Text> _playerNames = null;
 
     [SerializeField]
-    private Button _startMatchButton;
+    private Button _startMatchButton = null;
 
     private NetworkManager _networkManager;
 

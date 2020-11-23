@@ -22,6 +22,14 @@ public class Gamemode
     
     }
 
+    public Gamemode()
+    {
+        selectedGameMode = 0;
+        maxScore = 30;
+        startingScore = 0;
+        matchTime = 223;
+    }
+
    
  
 
