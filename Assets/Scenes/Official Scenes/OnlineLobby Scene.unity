@@ -336,7 +336,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &43387235
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2446,6 +2446,7 @@ GameObject:
   - component: {fileID: 478267232}
   - component: {fileID: 478267234}
   - component: {fileID: 478267233}
+  - component: {fileID: 478267235}
   m_Layer: 5
   m_Name: Game Settings Panel
   m_TagString: Untagged
@@ -2512,6 +2513,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 478267231}
   m_CullTransparentMesh: 0
+--- !u!114 &478267235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 478267231}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbe345ffddc872848a642650f3492714, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerHealth: {fileID: 1285875766}
+  _playerMovementSpeed: {fileID: 686015576}
+  _playerJumpHeight: {fileID: 781525687}
+  _maxGameScore: {fileID: 2125870619}
+  _matchTimer: {fileID: 115637431}
 --- !u!1 &509805978
 GameObject:
   m_ObjectHideFlags: 0
