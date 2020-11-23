@@ -63,7 +63,10 @@ public class LobbyManager : NetworkBehaviour
     public void SetGamemode()
     {
         GetLobbySettings();
-        gamemode = new Gamemode(0, _lobbySettings.GetMatchScoreSetting(), 0, _lobbySettings.GetMatchTimeSetting());
+        gamemode = new Gamemode(_lobbySettings.GetGameModeSetting(), _lobbySettings.GetMatchScoreSetting(), 0, _lobbySettings.GetMatchTimeSetting());
+        Debug.Log("LobbyManager is setting the gamemode to: " + _lobbySettings.GetGameModeSetting());
+        Debug.Log("LobbyManager is setting the gamemode Max score to : " + _lobbySettings.GetMatchScoreSetting());
+        Debug.Log("LobbyManager is setting the gamemode time to: " + _lobbySettings.GetMatchTimeSetting());
     }
 
     public void SetMap(string map)

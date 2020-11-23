@@ -14,6 +14,8 @@ public class LobbyGameSettings : MonoBehaviour
     private Dropdown _playerJumpHeight;
 
     [SerializeField]
+    private Dropdown _gamemodeSetting;
+    [SerializeField]
     private Dropdown _maxGameScore;
     [SerializeField]
     private Dropdown _matchTimer;
@@ -28,6 +30,10 @@ public class LobbyGameSettings : MonoBehaviour
     void Update()
     {
         
+    }
+    public int GetGameModeSetting()
+    { 
+        return _gamemodeSetting.value;
     }
 
     public int GetPlayerHealthSetting()
