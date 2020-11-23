@@ -100,10 +100,7 @@ public class LobbyManager : NetworkBehaviour
 
             Debug.Log("Enabling player gameobjects");
             //SpawnPlayers
-            foreach (PlayerData player in players)
-            {
-                player.RpcSpawnPlayer();
-            }
+            SpawnPlayers();
 
             //Change scene
             networkManager.ServerChangeScene(mapName);
@@ -142,6 +139,7 @@ public class LobbyManager : NetworkBehaviour
         foreach (PlayerData player in players)
         {
             player.RpcSpawnPlayer();
+            player.GetComponent<Shooting>().Rpc_FullReload();
         }
     }
 

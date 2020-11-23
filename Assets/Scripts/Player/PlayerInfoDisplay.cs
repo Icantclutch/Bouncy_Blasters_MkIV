@@ -11,6 +11,12 @@ public class PlayerInfoDisplay : MonoBehaviour
 
     private MyNetworkManager _networkManager;
 
+    private static int localPlayerTeam;
+
+    public static void SetLocalPlayerTeam(int team = 0)
+    {
+        localPlayerTeam = team;
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -23,7 +29,7 @@ public class PlayerInfoDisplay : MonoBehaviour
         _nameDisplayText.text = GetComponent<PlayerData>().playerName;
         int team = GetComponent<PlayerData>().team;
         GameObject localPlayer = _networkManager.GetLocalPlayer();
-        if (team == 0 || (localPlayer && team != localPlayer.GetComponent<PlayerData>().team))
+        if (team == 0 || (localPlayer && team != localPlayerTeam))
         {
             _nameDisplayText.color = Color.red;
         }

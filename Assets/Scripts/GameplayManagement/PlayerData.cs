@@ -25,8 +25,17 @@ public class PlayerData : NetworkBehaviour
     public int playerDeaths;
     [NonSerialized]
     public Team playerTeam;
-    [SyncVar]
+    [SyncVar(hook = nameof(HandleTeamUpdated))]
     public int team;
+    private void HandleTeamUpdated(int oldTeam, int newTeam)
+    {
+        if (isLocalPlayer)
+        {
+            PlayerInfoDisplay.SetLocalPlayerTeam(newTeam);
+        }
+    }
+
+    
 
     [SyncVar]
     public int playerScore;
@@ -45,6 +54,10 @@ public class PlayerData : NetworkBehaviour
     private void Start()
     {
         DontDestroyOnLoad(this.gameObject);
+        if (isLocalPlayer)
+        {
+            PlayerInfoDisplay.SetLocalPlayerTeam(team);
+        }
     }
     void Update()
     {
@@ -80,7 +93,7 @@ public class PlayerData : NetworkBehaviour
         //transform.Find("Player").gameObject.SetActive(true);
         GetComponent<Shooting>().enabled = true;
         GetComponent<Shooting>().active = true;
-        GetComponent<Shooting>().Rpc_FullReload();
+        
         GetComponent<PlayerMovement>().enabled = true;
         GetComponent<MouseLook2>().enabled = true;
         GetComponent<PlayerReference>().enabled = true;
