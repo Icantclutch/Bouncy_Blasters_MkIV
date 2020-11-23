@@ -80,10 +80,12 @@ public class PlayerData : NetworkBehaviour
         //transform.Find("Player").gameObject.SetActive(true);
         GetComponent<Shooting>().enabled = true;
         GetComponent<Shooting>().active = true;
+        GetComponent<Shooting>().Rpc_FullReload();
         GetComponent<PlayerMovement>().enabled = true;
         GetComponent<MouseLook2>().enabled = true;
         GetComponent<PlayerReference>().enabled = true;
         GetComponent<PlayerHUD>().enabled = true;
+        
         //if (!PlayerSpawnSystem.SpawnPlayer(gameObject, true, true)) 
         {
             PlayerSpawnSystem.SpawnPlayer(gameObject);
