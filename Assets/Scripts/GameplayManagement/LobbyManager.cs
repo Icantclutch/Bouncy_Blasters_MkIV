@@ -74,6 +74,10 @@ public class LobbyManager : NetworkBehaviour
         mapName = map;
     }
     
+    /*Takes in the gamemode set by the settings. 
+     * After setting the gamemode it takes the players and assigns them to teams
+     * These teams get passed into the GameMangement's StartGame Function
+     */
     public void StartGame()
     {
         //To-do: check if is host
