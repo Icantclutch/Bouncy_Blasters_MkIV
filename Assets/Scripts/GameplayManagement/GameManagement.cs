@@ -11,10 +11,11 @@ public class GameManagement : NetworkBehaviour
 
     //List of players in Match
     private List<PlayerData> playerList;
-    [SyncVar]
+    
     //The Selected Gamemode
     public Gamemode matchGamemode;
     
+    [SyncVar]
     //The timer for the ongoing match
     private float _matchTimer;
     //A bool for pausing the match
