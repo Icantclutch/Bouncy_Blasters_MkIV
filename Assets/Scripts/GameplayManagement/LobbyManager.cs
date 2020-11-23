@@ -42,7 +42,7 @@ public class LobbyManager : NetworkBehaviour
     {
         players.Add(player);
         DisplayPlayers();
-        Debug.Log(networkManager.onlineScene);
+        //Debug.Log(networkManager.onlineScene);
         //Used for backwards compatability with testing scenes
         if(!networkManager.onlineScene.Contains("OnlineLobby Scene"))
         {

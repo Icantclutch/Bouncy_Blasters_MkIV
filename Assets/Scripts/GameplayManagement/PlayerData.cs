@@ -105,7 +105,7 @@ public class PlayerData : NetworkBehaviour
         GetComponent<PlayerReference>().enabled = true;
         GetComponent<PlayerHUD>().enabled = true;
 
-        if (!PlayerSpawnSystem.SpawnPlayer(gameObject, true, true)) 
+        //if (!PlayerSpawnSystem.SpawnPlayer(gameObject, true, true)) 
         {
             PlayerSpawnSystem.SpawnPlayer(gameObject);
         }
