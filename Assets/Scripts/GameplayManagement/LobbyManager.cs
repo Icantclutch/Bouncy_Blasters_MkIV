@@ -24,13 +24,18 @@ public class LobbyManager : NetworkBehaviour
     public string mapName = "RicochetTest";
 
     public GameManagement gameManager;
+
+    //Object for the match settings
+    private LobbyGameSettings _lobbySettings;
+
     // Start is called before the first frame update
     void Start()
     {
         players = new List<PlayerData>();
         networkManager = GetComponent<NetworkManager>();
+       
+        
     }
-
 
 
     public void AddPlayer(PlayerData player)
@@ -69,7 +74,8 @@ public class LobbyManager : NetworkBehaviour
             //To-do:
             //Set up components needed for gamemode
             //Create Gamemode: default of DeathMatch temporarily
-            gamemode = new Gamemode(0, 30, 0, 420);
+            GetLobbySettings();
+            gamemode = new Gamemode(0, _lobbySettings.GetMatchScoreSetting(), 0, _lobbySettings.GetMatchTimeSetting());
             
             //Create teams
             List<PlayerData> teamAPlayers = new List<PlayerData>();
@@ -136,6 +142,14 @@ public class LobbyManager : NetworkBehaviour
         foreach (PlayerData player in players)
         {
             player.RpcSpawnPlayer();
+        }
+    }
+
+    private void GetLobbySettings()
+    {
+        if (_lobbySettings == null)
+        {
+            _lobbySettings = GameObject.FindGameObjectWithTag("Settings").GetComponent<LobbyGameSettings>();
         }
     }
 }
