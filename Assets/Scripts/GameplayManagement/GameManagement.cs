@@ -39,7 +39,7 @@ public class GameManagement : NetworkBehaviour
     {
         _gamePaused = true;
         playerList = new List<PlayerData>();
-        SetUpMatch(new Gamemode(0, 30, 0, 420), new Team("Nova", new List<PlayerData>()), new Team("Super Nova", new List<PlayerData>()));
+        //SetUpMatch(new Gamemode(0, 30, 0, 420), new Team("Nova", new List<PlayerData>()), new Team("Super Nova", new List<PlayerData>()));
   
     }
    
