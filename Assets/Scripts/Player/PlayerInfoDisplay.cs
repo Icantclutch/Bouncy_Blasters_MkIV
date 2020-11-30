@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Mirror;
 
-public class PlayerInfoDisplay : MonoBehaviour
+public class PlayerInfoDisplay : NetworkBehaviour
 {
     [SerializeField]
     private Text _nameDisplayText;
@@ -23,6 +23,11 @@ public class PlayerInfoDisplay : MonoBehaviour
     void Start()
     {
         _networkManager = GameObject.FindGameObjectWithTag("Management").GetComponent<MyNetworkManager>();
+        if (isLocalPlayer)
+        {
+            _infoDisplay.SetActive(false);
+            this.enabled = false;
+        }
     }
 
     // Update is called once per frame
