@@ -29,7 +29,8 @@ public class PlayerInfoDisplay : MonoBehaviour
         _nameDisplayText.text = GetComponent<PlayerData>().playerName;
         int team = GetComponent<PlayerData>().team;
         GameObject localPlayer = _networkManager.GetLocalPlayer();
-        if (team == 0 || (localPlayer && team != localPlayerTeam))
+        //int localPlayer = CmdLocalPlayerTeam();
+        if (team == 0 || (/*localPlayer &&*/ team != localPlayerTeam))
         {
             _nameDisplayText.color = Color.red;
         }
@@ -39,4 +40,10 @@ public class PlayerInfoDisplay : MonoBehaviour
         }
 
     }
+
+    //[Command]
+    //public int CmdLocalPlayerTeam()
+    //{
+    //    return _networkManager.GetLocalPlayerTeam();
+    //}
 }

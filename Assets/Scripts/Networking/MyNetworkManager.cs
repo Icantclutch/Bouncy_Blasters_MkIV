@@ -44,4 +44,16 @@ public class MyNetworkManager : NetworkManager
         }
         return null;
     }
+
+    public int GetLocalPlayerTeam()
+    {
+        foreach (NetworkConnection conn in players)
+        {
+            if (conn.identity.isLocalPlayer)
+            {
+                return conn.identity.GetComponent<PlayerData>().team;
+            }
+        }
+        return -1;
+    }
 }

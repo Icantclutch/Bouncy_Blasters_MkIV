@@ -42,6 +42,7 @@ public class PlayerData : NetworkBehaviour
 
     private LobbyManager _lobbyManager;
     private bool inLobby = false;
+    private bool _spawned = false;
     /*
     public PlayerData(int teamNum = 0, string name = "Name")
     {
@@ -53,6 +54,7 @@ public class PlayerData : NetworkBehaviour
     }*/
     private void Start()
     {
+        _spawned = false;
         DontDestroyOnLoad(this.gameObject);
         if (isLocalPlayer)
         {
@@ -74,7 +76,13 @@ public class PlayerData : NetworkBehaviour
                 inLobby = true;
             }
         }
-
+        if (!_spawned)
+        {
+            if (PlayerSpawnSystem.SpawnPlayer(gameObject))
+            {
+                _spawned = true;
+            }
+        }
     }
 
 
@@ -87,22 +95,29 @@ public class PlayerData : NetworkBehaviour
         }
     }
 
-    [ClientRpc]
+    [TargetRpc]
     public void RpcSpawnPlayer()
     {
         //transform.Find("Player").gameObject.SetActive(true);
-        GetComponent<Shooting>().enabled = true;
-        GetComponent<Shooting>().active = true;
+        PlayerInfoDisplay.SetLocalPlayerTeam(team);
 
-        GetComponent<PlayerMovement>().enabled = true;
-        GetComponent<MouseLook2>().enabled = true;
-        GetComponent<PlayerReference>().enabled = true;
-        GetComponent<PlayerHUD>().enabled = true;
+        //GetComponent<Shooting>().enabled = true;
+        //GetComponent<Shooting>().active = true;
+
+        //GetComponent<PlayerMovement>().enabled = true;
+        //GetComponent<MouseLook2>().enabled = true;
+        //GetComponent<PlayerReference>().enabled = true;
+        //GetComponent<PlayerHUD>().enabled = true;
 
         //if (!PlayerSpawnSystem.SpawnPlayer(gameObject, true, true)) 
-        {
-            PlayerSpawnSystem.SpawnPlayer(gameObject);
-        }
+        //{
+        //    if (PlayerSpawnSystem.SpawnPlayer(gameObject))
+        //    {
+        //        _spawned = true;
+        //    }
+        //}
+
+        SpawnPlayer();
     }
 
     public void SpawnPlayer()
@@ -116,9 +131,16 @@ public class PlayerData : NetworkBehaviour
         GetComponent<PlayerReference>().enabled = true;
         GetComponent<PlayerHUD>().enabled = true;
 
-        //if (!PlayerSpawnSystem.SpawnPlayer(gameObject, true, true)) 
+        if (!PlayerSpawnSystem.SpawnPlayer(gameObject, true, true)) 
         {
-            PlayerSpawnSystem.SpawnPlayer(gameObject);
+            if (PlayerSpawnSystem.SpawnPlayer(gameObject))
+            {
+                _spawned = true;
+            }
+        }
+        else
+        {
+            _spawned = true;
         }
     }
 
