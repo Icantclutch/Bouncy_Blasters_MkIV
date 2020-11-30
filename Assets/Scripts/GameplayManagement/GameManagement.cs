@@ -71,24 +71,28 @@ public class GameManagement : NetworkBehaviour
         if (!_gamePaused)
         {
             _matchTimer -= Time.deltaTime;
-            teamAScore = teamA.teamScore;
-            teamBScore = teamB.teamScore;
+           
 
             //Execute the gamemode specific instructions
             gamemodeExecution();
 
             //Printing match score
-            InvokeRepeating("DebugTeamScore", 5f, 5f);
+            //DebugTeamScore();
 
             //Does a Score and timer check to see if there is a winner
             CheckMatchEnd();
         }
-
+        UpdateTeamScores();
 
 
 
     }
 
+    public void UpdateTeamScores()
+    {
+        teamAScore = teamA.teamScore;
+        teamBScore = teamB.teamScore;
+    }
     private void DebugTeamScore()
     {
         Debug.Log("Team A Score: " + teamA.teamScore);
@@ -200,6 +204,9 @@ public class GameManagement : NetworkBehaviour
     {
         _gamePaused = false;
     }
+
+    
+  
     //Functions that act as a single Update() call for a given gamemode
     /* 
    public void GameModeName()
