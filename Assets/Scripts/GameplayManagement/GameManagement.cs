@@ -56,7 +56,7 @@ public class GameManagement : NetworkBehaviour
     
     void Update()
     {
-
+   
         if (matchGamemode == null)
         {
             //Allow the match to start
@@ -64,6 +64,7 @@ public class GameManagement : NetworkBehaviour
         }
         else
         {
+            UpdateTeamScores();
             ResumeMatch();
         }
 
@@ -71,8 +72,8 @@ public class GameManagement : NetworkBehaviour
         if (!_gamePaused)
         {
             _matchTimer -= Time.deltaTime;
-           
 
+            UpdateTeamScores();
             //Execute the gamemode specific instructions
             gamemodeExecution();
 
@@ -82,12 +83,12 @@ public class GameManagement : NetworkBehaviour
             //Does a Score and timer check to see if there is a winner
             CheckMatchEnd();
         }
-        UpdateTeamScores();
+     
 
 
 
     }
-
+    
     public void UpdateTeamScores()
     {
         teamAScore = teamA.teamScore;
