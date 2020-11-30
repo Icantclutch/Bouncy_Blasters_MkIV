@@ -30,7 +30,25 @@ public class Gamemode
         matchTime = 223;
     }
 
+    public void ChangeGamemode(int mode)
+    {
+        selectedGameMode = mode;
+    }
    
+    public void ChangeMaxScore(int score)
+    {
+        maxScore = score;
+    }
+
+    public void ChangeStartingScore(int score)
+    {
+        startingScore = score;
+    }
+
+    public void ChangeMatchTimer(int time)
+    {
+        matchTime = time;
+    }
  
 
 }

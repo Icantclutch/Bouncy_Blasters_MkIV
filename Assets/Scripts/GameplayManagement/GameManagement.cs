@@ -39,7 +39,7 @@ public class GameManagement : NetworkBehaviour
     {
         _gamePaused = true;
         playerList = new List<PlayerData>();
-        //SetUpMatch(new Gamemode(0, 30, 0, 420), new Team("Nova", new List<PlayerData>()), new Team("Super Nova", new List<PlayerData>()));
+        //SetUpMatch(new Gamemode(0, 30, 0, 300), new Team("Nova", new List<PlayerData>()), new Team("Super Nova", new List<PlayerData>()));
   
     }
    
@@ -49,11 +49,11 @@ public class GameManagement : NetworkBehaviour
         if(matchGamemode == null)
         {
             //Allow the match to start
-            _gamePaused = true;
+            PauseMatch();
         }
         else
         {
-            _gamePaused = false;
+            ResumeMatch();
         }
 
         //If the game is paused, freeze the match timer
@@ -71,6 +71,8 @@ public class GameManagement : NetworkBehaviour
             //Does a Score and timer check to see if there is a winner
             CheckMatchEnd();
         }
+
+        
     }
 
     private void DebugTeamScore()
@@ -167,6 +169,16 @@ public class GameManagement : NetworkBehaviour
             teamB.playerList.Add(player);
             player.playerTeam = teamB;
         }
+    }
+
+    public void PauseMatch()
+    {
+        _gamePaused = true;
+    }
+
+    public void ResumeMatch()
+    {
+        _gamePaused = false;
     }
     //Functions that act as a single Update() call for a given gamemode
     /* 

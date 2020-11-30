@@ -90,8 +90,19 @@ public class PlayerData : NetworkBehaviour
     [ClientRpc]
     public void RpcSpawnPlayer()
     {
-        SpawnPlayer();
+        //transform.Find("Player").gameObject.SetActive(true);
+        GetComponent<Shooting>().enabled = true;
+        GetComponent<Shooting>().active = true;
 
+        GetComponent<PlayerMovement>().enabled = true;
+        GetComponent<MouseLook2>().enabled = true;
+        GetComponent<PlayerReference>().enabled = true;
+        GetComponent<PlayerHUD>().enabled = true;
+
+        //if (!PlayerSpawnSystem.SpawnPlayer(gameObject, true, true)) 
+        {
+            PlayerSpawnSystem.SpawnPlayer(gameObject);
+        }
     }
 
     public void SpawnPlayer()
@@ -105,7 +116,7 @@ public class PlayerData : NetworkBehaviour
         GetComponent<PlayerReference>().enabled = true;
         GetComponent<PlayerHUD>().enabled = true;
 
-        if (!PlayerSpawnSystem.SpawnPlayer(gameObject, true, true)) 
+        //if (!PlayerSpawnSystem.SpawnPlayer(gameObject, true, true)) 
         {
             PlayerSpawnSystem.SpawnPlayer(gameObject);
         }

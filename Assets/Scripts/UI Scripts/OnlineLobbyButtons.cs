@@ -37,7 +37,7 @@ public class OnlineLobbyButtons : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _startMatchButton = GameObject.Find("Start Match Button").GetComponent<Button>();
+        
         _startMatchButton.interactable = false;
         _startMatchButton.onClick.AddListener(StartMatch);
         if(_maps.Count > 1)
@@ -98,7 +98,7 @@ public class OnlineLobbyButtons : MonoBehaviour
     private void StartMatch()
     {
         _networkManager.GetComponent<LobbyManager>().SetMap(_mapName.text);
-        _networkManager.GetComponent<LobbyManager>().SetGamemode(_gamemodeInt, 30, 0, 420);
+        _networkManager.GetComponent<LobbyManager>().SetGamemode();
         _networkManager.GetComponent<LobbyManager>().StartGame();
     }
 

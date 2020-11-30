@@ -42,7 +42,7 @@ public class LobbyManager : NetworkBehaviour
     {
         players.Add(player);
         DisplayPlayers();
-        Debug.Log(networkManager.onlineScene);
+        //Debug.Log(networkManager.onlineScene);
         //Used for backwards compatability with testing scenes
         if(!networkManager.onlineScene.Contains("OnlineLobby Scene"))
         {
@@ -60,11 +60,24 @@ public class LobbyManager : NetworkBehaviour
         gamemode = new Gamemode(mode, mScore, sScore, time);
     }
 
+    public void SetGamemode()
+    {
+        GetLobbySettings();
+        gamemode = new Gamemode(_lobbySettings.GetGameModeSetting(), _lobbySettings.GetMatchScoreSetting(), 0, _lobbySettings.GetMatchTimeSetting());
+        Debug.Log("LobbyManager is setting the gamemode to: " + _lobbySettings.GetGameModeSetting());
+        Debug.Log("LobbyManager is setting the gamemode Max score to : " + _lobbySettings.GetMatchScoreSetting());
+        Debug.Log("LobbyManager is setting the gamemode time to: " + _lobbySettings.GetMatchTimeSetting());
+    }
+
     public void SetMap(string map)
     {
         mapName = map;
     }
     
+    /*Takes in the gamemode set by the settings. 
+     * After setting the gamemode it takes the players and assigns them to teams
+     * These teams get passed into the GameMangement's StartGame Function
+     */
     public void StartGame()
     {
         //To-do: check if is host
@@ -74,8 +87,7 @@ public class LobbyManager : NetworkBehaviour
             //To-do:
             //Set up components needed for gamemode
             //Create Gamemode: default of DeathMatch temporarily
-            GetLobbySettings();
-            gamemode = new Gamemode(0, _lobbySettings.GetMatchScoreSetting(), 0, _lobbySettings.GetMatchTimeSetting());
+           
             
             //Create teams
             List<PlayerData> teamAPlayers = new List<PlayerData>();
