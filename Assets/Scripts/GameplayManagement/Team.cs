@@ -1,12 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class Team
+public class Team : NetworkBehaviour
 {
     public string teamName;
    
-   
+   [SyncVar]
     public int teamScore;
 
     public List<PlayerData> playerList;
