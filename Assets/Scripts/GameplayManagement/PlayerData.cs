@@ -140,7 +140,7 @@ public class PlayerData : NetworkBehaviour
         }
         else
         {
-            _spawned = true;
+            //_spawned = true;
         }
     }
 
