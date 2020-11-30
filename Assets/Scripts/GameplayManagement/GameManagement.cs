@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 
+
 public class GameManagement : NetworkBehaviour
 {
     //The Teams for the match
@@ -38,7 +39,7 @@ public class GameManagement : NetworkBehaviour
 
     public float MatchTimer { get => (int)_matchTimer; }
 
-
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -48,37 +49,42 @@ public class GameManagement : NetworkBehaviour
   
     }
    
+    
     // Update is called once per frame
     void Update()
     {
-        if(matchGamemode == null)
+        if (hasAuthority)
         {
-            //Allow the match to start
-            PauseMatch();
+            if (matchGamemode == null)
+            {
+                //Allow the match to start
+                PauseMatch();
+            }
+            else
+            {
+                ResumeMatch();
+            }
+
+            //If the game is paused, freeze the match timer
+            if (!_gamePaused)
+            {
+                _matchTimer -= Time.deltaTime;
+                teamAScore = teamA.teamScore;
+                teamBScore = teamB.teamScore;
+
+                //Execute the gamemode specific instructions
+                gamemodeExecution();
+
+                //Printing match score
+                InvokeRepeating("DebugTeamScore", 5f, 5f);
+
+                //Does a Score and timer check to see if there is a winner
+                CheckMatchEnd();
+            }
+
         }
-        else
-        {
-            ResumeMatch();
-        }
 
-        //If the game is paused, freeze the match timer
-        if (!_gamePaused)
-        {
-            _matchTimer -= Time.deltaTime;
-            teamAScore = teamA.teamScore;
-            teamBScore = teamB.teamScore;
 
-            //Execute the gamemode specific instructions
-            gamemodeExecution();
-
-            //Printing match score
-            InvokeRepeating("DebugTeamScore", 5f, 5f);
-
-            //Does a Score and timer check to see if there is a winner
-            CheckMatchEnd();
-        }
-
-        
     }
 
     private void DebugTeamScore()
