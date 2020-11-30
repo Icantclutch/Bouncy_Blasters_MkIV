@@ -29,7 +29,7 @@ public class MyNetworkManager : NetworkManager
         //conn.identity.GetComponent<PlayerData>().RpcSpawnPlayer();
         if (!networkSceneName.Contains("OnlineLobby Scene"))
         {
-            conn.identity.GetComponent<PlayerData>().SpawnPlayer();
+            conn.identity.GetComponent<PlayerData>().RpcSpawnPlayer();
         }
     }
 
