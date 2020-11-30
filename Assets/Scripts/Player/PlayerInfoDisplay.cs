@@ -8,6 +8,8 @@ public class PlayerInfoDisplay : MonoBehaviour
 {
     [SerializeField]
     private Text _nameDisplayText;
+    [SerializeField]
+    private GameObject _infoDisplay;
 
     private MyNetworkManager _networkManager;
 
@@ -38,7 +40,7 @@ public class PlayerInfoDisplay : MonoBehaviour
         {
             _nameDisplayText.color = Color.white;
         }
-
+        _infoDisplay.transform.LookAt(Camera.main.transform);
     }
 
     //[Command]
