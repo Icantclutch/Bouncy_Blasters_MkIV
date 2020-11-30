@@ -41,6 +41,7 @@ public class GameManagement : NetworkBehaviour
 
     
     // Start is called before the first frame update
+    [Server]
     void Start()
     {
         _gamePaused = true;
@@ -51,38 +52,38 @@ public class GameManagement : NetworkBehaviour
    
     
     // Update is called once per frame
+    [Server]
     void Update()
     {
-        if (hasAuthority)
+
+        if (matchGamemode == null)
         {
-            if (matchGamemode == null)
-            {
-                //Allow the match to start
-                PauseMatch();
-            }
-            else
-            {
-                ResumeMatch();
-            }
-
-            //If the game is paused, freeze the match timer
-            if (!_gamePaused)
-            {
-                _matchTimer -= Time.deltaTime;
-                teamAScore = teamA.teamScore;
-                teamBScore = teamB.teamScore;
-
-                //Execute the gamemode specific instructions
-                gamemodeExecution();
-
-                //Printing match score
-                InvokeRepeating("DebugTeamScore", 5f, 5f);
-
-                //Does a Score and timer check to see if there is a winner
-                CheckMatchEnd();
-            }
-
+            //Allow the match to start
+            PauseMatch();
         }
+        else
+        {
+            ResumeMatch();
+        }
+
+        //If the game is paused, freeze the match timer
+        if (!_gamePaused)
+        {
+            _matchTimer -= Time.deltaTime;
+            teamAScore = teamA.teamScore;
+            teamBScore = teamB.teamScore;
+
+            //Execute the gamemode specific instructions
+            gamemodeExecution();
+
+            //Printing match score
+            InvokeRepeating("DebugTeamScore", 5f, 5f);
+
+            //Does a Score and timer check to see if there is a winner
+            CheckMatchEnd();
+        }
+
+
 
 
     }
