@@ -29,7 +29,7 @@ public class MyNetworkManager : NetworkManager
         //conn.identity.GetComponent<PlayerData>().RpcSpawnPlayer();
         if (!networkSceneName.Contains("OnlineLobby Scene"))
         {
-            conn.identity.GetComponent<PlayerData>().SpawnPlayer();
+            conn.identity.GetComponent<PlayerData>().RpcSpawnPlayer();
         }
     }
 
@@ -43,5 +43,17 @@ public class MyNetworkManager : NetworkManager
             }
         }
         return null;
+    }
+
+    public int GetLocalPlayerTeam()
+    {
+        foreach (NetworkConnection conn in players)
+        {
+            if (conn.identity.isLocalPlayer)
+            {
+                return conn.identity.GetComponent<PlayerData>().team;
+            }
+        }
+        return -1;
     }
 }

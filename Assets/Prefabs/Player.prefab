@@ -1640,6 +1640,7 @@ MonoBehaviour:
   _playerHealthText: {fileID: 1137195457}
   _playerWeaponText: {fileID: 4906504091849385099}
   _matchTimer: {fileID: 1223673162211753598}
+  _networkManager: {fileID: 0}
 --- !u!114 &6461287256673192142
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1669,6 +1670,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _nameDisplayText: {fileID: 5352334645154030688}
+  _infoDisplay: {fileID: 4384819657786414322}
 --- !u!1 &4384819657786414322
 GameObject:
   m_ObjectHideFlags: 0
@@ -1692,14 +1694,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4384819657786414322}
-  m_LocalRotation: {x: 0, y: -1, z: 0, w: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8282507388377988668}
   m_Father: {fileID: 4357171600822209690}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7829333130226488999
 GameObject:
   m_ObjectHideFlags: 0
@@ -1726,14 +1728,14 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7829333130226488999}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: -1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 0.5555556, z: 1}
   m_Children:
   - {fileID: 7465269725314948943}
   m_Father: {fileID: 7164985317577078470}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}

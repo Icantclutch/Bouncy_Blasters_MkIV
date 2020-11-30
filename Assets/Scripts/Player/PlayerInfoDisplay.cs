@@ -4,10 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using Mirror;
 
-public class PlayerInfoDisplay : MonoBehaviour
+public class PlayerInfoDisplay : NetworkBehaviour
 {
     [SerializeField]
     private Text _nameDisplayText;
+    [SerializeField]
+    private GameObject _infoDisplay;
 
     private MyNetworkManager _networkManager;
 
@@ -21,6 +23,11 @@ public class PlayerInfoDisplay : MonoBehaviour
     void Start()
     {
         _networkManager = GameObject.FindGameObjectWithTag("Management").GetComponent<MyNetworkManager>();
+        if (isLocalPlayer)
+        {
+            _infoDisplay.SetActive(false);
+            this.enabled = false;
+        }
     }
 
     // Update is called once per frame
@@ -29,7 +36,8 @@ public class PlayerInfoDisplay : MonoBehaviour
         _nameDisplayText.text = GetComponent<PlayerData>().playerName;
         int team = GetComponent<PlayerData>().team;
         GameObject localPlayer = _networkManager.GetLocalPlayer();
-        if (team == 0 || (localPlayer && team != localPlayerTeam))
+        //int localPlayer = CmdLocalPlayerTeam();
+        if (team == 0 || (/*localPlayer &&*/ team != localPlayerTeam))
         {
             _nameDisplayText.color = Color.red;
         }
@@ -37,6 +45,12 @@ public class PlayerInfoDisplay : MonoBehaviour
         {
             _nameDisplayText.color = Color.white;
         }
-
+        _infoDisplay.transform.LookAt(Camera.main.transform);
     }
+
+    //[Command]
+    //public int CmdLocalPlayerTeam()
+    //{
+    //    return _networkManager.GetLocalPlayerTeam();
+    //}
 }
