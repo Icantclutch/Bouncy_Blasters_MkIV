@@ -26,6 +26,7 @@ public class GameManagement : NetworkBehaviour
     [SyncVar]
     private float _matchTimer;
     //A bool for pausing the match
+    [SerializeField]
     private bool _gamePaused;
 
     /*
@@ -41,7 +42,7 @@ public class GameManagement : NetworkBehaviour
 
     
     // Start is called before the first frame update
-    [Server]
+    
     void Start()
     {
         _gamePaused = true;
@@ -52,7 +53,7 @@ public class GameManagement : NetworkBehaviour
    
     
     // Update is called once per frame
-    [Server]
+    
     void Update()
     {
 
@@ -96,7 +97,7 @@ public class GameManagement : NetworkBehaviour
 
 
     //Function for checking if the match should end
-    [Server]
+  
     private void CheckMatchEnd()
     {
         //If the match timer runs out
@@ -128,14 +129,14 @@ public class GameManagement : NetworkBehaviour
 
     }
     //Function for ending the match and declaring a winner
-    [Server]
+   
     private void MatchEnd(Team winningTeam)
     {
         _gamePaused = true;
     }
 
     //Overloaded Match end for tie game
-    [Server]
+    
     private void MatchEnd()
     {
         //Game is Tied
@@ -143,7 +144,7 @@ public class GameManagement : NetworkBehaviour
     }
 
     //Function to be called that sets up the match. THE USE OF THIS FUNCTION MAY CHANGE DEPENDING ON HOW THE MATCH IS LOADED
-    [Server]
+    
     public void SetUpMatch(Gamemode game, Team a, Team b)
     {
         matchGamemode = game;
@@ -172,7 +173,7 @@ public class GameManagement : NetworkBehaviour
 
         _matchTimer = (float)matchGamemode.matchTime;
     }
-    [Server]
+  
     public void JoinTeam(PlayerData player)
     {
         playerList.Add(player);
@@ -188,13 +189,13 @@ public class GameManagement : NetworkBehaviour
         }
     }
 
-    [Server]
+    
     public void PauseMatch()
     {
         _gamePaused = true;
     }
 
-    [Server]
+    
     public void ResumeMatch()
     {
         _gamePaused = false;
@@ -206,7 +207,7 @@ public class GameManagement : NetworkBehaviour
       The operation of the gamemode goes here
    }
    */
-    [Server]
+    
     private void TDM()
     {
         for(int i = 0; i < playerList.Count; i++)
@@ -215,7 +216,7 @@ public class GameManagement : NetworkBehaviour
         }
 
     }
-    [Server]
+    
     private void Hardpt()
     {
         Debug.Log("HardPt");
