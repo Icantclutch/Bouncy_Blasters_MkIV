@@ -9,6 +9,11 @@ public class GameManagement : NetworkBehaviour
     public Team teamA;
     public Team teamB;
 
+    [SyncVar]
+    public int teamAScore;
+    [SyncVar]
+    public int teamBScore;
+
     //List of players in Match
     private List<PlayerData> playerList;
     
@@ -60,7 +65,8 @@ public class GameManagement : NetworkBehaviour
         if (!_gamePaused)
         {
             _matchTimer -= Time.deltaTime;
-
+            teamAScore = teamA.teamScore;
+            teamBScore = teamB.teamScore;
 
             //Execute the gamemode specific instructions
             gamemodeExecution();
