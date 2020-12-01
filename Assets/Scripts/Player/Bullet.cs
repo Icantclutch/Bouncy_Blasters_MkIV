@@ -72,6 +72,8 @@ public class Bullet : NetworkBehaviour
             return;
         }
 
+        print("HIT WALL1");
+
         //Increase the bounces if the bullet still lives
         myShot.numBounces++;
     }
