@@ -44,6 +44,8 @@ public class OnlineLobbyButtons : MonoBehaviour
         {
             _nextMapButton.interactable = true;
             _mapName.text = "" + _maps[0];
+          
+            Debug.Log("Default Map: " + _mapName.text);
         }
         else
         {
@@ -90,7 +92,7 @@ public class OnlineLobbyButtons : MonoBehaviour
             {
                 _gamemodeName.text = "" + _gamemodes[_networkManager.GetComponentInChildren<LobbyManager>().gamemodeIndex];
             }
-            _mapName.text = _networkManager.GetComponentInChildren<LobbyManager>().mapName;
+            //_mapName.text = _networkManager.GetComponentInChildren<LobbyManager>().mapName;
         }
 
     }

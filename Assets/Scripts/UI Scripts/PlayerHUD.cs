@@ -50,9 +50,9 @@ public class PlayerHUD : MonoBehaviour
             _playerHealthText.text = GetComponent<PlayerHealth>().GetCharge().ToString();
             _playerWeaponText.text = GetComponent<Shooting>().playerWeapons[GetComponent<Shooting>().currentWeapon].weapon.name;
 
-            _teamAScoreText.text = _networkManager.GetComponent<GameManagement>().teamAScore.ToString();
-            _teamBScoreText.text = _networkManager.GetComponent<GameManagement>().teamBScore.ToString();
-            _matchTimer.text = _networkManager.GetComponent<GameManagement>().MatchTimer.ToString();
+            _teamAScoreText.text = _networkManager.GetComponentInChildren<GameManagement>().teamAScore.ToString();
+            _teamBScoreText.text = _networkManager.GetComponentInChildren<GameManagement>().teamBScore.ToString();
+            _matchTimer.text = _networkManager.GetComponentInChildren<GameManagement>().MatchTimer.ToString();
         }
       
      
