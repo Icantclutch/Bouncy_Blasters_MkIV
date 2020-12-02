@@ -5,10 +5,25 @@ using System.Linq;
 using Mirror;
 using System;
 
-public class TravelBullet : RaycastBullet {
+public class TravelBullet : RaycastBullet
+{
 
+
+    public class RayInfo
+    {
+        public RaycastHit rayHit;
+        public Ray rayPass;
+        public RayInfo(RaycastHit rayHit1, Ray rayPass1)
+        {
+            rayPass = rayPass1;
+            rayHit = rayHit1;
+        }
+    }
     [SerializeField]
     protected List<Vector3> raycastPositions = new List<Vector3>();
+    [SerializeField]
+    protected List<RayInfo> bulletInfos = new List<RayInfo>();
+
 
     //For when the bullet needs to stop]
     bool stopBullet = false;
@@ -36,12 +51,24 @@ public class TravelBullet : RaycastBullet {
                     destroyLerp = 1;
                 //Set the position of the first point
                 transform.position = Vector3.Lerp(laserDestroyA, laserDestroyB, destroyLerp);
-
                 if (transform.position == laserDestroyB)
                 {
-                    ///PUT THE COLLISION STUFF HERE MARK
+                    //Calls from bulletInfo that stores a class RayInfo
+                    //RayInfo holds the Ray and the Rayhit from the collision
+                    if (bulletInfos.Count >= 1)
+                    {
+                        //Retrieve the RayInfo
+                        RayInfo newHit = bulletInfos[0];
+                        RaycastHit rayHit = newHit.rayHit;
+                        Ray rayPass = newHit.rayPass;
+                        bulletInfos.RemoveAt(0);
 
-                    ///ABOVE HERE
+                        Vector3 reflection = Vector3.Reflect(rayPass.direction, rayHit.normal);
+                        Quaternion rot = Quaternion.FromToRotation(Vector3.up, rayHit.normal);
+                        Vector3 pos = rayHit.point;
+                        Instantiate(bulletCollisionEffect, pos, rot);
+                        Instantiate(bulletDirtEffect, pos, Quaternion.FromToRotation(Vector3.up, reflection));
+                    }
 
                     //Remove the first point
                     raycastPositions.RemoveAt(0);
@@ -49,16 +76,27 @@ public class TravelBullet : RaycastBullet {
                     //Disable floor penalty if at the second bounce point
                     if (transform.position == secondBounce)
                     {
-                        floor = false;
-                    }
+                        ///PUT THE COLLISION STUFF HERE MARK
 
-                    //Continue if there are still 2 positions
-                    if (raycastPositions.Count >= 2)
-                    {
-                        //Reset lerping
-                        laserDestroyA = raycastPositions[0];
-                        laserDestroyB = raycastPositions[1];
-                        destroyLerp = 0;
+                        ///ABOVE HERE
+
+                        //Remove the first point
+                        raycastPositions.RemoveAt(0);
+
+                        //Disable floor penalty if at the second bounce point
+                        if (transform.position == secondBounce)
+                        {
+                            floor = false;
+                        }
+
+                        //Continue if there are still 2 positions
+                        if (raycastPositions.Count >= 2)
+                        {
+                            //Reset lerping
+                            laserDestroyA = raycastPositions[0];
+                            laserDestroyB = raycastPositions[1];
+                            destroyLerp = 0;
+                        }
                     }
                 }
             }
@@ -76,6 +114,7 @@ public class TravelBullet : RaycastBullet {
         bulletSpeed = speed;
         //Create the array of vec3 points in the line and add the starting point
         List<Vector3> bouncePoints = new List<Vector3>();
+        List<RayInfo> Rayhits = new List<RayInfo>();
         bouncePoints.Add(transform.position);
 
         //Create ray that transfers through loops and raycasthit
@@ -90,6 +129,8 @@ public class TravelBullet : RaycastBullet {
             {
                 //Add hit point to the list of line points
                 bouncePoints.Add(hit.point);
+                //Add hit and ray to Rayhits (for bullet holes)
+                Rayhits.Add(new RayInfo(hit, ray));
 
                 //Set second bounce if this is the second bounce
                 if (i == 1)
@@ -110,6 +151,10 @@ public class TravelBullet : RaycastBullet {
                 //Create the endpoint and add it to the lists
                 Vector3 endPoint = ray.origin + (ray.direction * 100);
                 bouncePoints.Add(endPoint);
+
+                //Add effects (shouldn't need since there is no collision)
+                //Rayhits.Add(new RayInfo(hit, ray));
+
                 //End loop early
                 break;
             }
@@ -117,6 +162,7 @@ public class TravelBullet : RaycastBullet {
 
         //Assign points
         raycastPositions = bouncePoints;
+        bulletInfos = Rayhits;
 
         //Set up movement
         laserDestroyA = raycastPositions[0];
