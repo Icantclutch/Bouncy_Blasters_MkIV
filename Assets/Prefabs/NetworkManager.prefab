@@ -2034,6 +2034,7 @@ GameObject:
   - component: {fileID: 425590581150728263}
   - component: {fileID: -9103764452091563807}
   - component: {fileID: -9052893860759769745}
+  - component: {fileID: 1640078406224133156}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Management
@@ -2183,7 +2184,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a97375d59990bd43889bdbe9a20a529, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   players: []
+  gamemodeIndex: 0
   minPlayersNeeded: 1
   numOfTeams: 2
   mapName: 
@@ -2200,6 +2204,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 916f5a82bfc0b0c4ca7680153df3fcb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  teamAScore: 0
+  teamBScore: 0
+  _gamePaused: 0
+--- !u!114 &1640078406224133156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 425590579435277465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  serverOnly: 0
+  m_AssetId: 
+  hasSpawned: 0
 --- !u!1 &425590579968816355
 GameObject:
   m_ObjectHideFlags: 0
