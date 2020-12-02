@@ -79,7 +79,7 @@ public class Bullet : NetworkBehaviour
     }
 
     [Server]
-    public void DestroyBullet()
+    public virtual void DestroyBullet()
     {
         NetworkServer.Destroy(gameObject);
     }

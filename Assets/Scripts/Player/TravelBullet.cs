@@ -34,6 +34,10 @@ public class TravelBullet : RaycastBullet {
 
             if (transform.position == laserDestroyB)
             {
+                ///PUT THE COLLISION STUFF HERE MARK
+
+                ///ABOVE HERE
+
                 //Remove the first point
                 raycastPositions.RemoveAt(0);
 
@@ -139,5 +143,30 @@ public class TravelBullet : RaycastBullet {
                 }
             }
         }
+    }
+
+    [Server]
+    public override void DestroyBullet()
+    {
+        StartCoroutine(SlowBulletDeath());
+    }
+
+    IEnumerator SlowBulletDeath()
+    {
+        GetComponentInChildren<ParticleSystem>().Stop();
+        Rpc_DisableParticles();
+
+        while (GetComponentInChildren<ParticleSystem>().IsAlive())
+        {
+            yield return null;
+        }
+
+        base.DestroyBullet();
+    }
+
+    [ClientRpc]
+    protected void Rpc_DisableParticles()
+    {
+        GetComponentInChildren<ParticleSystem>().Stop();
     }
 }
