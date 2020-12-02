@@ -81,31 +81,31 @@ public class OnlineLobbyButtons : MonoBehaviour
             _startMatchButton.interactable = true;
             for(int i = 0; i < _playerNames.Count; ++i)
             {
-                if (i < _networkManager.GetComponent<LobbyManager>().players.Count) {
-                    _playerNames[i].text = _networkManager.GetComponent<LobbyManager>().players[i].playerName;
-                    _teamDisplay[i].text = "Team: " + _networkManager.GetComponent<LobbyManager>().players[i].team;
+                if (i < _networkManager.GetComponentInChildren<LobbyManager>().players.Count) {
+                    _playerNames[i].text = _networkManager.GetComponentInChildren<LobbyManager>().players[i].playerName;
+                    _teamDisplay[i].text = "Team: " + _networkManager.GetComponentInChildren<LobbyManager>().players[i].team;
                 }
             }
-            if (_networkManager.GetComponent<LobbyManager>().gamemodeIndex < _gamemodes.Count)
+            if (_networkManager.GetComponentInChildren<LobbyManager>().gamemodeIndex < _gamemodes.Count)
             {
-                _gamemodeName.text = "" + _gamemodes[_networkManager.GetComponent<LobbyManager>().gamemodeIndex];
+                _gamemodeName.text = "" + _gamemodes[_networkManager.GetComponentInChildren<LobbyManager>().gamemodeIndex];
             }
-            _mapName.text = _networkManager.GetComponent<LobbyManager>().mapName;
+            _mapName.text = _networkManager.GetComponentInChildren<LobbyManager>().mapName;
         }
 
     }
 
     private void StartMatch()
     {
-        _networkManager.GetComponent<LobbyManager>().SetMap(_mapName.text);
-        _networkManager.GetComponent<LobbyManager>().SetGamemode();
-        _networkManager.GetComponent<LobbyManager>().StartGame();
+        _networkManager.GetComponentInChildren<LobbyManager>().SetMap(_mapName.text);
+        _networkManager.GetComponentInChildren<LobbyManager>().SetGamemode();
+        _networkManager.GetComponentInChildren<LobbyManager>().StartGame();
     }
 
     public void CycleTeam(int playerIndex = 0)
     {
         if(_teamDisplay.Count > playerIndex)
-            _teamDisplay[playerIndex].text = "Team: " + _networkManager.GetComponent<LobbyManager>().CycleTeam(playerIndex);
+            _teamDisplay[playerIndex].text = "Team: " + _networkManager.GetComponentInChildren<LobbyManager>().CycleTeam(playerIndex);
     }
     public void CycleMap()
     {
@@ -124,7 +124,7 @@ public class OnlineLobbyButtons : MonoBehaviour
             
             _mapName.text = "" + _maps[mapIndex];
             //Debug.Log(_maps[mapIndex]);
-            _networkManager.GetComponent<LobbyManager>().SetMap(_maps[mapIndex]);
+            _networkManager.GetComponentInChildren<LobbyManager>().SetMap(_maps[mapIndex]);
         }
     }
     public void CycleGamemode()
@@ -136,7 +136,7 @@ public class OnlineLobbyButtons : MonoBehaviour
             {
                 _gamemodeInt = 0;
             }
-            _networkManager.GetComponent<LobbyManager>().gamemodeIndex = _gamemodeInt;
+            _networkManager.GetComponentInChildren<LobbyManager>().gamemodeIndex = _gamemodeInt;
             _gamemodeName.text = "" + _gamemodes[_gamemodeInt];
         }
     }

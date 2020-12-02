@@ -32,7 +32,7 @@ public class LobbyManager : NetworkBehaviour
     void Start()
     {
         players = new List<PlayerData>();
-        networkManager = GetComponent<NetworkManager>();
+        networkManager = GetComponentInParent<NetworkManager>();
        
         
     }
