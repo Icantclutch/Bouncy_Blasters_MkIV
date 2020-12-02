@@ -7,7 +7,7 @@ using Mirror;
 public class RaycastBullet : Bullet
 {
     //Line renderer
-    private LineRenderer lineRenderer;
+    protected LineRenderer lineRenderer;
 
     //Speed
     [SyncVar]
@@ -17,19 +17,20 @@ public class RaycastBullet : Bullet
     public LayerMask reflectable;
 
     //Laser positions
-    private Vector3 laserDestroyA;
-    private Vector3 laserDestroyB;
-    private float destroyLerp = 0;
+    protected Vector3 laserDestroyA;
+    protected Vector3 laserDestroyB;
+    protected float destroyLerp = 0;
 
+    //Server-side initialization
     [Server]
     public override void Initialize(List<int> damage, int bounces, float fireSpeed, int playerId)
     {
-        gameObject.name = bounces.ToString();
         lineRenderer = GetComponent<LineRenderer>();
         Rpc_PlayerInit();
         base.Initialize(damage, bounces, fireSpeed, playerId);
     }
 
+    //Client-side initialization
     [ClientRpc]
     private void Rpc_PlayerInit()
     {
@@ -161,8 +162,9 @@ public class RaycastBullet : Bullet
         Rpc_UpdateClientLines(bounces);
     }
 
+    //Update the line positions on the client side
     [ClientRpc]
-    void Rpc_UpdateClientLines(Vector3[] vectors)
+    protected void Rpc_UpdateClientLines(Vector3[] vectors)
     {
         lineRenderer.positionCount = vectors.Length;
         lineRenderer.SetPositions(vectors);

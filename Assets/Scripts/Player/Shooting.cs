@@ -52,6 +52,7 @@ public class Shooting : NetworkBehaviour
         if (!hasAuthority)
             return;
 
+        //Set ammo to max
         for(int i = 0; i < playerWeapons.Count; i++)
         {
             playerWeapons[i].currentAmmo = playerWeapons[i].weapon.ammoCount;
