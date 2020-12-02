@@ -8,9 +8,9 @@ using Mirror;
 public class PlayerMovement : NetworkBehaviour
 {
 	[SerializeField]
-	private Rigidbody rbody;
+	private Rigidbody rbody = null;
 	[SerializeField]
-	private CapsuleCollider coll;
+	private CapsuleCollider coll = null;
 	public float speed = 10.0f;
 	public float sprintModifier = 3.0f;
 	public float gravity = 10.0f;
