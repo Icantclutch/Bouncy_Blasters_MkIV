@@ -69,7 +69,7 @@ public class PlayerMovement : NetworkBehaviour
 					rbody.velocity += new Vector3(0, CalculateJumpVerticalSpeed(), 0);
 
 
-					rbody.velocity += new Vector3(velocity.x, CalculateJumpVerticalSpeed(), velocity.z);
+					//rbody.velocity += new Vector3(velocity.x, CalculateJumpVerticalSpeed(), velocity.z);
 					hasJumped = true;
 
 

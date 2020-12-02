@@ -3,11 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using Mirror;
+using System;
 
 public class TravelBullet : RaycastBullet {
 
     [SerializeField]
     protected List<Vector3> raycastPositions = new List<Vector3>();
+
+    //Info for the second bounce
+    bool floor = false;
+    Vector3 secondBounce = new Vector3();
 
     [Server]
     public override void Initialize(List<int> damage, int bounces, float fireSpeed, int playerId)
@@ -21,7 +26,7 @@ public class TravelBullet : RaycastBullet {
         if (raycastPositions.Count >= 2)
         {
             //Increase the lerp,
-            destroyLerp += (Time.deltaTime * bulletSpeed * 10) / (Vector3.Distance(laserDestroyA, laserDestroyB));
+            destroyLerp += (Time.deltaTime * bulletSpeed * 100) / (Vector3.Distance(laserDestroyA, laserDestroyB));
             if (destroyLerp > 1)
                 destroyLerp = 1;
             //Set the position of the first point
@@ -31,6 +36,12 @@ public class TravelBullet : RaycastBullet {
             {
                 //Remove the first point
                 raycastPositions.RemoveAt(0);
+
+                //Disable floor penalty if at the second bounce point
+                if(transform.position == secondBounce)
+                {
+                    floor = false;
+                }
 
                 //Continue if there are still 2 positions
                 if (raycastPositions.Count >= 2)
@@ -70,6 +81,16 @@ public class TravelBullet : RaycastBullet {
                 //Add hit point to the list of line points
                 bouncePoints.Add(hit.point);
 
+                //Set second bounce if this is the second bounce
+                if (i == 1)
+                    secondBounce = hit.point;
+
+                //If its first bounce is off the floor, set floor true
+                if (hit.transform.CompareTag("Floor") && i == 0)
+                {
+                    floor = true;
+                }
+
                 //Generate the reflection
                 Vector3 reflection = Vector3.Reflect(ray.direction, hit.normal);
                 ray = new Ray(hit.point, reflection);
@@ -93,8 +114,30 @@ public class TravelBullet : RaycastBullet {
         destroyLerp = 0;
     }
 
+    [Server]
     private void OnTriggerEnter(Collider other)
     {
-        
+        if (other.transform != NetworkIdentity.spawned[Convert.ToUInt32(myShot.playerID)].transform)
+        {
+            //If the hit is on a player and floor is active, reduce the bounce count
+            if (other.transform.CompareTag("Player") && floor)
+            {
+                myShot.numBounces = 0;
+            }
+
+            //Check to see if it hit something
+            if (other.transform.GetComponent<HitInteraction>())
+            {
+                //Send hit message
+                other.transform.SendMessage("Hit", myShot, SendMessageOptions.DontRequireReceiver);
+
+
+                //If its an enemy, break
+                if (other.transform.CompareTag("Player"))
+                {
+                    DestroyBullet();
+                }
+            }
+        }
     }
 }
