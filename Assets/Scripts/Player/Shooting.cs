@@ -260,7 +260,7 @@ public class Shooting : NetworkBehaviour
         {
             //Play audio of firing
             //GetComponent<AudioSource>().PlayOneShot(GetComponent<AudioSource>().clip);
-            GetComponent<PlayerAudioController>().RpcOnAllClients(2);
+            
 
             //Subtract from the ammo
             playerWeapons[currentWeapon].currentAmmo -= currentFireMode.ammoUsedEachShot;
@@ -289,6 +289,7 @@ public class Shooting : NetworkBehaviour
         b.GetComponent<Bullet>().Initialize(damage, bounces, fireSpeed, playerID);
         //Play the firing audio
         //GetComponent<AudioSource>().PlayOneShot(fireMode.firingSound, .5f);
+        GetComponent<PlayerAudioController>().RpcOnAllClients(2);
     }
 
     [Command]
