@@ -125,6 +125,7 @@ MonoBehaviour:
     currentReserve: 0
     currentCooldown: 1
   currentlyFiring: 0
+  active: 0
 --- !u!114 &1034825707818564758
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -164,6 +165,9 @@ MonoBehaviour:
   teamNumber: 0
   maxSuitCharge: 100
   currentCharge: 0
+  _deathClip: {fileID: 0}
+  _respawnDelay: 10
+  deathEffect: {fileID: 4924112432888708270, guid: 621b0caf6cd30bc4d894f22562067c66, type: 3}
 --- !u!114 &8851138718682405948
 MonoBehaviour:
   m_ObjectHideFlags: 0
