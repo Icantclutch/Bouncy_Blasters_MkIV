@@ -10,6 +10,9 @@ public class TravelBullet : RaycastBullet {
     [SerializeField]
     protected List<Vector3> raycastPositions = new List<Vector3>();
 
+    //For when the bullet needs to stop]
+    bool stopBullet = false;
+
     //Info for the second bounce
     bool floor = false;
     Vector3 secondBounce = new Vector3();
@@ -23,44 +26,47 @@ public class TravelBullet : RaycastBullet {
     [Server]
     public override void Update()
     {
-        if (raycastPositions.Count >= 2)
+        if (!stopBullet)
         {
-            //Increase the lerp,
-            destroyLerp += (Time.deltaTime * bulletSpeed * 100) / (Vector3.Distance(laserDestroyA, laserDestroyB));
-            if (destroyLerp > 1)
-                destroyLerp = 1;
-            //Set the position of the first point
-            transform.position = Vector3.Lerp(laserDestroyA, laserDestroyB, destroyLerp);
-
-            if (transform.position == laserDestroyB)
+            if (raycastPositions.Count >= 2)
             {
-                ///PUT THE COLLISION STUFF HERE MARK
+                //Increase the lerp,
+                destroyLerp += (Time.deltaTime * bulletSpeed * 100) / (Vector3.Distance(laserDestroyA, laserDestroyB));
+                if (destroyLerp > 1)
+                    destroyLerp = 1;
+                //Set the position of the first point
+                transform.position = Vector3.Lerp(laserDestroyA, laserDestroyB, destroyLerp);
 
-                ///ABOVE HERE
-
-                //Remove the first point
-                raycastPositions.RemoveAt(0);
-
-                //Disable floor penalty if at the second bounce point
-                if(transform.position == secondBounce)
+                if (transform.position == laserDestroyB)
                 {
-                    floor = false;
-                }
+                    ///PUT THE COLLISION STUFF HERE MARK
 
-                //Continue if there are still 2 positions
-                if (raycastPositions.Count >= 2)
-                {
-                    //Reset lerping
-                    laserDestroyA = raycastPositions[0];
-                    laserDestroyB = raycastPositions[1];
-                    destroyLerp = 0;
+                    ///ABOVE HERE
+
+                    //Remove the first point
+                    raycastPositions.RemoveAt(0);
+
+                    //Disable floor penalty if at the second bounce point
+                    if (transform.position == secondBounce)
+                    {
+                        floor = false;
+                    }
+
+                    //Continue if there are still 2 positions
+                    if (raycastPositions.Count >= 2)
+                    {
+                        //Reset lerping
+                        laserDestroyA = raycastPositions[0];
+                        laserDestroyB = raycastPositions[1];
+                        destroyLerp = 0;
+                    }
                 }
             }
-        }
-        else
-        {
-            //Destroy the bullet
-            DestroyBullet();
+            else
+            {
+                //Destroy the bullet
+                DestroyBullet();
+            }
         }
     }
 
@@ -153,6 +159,7 @@ public class TravelBullet : RaycastBullet {
 
     IEnumerator SlowBulletDeath()
     {
+        stopBullet = true;
         GetComponentInChildren<ParticleSystem>().Stop();
         Rpc_DisableParticles();
 
