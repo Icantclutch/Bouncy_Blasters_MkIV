@@ -95,7 +95,11 @@ public class PlayerHealth : HitInteraction
         {
             //Deal damage
             currentCharge += shot.damage[shot.numBounces];
+
+            //Play audio clips for hitting a shot and getting hit
             NetworkIdentity.spawned[Convert.ToUInt32(shot.playerID)].GetComponent<PlayerAudioController>().RpcOnPlayerClient(0);
+            GetComponent<PlayerAudioController>().RpcOnPlayerClient(1);
+
             if (currentCharge >= maxSuitCharge)
             {
                 //Prevent adding score to team on self kill

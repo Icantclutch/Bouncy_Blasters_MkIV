@@ -1360,10 +1360,12 @@ MonoBehaviour:
   rbody: {fileID: 2002431689}
   coll: {fileID: 4357171600822209695}
   speed: 8
+  sprintModifier: 3
   gravity: 10
   maxVelocityChange: 10
   canJump: 1
   jumpHeight: 1
+  active: 1
 --- !u!114 &4357171600822209693
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1657,6 +1659,8 @@ MonoBehaviour:
   syncInterval: 0.1
   _sounds:
   - {fileID: 8300000, guid: 75adfe9a619833445a701305b983e548, type: 3}
+  - {fileID: 8300000, guid: e11a5a019377fbd4c81caa0adcb4c236, type: 3}
+  - {fileID: 8300000, guid: bb6cdd13aeb95f743847b1cd460889bc, type: 3}
 --- !u!114 &3746456320150539520
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1669,6 +1673,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 092e764c66bb89045b7850a1682d97d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   _nameDisplayText: {fileID: 5352334645154030688}
   _infoDisplay: {fileID: 4384819657786414322}
 --- !u!1 &4384819657786414322

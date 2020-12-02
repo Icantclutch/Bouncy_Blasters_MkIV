@@ -20,7 +20,7 @@ public class PlayerAudioController : NetworkBehaviour
     [TargetRpc]
     public void RpcOnPlayerClient(int soundIndex)
     {
-        Debug.Log(_sounds.Count);
+        //Debug.Log(_sounds.Count);
         if (soundIndex < _sounds.Count)
         {
             Debug.Log(soundIndex);
