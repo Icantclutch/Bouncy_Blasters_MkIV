@@ -12,6 +12,8 @@ public class RaycastBullet : Bullet
     //Speed
     [SyncVar]
     public float bulletSpeed;
+    public GameObject bulletCollisionEffect;
+    public GameObject bulletDirtEffect;
 
     //Reflectable layermask
     public LayerMask reflectable;
@@ -102,6 +104,7 @@ public class RaycastBullet : Bullet
             {
                 //Add hit point to the list of line points
                 bouncePoints.Add(hit.point);
+                speed = 0;
 
                 //If the second hit is on a player and floor is active, reduce the bounce count
                 if (hit.transform.CompareTag("Player") && floor)
@@ -133,10 +136,20 @@ public class RaycastBullet : Bullet
                     floor = true;
                 }
 
+                //Generate the reflection  (Moved to before effect)
+                Vector3 reflection = Vector3.Reflect(ray.direction, hit.normal);
+
+                if (hit.transform.CompareTag("Floor") || hit.transform.CompareTag("Wall"))
+                {
+                    Quaternion rot = Quaternion.FromToRotation(Vector3.up, hit.normal);
+                    Vector3 pos = hit.point;
+                    Instantiate(bulletCollisionEffect, pos, rot);
+                    Instantiate(bulletDirtEffect, pos, Quaternion.FromToRotation(Vector3.up, reflection));
+                    
+                }
+
                 //Increase reflection count
                 myShot.numBounces++;
-                //Generate the reflection
-                Vector3 reflection = Vector3.Reflect(ray.direction, hit.normal);
                 //If it hasn't been stopped, create a new ray
                 ray = new Ray(hit.point, reflection);
             } else //If it didn't hit anything, end the ray

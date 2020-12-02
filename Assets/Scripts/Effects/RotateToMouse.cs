@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+//SYSTEM TO BE USED FOR PETS/COMPANIONS AROUND THE PLAYER HEAD
+//NOT IN THE GAME YET
 public class RotateToMouse : MonoBehaviour
 {
-    // Start is called before the first frame update
+    //Get Variables
     public Camera cam;
     public float maximumLength;
 
@@ -18,6 +21,8 @@ public class RotateToMouse : MonoBehaviour
     {
         if (cam != null)
         {
+            //Create a ray cast with the mouse position on screen
+
             RaycastHit hit;
             var mousePos = Input.mousePosition;
             rayMouse = cam.ScreenPointToRay(mousePos);
@@ -25,7 +30,7 @@ public class RotateToMouse : MonoBehaviour
             {
                 RotateToMouseDirection(gameObject, hit.point);
             } else
-            {
+            {   
                 var pos = rayMouse.GetPoint(maximumLength);
                 RotateToMouseDirection(gameObject, pos);
             }
@@ -39,9 +44,11 @@ public class RotateToMouse : MonoBehaviour
     {
         direction = destination - obj.transform.position;
         rotation = Quaternion.LookRotation(direction);
+        //Change localRotation of the fireobject
         obj.transform.localRotation = Quaternion.Lerp(obj.transform.rotation, rotation, 1);
     }
 
+    //Return the rotation
     public Quaternion GetRotation()
     {
         return rotation;

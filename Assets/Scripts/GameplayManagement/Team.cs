@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Team
 {
     public string teamName;
    
-
+   
     public int teamScore;
 
     public List<PlayerData> playerList;
@@ -31,6 +32,8 @@ public class Team
             tempScore += playerList[i].playerScore;
         }
         teamScore = tempScore;
+        Debug.Log("Team Score has been updated for " + teamName + ": " + teamScore);
+        
     }
     
   

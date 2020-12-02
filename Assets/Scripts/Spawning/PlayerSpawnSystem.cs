@@ -7,31 +7,33 @@ public class PlayerSpawnSystem : NetworkBehaviour
 {
     //List of all of the spawn points in the scene
     private static List<PlayerSpawnPoint> spawnPoints = new List<PlayerSpawnPoint>();
-    //List of all players using the spawn system
+    //List of all players using the spawn system (Used to determine spawn location)
     private static List<GameObject> players = new List<GameObject>();
 
+    //Add a spawnpoint to the static list
     public static void AddSpawnPoint(PlayerSpawnPoint spawnPoint)
     {
         spawnPoints.Add(spawnPoint);
     }
-
+    //Remove a spawnpoint to the static list
     public static void RemoveSpawnPoint(PlayerSpawnPoint spawnPoint)
     {
         spawnPoints.Remove(spawnPoint);
     }
 
+    //Add a player's gameobject to the static list
     public static void AddPlayer(GameObject player)
     {
         players.Add(player);
     }
-
+    //Remove a player's gameobject to the static list
     public static void RemovePlayer(GameObject player)
     {
         players.Remove(player);
     }
 
     //Sets the player's position to a chosen spawn point
-    public static void SpawnPlayer(GameObject player, bool respawn = true, bool initialSpawn = false)
+    public static bool SpawnPlayer(GameObject player, bool respawn = true, bool initialSpawn = false)
     {
         if(spawnPoints.Count > 0)
         {
@@ -39,14 +41,15 @@ public class PlayerSpawnSystem : NetworkBehaviour
             List<PlayerSpawnPoint> points = new List<PlayerSpawnPoint>();
             //Spawn point that will be used
             PlayerSpawnPoint spawnPoint = null;
+            int playerTeam = player.GetComponent<PlayerData>().team;
 
             //Loop to find acceptable spawn points
             foreach (PlayerSpawnPoint point in spawnPoints) {
                 //Make sure the parameter booleans are the same with the current spawn point
                 if (respawn != point.isRespawnRoom && initialSpawn == point.isStartingPoint)
                 {
-                    int playerTeam = player.GetComponent<PlayerHealth>().GetTeam();
-                    //int playerTeam = 0;
+                    
+
                     if (initialSpawn && playerTeam == point.team)
                     {
                         points.Add(point);
@@ -61,7 +64,7 @@ public class PlayerSpawnSystem : NetworkBehaviour
             }
 
             //Choose a random acceptable spawn point
-            //Temporary, until below loop is made, also ensures a spawnpoint is chosen
+            //Will be used if the algorithm doesnt find a suitable spawnpoint
             if(points.Count > 0)
             {
                 spawnPoint = points[Random.Range(0, points.Count)];
@@ -107,7 +110,9 @@ public class PlayerSpawnSystem : NetworkBehaviour
                 player.transform.position = spawnPoint.transform.position;
                 player.transform.rotation = spawnPoint.transform.rotation;
                 //player.transform.Find("Eyes").rotation = spawnPoint.transform.rotation;
+                return true;
             }
         }
+        return false;
     }
 }

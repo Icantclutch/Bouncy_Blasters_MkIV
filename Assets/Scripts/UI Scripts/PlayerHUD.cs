@@ -24,6 +24,10 @@ public class PlayerHUD : MonoBehaviour
   
     [SerializeField]
     private Text _playerWeaponText;
+
+    [SerializeField]
+    private Text _matchTimer;
+    [SerializeField]
     private NetworkManager _networkManager;
     
     // Start is called before the first frame update
@@ -35,14 +39,24 @@ public class PlayerHUD : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(_networkManager == null)
+        {
+            _networkManager = GameObject.FindGameObjectWithTag("Management").GetComponent<NetworkManager>();
+        }
+        else
+        {
+            _batteryCountText.text = GetComponent<Shooting>().playerWeapons[GetComponent<Shooting>().currentWeapon].currentAmmo.ToString();
+            _reserveBatteryCountText.text = GetComponent<Shooting>().playerWeapons[GetComponent<Shooting>().currentWeapon].currentReserve.ToString();
+            _playerHealthText.text = GetComponent<PlayerHealth>().GetCharge().ToString();
+            _playerWeaponText.text = GetComponent<Shooting>().playerWeapons[GetComponent<Shooting>().currentWeapon].weapon.name;
 
-        _batteryCountText.text = GetComponent<Shooting>().playerWeapons[GetComponent<Shooting>().currentWeapon].currentAmmo.ToString();
-        _reserveBatteryCountText.text = GetComponent<Shooting>().playerWeapons[GetComponent<Shooting>().currentWeapon].currentReserve.ToString();
-        //_teamAScoreText.text = _teamAScore.ToString();
-        _teamAScoreText.text = GetComponent<PlayerData>().playerElims.ToString();
-        //_teamBScoreText.text = _teamBScore.ToString();
-        _playerHealthText.text = GetComponent<PlayerHealth>().GetCharge().ToString();
-        _playerWeaponText.text = GetComponent<Shooting>().playerWeapons[GetComponent<Shooting>().currentWeapon].weapon.name;
+            _teamAScoreText.text = _networkManager.GetComponent<GameManagement>().teamAScore.ToString();
+            _teamBScoreText.text = _networkManager.GetComponent<GameManagement>().teamBScore.ToString();
+            _matchTimer.text = _networkManager.GetComponent<GameManagement>().MatchTimer.ToString();
+        }
+      
+     
+        
 
     }
 }

@@ -18,6 +18,8 @@ public class PlayerHealth : HitInteraction
 
     [SerializeField]
     private AudioClip _deathClip;
+    [SerializeField]
+    private float _respawnDelay = 10;
 
     //reference to ther scrips
     private PlayerReference myReference;
@@ -55,20 +57,35 @@ public class PlayerHealth : HitInteraction
     [ClientRpc]
     private void Rpc_DeathSounds()
     {
-        GetComponent<AudioSource>().PlayOneShot(_deathClip, .5f);
+        GetComponent<AudioSource>().PlayOneShot(_deathClip, .25f);
     }
 
     [TargetRpc]
     private void Rpc_TeleportPlayer()
     {
         //TODO Call to game controller to teleport player to designated spawn point
-        Debug.Log("Player has died, Teleporting to respawn room (not implemented)");
+        Debug.Log("Player has died, Teleporting to respawn room");
+        if (PlayerSpawnSystem.SpawnPlayer(gameObject, false))
+        {
+            GetComponent<Shooting>().active = false;
+            StartCoroutine(RespawnPlayer());
+        }
+        else
+        {
+            PlayerSpawnSystem.SpawnPlayer(gameObject);
+        }
+    }
+    IEnumerator RespawnPlayer()
+    {
+        yield return new WaitForSeconds(_respawnDelay);
         PlayerSpawnSystem.SpawnPlayer(gameObject);
+        GetComponent<Shooting>().active = true;
     }
 
     [Server]
     public override void Hit(Bullet.Shot shot)
     {
+        //print("HIT " + shot);
         //Get the source object
         int shotTeam = NetworkIdentity.spawned[Convert.ToUInt32(shot.playerID)].GetComponent<HitInteraction>().GetTeam();
         int myTeam = this.GetTeam();
@@ -78,9 +95,19 @@ public class PlayerHealth : HitInteraction
         {
             //Deal damage
             currentCharge += shot.damage[shot.numBounces];
-            if(currentCharge >= maxSuitCharge)
+
+            //Play audio clips for hitting a shot and getting hit
+            NetworkIdentity.spawned[Convert.ToUInt32(shot.playerID)].GetComponent<PlayerAudioController>().RpcOnPlayerClient(0);
+            GetComponent<PlayerAudioController>().RpcOnPlayerClient(1);
+
+            if (currentCharge >= maxSuitCharge)
             {
-                NetworkIdentity.spawned[Convert.ToUInt32(shot.playerID)].GetComponent<PlayerData>().AddPlayerElim();
+                //Prevent adding score to team on self kill
+                if (Convert.ToUInt32(shot.playerID) != GetComponent<NetworkIdentity>().netId)
+                {
+                    NetworkIdentity.spawned[Convert.ToUInt32(shot.playerID)].GetComponent<PlayerData>().AddPlayerElim();
+                }
+               
                 GetComponent<PlayerData>().AddPlayerDeaths();
             }
         }
