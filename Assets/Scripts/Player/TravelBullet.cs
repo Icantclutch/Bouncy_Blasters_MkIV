@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using Mirror;
+using System;
 
 public class TravelBullet : RaycastBullet {
 
@@ -25,7 +26,7 @@ public class TravelBullet : RaycastBullet {
         if (raycastPositions.Count >= 2)
         {
             //Increase the lerp,
-            destroyLerp += (Time.deltaTime * bulletSpeed * 10) / (Vector3.Distance(laserDestroyA, laserDestroyB));
+            destroyLerp += (Time.deltaTime * bulletSpeed * 100) / (Vector3.Distance(laserDestroyA, laserDestroyB));
             if (destroyLerp > 1)
                 destroyLerp = 1;
             //Set the position of the first point
@@ -116,23 +117,26 @@ public class TravelBullet : RaycastBullet {
     [Server]
     private void OnTriggerEnter(Collider other)
     {
-        //If the hit is on a player and floor is active, reduce the bounce count
-        if (other.transform.CompareTag("Player") && floor)
+        if (other.transform != NetworkIdentity.spawned[Convert.ToUInt32(myShot.playerID)].transform)
         {
-            myShot.numBounces = 0;
-        }
-
-        //Check to see if it hit something
-        if (hit.transform.GetComponent<HitInteraction>())
-        {
-            //Send hit message
-            hit.transform.SendMessage("Hit", myShot, SendMessageOptions.DontRequireReceiver);
-
-
-            //If its an enemy, break
-            if (hit.transform.CompareTag("Player"))
+            //If the hit is on a player and floor is active, reduce the bounce count
+            if (other.transform.CompareTag("Player") && floor)
             {
-                break;
+                myShot.numBounces = 0;
+            }
+
+            //Check to see if it hit something
+            if (other.transform.GetComponent<HitInteraction>())
+            {
+                //Send hit message
+                other.transform.SendMessage("Hit", myShot, SendMessageOptions.DontRequireReceiver);
+
+
+                //If its an enemy, break
+                if (other.transform.CompareTag("Player"))
+                {
+                    DestroyBullet();
+                }
             }
         }
     }
