@@ -113,14 +113,14 @@ public class Shooting : NetworkBehaviour
                 }
                 else if(_rechargeHoldTime <= 0.5)
                 {
-                    Debug.Log("Disabling Movement");
+                    //Debug.Log("Disabling Movement");
                     GetComponent<PlayerMovement>().active = false;
                 }
             }
             if (Input.GetKeyUp(Keybinds.Reload))
             {
                 _rechargeHoldTime = 1.5f;
-                Debug.Log("Enabling Movement");
+                //Debug.Log("Enabling Movement");
                 GetComponent<PlayerMovement>().active = true;
             }
         }

@@ -26,13 +26,14 @@ public class LobbyManager : NetworkBehaviour
     public GameManagement gameManager;
 
     //Object for the match settings
+    [SerializeField]
     private LobbyGameSettings _lobbySettings;
 
     // Start is called before the first frame update
     void Start()
     {
         players = new List<PlayerData>();
-        networkManager = GetComponent<NetworkManager>();
+        networkManager = GetComponentInParent<NetworkManager>();
        
         
     }
@@ -85,7 +86,7 @@ public class LobbyManager : NetworkBehaviour
     public void StartGame()
     {
         //To-do: check if is host
-
+        Debug.Log("Called StartGame()");
         if(networkManager.numPlayers >= minPlayersNeeded)
         {
             //To-do:
@@ -112,7 +113,7 @@ public class LobbyManager : NetworkBehaviour
             
             //Setup Game Management
             gameManager.SetUpMatch(gamemode, teamA, teamB);
-
+            Debug.Log("Called SetUpMatch()");
 
             Debug.Log("Enabling player gameobjects");
             //SpawnPlayers
