@@ -20,7 +20,7 @@ public class LobbyManager : NetworkBehaviour
     
     public int minPlayersNeeded = 2;
     public int numOfTeams = 2;
-    [SyncVar(hook = nameof(SetMap))]
+    [SyncVar(hook = nameof(DisplayMap))]
     public string mapName = "RicochetTest";
 
     public GameManagement gameManager;
@@ -37,6 +37,10 @@ public class LobbyManager : NetworkBehaviour
         
     }
 
+    void DisplayMap(string oldMap, string newMap)
+    {
+        mapName = newMap;
+    }
 
     public void AddPlayer(PlayerData player)
     {
@@ -69,7 +73,7 @@ public class LobbyManager : NetworkBehaviour
         Debug.Log("LobbyManager is setting the gamemode time to: " + _lobbySettings.GetMatchTimeSetting());
     }
 
-    public void SetMap(string oldMap, string map)
+    public void SetMap(string map)
     {
         mapName = map;
     }
