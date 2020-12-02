@@ -7,29 +7,32 @@ using Mirror;
 public class RaycastBullet : Bullet
 {
     //Line renderer
-    private LineRenderer lineRenderer;
+    protected LineRenderer lineRenderer;
 
     //Speed
     [SyncVar]
     public float bulletSpeed;
+    public GameObject bulletCollisionEffect;
+    public GameObject bulletDirtEffect;
 
     //Reflectable layermask
     public LayerMask reflectable;
 
     //Laser positions
-    private Vector3 laserDestroyA;
-    private Vector3 laserDestroyB;
-    private float destroyLerp = 0;
+    protected Vector3 laserDestroyA;
+    protected Vector3 laserDestroyB;
+    protected float destroyLerp = 0;
 
+    //Server-side initialization
     [Server]
     public override void Initialize(List<int> damage, int bounces, float fireSpeed, int playerId)
     {
-        gameObject.name = bounces.ToString();
         lineRenderer = GetComponent<LineRenderer>();
         Rpc_PlayerInit();
         base.Initialize(damage, bounces, fireSpeed, playerId);
     }
 
+    //Client-side initialization
     [ClientRpc]
     private void Rpc_PlayerInit()
     {
@@ -101,6 +104,7 @@ public class RaycastBullet : Bullet
             {
                 //Add hit point to the list of line points
                 bouncePoints.Add(hit.point);
+                speed = 0;
 
                 //If the second hit is on a player and floor is active, reduce the bounce count
                 if (hit.transform.CompareTag("Player") && floor)
@@ -132,10 +136,20 @@ public class RaycastBullet : Bullet
                     floor = true;
                 }
 
+                //Generate the reflection  (Moved to before effect)
+                Vector3 reflection = Vector3.Reflect(ray.direction, hit.normal);
+
+                if (hit.transform.CompareTag("Floor") || hit.transform.CompareTag("Wall"))
+                {
+                    Quaternion rot = Quaternion.FromToRotation(Vector3.up, hit.normal);
+                    Vector3 pos = hit.point;
+                    Instantiate(bulletCollisionEffect, pos, rot);
+                    Instantiate(bulletDirtEffect, pos, Quaternion.FromToRotation(Vector3.up, reflection));
+                    
+                }
+
                 //Increase reflection count
                 myShot.numBounces++;
-                //Generate the reflection
-                Vector3 reflection = Vector3.Reflect(ray.direction, hit.normal);
                 //If it hasn't been stopped, create a new ray
                 ray = new Ray(hit.point, reflection);
             } else //If it didn't hit anything, end the ray
@@ -161,8 +175,9 @@ public class RaycastBullet : Bullet
         Rpc_UpdateClientLines(bounces);
     }
 
+    //Update the line positions on the client side
     [ClientRpc]
-    void Rpc_UpdateClientLines(Vector3[] vectors)
+    protected void Rpc_UpdateClientLines(Vector3[] vectors)
     {
         lineRenderer.positionCount = vectors.Length;
         lineRenderer.SetPositions(vectors);

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 using System;
+using UnityEngine.SceneManagement;
 
 public class PlayerHealth : HitInteraction
 {
@@ -20,6 +21,9 @@ public class PlayerHealth : HitInteraction
     private AudioClip _deathClip;
     [SerializeField]
     private float _respawnDelay = 10;
+
+    [SerializeField]
+    private GameObject deathEffect;
 
     //reference to ther scrips
     private PlayerReference myReference;
@@ -57,6 +61,13 @@ public class PlayerHealth : HitInteraction
     [ClientRpc]
     private void Rpc_DeathSounds()
     {
+        //print("CREATING EFFECT " + transform.position);
+        //if (deathEffect != null)
+        //{
+        //    GameObject b = Instantiate(deathEffect, transform.position, Quaternion.identity);
+            //Spawn on server
+        //    NetworkServer.Spawn(b);
+        //}
         GetComponent<AudioSource>().PlayOneShot(_deathClip, .25f);
     }
 
@@ -85,6 +96,7 @@ public class PlayerHealth : HitInteraction
     [Server]
     public override void Hit(Bullet.Shot shot)
     {
+        print("HIT " + shot.damage[shot.numBounces]);
         //Get the source object
         int shotTeam = NetworkIdentity.spawned[Convert.ToUInt32(shot.playerID)].GetComponent<HitInteraction>().GetTeam();
         int myTeam = this.GetTeam();
@@ -94,7 +106,11 @@ public class PlayerHealth : HitInteraction
         {
             //Deal damage
             currentCharge += shot.damage[shot.numBounces];
+
+            //Play audio clips for hitting a shot and getting hit
             NetworkIdentity.spawned[Convert.ToUInt32(shot.playerID)].GetComponent<PlayerAudioController>().RpcOnPlayerClient(0);
+            GetComponent<PlayerAudioController>().RpcOnPlayerClient(1);
+
             if (currentCharge >= maxSuitCharge)
             {
                 //Prevent adding score to team on self kill
@@ -102,7 +118,7 @@ public class PlayerHealth : HitInteraction
                 {
                     NetworkIdentity.spawned[Convert.ToUInt32(shot.playerID)].GetComponent<PlayerData>().AddPlayerElim();
                 }
-               
+
                 GetComponent<PlayerData>().AddPlayerDeaths();
             }
         }

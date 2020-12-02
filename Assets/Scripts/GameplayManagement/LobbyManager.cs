@@ -20,7 +20,7 @@ public class LobbyManager : NetworkBehaviour
     
     public int minPlayersNeeded = 2;
     public int numOfTeams = 2;
-    [SyncVar]
+    [SyncVar(hook = nameof(DisplayMap))]
     public string mapName = "RicochetTest";
 
     public GameManagement gameManager;
@@ -37,6 +37,10 @@ public class LobbyManager : NetworkBehaviour
         
     }
 
+    void DisplayMap(string oldMap, string newMap)
+    {
+        mapName = newMap;
+    }
 
     public void AddPlayer(PlayerData player)
     {

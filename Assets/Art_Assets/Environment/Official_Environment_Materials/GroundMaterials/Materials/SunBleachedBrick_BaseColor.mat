@@ -1,6 +1,10 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+<<<<<<< HEAD
 --- !u!114 &-4584699160620853596
+=======
+--- !u!114 &-2096003459129076318
+>>>>>>> 08e79f4cb0506e22d6a9d77f13a1683474787c57
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
@@ -22,18 +26,26 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: SunBleachedBrick_BaseColor
   m_Shader: {fileID: 4800000, guid: 6e4ae4064600d784cac1e41a9e6f2e59, type: 3}
+<<<<<<< HEAD
   m_ShaderKeywords: _NORMALMAP_TANGENT_SPACE
+=======
+  m_ShaderKeywords: 
+>>>>>>> 08e79f4cb0506e22d6a9d77f13a1683474787c57
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
+<<<<<<< HEAD
   disabledShaderPasses:
   - DistortionVectors
   - TransparentDepthPrepass
   - TransparentDepthPostpass
   - TransparentBackface
   - MOTIONVECTORS
+=======
+  disabledShaderPasses: []
+>>>>>>> 08e79f4cb0506e22d6a9d77f13a1683474787c57
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -151,6 +163,7 @@ Material:
     - _DisplacementMode: 0
     - _DistortionBlendMode: 0
     - _DistortionBlurBlendMode: 0
+<<<<<<< HEAD
     - _DistortionBlurDstBlend: 1
     - _DistortionBlurRemapMax: 1
     - _DistortionBlurRemapMin: 0
@@ -161,6 +174,18 @@ Material:
     - _DistortionEnable: 0
     - _DistortionScale: 1
     - _DistortionSrcBlend: 1
+=======
+    - _DistortionBlurDstBlend: 0
+    - _DistortionBlurRemapMax: 1
+    - _DistortionBlurRemapMin: 0
+    - _DistortionBlurScale: 1
+    - _DistortionBlurSrcBlend: 0
+    - _DistortionDepthTest: 1
+    - _DistortionDstBlend: 0
+    - _DistortionEnable: 0
+    - _DistortionScale: 1
+    - _DistortionSrcBlend: 0
+>>>>>>> 08e79f4cb0506e22d6a9d77f13a1683474787c57
     - _DistortionVectorBias: -1
     - _DistortionVectorScale: 2
     - _DoubleSidedEnable: 0
@@ -208,6 +233,7 @@ Material:
     - _SpecularOcclusionMode: 1
     - _SrcBlend: 1
     - _StencilRef: 0
+<<<<<<< HEAD
     - _StencilRefDepth: 8
     - _StencilRefDistortionVec: 4
     - _StencilRefGBuffer: 10
@@ -217,6 +243,17 @@ Material:
     - _StencilWriteMaskDistortionVec: 4
     - _StencilWriteMaskGBuffer: 14
     - _StencilWriteMaskMV: 40
+=======
+    - _StencilRefDepth: 0
+    - _StencilRefDistortionVec: 4
+    - _StencilRefGBuffer: 2
+    - _StencilRefMV: 32
+    - _StencilWriteMask: 3
+    - _StencilWriteMaskDepth: 8
+    - _StencilWriteMaskDistortionVec: 4
+    - _StencilWriteMaskGBuffer: 3
+    - _StencilWriteMaskMV: 32
+>>>>>>> 08e79f4cb0506e22d6a9d77f13a1683474787c57
     - _SubsurfaceMask: 1
     - _SupportDecals: 1
     - _SurfaceType: 0
@@ -236,9 +273,15 @@ Material:
     - _UVEmissive: 0
     - _UseEmissiveIntensity: 0
     - _UseShadowThreshold: 0
+<<<<<<< HEAD
     - _ZTestDepthEqualForOpaque: 3
     - _ZTestGBuffer: 4
     - _ZTestModeDistortion: 4
+=======
+    - _ZTestDepthEqualForOpaque: 4
+    - _ZTestGBuffer: 4
+    - _ZTestModeDistortion: 8
+>>>>>>> 08e79f4cb0506e22d6a9d77f13a1683474787c57
     - _ZTestTransparent: 4
     - _ZWrite: 1
     m_Colors:

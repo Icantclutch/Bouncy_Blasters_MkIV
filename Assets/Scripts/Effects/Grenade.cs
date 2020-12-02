@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Grenade : MonoBehaviour
 {
-    float timer = 5;
-    float countdown;
-    float explosionRadius = 3f;
-    float force = 1000f;
+    public float timer = 5;
+    public float countdown;
+    public float explosionRadius = 3f;
+    public float force = 1000f;
     bool hasExploded = false;
 
     //[SerializeField] GameObject exploParticle;

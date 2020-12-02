@@ -52,6 +52,7 @@ public class Shooting : NetworkBehaviour
         if (!hasAuthority)
             return;
 
+        //Set ammo to max
         for(int i = 0; i < playerWeapons.Count; i++)
         {
             playerWeapons[i].currentAmmo = playerWeapons[i].weapon.ammoCount;
@@ -104,14 +105,23 @@ public class Shooting : NetworkBehaviour
             if (Input.GetKey(Keybinds.Reload))
             {
                 _rechargeHoldTime -= Time.deltaTime;
+                
                 if(_rechargeHoldTime <= 0)
                 {
+                    
                     StartCoroutine(Recharge());
+                }
+                else if(_rechargeHoldTime <= 0.5)
+                {
+                    Debug.Log("Disabling Movement");
+                    GetComponent<PlayerMovement>().active = false;
                 }
             }
             if (Input.GetKeyUp(Keybinds.Reload))
             {
                 _rechargeHoldTime = 1.5f;
+                Debug.Log("Enabling Movement");
+                GetComponent<PlayerMovement>().active = true;
             }
         }
 
@@ -226,7 +236,7 @@ public class Shooting : NetworkBehaviour
     {
         //Set firing so you can't shoot while recharging
         currentlyFiring = true;
-
+        
         //Improve once animations are implemented
         //While loop to recharge ammo to max reserves
         if (playerWeapons[currentWeapon].currentReserve < playerWeapons[currentWeapon].weapon.reserveAmmo)
@@ -237,6 +247,7 @@ public class Shooting : NetworkBehaviour
 
         //Disable firing when reloading is done
         currentlyFiring = false;
+        
         yield return null;
     }
 
@@ -248,7 +259,8 @@ public class Shooting : NetworkBehaviour
         for (int i = 0; i < currentFireMode.shotsFiredAtOnce; i++)
         {
             //Play audio of firing
-            GetComponent<AudioSource>().PlayOneShot(GetComponent<AudioSource>().clip);
+            //GetComponent<AudioSource>().PlayOneShot(GetComponent<AudioSource>().clip);
+            
 
             //Subtract from the ammo
             playerWeapons[currentWeapon].currentAmmo -= currentFireMode.ammoUsedEachShot;
@@ -277,6 +289,7 @@ public class Shooting : NetworkBehaviour
         b.GetComponent<Bullet>().Initialize(damage, bounces, fireSpeed, playerID);
         //Play the firing audio
         //GetComponent<AudioSource>().PlayOneShot(fireMode.firingSound, .5f);
+        GetComponent<PlayerAudioController>().RpcOnAllClients(2);
     }
 
     [Command]

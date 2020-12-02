@@ -91,7 +91,7 @@ MeshCollider:
   m_GameObject: {fileID: 6635389007624879593}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
@@ -141,7 +141,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a49859ac2d31f02448b79783a17ecc8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TimeToDestroy: 4.5
+  TimeToDestroy: 3
 --- !u!1001 &8720566119754581613
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -307,7 +307,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4597317345874145671, guid: 424bc42942bf2b54ebb81ebe1db0d18e, type: 3}
       propertyPath: LightsModule.rangeCurve.scalar
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4597317345874145671, guid: 424bc42942bf2b54ebb81ebe1db0d18e, type: 3}
       propertyPath: InitialModule.maxNumParticles
@@ -316,6 +316,46 @@ PrefabInstance:
     - target: {fileID: 4597317345874145671, guid: 424bc42942bf2b54ebb81ebe1db0d18e, type: 3}
       propertyPath: VelocityModule.z.scalar
       value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4597317345874145671, guid: 424bc42942bf2b54ebb81ebe1db0d18e, type: 3}
+      propertyPath: LightsModule.intensityCurve.scalar
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4597317345874145671, guid: 424bc42942bf2b54ebb81ebe1db0d18e, type: 3}
+      propertyPath: LightsModule.maxLights
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4597317345874145671, guid: 424bc42942bf2b54ebb81ebe1db0d18e, type: 3}
+      propertyPath: LightsModule.randomDistribution
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4597317345874145671, guid: 424bc42942bf2b54ebb81ebe1db0d18e, type: 3}
+      propertyPath: LightsModule.range
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4597317345874145671, guid: 424bc42942bf2b54ebb81ebe1db0d18e, type: 3}
+      propertyPath: LightsModule.ratio
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4597317345874145671, guid: 424bc42942bf2b54ebb81ebe1db0d18e, type: 3}
+      propertyPath: TrailModule.enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4597317345874145671, guid: 424bc42942bf2b54ebb81ebe1db0d18e, type: 3}
+      propertyPath: LightsModule.rangeCurve.minMaxState
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4597317345874145671, guid: 424bc42942bf2b54ebb81ebe1db0d18e, type: 3}
+      propertyPath: LightsModule.rangeCurve.maxCurve.m_Curve.Array.data[0].value
+      value: 0.21621704
+      objectReference: {fileID: 0}
+    - target: {fileID: 4597317345874145671, guid: 424bc42942bf2b54ebb81ebe1db0d18e, type: 3}
+      propertyPath: LightsModule.rangeCurve.maxCurve.m_Curve.Array.data[0].time
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4597317345874145672, guid: 424bc42942bf2b54ebb81ebe1db0d18e, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4597317345874145673, guid: 424bc42942bf2b54ebb81ebe1db0d18e, type: 3}
       propertyPath: m_Name
