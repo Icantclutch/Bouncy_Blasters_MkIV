@@ -79,6 +79,7 @@ public class PlayerHealth : HitInteraction
         if (PlayerSpawnSystem.SpawnPlayer(gameObject, false))
         {
             GetComponent<Shooting>().active = false;
+            GetComponent<PlayerMovement>().active = true;
             StartCoroutine(RespawnPlayer());
         }
         else
