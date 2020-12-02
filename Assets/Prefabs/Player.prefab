@@ -1404,7 +1404,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 100
+  MaxDistance: 50
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -1439,7 +1439,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -1562,6 +1562,7 @@ MonoBehaviour:
   currentCharge: 0
   _deathClip: {fileID: 8300000, guid: eec3bf121b316d64ca1c8aac7573a2f4, type: 3}
   _respawnDelay: 10
+  deathEffect: {fileID: 0}
 --- !u!114 &1858988357766041485
 MonoBehaviour:
   m_ObjectHideFlags: 0
