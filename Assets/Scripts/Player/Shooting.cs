@@ -40,16 +40,18 @@ public class Shooting : NetworkBehaviour
     public bool active = false;
     //Player reference
     private PlayerReference myReference;
+    private PlayerMovement myMovement;
 
     [SyncVar]
     public Weapon.FireMode currentFireMode;
 
-
+    [SerializeField]
     private float _rechargeHoldTime = 1.5f;
 
     private void Start()
     {
         myReference = GetComponent<PlayerReference>();
+        myMovement = GetComponent<PlayerMovement>();
 
         if (!hasAuthority)
             return;
@@ -104,11 +106,11 @@ public class Shooting : NetworkBehaviour
                 StartCoroutine(Reload());
 
             }
-            if (Input.GetKey(Keybinds.Reload))
+            if (Input.GetKey(Keybinds.Reload) && playerWeapons[currentWeapon].currentReserve < playerWeapons[currentWeapon].weapon.reserveAmmo && myMovement.grounded)
             {
                 _rechargeHoldTime -= Time.deltaTime;
                 
-                if(_rechargeHoldTime <= 0)
+                if(_rechargeHoldTime <= 0 && !currentlyFiring)
                 {
                     
                     StartCoroutine(Recharge());
@@ -116,14 +118,14 @@ public class Shooting : NetworkBehaviour
                 else if(_rechargeHoldTime <= 0.5)
                 {
                     //Debug.Log("Disabling Movement");
-                    GetComponent<PlayerMovement>().active = false;
+                    GetComponent<Rigidbody>().velocity = new Vector3(0, GetComponent<Rigidbody>().velocity.y, 0);
+                    myMovement.active = false;
                 }
-            }
-            if (Input.GetKeyUp(Keybinds.Reload))
+            } else
             {
                 _rechargeHoldTime = 1.5f;
                 //Debug.Log("Enabling Movement");
-                GetComponent<PlayerMovement>().active = true;
+                myMovement.active = true;
             }
         }
 
@@ -241,10 +243,10 @@ public class Shooting : NetworkBehaviour
         
         //Improve once animations are implemented
         //While loop to recharge ammo to max reserves
-        if (playerWeapons[currentWeapon].currentReserve < playerWeapons[currentWeapon].weapon.reserveAmmo)
+        while (playerWeapons[currentWeapon].currentReserve < playerWeapons[currentWeapon].weapon.reserveAmmo && Input.GetKey(Keybinds.Reload))
         {
             playerWeapons[currentWeapon].currentReserve++;
-
+            yield return null;
         }
 
         //Disable firing when reloading is done

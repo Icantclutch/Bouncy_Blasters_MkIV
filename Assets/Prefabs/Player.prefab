@@ -1456,6 +1456,7 @@ MonoBehaviour:
     fireSpeed: 0
     fireRate: 0
     bulletPrefabName: 
+  _rechargeHoldTime: 1.5
 --- !u!114 &4357171600822209691
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2282,6 +2283,10 @@ PrefabInstance:
     - target: {fileID: 767108457257536216, guid: 6446b35c3cecaa744a1246885a8864d1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3236940050571465240, guid: 6446b35c3cecaa744a1246885a8864d1, type: 3}
+      propertyPath: reflectable.m_Bits
+      value: 1025
       objectReference: {fileID: 0}
     - target: {fileID: 3871606156486622960, guid: 6446b35c3cecaa744a1246885a8864d1, type: 3}
       propertyPath: m_Parameters.widthMultiplier
