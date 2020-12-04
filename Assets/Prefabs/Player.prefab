@@ -1480,6 +1480,8 @@ MonoBehaviour:
   canJump: 1
   jumpHeight: 2
   active: 1
+  inRespawnRoom: 0
+  grounded: 0
 --- !u!114 &4357171600822209693
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2288,6 +2290,14 @@ PrefabInstance:
       propertyPath: reflectable.m_Bits
       value: 1025
       objectReference: {fileID: 0}
+    - target: {fileID: 3236940050571465240, guid: 6446b35c3cecaa744a1246885a8864d1, type: 3}
+      propertyPath: redMat
+      value: 
+      objectReference: {fileID: 2100000, guid: a7c679cf124f7ae46a0291ea35848554, type: 2}
+    - target: {fileID: 3236940050571465240, guid: 6446b35c3cecaa744a1246885a8864d1, type: 3}
+      propertyPath: greenMat
+      value: 
+      objectReference: {fileID: 2100000, guid: 9ab1975e27b30db4c9b292bce1e55ff6, type: 2}
     - target: {fileID: 3871606156486622960, guid: 6446b35c3cecaa744a1246885a8864d1, type: 3}
       propertyPath: m_Parameters.widthMultiplier
       value: 0.5

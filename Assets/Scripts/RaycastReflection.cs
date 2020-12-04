@@ -30,6 +30,10 @@ public class RaycastReflection : MonoBehaviour
     //the number of points at the line renderer  
     private int nPoints;
 
+    //Materials
+    public Material redMat;
+    public Material greenMat;
+
     void Awake()
     {
         //get the attached Transform component  
@@ -60,7 +64,7 @@ public class RaycastReflection : MonoBehaviour
         //Set the first point of the line at the current attached game object position  
         lineRenderer.SetPosition(0, goTransform.position);
         //Set the color to red
-        lineRenderer.startColor = Color.red;
+        lineRenderer.material = redMat;
 
         //Get bounce points
         List<Vector3> bouncePoints = new List<Vector3>();
@@ -78,7 +82,7 @@ public class RaycastReflection : MonoBehaviour
                 //If its an enemy, break
                 if (hit.transform.CompareTag("Player"))
                 {
-                    lineRenderer.startColor = Color.green;
+                    lineRenderer.material = greenMat;
                     break;
                 }
 
