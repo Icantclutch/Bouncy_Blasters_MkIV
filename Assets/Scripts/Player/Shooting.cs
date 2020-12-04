@@ -20,6 +20,8 @@ public class Shooting : NetworkBehaviour
         public int currentReserve = 0;
         //the current cooldown on firing
         public float currentCooldown = 0;
+        //max bounces
+        public int maxBounces;
     }
 
     //Where the player's eyes are
@@ -40,7 +42,7 @@ public class Shooting : NetworkBehaviour
     private PlayerReference myReference;
 
     [SyncVar]
-    private Weapon.FireMode currentFireMode;
+    public Weapon.FireMode currentFireMode;
 
 
     private float _rechargeHoldTime = 1.5f;
