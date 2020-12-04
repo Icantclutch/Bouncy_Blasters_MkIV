@@ -32,7 +32,7 @@ public class LaunchPad : MonoBehaviour
         //When Phillip is done with explosion particle
         //GameObject spawnedPart = Instantiate(exploParticle, transform.position, transform.rotation);
         // Destroy(spawnedPart, 1);
-        print("JUMP PADDING");
+        //print("JUMP PADDING");
         Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius);
 
         foreach (Collider nearbyObject in colliders)

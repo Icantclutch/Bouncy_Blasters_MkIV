@@ -46,7 +46,7 @@ public class OnlineLobbyButtons : MonoBehaviour
             _nextMapButton.interactable = true;
             _mapName.text = "" + _maps[0];
           
-            Debug.Log("Default Map: " + _mapName.text);
+            //Debug.Log("Default Map: " + _mapName.text);
         }
         else
         {

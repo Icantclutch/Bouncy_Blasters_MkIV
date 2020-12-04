@@ -97,7 +97,7 @@ public class PlayerHealth : HitInteraction
     [Server]
     public override void Hit(Bullet.Shot shot)
     {
-        print("HIT " + shot.damage[shot.numBounces]);
+        //print("HIT " + shot.damage[shot.numBounces]);
         //Get the source object
         int shotTeam = NetworkIdentity.spawned[Convert.ToUInt32(shot.playerID)].GetComponent<HitInteraction>().GetTeam();
         int myTeam = this.GetTeam();

@@ -58,7 +58,7 @@ namespace Mirror.FizzySteam
                     int connectionId = nextConnectionID++;
                     steamToMirrorIds.Add(clientSteamID, connectionId);
                     OnConnected.Invoke(connectionId);
-                    Debug.Log($"Client with SteamID {clientSteamID} connected. Assigning connection id {connectionId}");
+                    //Debug.Log($"Client with SteamID {clientSteamID} connected. Assigning connection id {connectionId}");
                     break;
                 case InternalMessages.DISCONNECT:
                     if (steamToMirrorIds.TryGetValue(clientSteamID, out int connId))
