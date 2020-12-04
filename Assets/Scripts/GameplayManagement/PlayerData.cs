@@ -157,7 +157,8 @@ public class PlayerData : NetworkBehaviour
         }
     }
 
-    public void DespawnPlayer()
+    [TargetRpc]
+    public void RPCDespawnPlayer()
     {
         GetComponent<PlayerHUD>().enabled = false;
         GetComponent<PlayerReference>().enabled = false;

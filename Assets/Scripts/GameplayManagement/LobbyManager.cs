@@ -56,6 +56,13 @@ public class LobbyManager : NetworkBehaviour
         }
     }
 
+    public void ReturnPlayers()
+    {
+        foreach(PlayerData p in players)
+        {
+            p.RPCDespawnPlayer();
+        }
+    }
     public void RemovePlayer(PlayerData player)
     {
         players.Remove(player);
