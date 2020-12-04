@@ -156,6 +156,17 @@ public class PlayerData : NetworkBehaviour
             _spawned = true;
         }
     }
+
+    public void DespawnPlayer()
+    {
+        GetComponent<PlayerHUD>().enabled = false;
+        GetComponent<PlayerReference>().enabled = false;
+        GetComponent<MouseLook2>().enabled = false;
+        GetComponent<PlayerMovement>().enabled = false;
+        GetComponent<Shooting>().active = false;
+        GetComponent<Shooting>().enabled = false;
+
+    }
     public void AddPlayerElim()
     {
         playerElims += 1;
