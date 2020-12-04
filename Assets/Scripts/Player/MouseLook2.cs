@@ -43,6 +43,8 @@ public class MouseLook2 : NetworkBehaviour
 
     public void OnDisable()
     {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         //eyes.gameObject.SetActive(false);
         for (int i = 0; i < eyes.childCount; i++)
         {
