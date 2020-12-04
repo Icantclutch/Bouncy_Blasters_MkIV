@@ -156,7 +156,7 @@ public class LobbyManager : NetworkBehaviour
         //SpawnPlayers
         foreach (PlayerData player in players)
         {
-            player.RpcSpawnPlayer();
+            //player.RpcSpawnPlayer();
             player.GetComponent<Shooting>().Rpc_FullReload();
         }
     }

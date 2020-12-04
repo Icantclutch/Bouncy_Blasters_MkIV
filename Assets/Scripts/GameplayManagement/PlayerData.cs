@@ -139,8 +139,13 @@ public class PlayerData : NetworkBehaviour
         {
             //_spawned = true;
         }
+        StartCoroutine(DelaySpawn());
     }
-
+    IEnumerator DelaySpawn()
+    {
+        yield return new WaitForSeconds(0.1f);
+        PlayerSpawnSystem.SpawnPlayer(gameObject);
+    }
     public void AddPlayerElim()
     {
         playerElims += 1;
