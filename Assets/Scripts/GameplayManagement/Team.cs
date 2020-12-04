@@ -32,7 +32,7 @@ public class Team
             tempScore += playerList[i].playerScore;
         }
         teamScore = tempScore;
-        Debug.Log("Team Score has been updated for " + teamName + ": " + teamScore);
+        //Debug.Log("Team Score has been updated for " + teamName + ": " + teamScore);
         
     }
     

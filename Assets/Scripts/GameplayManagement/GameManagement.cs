@@ -139,6 +139,7 @@ public class GameManagement : NetworkBehaviour
    
     private void MatchEnd(Team winningTeam)
     {
+        Debug.Log("Match Ending and Pausing the Game");
         _gamePaused = true;
     }
 

@@ -70,9 +70,9 @@ public class LobbyManager : NetworkBehaviour
     {
         GetLobbySettings();
         gamemode = new Gamemode(_lobbySettings.GetGameModeSetting(), _lobbySettings.GetMatchScoreSetting(), 0, _lobbySettings.GetMatchTimeSetting());
-        Debug.Log("LobbyManager is setting the gamemode to: " + _lobbySettings.GetGameModeSetting());
-        Debug.Log("LobbyManager is setting the gamemode Max score to : " + _lobbySettings.GetMatchScoreSetting());
-        Debug.Log("LobbyManager is setting the gamemode time to: " + _lobbySettings.GetMatchTimeSetting());
+        //Debug.Log("LobbyManager is setting the gamemode to: " + _lobbySettings.GetGameModeSetting());
+        //Debug.Log("LobbyManager is setting the gamemode Max score to : " + _lobbySettings.GetMatchScoreSetting());
+        //Debug.Log("LobbyManager is setting the gamemode time to: " + _lobbySettings.GetMatchTimeSetting());
     }
 
     public void SetMap(string map)
@@ -87,7 +87,7 @@ public class LobbyManager : NetworkBehaviour
     public void StartGame()
     {
         //To-do: check if is host
-        Debug.Log("Called StartGame()");
+        
         if(networkManager.numPlayers >= minPlayersNeeded)
         {
             //To-do:
@@ -114,9 +114,9 @@ public class LobbyManager : NetworkBehaviour
             
             //Setup Game Management
             gameManager.SetUpMatch(gamemode, teamA, teamB);
-            Debug.Log("Called SetUpMatch()");
+            
 
-            Debug.Log("Enabling player gameobjects");
+            //Debug.Log("Enabling player gameobjects");
             //SpawnPlayers
             SpawnPlayers();
 

@@ -138,7 +138,7 @@ namespace Mirror.FizzySteam
 
             if (!ServerActive())
             {
-                Debug.Log("Starting server.");
+                //Debug.Log("Starting server.");
                 SteamNetworking.AllowP2PPacketRelay(AllowSteamRelay);
                 server = Server.CreateServer(this, NetworkManager.singleton.maxConnections);
                 activeNode = server;

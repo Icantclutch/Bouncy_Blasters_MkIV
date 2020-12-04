@@ -24,7 +24,7 @@ public class PlayerAudioController : NetworkBehaviour
         //Debug.Log(_sounds.Count);
         if (soundIndex < _sounds.Count)
         {
-            Debug.Log(soundIndex);
+            //Debug.Log(soundIndex);
             GetComponent<AudioSource>().PlayOneShot(_sounds[soundIndex]);
         }
     }
