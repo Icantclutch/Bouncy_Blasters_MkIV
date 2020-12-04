@@ -44,12 +44,14 @@ public class GameManagement : NetworkBehaviour
     //This is a flag for making sure the match isn't constantly resumed
     private bool _startLock = false;
 
-    
+    private NetworkManager _networkManager;
+
     // Start is called before the first frame update
     
     void Start()
     {
         DontDestroyOnLoad(this.gameObject);
+        _networkManager = GameObject.Find("NetworkManager").GetComponent<NetworkManager>();
         _gamePaused = true;
         playerList = new List<PlayerData>();
         //SetUpMatch(new Gamemode(0, 30, 0, 300), new Team("Nova", new List<PlayerData>()), new Team("Super Nova", new List<PlayerData>()));
@@ -162,6 +164,7 @@ public class GameManagement : NetworkBehaviour
         }
         Debug.Log("Match Ending and Pausing the Game");
         _gamePaused = true;
+        Invoke("ReturnToLobby", 5f);
     }
 
     //Overloaded Match end for tie game
@@ -176,10 +179,15 @@ public class GameManagement : NetworkBehaviour
             playerList[i].GetComponent<PlayerHUD>().DeclareWinState("Tie Game");
         }
         _gamePaused = true;
+        Invoke("ReturnToLobby", 5f);
+    }
+
+    private void ReturnToLobby()
+    {
+        _networkManager.ServerChangeScene("OnlineLobby Scene");
     }
 
     //Function to be called that sets up the match. THE USE OF THIS FUNCTION MAY CHANGE DEPENDING ON HOW THE MATCH IS LOADED
-    
     public void SetUpMatch(Gamemode game, Team a, Team b)
     {
         matchGamemode = game;
