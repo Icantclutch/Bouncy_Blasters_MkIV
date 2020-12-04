@@ -18,6 +18,7 @@ public class PlayerMovement : NetworkBehaviour
 	public bool canJump = true;
 	public float jumpHeight = 2.0f;
 	public bool active = true;
+	public bool inRespawnRoom = false;
 	public bool grounded = false;
 	private bool hasJumped = false;
 	private bool _isSprinting = false;
@@ -115,7 +116,8 @@ public class PlayerMovement : NetworkBehaviour
 		{
 			_isSprinting = !_isSprinting;
 			speed /= sprintModifier;
-			GetComponent<Shooting>().active = true;
+			if(!inRespawnRoom)
+				GetComponent<Shooting>().active = true;
 		}
 	}
 

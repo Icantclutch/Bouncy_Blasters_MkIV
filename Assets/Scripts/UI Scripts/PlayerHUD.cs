@@ -8,32 +8,32 @@ public class PlayerHUD : MonoBehaviour
 {
 
     [SerializeField]
-    private Text _batteryCountText;
+    private Text _batteryCountText = null;
 
     [SerializeField]
-    private Text _reserveBatteryCountText;
+    private Text _reserveBatteryCountText = null;
 
     [SerializeField]
-    private Text _teamAScoreText;
+    private Text _teamAScoreText = null;
     
     [SerializeField]
-    private Text _teamBScoreText;
+    private Text _teamBScoreText = null;
   
     [SerializeField]
-    private Text _playerHealthText;
+    private Text _playerHealthText = null;
   
     [SerializeField]
-    private Text _playerWeaponText;
+    private Text _playerWeaponText = null;
 
     [SerializeField]
-    private Text _matchTimer;
+    private Text _matchTimer = null;
     [SerializeField]
-    private NetworkManager _networkManager;
+    private NetworkManager _networkManager = null;
 
-    private GameObject _gameManager;
+    private GameObject _gameManager = null;
 
     [SerializeField]
-    private Text _matchEndText;
+    private Text _matchEndText = null;
     
     // Start is called before the first frame update
     void Start()
