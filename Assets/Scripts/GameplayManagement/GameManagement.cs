@@ -148,6 +148,7 @@ public class GameManagement : NetworkBehaviour
     private void MatchEnd()
     {
         //Game is Tied
+        Debug.Log("Match Ending with a Tie and Pausing the Game");
         _gamePaused = true;
     }
 
