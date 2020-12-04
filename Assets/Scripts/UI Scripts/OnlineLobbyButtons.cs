@@ -32,6 +32,7 @@ public class OnlineLobbyButtons : MonoBehaviour
     private Button _startMatchButton = null;
 
     private NetworkManager _networkManager;
+    private GameObject _gameManager;
 
 
     // Start is called before the first frame update
@@ -52,7 +53,7 @@ public class OnlineLobbyButtons : MonoBehaviour
             if(_maps.Count > 0)
             {
                 _mapName.text = "" + _maps[0];
-                _networkManager.GetComponent<LobbyManager>().SetMap(_mapName.text);
+                _gameManager.GetComponent<LobbyManager>().SetMap(_mapName.text);
             }
             _nextMapButton.interactable = false;
         }
@@ -76,21 +77,25 @@ public class OnlineLobbyButtons : MonoBehaviour
     {
         if (!_networkManager)
         {
-            _networkManager = GameObject.FindGameObjectWithTag("Management").GetComponent<NetworkManager>();
+            _networkManager = GameObject.Find("NetworkManager").GetComponent<NetworkManager>();
+        }
+        if (!_gameManager)
+        {
+            _gameManager = GameObject.FindGameObjectWithTag("Management");
         }
         else
         {
             _startMatchButton.interactable = true;
             for(int i = 0; i < _playerNames.Count; ++i)
             {
-                if (i < _networkManager.GetComponentInChildren<LobbyManager>().players.Count) {
-                    _playerNames[i].text = _networkManager.GetComponentInChildren<LobbyManager>().players[i].playerName;
-                    _teamDisplay[i].text = "Team: " + _networkManager.GetComponentInChildren<LobbyManager>().players[i].team;
+                if (i < _gameManager.GetComponent<LobbyManager>().players.Count) {
+                    _playerNames[i].text = _gameManager.GetComponent<LobbyManager>().players[i].playerName;
+                    _teamDisplay[i].text = "Team: " + _gameManager.GetComponent<LobbyManager>().players[i].team;
                 }
             }
-            if (_networkManager.GetComponentInChildren<LobbyManager>().gamemodeIndex < _gamemodes.Count)
+            if (_gameManager.GetComponent<LobbyManager>().gamemodeIndex < _gamemodes.Count)
             {
-                _gamemodeName.text = "" + _gamemodes[_networkManager.GetComponentInChildren<LobbyManager>().gamemodeIndex];
+                _gamemodeName.text = "" + _gamemodes[_gameManager.GetComponent<LobbyManager>().gamemodeIndex];
             }
             //_mapName.text = _networkManager.GetComponentInChildren<LobbyManager>().mapName;
         }
@@ -99,15 +104,15 @@ public class OnlineLobbyButtons : MonoBehaviour
 
     private void StartMatch()
     {
-        _networkManager.GetComponentInChildren<LobbyManager>().SetMap(_mapName.text);
-        _networkManager.GetComponentInChildren<LobbyManager>().SetGamemode();
-        _networkManager.GetComponentInChildren<LobbyManager>().StartGame();
+        _gameManager.GetComponent<LobbyManager>().SetMap(_mapName.text);
+        _gameManager.GetComponent<LobbyManager>().SetGamemode();
+        _gameManager.GetComponent<LobbyManager>().StartGame();
     }
 
     public void CycleTeam(int playerIndex = 0)
     {
         if(_teamDisplay.Count > playerIndex)
-            _teamDisplay[playerIndex].text = "Team: " + _networkManager.GetComponentInChildren<LobbyManager>().CycleTeam(playerIndex);
+            _teamDisplay[playerIndex].text = "Team: " + _gameManager.GetComponent<LobbyManager>().CycleTeam(playerIndex);
     }
     public void CycleMap()
     {
@@ -126,7 +131,7 @@ public class OnlineLobbyButtons : MonoBehaviour
             
             _mapName.text = "" + _maps[mapIndex];
             //Debug.Log(_maps[mapIndex]);
-            _networkManager.GetComponentInChildren<LobbyManager>().SetMap(_maps[mapIndex]);
+            _gameManager.GetComponent<LobbyManager>().SetMap(_maps[mapIndex]);
         }
     }
     public void CycleGamemode()
@@ -138,7 +143,7 @@ public class OnlineLobbyButtons : MonoBehaviour
             {
                 _gamemodeInt = 0;
             }
-            _networkManager.GetComponentInChildren<LobbyManager>().gamemodeIndex = _gamemodeInt;
+            _gameManager.GetComponent<LobbyManager>().gamemodeIndex = _gamemodeInt;
             _gamemodeName.text = "" + _gamemodes[_gamemodeInt];
         }
     }

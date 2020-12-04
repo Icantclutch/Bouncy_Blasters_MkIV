@@ -33,7 +33,8 @@ public class LobbyManager : NetworkBehaviour
     void Start()
     {
         players = new List<PlayerData>();
-        networkManager = GetComponentInParent<NetworkManager>();
+
+        networkManager = GameObject.Find("NetworkManager").GetComponent<NetworkManager>();
        
         
     }

@@ -65,14 +65,14 @@ public class PlayerData : NetworkBehaviour
     {
         if (!_lobbyManager)
         {
-            _lobbyManager = GameObject.FindGameObjectWithTag("Management").GetComponentInChildren<LobbyManager>();
+            _lobbyManager = GameObject.FindGameObjectWithTag("Management").GetComponent<LobbyManager>();
         }
         else
         {
             if (!inLobby)
             {
-                //_lobbyManager.AddPlayer(this);
-                CmdJoinLobby();
+                _lobbyManager.AddPlayer(this);
+                //CmdJoinLobby();
                 inLobby = true;
             }
         }
@@ -89,10 +89,7 @@ public class PlayerData : NetworkBehaviour
     private void CmdJoinLobby()
     {
         _lobbyManager.AddPlayer(this);
-        if (!_lobbyManager.gameObject.GetComponentInParent<NetworkManager>().onlineScene.Contains("OnlineLobby Scene"))
-        {
-            GameObject.FindGameObjectWithTag("Management").GetComponent<GameManagement>().JoinTeam(this);
-        }
+
     }
 
     [TargetRpc]

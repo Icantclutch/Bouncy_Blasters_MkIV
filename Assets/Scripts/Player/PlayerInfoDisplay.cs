@@ -22,7 +22,7 @@ public class PlayerInfoDisplay : NetworkBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _networkManager = GameObject.FindGameObjectWithTag("Management").GetComponent<MyNetworkManager>();
+        _networkManager = GameObject.Find("NetworkManager").GetComponent<MyNetworkManager>();
         if (isLocalPlayer)
         {
             _infoDisplay.SetActive(false);
@@ -35,7 +35,7 @@ public class PlayerInfoDisplay : NetworkBehaviour
     {
         _nameDisplayText.text = GetComponent<PlayerData>().playerName;
         int team = GetComponent<PlayerData>().team;
-        GameObject localPlayer = _networkManager.GetLocalPlayer();
+        //GameObject localPlayer = _networkManager.GetLocalPlayer();
         //int localPlayer = CmdLocalPlayerTeam();
         if (team == 0 || (/*localPlayer &&*/ team != localPlayerTeam))
         {
