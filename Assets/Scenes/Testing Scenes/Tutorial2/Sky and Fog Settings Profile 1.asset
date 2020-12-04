@@ -1,71 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-4374729943684902854
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aaa3b8214f75b354e9ba2caadd022259, type: 3}
-  m_Name: DepthOfField
-  m_EditorClassIdentifier: 
-  active: 0
-  m_AdvancedMode: 0
-  quality:
-    m_OverrideState: 1
-    m_Value: 1
-  focusMode:
-    m_OverrideState: 1
-    m_Value: 1
-  focusDistance:
-    m_OverrideState: 0
-    m_Value: 10
-    min: 0.1
-  nearFocusStart:
-    m_OverrideState: 1
-    m_Value: 0
-    min: 0
-  nearFocusEnd:
-    m_OverrideState: 1
-    m_Value: 4
-    min: 0
-  farFocusStart:
-    m_OverrideState: 0
-    m_Value: 10
-    min: 0
-  farFocusEnd:
-    m_OverrideState: 0
-    m_Value: 20
-    min: 0
-  m_NearSampleCount:
-    m_OverrideState: 0
-    m_Value: 5
-    min: 3
-    max: 8
-  m_NearMaxBlur:
-    m_OverrideState: 0
-    m_Value: 4
-    min: 0
-    max: 8
-  m_FarSampleCount:
-    m_OverrideState: 0
-    m_Value: 7
-    min: 3
-    max: 16
-  m_FarMaxBlur:
-    m_OverrideState: 0
-    m_Value: 8
-    min: 0
-    max: 16
-  m_HighQualityFiltering:
-    m_OverrideState: 0
-    m_Value: 1
-  m_Resolution:
-    m_OverrideState: 0
-    m_Value: 2
 --- !u!114 &-2453581838402036131
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -416,7 +350,6 @@ MonoBehaviour:
   - {fileID: 7080563753890502552}
   - {fileID: -912409183914640832}
   - {fileID: -2453581838402036131}
-  - {fileID: -4374729943684902854}
   - {fileID: -1577485092385637767}
   - {fileID: -774609598551700582}
 --- !u!114 &5215463318000032511
@@ -454,7 +387,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 953beb541740ddc499d005ee80c9ff29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   m_AdvancedMode: 0
   enabled:
     m_OverrideState: 1
