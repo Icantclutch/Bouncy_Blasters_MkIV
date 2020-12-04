@@ -19,7 +19,7 @@ public class PlayerMovement : NetworkBehaviour
 	public float jumpHeight = 2.0f;
 	public bool active = true;
 	public bool inRespawnRoom = false;
-	private bool grounded = false;
+	public bool grounded = false;
 	private bool hasJumped = false;
 	private bool _isSprinting = false;
 
