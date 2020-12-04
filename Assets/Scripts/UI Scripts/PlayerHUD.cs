@@ -33,7 +33,7 @@ public class PlayerHUD : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _networkManager = GameObject.FindGameObjectWithTag("Management").GetComponent<NetworkManager>();
+        _networkManager = GameObject.Find("NetworkManager").GetComponent<NetworkManager>();
     }
 
     // Update is called once per frame
@@ -41,7 +41,7 @@ public class PlayerHUD : MonoBehaviour
     {
         if(_networkManager == null)
         {
-            _networkManager = GameObject.FindGameObjectWithTag("Management").GetComponent<NetworkManager>();
+            _networkManager = GameObject.Find("NetworkManager").GetComponent<NetworkManager>();
         }
         else
         {
