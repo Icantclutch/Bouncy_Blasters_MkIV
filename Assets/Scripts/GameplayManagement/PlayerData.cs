@@ -128,7 +128,7 @@ public class PlayerData : NetworkBehaviour
         GetComponent<PlayerReference>().enabled = true;
         GetComponent<PlayerHUD>().enabled = true;
 
-        if (!PlayerSpawnSystem.SpawnPlayer(gameObject, true, true)) 
+        /*if (!PlayerSpawnSystem.SpawnPlayer(gameObject, true, true)) 
         {
             if (PlayerSpawnSystem.SpawnPlayer(gameObject))
             {
@@ -138,13 +138,23 @@ public class PlayerData : NetworkBehaviour
         else
         {
             //_spawned = true;
-        }
+        }*/
         StartCoroutine(DelaySpawn());
     }
     IEnumerator DelaySpawn()
     {
-        yield return new WaitForSeconds(0.1f);
-        PlayerSpawnSystem.SpawnPlayer(gameObject);
+        yield return new WaitForSeconds(0.01f);
+        if (!PlayerSpawnSystem.SpawnPlayer(gameObject, true, true))
+        {
+            if (PlayerSpawnSystem.SpawnPlayer(gameObject))
+            {
+                _spawned = true;
+            }
+        }
+        else
+        {
+            _spawned = true;
+        }
     }
     public void AddPlayerElim()
     {
