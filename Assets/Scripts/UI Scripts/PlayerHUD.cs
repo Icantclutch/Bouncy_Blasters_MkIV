@@ -31,6 +31,9 @@ public class PlayerHUD : MonoBehaviour
     private NetworkManager _networkManager;
 
     private GameObject _gameManager;
+
+    [SerializeField]
+    private Text _matchEndText;
     
     // Start is called before the first frame update
     void Start()
@@ -58,8 +61,11 @@ public class PlayerHUD : MonoBehaviour
             _matchTimer.text = _gameManager.GetComponentInChildren<GameManagement>().MatchTimer.ToString();
         }
       
-     
-        
+    }
 
+    public void DeclareWinState(string state)
+    {
+       _matchEndText.text = state;
+        
     }
 }

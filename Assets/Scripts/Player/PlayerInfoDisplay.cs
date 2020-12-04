@@ -9,6 +9,8 @@ public class PlayerInfoDisplay : NetworkBehaviour
     [SerializeField]
     private Text _nameDisplayText;
     [SerializeField]
+    private SpriteRenderer _miniMapDisplay;
+    [SerializeField]
     private GameObject _infoDisplay;
 
     private MyNetworkManager _networkManager;
@@ -40,10 +42,14 @@ public class PlayerInfoDisplay : NetworkBehaviour
         if (team == 0 || (/*localPlayer &&*/ team != localPlayerTeam))
         {
             _nameDisplayText.color = Color.red;
+            if (_miniMapDisplay)
+                _miniMapDisplay.color = Color.red;
         }
         else
         {
             _nameDisplayText.color = Color.white;
+            if(_miniMapDisplay)
+                _miniMapDisplay.color = Color.white;
         }
         if(Camera.main)
             _infoDisplay.transform.LookAt(Camera.main.transform);
