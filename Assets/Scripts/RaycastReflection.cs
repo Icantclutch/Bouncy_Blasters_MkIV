@@ -10,6 +10,8 @@ public class RaycastReflection : MonoBehaviour
     private Transform goTransform;
     //the attached line renderer  
     private LineRenderer lineRenderer;
+    //Parent shooting
+    private Shooting shooting;
 
     //a ray  
     private Ray ray;
@@ -34,14 +36,17 @@ public class RaycastReflection : MonoBehaviour
         goTransform = this.GetComponent<Transform>();
         //get the attached LineRenderer component  
         lineRenderer = this.GetComponent<LineRenderer>();
+        //get the parent shooting
+        shooting = this.GetComponentInParent<Shooting>();
     }
 
     void Update()
     {
         lineRenderer.enabled = Input.GetKey(Keybinds.Zoom);
 
-        //clamp the number of reflections between 1 and int capacity  
-        nReflections = Mathf.Clamp(nReflections, 1, nReflections);
+        //Update reflections based on player's gun
+        nReflections = shooting.currentFireMode.maxBounces;
+
         //cast a new ray forward, from the current attached game object position  
         ray = new Ray(goTransform.position, goTransform.forward);
 
@@ -54,63 +59,48 @@ public class RaycastReflection : MonoBehaviour
         lineRenderer.positionCount = nPoints;
         //Set the first point of the line at the current attached game object position  
         lineRenderer.SetPosition(0, goTransform.position);
+        //Set the color to red
+        lineRenderer.startColor = Color.red;
 
+        //Get bounce points
+        List<Vector3> bouncePoints = new List<Vector3>();
+        bouncePoints.Add(goTransform.position);
+
+        //Loop through reflections
         for (int i = 0; i <= nReflections; i++)
         {
-            //If the ray hasn't reflected yet  
-            if (i == 0)
+            //Cast ray
+            if (Physics.Raycast(ray, out hit, 100, reflectable))
             {
-                //Check if the ray has hit something  
-                if (Physics.Raycast(ray.origin, ray.direction, out hit, 100, reflectable))//cast the ray 100 units at the specified direction  
+                //Add hit point to the list of line points
+                bouncePoints.Add(hit.point);
+
+                //If its an enemy, break
+                if (hit.transform.CompareTag("Player"))
                 {
-                    //the reflection direction is the reflection of the current ray direction flipped at the hit normal  
-                    inDirection = Vector3.Reflect(ray.direction, hit.normal);
-                    //cast the reflected ray, using the hit point as the origin and the reflected direction as the direction  
-                    ray = new Ray(hit.point, inDirection);
-
-                    //Draw the normal - can only be seen at the Scene tab, for debugging purposes  
-                    Debug.DrawRay(hit.point, hit.normal * 3, Color.blue);
-                    //represent the ray using a line that can only be viewed at the scene tab  
-                    Debug.DrawRay(hit.point, inDirection * 100, Color.magenta);
-
-                    //Print the name of the object the cast ray has hit, at the console  
-                    //Debug.Log("Object name: " + hit.transform.name);
-
-                    //if the number of reflections is set to 1  
-                    if (nReflections == 1)
-                    {
-                        //add a new vertex to the line renderer  
-                        lineRenderer.positionCount = ++nPoints;
-                    }
-
-                    //set the position of the next vertex at the line renderer to be the same as the hit point  
-                    lineRenderer.SetPosition(i + 1, hit.point);
+                    lineRenderer.startColor = Color.green;
+                    break;
                 }
+
+                //Generate the reflection
+                Vector3 reflection = Vector3.Reflect(ray.direction, hit.normal);
+
+                //If it hasn't been stopped, create a new ray
+                ray = new Ray(hit.point, reflection);
             }
-            else // the ray has reflected at least once  
+            else //If it didn't hit anything, end the ray
             {
-                //Check if the ray has hit something  
-                if (Physics.Raycast(ray.origin, ray.direction, out hit, 100, reflectable))//cast the ray 100 units at the specified direction  
-                {
-                    //the refletion direction is the reflection of the ray's direction at the hit normal  
-                    inDirection = Vector3.Reflect(inDirection, hit.normal);
-                    //cast the reflected ray, using the hit point as the origin and the reflected direction as the direction  
-                    ray = new Ray(hit.point, inDirection);
-
-                    //Draw the normal - can only be seen at the Scene tab, for debugging purposes  
-                    Debug.DrawRay(hit.point, hit.normal * 3, Color.blue);
-                    //represent the ray using a line that can only be viewed at the scene tab  
-                    Debug.DrawRay(hit.point, inDirection * 100, Color.magenta);
-
-                    //Print the name of the object the cast ray has hit, at the console  
-                    //Debug.Log("Object name: " + hit.transform.name);
-
-                    //add a new vertex to the line renderer  
-                    lineRenderer.positionCount = ++nPoints;
-                    //set the position of the next vertex at the line renderer to be the same as the hit point  
-                    lineRenderer.SetPosition(i + 1, hit.point);
-                }
+                //Create the endpoint and add it to the lists
+                Vector3 endPoint = ray.origin + (ray.direction * 100);
+                bouncePoints.Add(endPoint);
+                //End loop early
+                break;
             }
         }
+
+        //Assign points
+        Vector3[] bounces = bouncePoints.ToArray();
+        lineRenderer.positionCount = bounces.Length;
+        lineRenderer.SetPositions(bounces);
     }
 }

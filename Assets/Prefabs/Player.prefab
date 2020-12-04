@@ -1414,33 +1414,48 @@ MonoBehaviour:
     currentAmmo: 0
     currentReserve: 0
     currentCooldown: 1
+    maxBounces: 0
   - weapon: {fileID: 11400000, guid: 9b35180f2f1d02a4bbf668420a4a891c, type: 2}
     currentFiringMode: 1
     currentAmmo: 0
     currentReserve: 0
     currentCooldown: 1
+    maxBounces: 0
   - weapon: {fileID: 11400000, guid: 32108748ebb75e1429209511b5126ea0, type: 2}
     currentFiringMode: 1
     currentAmmo: 0
     currentReserve: 0
     currentCooldown: 1
+    maxBounces: 0
   - weapon: {fileID: 11400000, guid: 993d167284fdeb043a71f9b88767c988, type: 2}
     currentFiringMode: 1
     currentAmmo: 0
     currentReserve: 0
     currentCooldown: 1
+    maxBounces: 0
   - weapon: {fileID: 11400000, guid: 1518e378af3b8224faa2847972dcf40e, type: 2}
     currentFiringMode: 1
     currentAmmo: 0
     currentReserve: 0
     currentCooldown: 1
+    maxBounces: 0
   - weapon: {fileID: 11400000, guid: 4b0e05704a033844a942d3787ec11a08, type: 2}
     currentFiringMode: 1
     currentAmmo: 0
     currentReserve: 0
     currentCooldown: 1
+    maxBounces: 0
   currentlyFiring: 0
   active: 0
+  currentFireMode:
+    key: 0
+    fireType: 0
+    shotsFiredAtOnce: 0
+    ammoUsedEachShot: 0
+    bulletDamage: 
+    fireSpeed: 0
+    fireRate: 0
+    bulletPrefabName: 
 --- !u!114 &4357171600822209691
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2185,6 +2200,10 @@ PrefabInstance:
     - target: {fileID: 767108457257536216, guid: 6446b35c3cecaa744a1246885a8864d1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3871606156486622960, guid: 6446b35c3cecaa744a1246885a8864d1, type: 3}
+      propertyPath: m_Parameters.widthMultiplier
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 9123564209396657668, guid: 6446b35c3cecaa744a1246885a8864d1, type: 3}
       propertyPath: m_Name
