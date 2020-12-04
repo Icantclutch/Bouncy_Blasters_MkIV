@@ -80,6 +80,7 @@ public class PlayerHealth : HitInteraction
         {
             GetComponent<Shooting>().active = false;
             GetComponent<PlayerMovement>().active = true;
+            GetComponent<PlayerMovement>().inRespawnRoom = true;
             GetComponent<PlayerMovement>().DisableSprint();
             StartCoroutine(RespawnPlayer());
         }
@@ -93,6 +94,7 @@ public class PlayerHealth : HitInteraction
         yield return new WaitForSeconds(_respawnDelay);
         PlayerSpawnSystem.SpawnPlayer(gameObject);
         GetComponent<Shooting>().active = true;
+        GetComponent<PlayerMovement>().inRespawnRoom = false;
     }
 
     [Server]
