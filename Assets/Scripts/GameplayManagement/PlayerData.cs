@@ -160,6 +160,7 @@ public class PlayerData : NetworkBehaviour
     [TargetRpc]
     public void RPCDespawnPlayer()
     {
+        Debug.Log("Attempting to despawn the player by removing their hud and stuff");
         GetComponent<PlayerHUD>().enabled = false;
         GetComponent<PlayerReference>().enabled = false;
         GetComponent<MouseLook2>().enabled = false;
