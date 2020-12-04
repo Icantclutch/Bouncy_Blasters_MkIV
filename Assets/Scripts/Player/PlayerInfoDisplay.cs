@@ -45,7 +45,8 @@ public class PlayerInfoDisplay : NetworkBehaviour
         {
             _nameDisplayText.color = Color.white;
         }
-        _infoDisplay.transform.LookAt(Camera.main.transform);
+        if(Camera.main)
+            _infoDisplay.transform.LookAt(Camera.main.transform);
     }
 
     //[Command]

@@ -159,7 +159,7 @@ public class SteamLobby : MonoBehaviour
         //Set the Steam lobby data that will be needed by other players in order to join
         SteamMatchmaking.SetLobbyData(lobbyId, HostAddressKey, SteamUser.GetSteamID().ToString());
         SteamMatchmaking.SetLobbyData(lobbyId, GameKey, GameName);
-        SteamMatchmaking.SetLobbyData(lobbyId, "LobbyName", networkManager.onlineScene);
+        SteamMatchmaking.SetLobbyData(lobbyId, "LobbyName", SteamFriends.GetFriendPersonaName(SteamUser.GetSteamID()));
     }
 
     //Handles joining through the Steam interface
