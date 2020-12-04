@@ -23,7 +23,7 @@ public class MouseLook2 : NetworkBehaviour
         camTargetRot = eyes.localRotation;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-        if (hasAuthority) {
+        /*if (hasAuthority) {
             //eyes.gameObject.SetActive(true);
             for (int i = 0; i < eyes.childCount; i++)
             {
@@ -38,9 +38,33 @@ public class MouseLook2 : NetworkBehaviour
                 eyes.GetChild(i).gameObject.SetActive(false);
             }
             UI.SetActive(false);
-        }
+        }*/
     }
 
+    public void OnDisable()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        //eyes.gameObject.SetActive(false);
+        for (int i = 0; i < eyes.childCount; i++)
+        {
+            eyes.GetChild(i).gameObject.SetActive(false);
+        }
+        UI.SetActive(false);
+    }
+    public void OnEnable()
+    {
+        if (hasAuthority)
+        {
+            //eyes.gameObject.SetActive(true);
+            for (int i = 0; i < eyes.childCount; i++)
+            {
+                eyes.GetChild(i).gameObject.SetActive(true);
+            }
+            UI.SetActive(true);
+        }
+        
+    }
     // Update is called once per frame
     [Client]
     void Update()

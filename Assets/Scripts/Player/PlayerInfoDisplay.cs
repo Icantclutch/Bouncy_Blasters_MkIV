@@ -9,6 +9,8 @@ public class PlayerInfoDisplay : NetworkBehaviour
     [SerializeField]
     private Text _nameDisplayText;
     [SerializeField]
+    private SpriteRenderer _miniMapDisplay;
+    [SerializeField]
     private GameObject _infoDisplay;
 
     private MyNetworkManager _networkManager;
@@ -25,8 +27,8 @@ public class PlayerInfoDisplay : NetworkBehaviour
         _networkManager = GameObject.Find("NetworkManager").GetComponent<MyNetworkManager>();
         if (isLocalPlayer)
         {
-            _infoDisplay.SetActive(false);
-            this.enabled = false;
+            //_infoDisplay.SetActive(false);
+            //this.enabled = false;
         }
     }
 
@@ -37,15 +39,24 @@ public class PlayerInfoDisplay : NetworkBehaviour
         int team = GetComponent<PlayerData>().team;
         //GameObject localPlayer = _networkManager.GetLocalPlayer();
         //int localPlayer = CmdLocalPlayerTeam();
-        if (team == 0 || (/*localPlayer &&*/ team != localPlayerTeam))
+        if (isLocalPlayer)
+        {
+            if (_miniMapDisplay)
+                _miniMapDisplay.color = Color.green;
+        }
+        else if (team == 0 || (/*localPlayer &&*/ team != localPlayerTeam))
         {
             _nameDisplayText.color = Color.red;
+            if (_miniMapDisplay)
+                _miniMapDisplay.color = Color.red;
         }
         else
         {
             _nameDisplayText.color = Color.white;
+            if(_miniMapDisplay)
+                _miniMapDisplay.color = Color.white;
         }
-        if(Camera.main)
+        if(!isLocalPlayer && Camera.main)
             _infoDisplay.transform.LookAt(Camera.main.transform);
     }
 

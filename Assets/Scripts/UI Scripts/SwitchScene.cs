@@ -7,10 +7,10 @@ using UnityEngine.UI;
 public class SwitchScene : MonoBehaviour
 {
     [SerializeField]
-    private string _sceneName;
+    private string _sceneName = null;
 
     [SerializeField]
-    private Button _menuButton;
+    private Button _menuButton = null;
 
     // Start is called before the first frame update
     void Start()

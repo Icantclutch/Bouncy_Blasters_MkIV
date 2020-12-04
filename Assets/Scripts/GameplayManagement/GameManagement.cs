@@ -41,12 +41,17 @@ public class GameManagement : NetworkBehaviour
 
     public float MatchTimer { get => (int)_matchTimer; }
 
-    
+    //This is a flag for making sure the match isn't constantly resumed
+    private bool _startLock = false;
+
+    private NetworkManager _networkManager;
+
     // Start is called before the first frame update
     
     void Start()
     {
         DontDestroyOnLoad(this.gameObject);
+        _networkManager = GameObject.Find("NetworkManager").GetComponent<NetworkManager>();
         _gamePaused = true;
         playerList = new List<PlayerData>();
         //SetUpMatch(new Gamemode(0, 30, 0, 300), new Team("Nova", new List<PlayerData>()), new Team("Super Nova", new List<PlayerData>()));
@@ -66,8 +71,13 @@ public class GameManagement : NetworkBehaviour
         }
         else
         {
-            UpdateTeamScores();
-            ResumeMatch();
+            if (!_startLock)
+            {
+                UpdateTeamScores();
+                ResumeMatch();
+                _startLock = true;
+            }
+          
         }
 
         //If the game is paused, freeze the match timer
@@ -139,7 +149,22 @@ public class GameManagement : NetworkBehaviour
    
     private void MatchEnd(Team winningTeam)
     {
+
+        for (int i = 0; i < playerList.Count; i++)
+        {
+            if (playerList[i].playerTeam == winningTeam)
+            {
+                playerList[i].GetComponent<PlayerHUD>().DeclareWinState("You Win");
+            }
+            else
+            {
+                playerList[i].GetComponent<PlayerHUD>().DeclareWinState("You Lose");
+            }
+            
+        }
+        Debug.Log("Match Ending and Pausing the Game");
         _gamePaused = true;
+        Invoke("ReturnToLobby", 5f);
     }
 
     //Overloaded Match end for tie game
@@ -147,11 +172,23 @@ public class GameManagement : NetworkBehaviour
     private void MatchEnd()
     {
         //Game is Tied
+        //Debug.Log("Match Ending with a Tie and Pausing the Game");
+
+        for(int i = 0; i < playerList.Count; i++)
+        {
+            playerList[i].GetComponent<PlayerHUD>().DeclareWinState("Tie Game");
+        }
         _gamePaused = true;
+        Invoke("ReturnToLobby", 5f);
+    }
+
+    private void ReturnToLobby()
+    {
+        GetComponent<LobbyManager>().ReturnPlayers();
+        _networkManager.ServerChangeScene("OnlineLobby Scene");
     }
 
     //Function to be called that sets up the match. THE USE OF THIS FUNCTION MAY CHANGE DEPENDING ON HOW THE MATCH IS LOADED
-    
     public void SetUpMatch(Gamemode game, Team a, Team b)
     {
         matchGamemode = game;

@@ -76,13 +76,13 @@ public class PlayerData : NetworkBehaviour
                 inLobby = true;
             }
         }
-        if (!_spawned)
+        /*if (!_spawned)
         {
             if (PlayerSpawnSystem.SpawnPlayer(gameObject))
             {
                 _spawned = true;
             }
-        }
+        }*/
     }
 
 
@@ -155,6 +155,19 @@ public class PlayerData : NetworkBehaviour
         {
             _spawned = true;
         }
+    }
+
+    [TargetRpc]
+    public void RPCDespawnPlayer()
+    {
+        //Debug.Log("Attempting to despawn the player by removing their hud and stuff");
+        GetComponent<PlayerHUD>().enabled = false;
+        GetComponent<PlayerReference>().enabled = false;
+        GetComponent<MouseLook2>().enabled = false;
+        GetComponent<PlayerMovement>().enabled = false;
+        GetComponent<Shooting>().active = false;
+        GetComponent<Shooting>().enabled = false;
+
     }
     public void AddPlayerElim()
     {
