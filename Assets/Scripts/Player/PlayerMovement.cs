@@ -81,21 +81,11 @@ public class PlayerMovement : NetworkBehaviour
 			}
 			if (Input.GetKeyDown(Keybinds.Sprint))
 			{
-				if (!_isSprinting)
-				{
-					_isSprinting = !_isSprinting;
-					speed *= sprintModifier;
-					GetComponent<Shooting>().active = false;
-				}
+				EnableSprint();
 			}
 			else if (Input.GetKeyUp(Keybinds.Sprint))
 			{
-				if (_isSprinting)
-				{
-					_isSprinting = !_isSprinting;
-					speed /= sprintModifier;
-					GetComponent<Shooting>().active = true;
-				}
+				DisableSprint();
 			}
 		}
 		// We apply gravity manually for more tuning control
@@ -109,7 +99,27 @@ public class PlayerMovement : NetworkBehaviour
 		grounded = false;
 	}
 
-	void OnCollisionStay()
+    public void EnableSprint()
+    {
+		if (!_isSprinting)
+		{
+			_isSprinting = !_isSprinting;
+			speed *= sprintModifier;
+			GetComponent<Shooting>().active = false;
+		}
+	}
+
+	public void DisableSprint()
+    {
+		if (_isSprinting)
+		{
+			_isSprinting = !_isSprinting;
+			speed /= sprintModifier;
+			GetComponent<Shooting>().active = true;
+		}
+	}
+
+    void OnCollisionStay()
 	{
 		grounded = true;
 	}

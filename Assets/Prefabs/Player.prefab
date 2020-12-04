@@ -408,7 +408,7 @@ GameObject:
   - component: {fileID: 4463230840613676441}
   - component: {fileID: 2299378240274142685}
   m_Layer: 10
-  m_Name: Sphere
+  m_Name: Hitbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1325,7 +1325,6 @@ Transform:
   - {fileID: 2349851022982101160}
   - {fileID: 7164985317577078470}
   - {fileID: 5377081797794707132}
-  - {fileID: 1741333313093712988}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1775,6 +1774,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   _nameDisplayText: {fileID: 5352334645154030688}
+  _miniMapDisplay: {fileID: 7779276451252920104}
   _infoDisplay: {fileID: 4384819657786414322}
 --- !u!1 &4384819657786414322
 GameObject:
@@ -1804,6 +1804,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8282507388377988668}
+  - {fileID: 1741333313093712988}
   m_Father: {fileID: 4357171600822209690}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2077,12 +2078,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8845466092278203780}
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 4.7, z: 0}
   m_LocalScale: {x: 30, y: 30, z: 5}
   m_Children: []
-  m_Father: {fileID: 4357171600822209690}
-  m_RootOrder: 4
+  m_Father: {fileID: 7164985317577078470}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!212 &7779276451252920104
 SpriteRenderer:
