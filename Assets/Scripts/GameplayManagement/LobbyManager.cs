@@ -56,6 +56,14 @@ public class LobbyManager : NetworkBehaviour
         }
     }
 
+    public void ReturnPlayers()
+    {
+        Debug.Log("Attempting to return all the players currently in the lobby");
+        foreach(PlayerData p in players)
+        {
+            p.RPCDespawnPlayer();
+        }
+    }
     public void RemovePlayer(PlayerData player)
     {
         players.Remove(player);
