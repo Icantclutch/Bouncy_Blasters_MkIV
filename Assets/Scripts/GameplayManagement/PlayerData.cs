@@ -76,13 +76,13 @@ public class PlayerData : NetworkBehaviour
                 inLobby = true;
             }
         }
-        if (!_spawned)
+        /*if (!_spawned)
         {
             if (PlayerSpawnSystem.SpawnPlayer(gameObject))
             {
                 _spawned = true;
             }
-        }
+        }*/
     }
 
 

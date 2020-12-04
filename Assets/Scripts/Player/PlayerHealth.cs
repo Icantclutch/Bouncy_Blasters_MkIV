@@ -80,6 +80,7 @@ public class PlayerHealth : HitInteraction
         {
             GetComponent<Shooting>().active = false;
             GetComponent<PlayerMovement>().active = true;
+            GetComponent<PlayerMovement>().DisableSprint();
             StartCoroutine(RespawnPlayer());
         }
         else
