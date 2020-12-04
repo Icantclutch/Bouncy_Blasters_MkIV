@@ -184,6 +184,7 @@ public class GameManagement : NetworkBehaviour
 
     private void ReturnToLobby()
     {
+        _startLock = false;
         GetComponent<LobbyManager>().ReturnPlayers();
         _networkManager.ServerChangeScene("OnlineLobby Scene");
     }
