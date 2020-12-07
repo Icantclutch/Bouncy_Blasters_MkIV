@@ -6,6 +6,7 @@ using Steamworks;
 
 public class MyNetworkManager : NetworkManager
 {
+    public GameObject gameManager;
     public List<NetworkConnection> players = new List<NetworkConnection>();
     //Overrides OnServerAddPlayer to also get and set the players Steam Id
     public override void OnServerAddPlayer(NetworkConnection conn)
@@ -21,6 +22,13 @@ public class MyNetworkManager : NetworkManager
     {
         base.OnServerDisconnect(conn);
         players.Remove(conn);
+    }
+
+    public override void OnStartHost()
+    {
+        base.OnStartHost();
+        if(gameManager)
+            NetworkServer.Spawn(Instantiate(gameManager));
     }
 
     public override void OnClientSceneChanged(NetworkConnection conn)
