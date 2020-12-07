@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 65501.047, g: 65504.047, b: 65504.047, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -818,6 +818,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 2a3294f54c5775041a525fc357c39eb4, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: d5d6a6d51afb4744688d6ce33124c1ad, type: 2}
     - target: {fileID: 919132149155446097, guid: 2a3294f54c5775041a525fc357c39eb4, type: 3}
       propertyPath: m_Name
       value: SM_wall_270Oct_screen
@@ -1300,19 +1304,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7679539863931823636, guid: 3e20f9bd199f77b4d8e177ef38ae5aff, type: 3}
       propertyPath: m_BoundingSphereOverride.x
-      value: 8.28e-43
+      value: 3124.082
       objectReference: {fileID: 0}
     - target: {fileID: 7679539863931823636, guid: 3e20f9bd199f77b4d8e177ef38ae5aff, type: 3}
       propertyPath: m_BoundingSphereOverride.y
-      value: 3.1974647e-15
+      value: 9.583179e+11
       objectReference: {fileID: 0}
     - target: {fileID: 7679539863931823636, guid: 3e20f9bd199f77b4d8e177ef38ae5aff, type: 3}
       propertyPath: m_BoundingSphereOverride.z
-      value: 8.28e-43
+      value: 12.395101
       objectReference: {fileID: 0}
     - target: {fileID: 7679539863931823636, guid: 3e20f9bd199f77b4d8e177ef38ae5aff, type: 3}
       propertyPath: m_BoundingSphereOverride.w
-      value: 3.1982643e-15
+      value: 3.835759e+12
       objectReference: {fileID: 0}
     - target: {fileID: 8357196619830436102, guid: 3e20f9bd199f77b4d8e177ef38ae5aff, type: 3}
       propertyPath: m_Name
@@ -1715,7 +1719,11 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 61fa4f80016cc7f409b9d6f658f9068c, type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
-      objectReference: {fileID: 2100000, guid: 4189e9c7b61032943b2600d85774c6c7, type: 2}
+      objectReference: {fileID: 2100000, guid: d5d6a6d51afb4744688d6ce33124c1ad, type: 2}
+    - target: {fileID: -7511558181221131132, guid: 61fa4f80016cc7f409b9d6f658f9068c, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: -3587316180778263445, guid: 61fa4f80016cc7f409b9d6f658f9068c, type: 3}
     - target: {fileID: 919132149155446097, guid: 61fa4f80016cc7f409b9d6f658f9068c, type: 3}
       propertyPath: m_Name
       value: sm_wall_360large_screen (1)
@@ -2657,7 +2665,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 192b50ba056282945a6bb678b7071210, type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
-      objectReference: {fileID: 7794395161262391607, guid: b1c2a4fc43cd12640a1107b85e06c4e1, type: 3}
+      objectReference: {fileID: 2100000, guid: d5d6a6d51afb4744688d6ce33124c1ad, type: 2}
     - target: {fileID: 919132149155446097, guid: 192b50ba056282945a6bb678b7071210, type: 3}
       propertyPath: m_Name
       value: sm_wall_360medium_screen_updated
@@ -4174,7 +4182,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: f49ea0868876e3b43953c6dc1803c954, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 7794395161262391607, guid: b1c2a4fc43cd12640a1107b85e06c4e1, type: 3}
+      objectReference: {fileID: 2100000, guid: 3cbdd1450b0860d4ba98fa725c50d17e, type: 2}
     - target: {fileID: 919132149155446097, guid: f49ea0868876e3b43953c6dc1803c954, type: 3}
       propertyPath: m_Name
       value: sm_wall_L_screen_fixed
