@@ -90,6 +90,9 @@ public class TravelBullet : RaycastBullet
                         laserDestroyA = raycastPositions[0];
                         laserDestroyB = raycastPositions[1];
                         destroyLerp = 0;
+
+                        //Up the number of bounces
+                        myShot.numBounces += 1;
                     }
                 }
             }
@@ -166,7 +169,7 @@ public class TravelBullet : RaycastBullet
     [Server]
     private void OnTriggerEnter(Collider other)
     {
-        if (other.transform != NetworkIdentity.spawned[Convert.ToUInt32(myShot.playerID)].transform)
+        if (other.transform != NetworkIdentity.spawned[Convert.ToUInt32(myShot.playerID)].transform || myShot.numBounces > 1)
         {
             //If the hit is on a player and floor is active, reduce the bounce count
             if (other.transform.CompareTag("Player") && floor)
