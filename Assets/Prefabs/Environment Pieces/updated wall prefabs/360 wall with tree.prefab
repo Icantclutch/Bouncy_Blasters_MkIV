@@ -52,9 +52,54 @@ Transform:
   - {fileID: 8912556736933608835}
   - {fileID: 5877585827963854132}
   - {fileID: 6233824355665204600}
+  - {fileID: 7063928213129817314}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4381978863165852321
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7063928213129817314}
+  - component: {fileID: 7953665286242065884}
+  m_Layer: 2
+  m_Name: Sphere
+  m_TagString: NoBounce
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7063928213129817314
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4381978863165852321}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.04, y: 7.67, z: -0.02}
+  m_LocalScale: {x: 5.8799906, y: 5.8799906, z: 5.8799906}
+  m_Children: []
+  m_Father: {fileID: 6101870187445238396}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &7953665286242065884
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4381978863165852321}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &127008669437523269
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -321,10 +366,14 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: ad7a54edabbb0594090ae5637ecc512c, type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
-      objectReference: {fileID: 2100000, guid: 721201d24cfb2fb4ca6cca889cd8f575, type: 2}
+      objectReference: {fileID: 7794395161262391607, guid: 227d67a306fbaf447bdb4b73b41c0cb6, type: 3}
     - target: {fileID: 919132149155446097, guid: ad7a54edabbb0594090ae5637ecc512c, type: 3}
       propertyPath: m_Name
       value: sm_wall_360_screen_updated
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: ad7a54edabbb0594090ae5637ecc512c, type: 3}
+      propertyPath: m_TagString
+      value: Wall
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad7a54edabbb0594090ae5637ecc512c, type: 3}
