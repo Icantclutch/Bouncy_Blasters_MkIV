@@ -133,4 +133,13 @@ public class PlayerMovement : NetworkBehaviour
 		return Mathf.Sqrt(2 * jumpHeight * gravity);
 	}
 
+	public void SetMoveSpeed(float moveSpeed)
+    {
+		speed = moveSpeed;
+    }
+
+	public void SetJumpHeight(float jump)
+    {
+		jumpHeight = jump;
+    }
 }

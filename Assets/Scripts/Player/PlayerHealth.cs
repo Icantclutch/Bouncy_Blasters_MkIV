@@ -141,6 +141,11 @@ public class PlayerHealth : HitInteraction
         return currentCharge;
     }
 
+    public void SetMaxCharge(int hp)
+    {
+        maxSuitCharge = hp;
+    }
+
     //Add and remove player from the SpawnSystem
     private void Awake()
     {
