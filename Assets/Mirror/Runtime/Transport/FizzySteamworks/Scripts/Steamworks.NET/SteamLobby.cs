@@ -30,7 +30,7 @@ public class SteamLobby : MonoBehaviour
     };
 
     //references to objects in the scene
-    [SerializeField] private GameObject button = null;
+    [SerializeField] public GameObject button = null;
     [SerializeField] private Dropdown lobbyDropDown = null;
 
     //Callback variables to handle Steam calls
@@ -95,6 +95,11 @@ public class SteamLobby : MonoBehaviour
         //Start coroutine to search for lobbies, starting with the most full lobbies
         UnityEngine.Debug.Log("Search for lobbies");
         StartCoroutine(SearchForLobby());
+    }
+
+    public void ExitLobby()
+    {
+        SteamMatchmaking.LeaveLobby(lobbyId);
     }
 
     //Coroutine to search for an open lobby and join it, if no lobby is found then it will create a lobby

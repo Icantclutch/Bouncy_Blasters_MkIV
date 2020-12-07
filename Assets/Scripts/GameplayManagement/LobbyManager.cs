@@ -181,4 +181,17 @@ public class LobbyManager : NetworkBehaviour
             _lobbySettings = GameObject.FindGameObjectWithTag("Settings").GetComponent<LobbyGameSettings>();
         }
     }
+
+    public void LeaveLobby()
+    {
+        Debug.Log("Stopping Client");
+        if (isServer)
+        {
+            networkManager.StopHost();
+        }
+        else
+        {
+            networkManager.StopClient();
+        }
+    }
 }

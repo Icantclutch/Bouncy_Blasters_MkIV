@@ -8,6 +8,7 @@ public class MyNetworkManager : NetworkManager
 {
     public GameObject gameManager;
     public List<NetworkConnection> players = new List<NetworkConnection>();
+
     //Overrides OnServerAddPlayer to also get and set the players Steam Id
     public override void OnServerAddPlayer(NetworkConnection conn)
     {
@@ -27,8 +28,29 @@ public class MyNetworkManager : NetworkManager
     public override void OnStartHost()
     {
         base.OnStartHost();
+        //Debug.Log("Dont Destroy on Load");
+        //DontDestroyOnLoad(gameObject);
         if(gameManager)
             NetworkServer.Spawn(Instantiate(gameManager));
+    }
+
+    public override void OnStopHost()
+    {
+        base.OnStopHost();
+    }
+
+    public override void OnStartClient()
+    {
+        base.OnStartClient();
+        Debug.Log("Client Started");
+        //DontDestroyOnLoad(gameObject);
+    }
+
+    public override void OnStopClient()
+    {
+        base.OnStopClient();
+        GetComponent<SteamLobby>().button.SetActive(true);
+        GetComponent<SteamLobby>().ExitLobby();
     }
 
     public override void OnClientSceneChanged(NetworkConnection conn)

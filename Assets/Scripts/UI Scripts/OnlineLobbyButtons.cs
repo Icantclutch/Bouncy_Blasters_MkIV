@@ -147,4 +147,9 @@ public class OnlineLobbyButtons : MonoBehaviour
             _gamemodeName.text = "" + _gamemodes[_gamemodeInt];
         }
     }
+
+    public void LeaveLobby()
+    {
+        _gameManager.GetComponent<LobbyManager>().LeaveLobby();
+    }
 }
