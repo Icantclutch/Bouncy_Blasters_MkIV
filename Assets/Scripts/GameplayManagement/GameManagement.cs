@@ -53,7 +53,7 @@ public class GameManagement : NetworkBehaviour
         DontDestroyOnLoad(this.gameObject);
         _networkManager = GameObject.Find("NetworkManager").GetComponent<NetworkManager>();
         _gamePaused = true;
-        playerList = new List<PlayerData>();
+        //playerList = new List<PlayerData>();
         //SetUpMatch(new Gamemode(0, 30, 0, 300), new Team("Nova", new List<PlayerData>()), new Team("Super Nova", new List<PlayerData>()));
   
     }
@@ -193,6 +193,7 @@ public class GameManagement : NetworkBehaviour
     //Function to be called that sets up the match. THE USE OF THIS FUNCTION MAY CHANGE DEPENDING ON HOW THE MATCH IS LOADED
     public void SetUpMatch(Gamemode game, Team a, Team b)
     {
+        playerList = new List<PlayerData>();
         matchGamemode = game;
         teamA = a;
         teamB = b;
@@ -222,6 +223,10 @@ public class GameManagement : NetworkBehaviour
   
     private void ResetMatch()
     {
+        for (int i = 0; i < playerList.Count; i++)
+        {
+            playerList[i].GetComponent<PlayerHUD>().DeclareWinState("");
+        }
         _startLock = false;
         _gamePaused = true;
         teamAScore = 0;
