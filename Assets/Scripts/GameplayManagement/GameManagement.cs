@@ -184,7 +184,8 @@ public class GameManagement : NetworkBehaviour
 
     private void ReturnToLobby()
     {
-        _startLock = false;
+        ResetMatch();
+       
         GetComponent<LobbyManager>().ReturnPlayers();
         _networkManager.ServerChangeScene("OnlineLobby Scene");
     }
@@ -219,6 +220,20 @@ public class GameManagement : NetworkBehaviour
         _matchTimer = (float)matchGamemode.matchTime;
     }
   
+    private void ResetMatch()
+    {
+        _startLock = false;
+        _gamePaused = true;
+        teamAScore = 0;
+        teamBScore = 0;
+        teamA = null;
+        teamB = null;
+        playerList = null;
+        matchGamemode = null;
+        _matchTimer = 300f;
+       
+    }
+
     public void JoinTeam(PlayerData player)
     {
         playerList.Add(player);
