@@ -132,6 +132,12 @@ public class TravelBullet : RaycastBullet
                 if (i == 1)
                     secondBounce = hit.point;
 
+                //If it hits a NoBounce object, end the bouncing
+                if (hit.transform.CompareTag("NoBounce"))
+                {
+                    break;
+                }
+
                 //If its first bounce is off the floor, set floor true
                 if (hit.transform.CompareTag("Floor") && i == 0)
                 {
