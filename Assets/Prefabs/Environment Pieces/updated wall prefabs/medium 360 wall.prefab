@@ -1,5 +1,49 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1394945825710064651
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 601048234222649143}
+  - component: {fileID: 6615367652936316989}
+  m_Layer: 2
+  m_Name: Sphere
+  m_TagString: NoBounce
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &601048234222649143
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1394945825710064651}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.1, y: 5.49, z: 0.06}
+  m_LocalScale: {x: 12.445784, y: 12.445784, z: 12.445784}
+  m_Children: []
+  m_Father: {fileID: 7001148052480519428}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &6615367652936316989
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1394945825710064651}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2662372945643965138
 GameObject:
   m_ObjectHideFlags: 0
@@ -37,6 +81,7 @@ Transform:
   - {fileID: 2160081435948528841}
   - {fileID: 8459773318973115640}
   - {fileID: 7938733977003225786}
+  - {fileID: 601048234222649143}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -606,6 +651,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 192b50ba056282945a6bb678b7071210, type: 3}
       propertyPath: m_Name
       value: sm_wall_360medium_screen_updated
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 192b50ba056282945a6bb678b7071210, type: 3}
+      propertyPath: m_TagString
+      value: Wall
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 192b50ba056282945a6bb678b7071210, type: 3}
