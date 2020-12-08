@@ -100,7 +100,7 @@ public class PlayerMovement : NetworkBehaviour
 			hasJumped = false;
         }
 
-		grounded = false;
+		
 		
 		
 	}
