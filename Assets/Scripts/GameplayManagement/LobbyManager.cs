@@ -145,7 +145,7 @@ public class LobbyManager : NetworkBehaviour
             players[playerIndex].team++;
             if(players[playerIndex].team > numOfTeams)
             {
-                players[playerIndex].team = 0;
+                players[playerIndex].team = 1;
             }
             return players[playerIndex].team;
         }
