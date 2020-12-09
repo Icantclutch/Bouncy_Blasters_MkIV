@@ -154,11 +154,11 @@ public class GameManagement : NetworkBehaviour
         {
             if (playerList[i].playerTeam == winningTeam)
             {
-                playerList[i].GetComponent<PlayerHUD>().DeclareWinState("You Win");
+                playerList[i].GetComponent<PlayerHUD>().RPCDeclareWinState("You Win");
             }
             else
             {
-                playerList[i].GetComponent<PlayerHUD>().DeclareWinState("You Lose");
+                playerList[i].GetComponent<PlayerHUD>().RPCDeclareWinState("You Lose");
             }
             
         }
