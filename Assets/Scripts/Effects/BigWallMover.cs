@@ -4,11 +4,13 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SocialPlatforms;
+using UnityEngine.SocialPlatforms.GameCenter;
 
-public class WallMover : MonoBehaviour
+public class BigWallMover : MonoBehaviour
 {
     public float speed = 7f;
-    public int maxWait = 22;
+    public int maxWait = 12;
+    private int upWalls = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -16,7 +18,6 @@ public class WallMover : MonoBehaviour
         foreach (Transform child in transform)
         {
             Holder.Add(new WallInfo(child.localPosition, child.name));
-            child.gameObject.SetActive(true);
         }
         foreach (Transform child in transform)
         {
@@ -49,6 +50,7 @@ public class WallMover : MonoBehaviour
 
     List<WallInfo> Holder = new List<WallInfo>();
     List<MovingWallInfo> MovingWalls = new List<MovingWallInfo>();
+    List<String> UpWalls = new List<String>();
 
     //Return the objects original position from a name given
     private Vector3 ReturnOriginalPos(String inputName)
@@ -57,39 +59,97 @@ public class WallMover : MonoBehaviour
         return WallInList.Pos;
     }
 
+    //A check to see if the called name is in the UpWalls list
+    //Used in canbringup
+    private bool IsInUpWalls(String WallName)
+    {
+        if (UpWalls.Contains(WallName))
+        {
+            return false;
+        }
+        return true;
+    }
+
+    //Checks the wall name with the UpWall list
+    //If the wall that prevents it from coming up is up, it will return false otherwise
+    //It will default to true allowing the MoveWall function to use it
+    private bool CanBringUp(String WallName)
+    {
+        if (WallName == "Box room 1" || WallName == "Box room 2")
+        {
+            if (UpWalls.Contains("center octagon")) { return false; }
+            if (UpWalls.Contains("perpendicular 1")) { return false; }
+        } 
+        else if (WallName == "Isle")
+        {
+            if (UpWalls.Contains("trapazoid 1")) { return false; }
+            if (UpWalls.Contains("trapazoid 2")) { return false; }
+        } 
+        else if (WallName == "center octagon")
+        {
+            if (UpWalls.Contains("perpendicular 1")) { return false; }
+        } 
+        else if (WallName == "trapazoid 1" || WallName == "trapazoid 2")
+        {
+            if (UpWalls.Contains("perpendicular 1")) { return false; }
+            if (UpWalls.Contains("Isle")) { return false; }
+        } 
+        else if (WallName == "perpendicular 1")
+        {
+            if (UpWalls.Contains("trapazoid 1")) { return false; }
+            if (UpWalls.Contains("trapazoid 2")) { return false; }
+            if (UpWalls.Contains("center octagon")) { return false; }
+            if (UpWalls.Contains("Box room 1")) { return false; }
+            if (UpWalls.Contains("Box room 2")) { return false; }
+        }
+        //Box room 1
+        //Box room 2
+        //Isle
+        //center octagon
+        //trapazoid 1
+        //trapazoid 2
+        //perpendicular 1
+
+        return true;
+    }
+
     IEnumerator MoveWall(Transform go)
     {
         Vector3 startPos = ReturnOriginalPos(go.name);
         Vector3 endPos = new Vector3(0, 0, 0);
         bool IsDown = false;
         //Decide the positions based off the table of original positions
-        if (startPos.y > go.localPosition.y)
+        if (startPos.y < go.localPosition.y)
         {
             endPos = startPos;
             IsDown = true;
         }
-        else {
-            endPos = startPos - new Vector3(0, 50, 0);
+        else
+        {
+            endPos = startPos + new Vector3(0, 50, 0);
         }
 
         //Do the waiting (if down, wait less)
         if (IsDown)
         {
-            int WallCount1 = 1;
-            //Mathf.Ceil(maxWait/10)
-            print("Waiting");
-            yield return new WaitForSeconds(UnityEngine.Random.Range(WallCount1, WallCount1 + 2));
-            print("Moving Up");
+            int WallCount = 1;
+            yield return new WaitForSeconds(UnityEngine.Random.Range(WallCount, WallCount + maxWait));
         }
         else
         {
-            var WallCount = 14;
+            var WallCount = ToRemoveWalls.Count + 7;
             yield return new WaitForSeconds(UnityEngine.Random.Range(WallCount, WallCount + maxWait));
+            //Check if wall is up and if the max wall count is already reached
+            while (UpWalls.Count >= 2 || !CanBringUp(go.name))
+            {
+                yield return new WaitForSeconds(UnityEngine.Random.Range(5, 10));
+            }
+            UpWalls.Add(go.name);
         }
         //Add to the moving wall list
         MovingWalls.Add(new MovingWallInfo(endPos, go));
         //Wait till the movement is done
-        yield return new WaitForSeconds(speed + 4);
+        yield return new WaitForSeconds(speed);
         //Start the movement again
         StartCoroutine(MoveWall(go));
     }
@@ -110,6 +170,10 @@ public class WallMover : MonoBehaviour
                 //If done add to a seperate list to remove (prevents errors from removing directly from the list)
                 if (MW.obj.localPosition == MW.Pos)
                 {
+                    if (UpWalls.Contains(MW.obj.name))
+                    {
+                        UpWalls.Remove(MW.obj.name);
+                    }
                     ToRemoveWalls.Add(MW);
                 }
             }
