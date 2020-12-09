@@ -63,8 +63,8 @@ public class PlayerHUD : MonoBehaviour
       
     }
 
-    [ClientRpc]
-    public void RPCDeclareWinState(string state)
+    
+    public void DeclareWinState(string state)
     {
        _matchEndText.text = state;
         
