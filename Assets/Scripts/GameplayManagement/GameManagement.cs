@@ -225,7 +225,7 @@ public class GameManagement : NetworkBehaviour
     {
         for (int i = 0; i < playerList.Count; i++)
         {
-            playerList[i].GetComponent<PlayerHUD>().DeclareWinState("");
+            playerList[i].GetComponent<PlayerHUD>().RPCDeclareWinState("");
         }
         _startLock = false;
         _gamePaused = true;
