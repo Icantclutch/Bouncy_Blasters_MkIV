@@ -176,7 +176,7 @@ public class GameManagement : NetworkBehaviour
 
         for(int i = 0; i < playerList.Count; i++)
         {
-            playerList[i].GetComponent<PlayerHUD>().DeclareWinState("Tie Game");
+            playerList[i].GetComponent<PlayerHUD>().RPCDeclareWinState("Tie Game");
         }
         _gamePaused = true;
         Invoke("ReturnToLobby", 5f);
