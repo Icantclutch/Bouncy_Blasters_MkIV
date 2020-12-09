@@ -149,19 +149,20 @@ public class GameManagement : NetworkBehaviour
    
     private void MatchEnd(Team winningTeam)
     {
-
+        /*
         for (int i = 0; i < playerList.Count; i++)
         {
             if (playerList[i].playerTeam == winningTeam)
             {
-                playerList[i].GetComponent<PlayerHUD>().RPCDeclareWinState("You Win");
+                DeclareWinState(playerList[i], "You Win");
             }
             else
             {
-                playerList[i].GetComponent<PlayerHUD>().RPCDeclareWinState("You Lose");
+                DeclareWinState(playerList[i], "You Lose");
             }
             
         }
+        */
         Debug.Log("Match Ending and Pausing the Game");
         _gamePaused = true;
         Invoke("ReturnToLobby", 5f);
@@ -174,10 +175,12 @@ public class GameManagement : NetworkBehaviour
         //Game is Tied
         //Debug.Log("Match Ending with a Tie and Pausing the Game");
 
+        /*
         for(int i = 0; i < playerList.Count; i++)
         {
-            playerList[i].GetComponent<PlayerHUD>().RPCDeclareWinState("Tie Game");
+            DeclareWinState(playerList[i], "Tie Game");
         }
+        */
         _gamePaused = true;
         Invoke("ReturnToLobby", 5f);
     }
@@ -223,10 +226,12 @@ public class GameManagement : NetworkBehaviour
   
     private void ResetMatch()
     {
+        /*
         for (int i = 0; i < playerList.Count; i++)
         {
-            playerList[i].GetComponent<PlayerHUD>().RPCDeclareWinState("");
+            playerList[i].GetComponent<PlayerHUD>().DeclareWinState("");
         }
+        */
         _startLock = false;
         _gamePaused = true;
         teamAScore = 0;
@@ -265,6 +270,14 @@ public class GameManagement : NetworkBehaviour
     {
         _gamePaused = false;
     }
+
+    /*
+    [ClientRpc]
+    private void DeclareWinState(PlayerData player, string state)
+    {
+        player.GetComponent<PlayerHUD>().DeclareWinState(state);
+    }
+    */
 
     
   
