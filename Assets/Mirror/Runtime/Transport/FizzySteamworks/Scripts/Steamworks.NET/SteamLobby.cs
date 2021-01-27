@@ -31,7 +31,7 @@ public class SteamLobby : MonoBehaviour
 
     //references to objects in the scene
     [SerializeField] public GameObject button = null;
-    [SerializeField] private Dropdown lobbyDropDown = null;
+    [SerializeField] public Dropdown lobbyDropDown = null;
 
     //Callback variables to handle Steam calls
     protected Callback<LobbyCreated_t> lobbyCreated;
@@ -106,7 +106,7 @@ public class SteamLobby : MonoBehaviour
     IEnumerator SearchForLobby()
     {
         lobbies.Clear();
-        lobbyDropDown.ClearOptions();
+        //lobbyDropDown.ClearOptions();
         //Search for lobbies by open slots, starting with 1 open slot
         for (int i = 1; i < networkManager.maxConnections; ++i)
         {
