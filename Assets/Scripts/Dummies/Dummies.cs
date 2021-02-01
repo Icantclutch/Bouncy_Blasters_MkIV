@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.AI;
 public class Dummies : MonoBehaviour
 {
 
@@ -9,11 +10,18 @@ public class Dummies : MonoBehaviour
     private float maxCharge;
     public GameObject Dying;
     private float timer;
+    private NavMeshAgent agent;
+    public GameObject destination1;
+    public GameObject destination2;
+    private bool atDest2;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        atDest2 = true;
+        agent = GetComponent<NavMeshAgent>();
+        agent.autoBraking = false;
         currentCharge = 0;
         maxCharge = 100;
     }
@@ -23,6 +31,8 @@ public class Dummies : MonoBehaviour
     {
         
         Death();
+        dummyMove();
+        
     }
 
     //get charge and getMax are so that the dummy health script can access the currentCharge and maxCharge
@@ -69,6 +79,27 @@ public class Dummies : MonoBehaviour
     }
 
 
+    private void dummyMove()
+    {
+        if (destination1 && destination2)
+        {
+            Debug.Log(atDest2);
+
+            if (agent.remainingDistance < .5f && atDest2 == true)
+            {
+                atDest2 = false;
+                agent.SetDestination(destination2.transform.position);
+
+            }
+            else if (agent.remainingDistance < .5f && atDest2 == false)
+            {
+                atDest2 = true;
+                agent.SetDestination(destination1.transform.position);
+            }
+        }
+    }
+
     
+
 }
 

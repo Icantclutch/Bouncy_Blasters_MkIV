@@ -714,6 +714,7 @@ GameObject:
   - component: {fileID: 3693040184845703810}
   - component: {fileID: 2439780323171974651}
   - component: {fileID: 5610240601675087698}
+  - component: {fileID: -2318163711238566210}
   m_Layer: 0
   m_Name: Enemy Target
   m_TagString: Enemy
@@ -867,6 +868,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Dying: {fileID: 6784051285428432694}
+  destination1: {fileID: 0}
+  destination2: {fileID: 0}
 --- !u!114 &7034361905829464094
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1066,6 +1069,8 @@ MonoBehaviour:
   maxSuitCharge: 100
   currentCharge: 0
   _deathClip: {fileID: 0}
+  _respawnDelay: 10
+  deathEffect: {fileID: 0}
 --- !u!114 &5610240601675087698
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1079,6 +1084,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Dying: {fileID: 0}
+  destination1: {fileID: 0}
+  destination2: {fileID: 0}
+--- !u!195 &-2318163711238566210
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9080058562259653699}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0.97
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &9187306186313568058
 GameObject:
   m_ObjectHideFlags: 0
