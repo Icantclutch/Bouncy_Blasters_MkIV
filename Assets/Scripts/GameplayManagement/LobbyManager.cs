@@ -67,6 +67,32 @@ public class LobbyManager : NetworkBehaviour
             }
             gameManager.JoinTeam(player);
         }
+        else
+        {
+            //Find the number of players on each team
+            List<int> teams = new List<int>(numOfTeams);
+            foreach(PlayerData p in players)
+            {
+                if(p != player)
+                {
+                    ++teams[p.team - 1];
+                }
+            }
+
+            // Find the team with the lowest amount of players
+            int minTeam = 0, size = int.MaxValue;
+            for(int i = 0; i < teams.Count; ++i)
+            {
+                if(teams[i] < size)
+                {
+                    size = teams[i];
+                    minTeam = i;
+                }
+            }
+
+            //Assign the player to the team that was found
+            player.team = minTeam + 1;
+        }
     }
 
     public void ReturnPlayers()
