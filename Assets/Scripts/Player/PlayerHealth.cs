@@ -28,6 +28,13 @@ public class PlayerHealth : HitInteraction
     //reference to ther scrips
     private PlayerReference myReference;
 
+    //Variables for shield visibility
+    [SerializeField]
+    private MeshRenderer _shield;
+    [SerializeField]
+    private float _shieldVisibilityTime = 2f;
+    private float _timer = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -44,7 +51,9 @@ public class PlayerHealth : HitInteraction
         {
             Respawn();
         }
+
         
+
     }
 
     [Server]
@@ -115,6 +124,8 @@ public class PlayerHealth : HitInteraction
             NetworkIdentity.spawned[Convert.ToUInt32(shot.playerID)].GetComponent<PlayerAudioController>().RpcOnPlayerClient(0);
             GetComponent<PlayerAudioController>().RpcOnPlayerClient(1);
 
+            Rpc_ShowShield();
+
             if (currentCharge >= maxSuitCharge)
             {
                 //Prevent adding score to team on self kill
@@ -127,6 +138,22 @@ public class PlayerHealth : HitInteraction
             }
         }
 
+    }
+
+    //Enable the shields mesh for all clients
+    [ClientRpc]
+    public void Rpc_ShowShield()
+    {
+        //GetComponent<MeshRenderer>().enabled = true;
+        //_timer = _shieldVisibilityTime;
+        StartCoroutine(ShowShield());
+    }
+
+    IEnumerator ShowShield()
+    {
+        _shield.enabled = true;
+        yield return new WaitForSeconds(_shieldVisibilityTime);
+        _shield.enabled = false;
     }
 
     //Sets the players charge to a certain value
