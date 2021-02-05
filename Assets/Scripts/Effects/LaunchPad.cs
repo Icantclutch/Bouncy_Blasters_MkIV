@@ -29,10 +29,6 @@ public class LaunchPad : MonoBehaviour
 
     void Launch()
     {
-        //When Phillip is done with explosion particle
-        //GameObject spawnedPart = Instantiate(exploParticle, transform.position, transform.rotation);
-        // Destroy(spawnedPart, 1);
-        //print("JUMP PADDING");
         Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius);
 
         foreach (Collider nearbyObject in colliders)
@@ -41,12 +37,9 @@ public class LaunchPad : MonoBehaviour
             Rigidbody rb = nearbyObject.GetComponent<Rigidbody>();
             if (rb != null)
             {
-                //rb.AddExplosionForce(force, transform.position, explosionRadius);
                 var force = (transform.forward * (forcee/5)) + (transform.up * forcee);
                 rb.AddForce(force);
             }
         }
-       // hasExploded = true;
-        //Destroy(gameObject);
     }
 }

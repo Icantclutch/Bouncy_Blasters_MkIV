@@ -1385,6 +1385,7 @@ GameObject:
   - component: {fileID: 5913634579040998872}
   - component: {fileID: 6461287256673192142}
   - component: {fileID: 3746456320150539520}
+  - component: {fileID: 4095946029181301050}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -1881,6 +1882,22 @@ MonoBehaviour:
   _nameDisplayText: {fileID: 5352334645154030688}
   _miniMapDisplay: {fileID: 7779276451252920104}
   _infoDisplay: {fileID: 4384819657786414322}
+--- !u!114 &4095946029181301050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4357171600822209692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9dd25fcfd8168144e97d97ee01bbf029, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  _canvas: {fileID: 5241719257221970049}
+  _hitmarker: {fileID: 3135476968029334759, guid: c0ad5e536808487458dc60b8db426983, type: 3}
 --- !u!1 &4384819657786414322
 GameObject:
   m_ObjectHideFlags: 0

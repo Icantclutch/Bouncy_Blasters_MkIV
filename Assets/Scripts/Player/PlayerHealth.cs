@@ -100,7 +100,6 @@ public class PlayerHealth : HitInteraction
     [Server]
     public override void Hit(Bullet.Shot shot)
     {
-        //print("HIT " + shot.damage[shot.numBounces]);
         //Get the source object
         int shotTeam = NetworkIdentity.spawned[Convert.ToUInt32(shot.playerID)].GetComponent<HitInteraction>().GetTeam();
         int myTeam = this.GetTeam();
@@ -113,6 +112,7 @@ public class PlayerHealth : HitInteraction
 
             //Play audio clips for hitting a shot and getting hit
             NetworkIdentity.spawned[Convert.ToUInt32(shot.playerID)].GetComponent<PlayerAudioController>().RpcOnPlayerClient(0);
+            NetworkIdentity.spawned[Convert.ToUInt32(shot.playerID)].GetComponent<PlayerEffects>().CreateHitmarker();
             GetComponent<PlayerAudioController>().RpcOnPlayerClient(1);
 
             if (currentCharge >= maxSuitCharge)
