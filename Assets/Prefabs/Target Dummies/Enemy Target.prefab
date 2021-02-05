@@ -703,7 +703,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9080058562259653703}
-  - component: {fileID: 9080058562259653702}
   - component: {fileID: 9080058562259653700}
   - component: {fileID: 9080058562259653701}
   - component: {fileID: 6856044933405674020}
@@ -715,6 +714,7 @@ GameObject:
   - component: {fileID: 2439780323171974651}
   - component: {fileID: 5610240601675087698}
   - component: {fileID: -2318163711238566210}
+  - component: {fileID: 3877706110581142362}
   m_Layer: 0
   m_Name: Enemy Target
   m_TagString: Enemy
@@ -737,14 +737,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &9080058562259653702
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9080058562259653699}
-  m_Mesh: {fileID: 0}
 --- !u!114 &9080058562259653700
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1083,7 +1075,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fe9ab40260baa642b3782354fd062dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Dying: {fileID: 0}
+  Dying: {fileID: 6784051285428432694}
   destination1: {fileID: 0}
   destination2: {fileID: 0}
 --- !u!195 &-2318163711238566210
@@ -1108,6 +1100,22 @@ NavMeshAgent:
   m_BaseOffset: 0.97
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!54 &3877706110581142362
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9080058562259653699}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &9187306186313568058
 GameObject:
   m_ObjectHideFlags: 0
