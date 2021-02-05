@@ -7,7 +7,7 @@ public class LaunchPad : MonoBehaviour
     public float timer = 5;
     public float countdown;
     public float explosionRadius = 3f;
-    public float forcee = 1000f;
+    public float forcee;
     bool hasExploded = false;
 
     //[SerializeField] GameObject exploParticle;
@@ -22,7 +22,7 @@ public class LaunchPad : MonoBehaviour
         countdown -= Time.deltaTime;
         if (countdown <= 0 && !hasExploded)
         {
-            Launch();
+            //Launch();
             countdown = timer;
         }
     }
@@ -42,11 +42,23 @@ public class LaunchPad : MonoBehaviour
             if (rb != null)
             {
                 //rb.AddExplosionForce(force, transform.position, explosionRadius);
-                var force = (transform.forward * (forcee/5)) + (transform.up * forcee);
+                var force = (transform.forward * (forcee / 5)) + (transform.up * forcee);
                 rb.AddForce(force);
             }
         }
        // hasExploded = true;
         //Destroy(gameObject);
+    }
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == "Player")
+        {
+            var force = other.transform.up * forcee;
+            //other.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            other.GetComponent<Rigidbody>().AddForce(force);
+            
+        }
     }
 }
