@@ -37,9 +37,20 @@ public class LaunchPad : MonoBehaviour
             Rigidbody rb = nearbyObject.GetComponent<Rigidbody>();
             if (rb != null)
             {
-                var force = (transform.forward * (forcee/5)) + (transform.up * forcee);
+                var force = (transform.forward * (forcee / 5)) + (transform.up * forcee);
                 rb.AddForce(force);
             }
+        }
+    }
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Player")
+        {
+            var force = transform.up * forcee;
+
+            other.GetComponent<Rigidbody>().AddForce(force);
         }
     }
 }
