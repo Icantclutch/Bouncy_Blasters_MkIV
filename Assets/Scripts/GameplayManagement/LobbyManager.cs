@@ -55,7 +55,7 @@ public class LobbyManager : NetworkBehaviour
             player.RpcSpawnPlayer();
         }
 
-        if (gameManager.matchGamemode != null) {
+        /*if (gameManager.matchGamemode != null) {
             // Have Player join team with least amount of players
             if (gameManager.teamA.playerList.Count > gameManager.teamB.playerList.Count)
             {
@@ -92,7 +92,7 @@ public class LobbyManager : NetworkBehaviour
 
             //Assign the player to the team that was found
             player.team = minTeam + 1;
-        }
+        }*/
     }
 
     public void ReturnPlayers()

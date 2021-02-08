@@ -37,6 +37,8 @@ public class MyNetworkManager : NetworkManager
     public override void OnStopHost()
     {
         base.OnStopHost();
+        GetComponent<SteamLobby>().button.SetActive(true);
+        GetComponent<SteamLobby>().ExitLobby();
     }
 
     public override void OnStartClient()
