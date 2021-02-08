@@ -1365,7 +1365,6 @@ GameObject:
   - component: {fileID: 7484909023382101332}
   - component: {fileID: -5991319999705344379}
   - component: {fileID: 6357882283531535464}
-  - component: {fileID: 1858988357766041485}
   - component: {fileID: -4950578379960531616}
   - component: {fileID: 1150293170670776573}
   - component: {fileID: 5913634579040998872}
@@ -1533,7 +1532,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4357171600822209692}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fab34ce51a3e38544ac816c19034777c, type: 3}
   m_Name: 
@@ -1552,7 +1551,7 @@ MonoBehaviour:
   inRespawnRoom: 0
   grounded: 0
   _isSprinting: 0
-  _maxSprintTime: 3
+  _maxSprintTime: 6
   _sprintTime: 0
   _distToGround: 0
 --- !u!114 &4357171600822209693
@@ -1754,25 +1753,6 @@ MonoBehaviour:
   deathEffect: {fileID: 0}
   _shield: {fileID: 4463230840613676441}
   _shieldVisibilityTime: 2
---- !u!114 &1858988357766041485
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4357171600822209692}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 734b48bea0b204338958ee3d885e11f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.01
-  clientAuthority: 1
-  localPositionSensitivity: 0.01
-  localRotationSensitivity: 0.01
-  localScaleSensitivity: 0.01
-  target: {fileID: 4357171599887525653}
 --- !u!114 &-4950578379960531616
 MonoBehaviour:
   m_ObjectHideFlags: 0
