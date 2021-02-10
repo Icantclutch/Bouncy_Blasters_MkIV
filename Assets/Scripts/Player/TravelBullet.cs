@@ -57,6 +57,7 @@ public class TravelBullet : RaycastBullet
 
             if (transform.position == laserDestroyB)
             {
+                Debug.Log("Beep");
                 //Calls from bulletInfo that stores a class RayInfo
                 //RayInfo holds the Ray and the Rayhit from the collision
                 if (bulletInfos.Count >= 1)
@@ -81,13 +82,14 @@ public class TravelBullet : RaycastBullet
                 }
 
                 //Continue if there are still 2 positions
-                if (nextDir != Vector3.positiveInfinity)
+                if (nextDir != Vector3.zero && myShot.numBounces < myShot.maxBounces)
                 {
                     //Reset lerping
                     laserDestroyA = laserDestroyB;
-                    laserDestroyB = Vector3.positiveInfinity;
+                    laserDestroyB = Vector3.zero;
                     destroyLerp = 0;
                     transform.forward = nextDir;
+                    Vel(transform.forward, myShot.speed);
 
                     //Up the number of bounces
                     myShot.numBounces += 1;
@@ -112,14 +114,13 @@ public class TravelBullet : RaycastBullet
         RaycastHit hit;
 
         //Cast ray
-        if (Physics.Raycast(ray, out hit, 100, reflectable) && hit.point != laserDestroyB)
+        if (Physics.Raycast(ray, out hit, 100, reflectable))
         {
-
+            destroyLerp = Vector3.Distance(laserDestroyA, transform.position) / Vector3.Distance(laserDestroyA, laserDestroyB);
             destroyLerp = (destroyLerp * Vector3.Distance(laserDestroyA, laserDestroyB)) / Vector3.Distance(laserDestroyA, hit.point);
 
             //Add hit point to the list of line points
             laserDestroyB = hit.point;
-            
             //Set second bounce if this is the second bounce
             if (myShot.numBounces == 1)
                 secondBounce = hit.point;
@@ -131,13 +132,13 @@ public class TravelBullet : RaycastBullet
             }
 
             //If it hits a NoBounce object, end the bouncing; otherwise, generate the reflection
-            nextDir = (hit.transform.CompareTag("NoBounce")) ? Vector3.positiveInfinity : Vector3.Reflect(ray.direction, hit.normal);
+            nextDir = (hit.transform.CompareTag("NoBounce")) ? Vector3.zero : Vector3.Reflect(ray.direction, hit.normal);
         }
         else //If it didn't hit anything, end the ray
         {
-            //Set the endpoint and set the nextdir to positiveinfinity
-            laserDestroyB = ray.origin + (ray.direction * 100);
-            nextDir = Vector3.positiveInfinity;
+            //If endpoint hasn't been set, set it to 100 away
+            laserDestroyB = laserDestroyA + (ray.direction * 100);
+            nextDir = Vector3.zero;
 
             //Add effects (shouldn't need since there is no collision)
             //Rayhits.Add(new RayInfo(hit, ray));
