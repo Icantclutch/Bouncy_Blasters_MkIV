@@ -17,6 +17,26 @@ public class MyNetworkManager : NetworkManager
         CSteamID steamId = SteamMatchmaking.GetLobbyMemberByIndex(SteamLobby.lobbyId, numPlayers - 1);
 
         conn.identity.GetComponent<PlayerData>().SetSteamId(steamId.m_SteamID);
+        int[] teams = { 0, 0 };
+        foreach(NetworkConnection player in players)
+        {
+            if(player.identity.GetComponent<PlayerData>().team == 1)
+            {
+                teams[0]++;
+            }
+            else if (player.identity.GetComponent<PlayerData>().team == 2)
+            {
+                teams[1]++;
+            }
+        }
+        if(teams[1] < teams[0])
+        {
+            conn.identity.GetComponent<PlayerData>().team = 2;
+        }
+        else
+        {
+            conn.identity.GetComponent<PlayerData>().team = 1;
+        }
         players.Add(conn);
     }
     public override void OnServerDisconnect(NetworkConnection conn)
@@ -37,6 +57,8 @@ public class MyNetworkManager : NetworkManager
     public override void OnStopHost()
     {
         base.OnStopHost();
+        GetComponent<SteamLobby>().button.SetActive(true);
+        GetComponent<SteamLobby>().ExitLobby();
     }
 
     public override void OnStartClient()
