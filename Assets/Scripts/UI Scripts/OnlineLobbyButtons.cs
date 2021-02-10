@@ -43,6 +43,7 @@ public class OnlineLobbyButtons : MonoBehaviour
         _startMatchButton.onClick.AddListener(StartMatch);
         if(_maps.Count > 1)
         {
+            
             _nextMapButton.interactable = true;
             _mapName.text = "" + _maps[0];
           
@@ -85,7 +86,20 @@ public class OnlineLobbyButtons : MonoBehaviour
         }
         else
         {
-            _startMatchButton.interactable = true;
+            //Enable buttons only for the host
+            if (_gameManager.GetComponent<LobbyManager>().isServer)
+            {
+                _startMatchButton.interactable = true;
+                _nextGamemodeButton.interactable = true;
+                _nextMapButton.interactable = true;
+            }
+            else
+            {
+                _startMatchButton.interactable = false;
+                _nextGamemodeButton.interactable = false;
+                _nextMapButton.interactable = false;
+            }
+
             for(int i = 0; i < _playerNames.Count; ++i)
             {
                 if (i < _gameManager.GetComponent<LobbyManager>().players.Count) {
