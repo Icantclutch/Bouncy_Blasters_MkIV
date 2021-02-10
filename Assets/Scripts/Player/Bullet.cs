@@ -18,6 +18,8 @@ public class Bullet : NetworkBehaviour
         public int numBounces;
         //The team of the player that fired the bullet
         public int playerID;
+        //Speed of the bullet
+        public float speed;
     }
 
     //Rigidbody
@@ -37,9 +39,10 @@ public class Bullet : NetworkBehaviour
         myShot.maxBounces = bounces;
         myShot.numBounces = 0;
         myShot.playerID = playerId;
+        myShot.speed = fireSpeed;
 
         //Set bullet speed
-        Vel(transform.forward, fireSpeed);
+        Vel(transform.forward, myShot.speed);
     }
 
     [Server]
