@@ -18,12 +18,12 @@ public class TravelBullet : RaycastBullet
         }
     }
     [SerializeField]
-    protected List<Vector3> raycastPositions = new List<Vector3>();
-    [SerializeField]
     protected List<RayInfo> bulletInfos = new List<RayInfo>();
 
+    //Next direction the bullet should bounce
+    protected Vector3 nextDir;
 
-    //For when the bullet needs to stop]
+    //For when the bullet needs to stop
     bool stopBullet = false;
 
     //Info for the second bounce
@@ -34,6 +34,9 @@ public class TravelBullet : RaycastBullet
     public override void Initialize(List<int> damage, int bounces, float fireSpeed, int playerId)
     {
         base.Initialize(damage, bounces, fireSpeed, playerId);
+        laserDestroyA = transform.position;
+        nextDir = transform.forward;
+        Vel(transform.forward, myShot.speed);
     }
 
     [Server]
@@ -41,135 +44,105 @@ public class TravelBullet : RaycastBullet
     {
         if (!stopBullet)
         {
-            if (raycastPositions.Count >= 2)
-            {
-                //Increase the lerp,
-                destroyLerp += (Time.deltaTime * bulletSpeed * 100) / (Vector3.Distance(laserDestroyA, laserDestroyB));
-                if (destroyLerp > 1)
-                    destroyLerp = 1;
-                //Set the position of the first point
-                transform.position = Vector3.Lerp(laserDestroyA, laserDestroyB, destroyLerp);
+            //Re-check the velocity
+            Vel(transform.forward, myShot.speed);
 
-                if (transform.position == laserDestroyB)
+            //Increase the lerp,
+            destroyLerp += (Time.deltaTime * bulletSpeed * 100) / (Vector3.Distance(laserDestroyA, laserDestroyB));
+            if (destroyLerp > 1)
+                destroyLerp = 1;
+            
+            //Set the position to the relative position
+            transform.position = Vector3.Lerp(laserDestroyA, laserDestroyB, destroyLerp);
+
+            if (transform.position == laserDestroyB)
+            {
+                Debug.Log("Beep");
+                //Calls from bulletInfo that stores a class RayInfo
+                //RayInfo holds the Ray and the Rayhit from the collision
+                if (bulletInfos.Count >= 1)
                 {
-                    //Calls from bulletInfo that stores a class RayInfo
-                    //RayInfo holds the Ray and the Rayhit from the collision
-                    if (bulletInfos.Count >= 1)
-                    {
-                        //Retrieve the RayInfo
-                        RayInfo newHit = bulletInfos[0];
-                        RaycastHit rayHit = newHit.rayHit;
-                        Ray rayPass = newHit.rayPass;
-                        bulletInfos.RemoveAt(0);
+                    //Retrieve the RayInfo
+                    RayInfo newHit = bulletInfos[0];
+                    RaycastHit rayHit = newHit.rayHit;
+                    Ray rayPass = newHit.rayPass;
+                    bulletInfos.RemoveAt(0);
 
-                        Vector3 reflection = Vector3.Reflect(rayPass.direction, rayHit.normal);
-                        Quaternion rot = Quaternion.FromToRotation(Vector3.up, rayHit.normal);
-                        Vector3 pos = rayHit.point;
-                        Instantiate(bulletCollisionEffect, pos, rot);
-                        Instantiate(bulletDirtEffect, pos, Quaternion.FromToRotation(Vector3.up, reflection));
-                    }
-
-                    //Remove the first point
-                    raycastPositions.RemoveAt(0);
-
-                    //Disable floor penalty if at the second bounce point
-                    if (transform.position == secondBounce)
-                    {
-
-                        //Disable floor penalty if at the second bounce point
-                        if (transform.position == secondBounce)
-                        {
-                            floor = false;
-                        }
-                    }
-
-                    //Continue if there are still 2 positions
-                    if (raycastPositions.Count >= 2)
-                    {
-                        //Reset lerping
-                        laserDestroyA = raycastPositions[0];
-                        laserDestroyB = raycastPositions[1];
-                        destroyLerp = 0;
-
-                        //Up the number of bounces
-                        myShot.numBounces += 1;
-                    }
+                    Vector3 reflection = Vector3.Reflect(rayPass.direction, rayHit.normal);
+                    Quaternion rot = Quaternion.FromToRotation(Vector3.up, rayHit.normal);
+                    Vector3 pos = rayHit.point;
+                    Instantiate(bulletCollisionEffect, pos, rot);
+                    Instantiate(bulletDirtEffect, pos, Quaternion.FromToRotation(Vector3.up, reflection));
                 }
-            }
-            else
-            {
-                //Destroy the bullet
-                DestroyBullet();
+
+                //Disable floor penalty if at the second bounce point
+                if (transform.position == secondBounce)
+                {
+                    floor = false;
+                }
+
+                //Continue if there are still 2 positions
+                if (nextDir != Vector3.zero && myShot.numBounces < myShot.maxBounces)
+                {
+                    //Reset lerping
+                    laserDestroyA = laserDestroyB;
+                    laserDestroyB = Vector3.zero;
+                    destroyLerp = 0;
+                    transform.forward = nextDir;
+                    Vel(transform.forward, myShot.speed);
+
+                    //Up the number of bounces
+                    myShot.numBounces += 1;
+                }
+                else
+                {
+                    //Destroy the bullet
+                    DestroyBullet();
+                }
             }
         }
     }
 
+    //Velocity needed to be overhauled along with update, in essence its now designed to constantly update
     [Server]
     public override void Vel(Vector3 vel, float speed)
     {
         bulletSpeed = speed;
-        //Create the array of vec3 points in the line and add the starting point
-        List<Vector3> bouncePoints = new List<Vector3>();
-        List<RayInfo> Rayhits = new List<RayInfo>();
-        bouncePoints.Add(transform.position);
 
         //Create ray that transfers through loops and raycasthit
         Ray ray = new Ray(transform.position, vel);
         RaycastHit hit;
 
-        //Loop through reflections
-        for (int i = 0; i <= myShot.maxBounces; i++)
+        //Cast ray
+        if (Physics.Raycast(ray, out hit, 100, reflectable))
         {
-            //Cast ray
-            if (Physics.Raycast(ray, out hit, 100, reflectable))
+            destroyLerp = Vector3.Distance(laserDestroyA, transform.position) / Vector3.Distance(laserDestroyA, laserDestroyB);
+            destroyLerp = (destroyLerp * Vector3.Distance(laserDestroyA, laserDestroyB)) / Vector3.Distance(laserDestroyA, hit.point);
+
+            //Add hit point to the list of line points
+            laserDestroyB = hit.point;
+            //Set second bounce if this is the second bounce
+            if (myShot.numBounces == 1)
+                secondBounce = hit.point;
+
+            //If its first bounce is off the floor, set floor true
+            if (hit.transform.CompareTag("Floor") && myShot.numBounces == 0)
             {
-                //Add hit point to the list of line points
-                bouncePoints.Add(hit.point);
-                //Add hit and ray to Rayhits (for bullet holes)
-                Rayhits.Add(new RayInfo(hit, ray));
-
-                //Set second bounce if this is the second bounce
-                if (i == 1)
-                    secondBounce = hit.point;
-
-                //If it hits a NoBounce object, end the bouncing
-                if (hit.transform.CompareTag("NoBounce"))
-                {
-                    break;
-                }
-
-                //If its first bounce is off the floor, set floor true
-                if (hit.transform.CompareTag("Floor") && i == 0)
-                {
-                    floor = true;
-                }
-
-                //Generate the reflection
-                Vector3 reflection = Vector3.Reflect(ray.direction, hit.normal);
-                ray = new Ray(hit.point, reflection);
+                floor = true;
             }
-            else //If it didn't hit anything, end the ray
-            {
-                //Create the endpoint and add it to the lists
-                Vector3 endPoint = ray.origin + (ray.direction * 100);
-                bouncePoints.Add(endPoint);
 
-                //Add effects (shouldn't need since there is no collision)
-                //Rayhits.Add(new RayInfo(hit, ray));
-
-                //End loop early
-                break;
-            }
+            //If it hits a NoBounce object, end the bouncing; otherwise, generate the reflection
+            nextDir = (hit.transform.CompareTag("NoBounce")) ? Vector3.zero : Vector3.Reflect(ray.direction, hit.normal);
         }
+        else //If it didn't hit anything, end the ray
+        {
+            //If endpoint hasn't been set, set it to 100 away
+            laserDestroyB = laserDestroyA + (ray.direction * 100);
+            nextDir = Vector3.zero;
 
-        //Assign points
-        raycastPositions = bouncePoints;
-        bulletInfos = Rayhits;
-
-        //Set up movement
-        laserDestroyA = raycastPositions[0];
-        laserDestroyB = raycastPositions[1];
-        destroyLerp = 0;
+            //Add effects (shouldn't need since there is no collision)
+            //Rayhits.Add(new RayInfo(hit, ray));
+        }
     }
 
     [Server]

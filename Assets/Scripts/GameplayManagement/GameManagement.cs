@@ -132,6 +132,7 @@ public class GameManagement : NetworkBehaviour
             {
                 MatchEnd();
             }
+            HeatMap.StoreAndSave();
         }
         //If Team A reaches the score cap
         if (teamA.teamScore >= matchGamemode.maxScore)
