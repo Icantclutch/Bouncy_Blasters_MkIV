@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 
 //using System.Drawing.Bitmap;
 public class HeatMap : MonoBehaviour
@@ -14,7 +15,7 @@ public class HeatMap : MonoBehaviour
     public static int gridY = 600;
     private GameObject _gameManager;
     private GameObject _player;
-    public string path = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Desktop) + "\\App\\mytextfile.bmp";
+    public static string path = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Desktop) + "\\App\\HeatMap.png";
     public static Color startColor = new Color(0,0,255);
     public static Color endColor = new Color(255, 0, 0);
 
@@ -86,7 +87,13 @@ public class HeatMap : MonoBehaviour
                     tex.SetPixel(i, j, Color.Lerp(startColor, endColor, value));
                 }
             }
-            
+            byte[] bytes = tex.EncodeToPNG();
+
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+            File.WriteAllBytes( path , bytes);
         }
     }
 
