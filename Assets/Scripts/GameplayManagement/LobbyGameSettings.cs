@@ -19,7 +19,11 @@ public class LobbyGameSettings : MonoBehaviour
     private Dropdown _maxGameScore;
     [SerializeField]
     private Dropdown _matchTimer;
-   
+
+
+    private GameObject _gameManager;
+    private bool _buttonsSetup = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,7 +33,39 @@ public class LobbyGameSettings : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (!_gameManager)
+        {
+            _gameManager = GameObject.FindGameObjectWithTag("Management");
+        }
+        else if(!_buttonsSetup)
+        {
+            //Enable buttons only for the host
+            if (_gameManager.GetComponent<LobbyManager>().isServer)
+            {
+                _gamemodeSetting.interactable = true;
+                foreach (Button button in GetComponentsInChildren<Button>())
+                {
+                    button.interactable = true;
+                }
+                foreach(Dropdown d in GetComponentsInChildren<Dropdown>())
+                {
+                    d.interactable = true;
+                }
+            }
+            else
+            {
+                _gamemodeSetting.interactable = false;
+                foreach (Button button in GetComponentsInChildren<Button>())
+                {
+                    button.interactable = false;
+                }
+                foreach (Dropdown d in GetComponentsInChildren<Dropdown>())
+                {
+                    d.interactable = false;
+                }
+            }
+            _buttonsSetup = true;
+        }
     }
     public int GetGameModeSetting()
     { 

@@ -34,6 +34,7 @@ public class OnlineLobbyButtons : MonoBehaviour
     private NetworkManager _networkManager;
     private GameObject _gameManager;
 
+    private bool _buttonsSetup = false;
 
     // Start is called before the first frame update
     void Start()
@@ -84,7 +85,7 @@ public class OnlineLobbyButtons : MonoBehaviour
         {
             _gameManager = GameObject.FindGameObjectWithTag("Management");
         }
-        else
+        else if (!_buttonsSetup)
         {
             //Enable buttons only for the host
             if (_gameManager.GetComponent<LobbyManager>().isServer)
@@ -92,12 +93,20 @@ public class OnlineLobbyButtons : MonoBehaviour
                 _startMatchButton.interactable = true;
                 _nextGamemodeButton.interactable = true;
                 _nextMapButton.interactable = true;
+                foreach(Button button in GetComponentsInChildren<Button>())
+                {
+                    button.interactable = true;
+                }
             }
             else
             {
                 _startMatchButton.interactable = false;
                 _nextGamemodeButton.interactable = false;
                 _nextMapButton.interactable = false;
+                foreach (Button button in GetComponentsInChildren<Button>())
+                {
+                    button.interactable = false;
+                }
             }
 
             for(int i = 0; i < _playerNames.Count; ++i)
