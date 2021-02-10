@@ -83,12 +83,12 @@ public class PlayerMovement : NetworkBehaviour
 				DisableSprint();
 			}
 
-			/*
+			
 			if (Input.GetKeyUp(KeyCode.Return))
 			{
 				PlayerSpawnSystem.SpawnPlayer(gameObject);
 			}
-			*/
+			
 
 
 		}

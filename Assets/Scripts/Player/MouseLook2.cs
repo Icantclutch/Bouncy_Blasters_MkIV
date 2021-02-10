@@ -92,8 +92,9 @@ public class MouseLook2 : NetworkBehaviour
             Cursor.lockState = CursorLockMode.None;
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P))
         {
+            pause = !pause;
             Cursor.visible = pause;
             
         }

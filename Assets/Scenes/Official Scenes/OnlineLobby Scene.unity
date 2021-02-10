@@ -2469,6 +2469,7 @@ RectTransform:
   m_Children:
   - {fileID: 1864484799}
   - {fileID: 1554063026}
+  - {fileID: 1484224388}
   m_Father: {fileID: 2021269363}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7454,17 +7455,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1484224387}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 36354552}
-  m_Father: {fileID: 1554063026}
-  m_RootOrder: 1
+  m_Father: {fileID: 461748731}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -305, y: 74}
+  m_AnchoredPosition: {x: -266, y: -226}
   m_SizeDelta: {x: 160, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1484224389
@@ -7743,7 +7744,6 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 717327540}
-  - {fileID: 1484224388}
   m_Father: {fileID: 461748731}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7767,10 +7767,12 @@ MonoBehaviour:
   _nextMapButton: {fileID: 2142981610}
   _mapName: {fileID: 2005952084}
   _maps:
-  - Battery Map MK2
+  - Battery Map MK2 Chris Original
   - Tutorial2
   - RicochetTest
   - Battery Map
+  - ThomasMap
+  - Battery Map MK2
   _nextGamemodeButton: {fileID: 1310766797}
   _gamemodeName: {fileID: 671427429}
   _gamemodes:

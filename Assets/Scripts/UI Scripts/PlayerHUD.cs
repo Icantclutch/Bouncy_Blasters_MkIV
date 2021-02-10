@@ -69,4 +69,12 @@ public class PlayerHUD : MonoBehaviour
        _matchEndText.text = state;
         
     }
+
+    public void LeaveMatch()
+    {
+        if (_gameManager)
+        {
+            _gameManager.GetComponent<LobbyManager>().LeaveLobby();
+        }
+    }
 }
