@@ -15,7 +15,7 @@ public class HeatMap : MonoBehaviour
     public static int gridY = 600;
     private GameObject _gameManager;
     private GameObject _player;
-    public static string path = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Desktop) + "\\App\\HeatMap.png";
+    public static string path = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Desktop) + "\\App";
     public static Color startColor = new Color(0,0,255);
     public static Color endColor = new Color(255, 0, 0);
 
@@ -93,7 +93,7 @@ public class HeatMap : MonoBehaviour
             {
                 Directory.CreateDirectory(path);
             }
-            File.WriteAllBytes( path , bytes);
+            File.WriteAllBytes( path + "\\HeatMap.png" , bytes);
         }
     }
 
