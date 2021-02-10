@@ -76,16 +76,14 @@ public class HeatMap : MonoBehaviour
                 }
             }
 
-
-            Color[,] colorGrid;
-            colorGrid = new Color[intGrid.GetLength(0), intGrid.GetLength(1)];
+            Texture2D tex = new Texture2D(intGrid.GetLength(0), intGrid.GetLength(1));
             
-            for (int i = 0; i < colorGrid.GetLength(0); i++)
+            for (int i = 0; i < tex.width; i++)
             {
-                for(int j = 0; j < colorGrid.GetLength(1); j++)
+                for(int j = 0; j < tex.height; j++)
                 {
                     float value = (float) intGrid[i, j] / maxInt;
-                    colorGrid[i, j] = Color.Lerp(startColor, endColor, value);
+                    tex.SetPixel(i, j, Color.Lerp(startColor, endColor, value));
                 }
             }
             
