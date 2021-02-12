@@ -83,8 +83,9 @@ public class HeatMap : MonoBehaviour
             {
                 for(int j = 0; j < tex.height; j++)
                 {
-                    float value = (float) intGrid[i, j] / maxInt;
+                    float value = Mathf.InverseLerp(0, maxInt, intGrid[i,j]); //(float) intGrid[i, j] / maxInt;
                     tex.SetPixel(i, j, Color.Lerp(startColor, endColor, value));
+                    Debug.Log(value);
                 }
             }
             byte[] bytes = tex.EncodeToPNG();
