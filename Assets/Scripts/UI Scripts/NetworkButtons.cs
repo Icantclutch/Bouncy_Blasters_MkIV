@@ -8,6 +8,9 @@ using Mirror;
 public class NetworkButtons : MonoBehaviour
 {
     [SerializeField]
+    private Dropdown _dropdown;
+
+    [SerializeField]
     private string _sceneName = "";
     private NetworkManager _networkManager;
     // Start is called before the first frame update
@@ -22,6 +25,10 @@ public class NetworkButtons : MonoBehaviour
         if (!_networkManager)
         {
             _networkManager = GameObject.Find("NetworkManager").GetComponent<NetworkManager>();
+            if (_dropdown)
+            {
+                RefreshLobbyList(_dropdown);
+            }
         }
     }
 

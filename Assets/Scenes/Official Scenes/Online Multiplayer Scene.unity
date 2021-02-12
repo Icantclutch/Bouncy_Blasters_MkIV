@@ -261,6 +261,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: faa4726f588608c4a949fa6ee769d947, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _dropdown: {fileID: 263331227}
   _sceneName: OnlineLobby Scene
 --- !u!1 &263331225
 GameObject:
@@ -300,7 +301,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -625, y: 222}
+  m_AnchoredPosition: {x: -625, y: 163}
   m_SizeDelta: {x: 400, y: 90}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &263331227
@@ -916,7 +917,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -220, y: 207}
+  m_AnchoredPosition: {x: -220, y: 148}
   m_SizeDelta: {x: 90, y: 60}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &707761042
@@ -2335,7 +2336,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Join Random Session
+  m_Text: Refresh
 --- !u!222 &1133021407
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2597,7 +2598,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Search for Session
+  m_Text: Join Session
 --- !u!222 &1352603813
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2655,7 +2656,7 @@ GameObject:
   - component: {fileID: 1412967190}
   - component: {fileID: 1412967189}
   m_Layer: 5
-  m_Name: Join Session Button
+  m_Name: ' Session Search Button'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2678,8 +2679,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -591, y: 122}
-  m_SizeDelta: {x: 500, y: 90}
+  m_AnchoredPosition: {x: -591, y: 63}
+  m_SizeDelta: {x: 200, y: 90}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1412967189
 MonoBehaviour:
@@ -2726,11 +2727,11 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 218852256}
         m_TargetAssemblyTypeName: NetworkButtons, Assembly-CSharp
-        m_MethodName: JoinPublicLobby
-        m_Mode: 1
+        m_MethodName: RefreshLobbyList
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 263331227}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Dropdown, UnityEngine.UI
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -3949,7 +3950,7 @@ GameObject:
   - component: {fileID: 1799580542}
   - component: {fileID: 1799580541}
   m_Layer: 5
-  m_Name: Session Search Button
+  m_Name: Join Session Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4020,11 +4021,11 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 218852256}
         m_TargetAssemblyTypeName: NetworkButtons, Assembly-CSharp
-        m_MethodName: RefreshLobbyList
-        m_Mode: 2
+        m_MethodName: JoinPublicLobby
+        m_Mode: 1
         m_Arguments:
-          m_ObjectArgument: {fileID: 263331227}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Dropdown, UnityEngine.UI
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
