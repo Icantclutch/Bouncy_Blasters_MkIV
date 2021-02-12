@@ -1,0 +1,126 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using Mirror;
+
+using DigitalRuby.Tween;
+using Mirror.Cloud.Examples.Pong;
+
+public class PlayerEffects : NetworkBehaviour
+{
+    [SerializeField]
+    private Canvas _canvas;
+    [SerializeField]
+    private GameObject _hitmarker;
+    [SerializeField]
+    private Image _killFeed;
+
+    [SerializeField]
+    private GameObject _killFeedPrefab;
+
+    [SerializeField]
+    private GameObject _blastedPrefab;
+
+    private float _growSize = 0.75f;
+
+    [TargetRpc]
+    public void CreateHitmarker()
+    {
+        GameObject Clone = Instantiate(_hitmarker, _canvas.transform);
+        StartCoroutine(HitMarkerEffect(Clone, 1, 0, 0.5f));
+    }
+
+    [TargetRpc]
+    public void ShowDeathDisplay()
+    {
+        float TimeToDestroy = 9f;
+        GameObject Clone = Instantiate(_blastedPrefab, _canvas.transform);
+        Clone.transform.GetChild(1).gameObject.GetComponent<Text>().text = ReturnRandomHint();
+        StartCoroutine(MoveObject(Clone, Clone.transform.position + new Vector3(0,600,0), TimeToDestroy));
+    }
+
+    private string ReturnRandomHint()
+    {
+        string[] Hints = new string[] { 
+            "Pay attention to the mini-map! It's the perfect way to find targets.", 
+            "Make sure to use your weapons effectivley. Shotguns are better upclose while rifles are good in middle ground.", 
+            "That looks like it hurt...", 
+            "Watch out for crowded areas! Lots of blasters are in play!",};
+        return Hints[Random.Range(0, Hints.Length)];
+    }
+
+    [ClientRpc]
+    //Creates a kill feed object
+    public void CreateKillFeed(string Player1, string Player2)
+    {
+        //Create kill effect and set the outputs
+        GameObject Clone = Instantiate(_killFeedPrefab, _killFeed.transform);
+        GameObject Shooting = Clone.transform.GetChild(0).gameObject;
+        Shooting.GetComponent<Text>().text = Player1;
+
+        GameObject How = Shooting.transform.GetChild(0).gameObject;
+        GameObject Elimed = How.transform.GetChild(0).gameObject;
+        Elimed.GetComponent<Text>().text = Player2;
+
+        //Get preferred values
+        //Find the value for the bar to be stretched
+        float Val = (Shooting.GetComponent<Text>().preferredWidth +
+            How.GetComponent<Text>().preferredWidth +
+            Elimed.GetComponent<Text>().preferredWidth + 20);
+
+        GameObject Bar = Clone.transform.GetChild(1).gameObject;
+        Bar.GetComponent<RectTransform>().sizeDelta = new Vector2(Val, 40);
+        Destroy(Clone, 10f);
+    }
+    public IEnumerator MoveObject(GameObject go, Vector3 end, float lerpTime)
+    {
+        float _timeStartedLerping = Time.time;
+        float _timeSinceLast = Time.time - _timeStartedLerping;
+        float _completedPercent = _timeSinceLast / lerpTime;
+        Vector3 start = go.transform.position;
+
+
+        while (true)
+        {
+            _timeSinceLast = Time.time - _timeStartedLerping;
+            _completedPercent = _timeSinceLast / lerpTime;
+
+            //Set the Image alpha (fade)
+            Vector3 currVal = Vector3.Lerp(start, end, _completedPercent);
+            go.transform.position = currVal;
+            if (_completedPercent >= 1) break;
+
+            yield return null;
+        }
+        Destroy(go);
+    }
+
+    public IEnumerator HitMarkerEffect(GameObject go, float start, float end, float lerpTime)
+    {
+        float _timeStartedLerping = Time.time;
+        float _timeSinceLast = Time.time - _timeStartedLerping;
+        float _completedPercent = _timeSinceLast / lerpTime;
+
+        while (true)
+        {
+            _timeSinceLast = Time.time - _timeStartedLerping;
+            _completedPercent = _timeSinceLast / lerpTime;
+
+            //Set the scale
+            float currSizeVal = Mathf.Lerp(1, _growSize, _completedPercent);
+            go.transform.localScale = new Vector3(currSizeVal, currSizeVal, currSizeVal);
+
+            //Set the Image alpha (fade)
+            float currVal = Mathf.Lerp(start, end, _completedPercent);
+            Image newImg = go.GetComponent<Image>();
+            Color tempColor = newImg.color;
+            tempColor.a = currVal;
+            newImg.color = tempColor;
+            if (_completedPercent >= 1) break;
+
+            yield return null;
+        }
+        Destroy(go);
+    }
+}

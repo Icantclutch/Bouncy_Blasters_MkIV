@@ -124,6 +124,8 @@ public class PlayerHealth : HitInteraction
             NetworkIdentity.spawned[Convert.ToUInt32(shot.playerID)].GetComponent<PlayerEffects>().CreateHitmarker();
             GetComponent<PlayerAudioController>().RpcOnPlayerClient(1);
 
+            //NetworkIdentity.spawned[Convert.ToUInt32(shot.playerID)].GetComponent<PlayerEffects>().CreateKillFeed
+
             Rpc_ShowShield();
 
             if (currentCharge >= maxSuitCharge)
@@ -133,7 +135,10 @@ public class PlayerHealth : HitInteraction
                 {
                     NetworkIdentity.spawned[Convert.ToUInt32(shot.playerID)].GetComponent<PlayerData>().AddPlayerElim();
                 }
-
+                //Create a kill feed for everyone
+                GetComponent<PlayerEffects>().CreateKillFeed(NetworkIdentity.spawned[Convert.ToUInt32(shot.playerID)].GetComponent<PlayerData>().playerName, GetComponent<PlayerData>().playerName);
+                //Show a death message to player
+                GetComponent<PlayerEffects>().ShowDeathDisplay();
                 GetComponent<PlayerData>().AddPlayerDeaths();
             }
         }

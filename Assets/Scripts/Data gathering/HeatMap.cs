@@ -104,6 +104,6 @@ public class HeatMap : MonoBehaviour
         relativePosition.x = (playerPos.x - topLeft.x) / (bottomRight.x - topLeft.x);
         relativePosition.y = (playerPos.z - topLeft.y) / (bottomRight.y - topLeft.y);
         
-        intGrid[Mathf.RoundToInt(relativePosition.x * gridX), Mathf.RoundToInt(relativePosition.y * gridY)] += 1;
+        //intGrid[Mathf.RoundToInt(relativePosition.x * gridX), Mathf.RoundToInt(relativePosition.y * gridY)] += 1;
     }
 }

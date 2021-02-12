@@ -1,4 +1,5 @@
-﻿using Mirror;
+﻿using DigitalRuby.Tween;
+using Mirror;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,7 +22,10 @@ public class PlayerHUD : MonoBehaviour
   
     [SerializeField]
     private Text _playerHealthText = null;
-  
+
+    [SerializeField]
+    private Image _playerHealthBar = null;
+
     [SerializeField]
     private Text _playerWeaponText = null;
 
@@ -42,6 +46,10 @@ public class PlayerHUD : MonoBehaviour
         _gameManager = GameObject.FindGameObjectWithTag("Management");
     }
 
+   // string minutes = $$anonymous$$athf.Floor(timer / 60).ToString("00");
+   // string seconds = (timer % 60).ToString("00");
+
+   // print(string.Format("{0}:{1}", minutes, seconds));
     // Update is called once per frame
     void Update()
     {
@@ -53,21 +61,37 @@ public class PlayerHUD : MonoBehaviour
         {
             _batteryCountText.text = GetComponent<Shooting>().playerWeapons[GetComponent<Shooting>().currentWeapon].currentAmmo.ToString();
             _reserveBatteryCountText.text = GetComponent<Shooting>().playerWeapons[GetComponent<Shooting>().currentWeapon].currentReserve.ToString();
-            _playerHealthText.text = GetComponent<PlayerHealth>().GetCharge().ToString();
+            SetHealthDisplay(GetComponent<PlayerHealth>().GetCharge());
             _playerWeaponText.text = GetComponent<Shooting>().playerWeapons[GetComponent<Shooting>().currentWeapon].weapon.name;
 
             _teamAScoreText.text = _gameManager.GetComponentInChildren<GameManagement>().teamAScore.ToString();
             _teamBScoreText.text = _gameManager.GetComponentInChildren<GameManagement>().teamBScore.ToString();
-            _matchTimer.text = _gameManager.GetComponentInChildren<GameManagement>().MatchTimer.ToString();
+            _matchTimer.text = FormatTime(_gameManager.GetComponentInChildren<GameManagement>().MatchTimer);//_gameManager.GetComponentInChildren<GameManagement>().MatchTimer.ToString();
         }
       
     }
 
-    
+    public string FormatTime(float Timer)
+    {
+        string minutes = Mathf.Floor(Timer / 60).ToString("00");
+        string seconds = (Timer % 60).ToString("00");
+        return string.Format("{0}:{1}", minutes, seconds);
+    }
+
+    public void SetHealthDisplay(int Charge)
+    {
+        //Set the bar color and display here
+        float BarDisplayVal = ((float)Charge) / ((float)100);
+        float Max = Mathf.Max(0, 0.75f - BarDisplayVal);
+        Color newColor = new Color(BarDisplayVal, 0, Max, 1);
+        _playerHealthBar.color = newColor;
+        _playerHealthBar.fillAmount = BarDisplayVal;
+        _playerHealthText.text = Charge.ToString();
+    }
+
     public void DeclareWinState(string state)
     {
        _matchEndText.text = state;
-        
     }
 
     public void LeaveMatch()
