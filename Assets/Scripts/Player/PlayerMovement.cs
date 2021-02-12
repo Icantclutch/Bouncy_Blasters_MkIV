@@ -163,7 +163,7 @@ public class PlayerMovement : NetworkBehaviour
         {
 			if(_sprintTime < _maxSprintTime)
             {
-				_sprintTime += Time.deltaTime / 2;
+				_sprintTime += Time.deltaTime;
             }
         }
     }
