@@ -198,4 +198,11 @@ public class PlayerData : NetworkBehaviour
     {
         _lobbyManager.RemovePlayer(this);
     }
+
+    public void ResetPlayerStats()
+    {
+        playerElims = 0;
+        playerDeaths = 0;
+        playerScore = 0;
+    }
 }

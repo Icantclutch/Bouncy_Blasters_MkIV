@@ -121,6 +121,11 @@ public class LobbyManager : NetworkBehaviour
             p.GetComponent<PlayerHealth>().SetMaxCharge(_lobbySettings.GetPlayerHealthSetting());
             p.GetComponent<PlayerMovement>().SetMoveSpeed(_lobbySettings.GetPlayerSpeedSetting());
             p.GetComponent<PlayerMovement>().SetJumpHeight(_lobbySettings.GetPlayerJumpHeightSetting());
+            p.GetComponent<PlayerData>().ResetPlayerStats();
+            p.GetComponent<PlayerHealth>().SetCharge(0);
+            //teamA.teamScore = 0;
+            //teamB.teamScore = 0;
+           
         }
         //Debug.Log("LobbyManager is setting the gamemode to: " + _lobbySettings.GetGameModeSetting());
         //Debug.Log("LobbyManager is setting the gamemode Max score to : " + _lobbySettings.GetMatchScoreSetting());
@@ -162,7 +167,9 @@ public class LobbyManager : NetworkBehaviour
                 }
             }
             teamA = new Team("Nova",teamAPlayers);
+            teamA.teamScore = 0;
             teamB = new Team("Super Nova", teamBPlayers);
+            teamB.teamScore = 0;
             
             //Setup Game Management
             gameManager.SetUpMatch(gamemode, teamA, teamB);
