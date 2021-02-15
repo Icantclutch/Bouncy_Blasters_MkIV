@@ -1,18 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-4438874441809927983
-MonoBehaviour:
-  m_ObjectHideFlags: 11
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da692e001514ec24dbc4cca1949ff7e8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 2
 --- !u!21 &2100000
 Material:
   serializedVersion: 6
@@ -23,7 +10,7 @@ Material:
   m_Name: Shield
   m_Shader: {fileID: -6465566751694194690, guid: fe2191cda921a3641a4eb3a2b488e441, type: 3}
   m_ShaderKeywords: _BLENDMODE_ALPHA _SURFACE_TYPE_TRANSPARENT
-  m_LightmapFlags: 4
+  m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: 3000
@@ -39,12 +26,8 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - Texture2D_4E33A743:
-        m_Texture: {fileID: 2800000, guid: 32e7ec5e407d166469c0511a0480d849, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - Texture2D_7B69113D:
-        m_Texture: {fileID: 2800000, guid: 32e7ec5e407d166469c0511a0480d849, type: 3}
+        m_Texture: {fileID: 2800000, guid: 56910c1d8a82660419cf04a94749e17a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _AnisotropyMap:
@@ -123,10 +106,6 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _Texture2DAsset_9312B0FF_Out_0:
-        m_Texture: {fileID: 2800000, guid: 32e7ec5e407d166469c0511a0480d849, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _ThicknessMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -136,7 +115,8 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Vector1_12FAE890: 1
+    - Vector1_12FAE890: 0.85
+    - Vector1_290ABCBC: 1
     - Vector1_8843DC76: 0.1
     - Vector1_96E3ABEF: 0
     - _AORemapMax: 1
@@ -261,11 +241,11 @@ Material:
     - _ZTestTransparent: 4
     - _ZWrite: 0
     m_Colors:
-    - Color_424A35DC: {r: 0.8867924, g: 0.8437698, b: 0.56470263, a: 0}
-    - Color_70A34D1: {r: 0.8018868, g: 0.7729264, b: 0.5182004, a: 0}
-    - Color_DC57FDB4: {r: 0.8962264, g: 0.87153745, b: 0.6045301, a: 0}
-    - Vector2_4EF6BBCF: {r: 0, g: 0, b: 0, a: 0}
-    - Vector2_79B7C087: {r: 3, g: 3.5, b: 0, a: 0}
+    - Color_424A35DC: {r: 0.8862745, g: 0.8445129, b: 0.566102, a: 1}
+    - Vector2_1304BB53: {r: 0.1, g: 0.1, b: 0.1, a: 0}
+    - Vector2_2D920C30: {r: 0.01, g: 0.01, b: 0.01, a: 0}
+    - Vector2_79B7C087: {r: 3.5, g: 5, b: 0, a: 0}
+    - Vector3_EE6933A9: {r: 0.01, g: 0.01, b: 0.01, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _BaseColorMap_MipInfo: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
@@ -283,3 +263,16 @@ Material:
     - _UVMappingMask: {r: 1, g: 0, b: 0, a: 0}
     - _UVMappingMaskEmissive: {r: 1, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
+--- !u!114 &4306797019892976793
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da692e001514ec24dbc4cca1949ff7e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 2
