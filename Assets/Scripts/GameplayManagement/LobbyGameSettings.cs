@@ -66,7 +66,20 @@ public class LobbyGameSettings : MonoBehaviour
             }
             _buttonsSetup = true;
         }
+
+        
     }
+
+    public void UpdateClientLobby(int playerHealth, int moveSpeed, int jumpHeight, int gamemode, int maxScore, int time)
+    {
+        _playerHealth.value = playerHealth;
+        _playerMovementSpeed.value = moveSpeed;
+        _playerJumpHeight.value = jumpHeight;
+        _gamemodeSetting.value = gamemode;
+        _maxGameScore.value = maxScore;
+        _matchTimer.value = time;
+    }
+
     public int GetGameModeSetting()
     { 
         return _gamemodeSetting.value;
@@ -95,5 +108,11 @@ public class LobbyGameSettings : MonoBehaviour
     public int GetMatchTimeSetting()
     {
         return int.Parse(_matchTimer.captionText.text);
+    }
+
+    public int[] GetDropdownValues()
+    {
+        int[] values = { _playerHealth.value, _playerMovementSpeed.value, _playerJumpHeight.value, _gamemodeSetting.value, _maxGameScore.value, _matchTimer.value};
+        return values;
     }
 }
