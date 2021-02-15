@@ -11,8 +11,8 @@ public class HeatMap : MonoBehaviour
     public static Vector2 topLeft;
     public static Vector2 bottomRight;
     public static int[,] intGrid;
-    public static int gridX = 600;
-    public static int gridY = 600;
+    public static int gridX = 300;
+    public static int gridY = 300;
     private GameObject _gameManager;
     private GameObject _player;
     public static string path = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Desktop) + "\\App";
@@ -24,7 +24,7 @@ public class HeatMap : MonoBehaviour
     {
         singleton = this;
         intGrid = new int[gridX, gridY];
-    
+        createGrid();
     }
 
     // Update is called once per frame
@@ -46,12 +46,17 @@ public class HeatMap : MonoBehaviour
     }
 
     public void createGrid() {
-        float MinX = Floor.transform.position.x + Floor.GetComponent<RectTransform>().rect.xMin; // needed for top left
-        float MaxX = Floor.transform.position.x + Floor.GetComponent<RectTransform>().rect.xMax; // needed for bottom right
-        float MinY = Floor.transform.position.y + Floor.GetComponent<RectTransform>().rect.yMin; // needed for bottom right
-        float MaxY = Floor.transform.position.y + Floor.GetComponent<RectTransform>().rect.yMax; // needed for top left
-        topLeft = new Vector2(MinX, MaxY);
-        bottomRight = new Vector2(MaxX, MinY);
+        float MinX = Floor.GetComponent<Collider>().bounds.min.x; // needed for top left
+        float MaxX = Floor.GetComponent<Collider>().bounds.max.x; // needed for bottom right
+        float MinY = Floor.GetComponent<Collider>().bounds.min.z; // needed for bottom right
+        float MaxY = Floor.GetComponent<Collider>().bounds.max.z; // needed for top left
+        topLeft = new Vector2(MinX, MinY);
+        bottomRight = new Vector2(MaxX, MaxY);
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireCube(Floor.transform.position, new Vector3(topLeft.x*2, 20, topLeft.y*2));
     }
 
     public static void StoreAndSave()
@@ -105,6 +110,6 @@ public class HeatMap : MonoBehaviour
         relativePosition.x = (playerPos.x - topLeft.x) / (bottomRight.x - topLeft.x);
         relativePosition.y = (playerPos.z - topLeft.y) / (bottomRight.y - topLeft.y);
         
-        //intGrid[Mathf.RoundToInt(relativePosition.x * gridX), Mathf.RoundToInt(relativePosition.y * gridY)] += 1;
+        intGrid[Mathf.RoundToInt(relativePosition.x * gridX), Mathf.RoundToInt(relativePosition.y * gridY)] += 1;
     }
 }
