@@ -28,15 +28,44 @@ public class LobbyManager : NetworkBehaviour
     //Object for the match settings
     [SerializeField]
     private LobbyGameSettings _lobbySettings;
-
+    private int[] _settingsVals;
+    private bool _settingsSaved;
     // Start is called before the first frame update
     void Start()
     {
         players = new List<PlayerData>();
 
         networkManager = GameObject.Find("NetworkManager").GetComponent<NetworkManager>();
-       
-        
+
+
+        _settingsSaved = true;
+    }
+
+    private void Update()
+    {
+        if (_lobbySettings == null)
+        {
+            GameObject obj;
+            if (obj = GameObject.FindGameObjectWithTag("Settings")) {
+                _lobbySettings = obj.GetComponent<LobbyGameSettings>();
+            }
+
+        }
+        else if(isServer)
+        {
+            if (_settingsSaved)
+            {
+                _settingsVals = _lobbySettings.GetDropdownValues();
+            }
+            _settingsSaved = true;
+            Rpc_UpdateClientLobby(_settingsVals[0], _settingsVals[1], _settingsVals[2], _settingsVals[3], _settingsVals[4], _settingsVals[5]);
+        }
+    }
+
+    [ClientRpc]
+    void Rpc_UpdateClientLobby(int playerHealth, int moveSpeed, int jumpHeight, int gamemode, int maxScore, int time)
+    {
+        _lobbySettings.UpdateClientLobby(playerHealth, moveSpeed, jumpHeight, gamemode, maxScore, time);
     }
 
     void DisplayMap(string oldMap, string newMap)
@@ -97,6 +126,7 @@ public class LobbyManager : NetworkBehaviour
 
     public void ReturnPlayers()
     {
+        _settingsSaved = false;
         //Debug.Log("Attempting to return all the players currently in the lobby");
         foreach(PlayerData p in players)
         {
@@ -121,6 +151,11 @@ public class LobbyManager : NetworkBehaviour
             p.GetComponent<PlayerHealth>().SetMaxCharge(_lobbySettings.GetPlayerHealthSetting());
             p.GetComponent<PlayerMovement>().SetMoveSpeed(_lobbySettings.GetPlayerSpeedSetting());
             p.GetComponent<PlayerMovement>().SetJumpHeight(_lobbySettings.GetPlayerJumpHeightSetting());
+            p.GetComponent<PlayerData>().ResetPlayerStats();
+            p.GetComponent<PlayerHealth>().SetCharge(0);
+            //teamA.teamScore = 0;
+            //teamB.teamScore = 0;
+           
         }
         //Debug.Log("LobbyManager is setting the gamemode to: " + _lobbySettings.GetGameModeSetting());
         //Debug.Log("LobbyManager is setting the gamemode Max score to : " + _lobbySettings.GetMatchScoreSetting());
@@ -162,7 +197,9 @@ public class LobbyManager : NetworkBehaviour
                 }
             }
             teamA = new Team("Nova",teamAPlayers);
+            teamA.teamScore = 0;
             teamB = new Team("Super Nova", teamBPlayers);
+            teamB.teamScore = 0;
             
             //Setup Game Management
             gameManager.SetUpMatch(gamemode, teamA, teamB);
@@ -218,6 +255,7 @@ public class LobbyManager : NetworkBehaviour
         if (_lobbySettings == null)
         {
             _lobbySettings = GameObject.FindGameObjectWithTag("Settings").GetComponent<LobbyGameSettings>();
+            
         }
     }
 

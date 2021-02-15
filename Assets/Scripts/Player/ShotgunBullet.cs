@@ -20,8 +20,8 @@ public class ShotgunBullet : Bullet
         {
             //Get the offset
             Vector3 newDir = new Vector3(
-                transform.eulerAngles.x + Random.Range(-10f, 10f),
-                transform.eulerAngles.y + Random.Range(-10f, 10f),
+                transform.eulerAngles.x + Random.Range(-3f, 3f),
+                transform.eulerAngles.y + Random.Range(-3f, 3f),
                 transform.eulerAngles.z
             );
             //Spawn and rotate fired bullet

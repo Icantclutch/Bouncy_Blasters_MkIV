@@ -13,6 +13,11 @@ public class NetworkButtons : MonoBehaviour
     [SerializeField]
     private string _sceneName = "";
     private NetworkManager _networkManager;
+
+    private float _timer = 0;
+    [SerializeField]
+    private float _refreshDelay = 15;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,9 +30,18 @@ public class NetworkButtons : MonoBehaviour
         if (!_networkManager)
         {
             _networkManager = GameObject.Find("NetworkManager").GetComponent<NetworkManager>();
+            
+        }
+        else
+        {
             if (_dropdown)
             {
-                RefreshLobbyList(_dropdown);
+                if (_timer <= 0)
+                {
+                    RefreshLobbyList(_dropdown);
+                    _timer = _refreshDelay;
+                }
+                _timer -= Time.deltaTime;
             }
         }
     }
@@ -79,6 +93,7 @@ public class NetworkButtons : MonoBehaviour
     {
         if (_networkManager)
         {
+            Debug.Log("Starting lobby list refresh");
             //Sets the dropdown to be used for the lobby list
             _networkManager.GetComponent<SteamLobby>().lobbyDropDown = dropdown;
             _networkManager.GetComponent<SteamLobby>().StartRefresh();
