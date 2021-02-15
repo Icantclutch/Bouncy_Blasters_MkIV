@@ -8,7 +8,8 @@ public class MouseLook2 : NetworkBehaviour
     [SerializeField] private GameObject UI = null;
 
     public Transform eyes;
-    public int sens = 1;
+    public float sens = 5;
+    private float temp = 5;
     private Quaternion charTargetRot;
     private Quaternion camTargetRot;
 
@@ -23,6 +24,7 @@ public class MouseLook2 : NetworkBehaviour
         camTargetRot = eyes.localRotation;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+        temp = sens;
         /*if (hasAuthority) {
             //eyes.gameObject.SetActive(true);
             for (int i = 0; i < eyes.childCount; i++)
@@ -85,7 +87,8 @@ public class MouseLook2 : NetworkBehaviour
             gameObject.transform.localRotation = charTargetRot;
             eyes.transform.localRotation = camTargetRot;
 
-
+            Debug.Log(yRot);
+            Debug.Log(xRot);
         }
         else
         {
@@ -101,5 +104,12 @@ public class MouseLook2 : NetworkBehaviour
 
         //gameObject.transform.localRotation = Quaternion.Slerp(gameObject.transform.localRotation, charTargetRot, Time.deltaTime);
         //cam.localRotation = Quaternion.Slerp(cam.localRotation, camTargetRot, Time.deltaTime);
+        
+    }
+
+    public void changeSensitivity(float sensitivity)
+    {
+        sens = temp;
+        sens+=sensitivity;
     }
 }
