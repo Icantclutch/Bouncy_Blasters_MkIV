@@ -132,6 +132,9 @@ public class OnlineLobbyButtons : MonoBehaviour
         {
             AddPlayer();
         }
+        else if(_gameManager && _playerNames.Count > _gameManager.GetComponent<LobbyManager>().players.Count){
+            RemovePlayer();
+        }
 
     }
 
@@ -141,6 +144,15 @@ public class OnlineLobbyButtons : MonoBehaviour
         _playerNames.Add(b.GetComponent<Text>());
         _teamDisplay.Add(b.GetComponentsInChildren<Text>()[1]);
         b.GetComponentInChildren<Button>().onClick.AddListener(delegate{ CycleTeam(_playerNames.Count - 1); });
+    }
+
+    public void RemovePlayer()
+    {
+        int i = _playerNames.Count - 1;
+        GameObject b = _playerNames[i].gameObject;
+        _playerNames.RemoveAt(i);
+        _teamDisplay.RemoveAt(i);
+        Destroy(b);
     }
 
     private void StartMatch()
