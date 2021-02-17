@@ -188,7 +188,7 @@ public class LobbyManager : NetworkBehaviour
             {
                 players[playerIndex].team = 1;
             }
-            Rpc_UpdatePlayerDisplayLocation(playerIndex);
+            Rpc_UpdatePlayerDisplayLocation(playerIndex, players[playerIndex].team);
             //return players[playerIndex].team;
         }
         //Returns -1 if it could not increment correctly
@@ -196,11 +196,11 @@ public class LobbyManager : NetworkBehaviour
     }
 
     [ClientRpc]
-    private void Rpc_UpdatePlayerDisplayLocation(int playerIndex)
+    private void Rpc_UpdatePlayerDisplayLocation(int playerIndex, int team)
     {
         if (_lobbySettings)
         {
-            _lobbySettings.UpdatePlayerDisplayLocation(playerIndex);
+            _lobbySettings.UpdatePlayerDisplayLocation(playerIndex, team);
         }
     }
     //Not implemented, will be used

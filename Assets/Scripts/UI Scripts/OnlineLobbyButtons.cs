@@ -151,7 +151,8 @@ public class OnlineLobbyButtons : MonoBehaviour
             GameObject b = Instantiate(_playerSlot, _playerListLocations[i-1]);
             _playerNames.Add(b.GetComponent<Text>());
             _teamDisplay.Add(b.GetComponentsInChildren<Text>()[1]);
-            b.GetComponentInChildren<Button>().onClick.AddListener(delegate { CycleTeam(_playerNames.Count - 1); });
+            int playerIndex = _playerNames.Count - 1;
+            b.GetComponentInChildren<Button>().onClick.AddListener(delegate { CycleTeam(playerIndex); });
         }
     }
 
@@ -164,11 +165,12 @@ public class OnlineLobbyButtons : MonoBehaviour
         Destroy(b);
     }
 
-    public void UpdateDisplayLocation(int index)
+    public void UpdateDisplayLocation(int index, int team)
     {
         if (index >= 0 && index < _playerNames.Count && index < _gameManager.GetComponent<LobbyManager>().players.Count)
         {
-            int i = _gameManager.GetComponent<LobbyManager>().players[index].team;
+            //int i = _gameManager.GetComponent<LobbyManager>().players[index].team;
+            int i = team;
             if (i <= _playerListLocations.Length)
             {
                 if (i <= 0)

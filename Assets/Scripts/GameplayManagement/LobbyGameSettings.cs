@@ -118,8 +118,8 @@ public class LobbyGameSettings : MonoBehaviour
         return values;
     }
 
-    public void UpdatePlayerDisplayLocation(int playerIndex)
+    public void UpdatePlayerDisplayLocation(int playerIndex, int team)
     {
-        _lobbyButtons.UpdateDisplayLocation(playerIndex);
+        _lobbyButtons.UpdateDisplayLocation(playerIndex, team);
     }
 }
