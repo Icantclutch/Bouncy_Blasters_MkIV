@@ -39,7 +39,8 @@ public class OnlineLobbyButtons : MonoBehaviour
     [SerializeField]
     private GameObject _playerSlot;
     [SerializeField]
-    private Transform _playerListLocation;
+    private Transform[] _playerListLocations;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -140,10 +141,18 @@ public class OnlineLobbyButtons : MonoBehaviour
 
     public void AddPlayer()
     {
-        GameObject b = Instantiate(_playerSlot, _playerListLocation);
-        _playerNames.Add(b.GetComponent<Text>());
-        _teamDisplay.Add(b.GetComponentsInChildren<Text>()[1]);
-        b.GetComponentInChildren<Button>().onClick.AddListener(delegate{ CycleTeam(_playerNames.Count - 1); });
+        int i = _gameManager.GetComponent<LobbyManager>().players[_playerNames.Count].team;
+        if (i <= _playerListLocations.Length)
+        {
+            if(i <= 0)
+            {
+                i = 1;
+            }
+            GameObject b = Instantiate(_playerSlot, _playerListLocations[i-1]);
+            _playerNames.Add(b.GetComponent<Text>());
+            _teamDisplay.Add(b.GetComponentsInChildren<Text>()[1]);
+            b.GetComponentInChildren<Button>().onClick.AddListener(delegate { CycleTeam(_playerNames.Count - 1); });
+        }
     }
 
     public void RemovePlayer()
@@ -155,6 +164,23 @@ public class OnlineLobbyButtons : MonoBehaviour
         Destroy(b);
     }
 
+    public void UpdateDisplayLocation(int index)
+    {
+        if (index >= 0 && index < _playerNames.Count && index < _gameManager.GetComponent<LobbyManager>().players.Count)
+        {
+            int i = _gameManager.GetComponent<LobbyManager>().players[index].team;
+            if (i <= _playerListLocations.Length)
+            {
+                if (i <= 0)
+                {
+                    i = 1;
+                }
+                GameObject b = _playerNames[index].gameObject;
+                b.transform.SetParent(_playerListLocations[i - 1], false);
+            }
+        }
+    }
+
     private void StartMatch()
     {
         _gameManager.GetComponent<LobbyManager>().SetMap(_mapName.text);
@@ -164,8 +190,12 @@ public class OnlineLobbyButtons : MonoBehaviour
 
     public void CycleTeam(int playerIndex = 0)
     {
-        if(_teamDisplay.Count > playerIndex)
-            _teamDisplay[playerIndex].text = "Team: " + _gameManager.GetComponent<LobbyManager>().CycleTeam(playerIndex);
+        if (_teamDisplay.Count > playerIndex)
+        {
+            _gameManager.GetComponent<LobbyManager>().CycleTeam(playerIndex);
+            //_teamDisplay[playerIndex].text = "Team: " + _gameManager.GetComponent<LobbyManager>().CycleTeam(playerIndex);
+            //UpdateDisplayLocation(playerIndex);
+        }
     }
     public void CycleMap()
     {

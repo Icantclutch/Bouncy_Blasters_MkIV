@@ -20,6 +20,8 @@ public class LobbyGameSettings : MonoBehaviour
     [SerializeField]
     private Dropdown _matchTimer;
 
+    [SerializeField]
+    private OnlineLobbyButtons _lobbyButtons;
 
     private GameObject _gameManager;
     private bool _buttonsSetup = false;
@@ -114,5 +116,10 @@ public class LobbyGameSettings : MonoBehaviour
     {
         int[] values = { _playerHealth.value, _playerMovementSpeed.value, _playerJumpHeight.value, _gamemodeSetting.value, _maxGameScore.value, _matchTimer.value};
         return values;
+    }
+
+    public void UpdatePlayerDisplayLocation(int playerIndex)
+    {
+        _lobbyButtons.UpdateDisplayLocation(playerIndex);
     }
 }

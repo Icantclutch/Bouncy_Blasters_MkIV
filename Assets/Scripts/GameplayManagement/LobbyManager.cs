@@ -179,7 +179,8 @@ public class LobbyManager : NetworkBehaviour
     }
 
     //Cycles a players team based on the numOfTeams
-    public int CycleTeam(int playerIndex = 0)
+    [Command(ignoreAuthority = true)]
+    public void CycleTeam(int playerIndex)
     {
         if (players.Count > playerIndex) {
             players[playerIndex].team++;
@@ -187,12 +188,21 @@ public class LobbyManager : NetworkBehaviour
             {
                 players[playerIndex].team = 1;
             }
-            return players[playerIndex].team;
+            Rpc_UpdatePlayerDisplayLocation(playerIndex);
+            //return players[playerIndex].team;
         }
         //Returns -1 if it could not increment correctly
-        return -1;
+        //return -1;
     }
 
+    [ClientRpc]
+    private void Rpc_UpdatePlayerDisplayLocation(int playerIndex)
+    {
+        if (_lobbySettings)
+        {
+            _lobbySettings.UpdatePlayerDisplayLocation(playerIndex);
+        }
+    }
     //Not implemented, will be used
     public void DisplayPlayers()
     {

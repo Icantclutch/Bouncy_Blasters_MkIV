@@ -2540,7 +2540,9 @@ MonoBehaviour:
   _playerNames: []
   _startMatchButton: {fileID: 8775238}
   _playerSlot: {fileID: 362902266713537392, guid: 3c0ca9a4b3dfcc64b8cbcc489070fcac, type: 3}
-  _playerListLocation: {fileID: 1220683020}
+  _playerListLocations:
+  - {fileID: 1220683020}
+  - {fileID: 965798257}
 --- !u!1 &468241014
 GameObject:
   m_ObjectHideFlags: 0
@@ -2676,6 +2678,7 @@ MonoBehaviour:
   _gamemodeSetting: {fileID: 1800512259}
   _maxGameScore: {fileID: 2125870619}
   _matchTimer: {fileID: 115637431}
+  _lobbyButtons: {fileID: 461748734}
 --- !u!1 &509805978
 GameObject:
   m_ObjectHideFlags: 0
@@ -5834,7 +5837,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -375, y: 125}
+  m_AnchoredPosition: {x: -400, y: 125}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1220683021
