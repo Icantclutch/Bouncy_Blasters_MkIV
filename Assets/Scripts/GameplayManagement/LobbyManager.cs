@@ -78,50 +78,14 @@ public class LobbyManager : NetworkBehaviour
         players.Add(player);
         DisplayPlayers();
         //Debug.Log(networkManager.onlineScene);
+
         //Used for backwards compatability with testing scenes
         if(!networkManager.onlineScene.Contains("OnlineLobby Scene"))
         {
             player.RpcSpawnPlayer();
         }
 
-        /*if (gameManager.matchGamemode != null) {
-            // Have Player join team with least amount of players
-            if (gameManager.teamA.playerList.Count > gameManager.teamB.playerList.Count)
-            {
-                player.team = 2;
-            }
-            else
-            {
-                player.team = 1;
-            }
-            gameManager.JoinTeam(player);
-        }
-        else
-        {
-            //Find the number of players on each team
-            List<int> teams = new List<int>(numOfTeams);
-            foreach(PlayerData p in players)
-            {
-                if(p != player)
-                {
-                    ++teams[p.team - 1];
-                }
-            }
-
-            // Find the team with the lowest amount of players
-            int minTeam = 0, size = int.MaxValue;
-            for(int i = 0; i < teams.Count; ++i)
-            {
-                if(teams[i] < size)
-                {
-                    size = teams[i];
-                    minTeam = i;
-                }
-            }
-
-            //Assign the player to the team that was found
-            player.team = minTeam + 1;
-        }*/
+        
     }
 
     public void ReturnPlayers()

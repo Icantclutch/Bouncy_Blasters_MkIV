@@ -36,6 +36,11 @@ public class OnlineLobbyButtons : MonoBehaviour
 
     private bool _buttonsSetup = false;
 
+    [SerializeField]
+    private GameObject _playerSlot;
+    [SerializeField]
+    private Transform _playerListLocation;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -123,6 +128,19 @@ public class OnlineLobbyButtons : MonoBehaviour
             //_mapName.text = _networkManager.GetComponentInChildren<LobbyManager>().mapName;
         }
 
+        if(_gameManager && _playerNames.Count < _gameManager.GetComponent<LobbyManager>().players.Count)
+        {
+            AddPlayer();
+        }
+
+    }
+
+    public void AddPlayer()
+    {
+        GameObject b = Instantiate(_playerSlot, _playerListLocation);
+        _playerNames.Add(b.GetComponent<Text>());
+        _teamDisplay.Add(b.GetComponentsInChildren<Text>()[1]);
+        b.GetComponentInChildren<Button>().onClick.AddListener(delegate{ CycleTeam(_playerNames.Count - 1); });
     }
 
     private void StartMatch()
