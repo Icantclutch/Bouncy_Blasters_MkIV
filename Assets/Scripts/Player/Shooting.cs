@@ -104,7 +104,7 @@ public class Shooting : NetworkBehaviour
             if (Input.GetKeyDown(Keybinds.Reload) && playerWeapons[currentWeapon].currentReserve > 0)
             {
                 StartCoroutine(Reload());
-
+                
             }
             if (Input.GetKey(Keybinds.Reload) && playerWeapons[currentWeapon].currentReserve < playerWeapons[currentWeapon].weapon.reserveAmmo && myMovement.grounded)
             {
@@ -212,6 +212,9 @@ public class Shooting : NetworkBehaviour
     //Reload function
     IEnumerator Reload()
     {
+        //Reload delay
+        yield return new WaitForSeconds(2);
+
         //Set firing so you can't shoot while reloading
         currentlyFiring = true;
 

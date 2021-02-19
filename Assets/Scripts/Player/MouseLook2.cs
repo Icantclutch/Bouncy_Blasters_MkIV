@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
+using UnityEngine.EventSystems;
 
 public class MouseLook2 : NetworkBehaviour
 {
@@ -15,11 +16,17 @@ public class MouseLook2 : NetworkBehaviour
 
     private bool pause = false;
 
+    [SerializeField]
+    private float doubleClickTimer = 0.25f;
+    [SerializeField]
+    private bool beginTimer;
+
 
 
     // Start is called before the first frame update
     void Start()
     {
+        doubleClickTimer = 0.25f;
         charTargetRot = gameObject.transform.localRotation;
         camTargetRot = eyes.localRotation;
         Cursor.visible = false;
@@ -102,8 +109,8 @@ public class MouseLook2 : NetworkBehaviour
             
         }
 
-        //gameObject.transform.localRotation = Quaternion.Slerp(gameObject.transform.localRotation, charTargetRot, Time.deltaTime);
-        //cam.localRotation = Quaternion.Slerp(cam.localRotation, camTargetRot, Time.deltaTime);
+        //Functionality for allowing the player to double press zoom to snap the reticle to the horizon
+        ResetToHorizon();
         
     }
 
@@ -111,5 +118,38 @@ public class MouseLook2 : NetworkBehaviour
     {
         sens = temp;
         sens+=sensitivity;
+    }
+
+    private void ResetToHorizon()
+    {
+        //Begins the timer window for pressing the zoom button a second time
+        if (beginTimer)
+        {
+            doubleClickTimer -= Time.deltaTime;
+        }
+        //Reseting the timer if the window expires
+        if(doubleClickTimer <= 0)
+        {
+            beginTimer = false;
+            doubleClickTimer = 0.25f;
+            
+        }
+        //Starting the timer for a second zoom press
+        if (Input.GetKeyDown(Keybinds.Zoom) && doubleClickTimer == 0.25f)
+        {
+            beginTimer = true;
+        }
+        //Handling a second zoom press within the alloted time window
+        else if (Input.GetKeyDown(Keybinds.Zoom) && doubleClickTimer < 0.25f)
+        {
+            //Change camera to look at horizon
+            charTargetRot *= Quaternion.Euler(0f, 0f, 0f);
+            camTargetRot = Quaternion.Euler(0f, 0f, 0f);
+
+            gameObject.transform.localRotation = charTargetRot;
+            eyes.transform.localRotation = camTargetRot;
+
+        }
+
     }
 }

@@ -7,9 +7,9 @@ using Mirror;
 public class PlayerInfoDisplay : NetworkBehaviour
 {
     [SerializeField]
-    private Text _nameDisplayText;
+    private Text _nameDisplayText = null;
     [SerializeField]
-    private SpriteRenderer _miniMapDisplay;
+    private SpriteRenderer _miniMapDisplay = null;
     [SerializeField]
     private GameObject _infoDisplay = null;
 
