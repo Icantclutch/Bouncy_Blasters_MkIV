@@ -60,11 +60,11 @@ public class PlayerHealth : HitInteraction
     //Holds all the servserside calls for respawning the player, 
     private void Respawn()
     {
-        currentCharge = 0;
         Rpc_DeathSounds();
         GetComponent<Shooting>().Rpc_FullReload();
         //Teleport the player
         Rpc_TeleportPlayer();
+        currentCharge = 0;
     }
 
     [ClientRpc]
