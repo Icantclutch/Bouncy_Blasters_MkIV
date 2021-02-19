@@ -446,7 +446,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 06019afec30ecc24e8fbfbf38f4f0139, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -579,6 +579,7 @@ GameObject:
   - component: {fileID: 2658744595623562324}
   - component: {fileID: 2003816617317864958}
   - component: {fileID: 5890483472476341023}
+  - component: {fileID: 3243386042727317697}
   m_Layer: 10
   m_Name: Minimap Camera
   m_TagString: Untagged
@@ -756,6 +757,18 @@ MonoBehaviour:
       data1: 0
       data2: 0
   defaultFrameSettings: 0
+--- !u!114 &3243386042727317697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1718903082678943919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58a0faa83ee7a70458b6476f1d2d1edc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2187169954643799169
 GameObject:
   m_ObjectHideFlags: 0

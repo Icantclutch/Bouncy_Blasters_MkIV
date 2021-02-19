@@ -11,18 +11,18 @@ public class HeatMap : MonoBehaviour
     public static Vector2 topLeft;
     public static Vector2 bottomRight;
     public static int[,] intGrid;
-    public static int gridX = 300;
+    public static int gridX = 300; //thease values represent that actual size of the heatmap that is being created (in Pixels) 
     public static int gridY = 300;
     private GameObject _gameManager;
     private GameObject _player;
-    public static string path = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Desktop) + "\\App";
+    public static string path = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Desktop) + "\\App"; // this is the folder that will hold the heatmap data
     public static Color startColor = new Color(0,0,255);
     public static Color endColor = new Color(255, 0, 0);
 
     // Start is called before the first frame update
     void Start()
     {
-        singleton = this;
+        singleton = this; //only one of its kind change if you are using more floors
         intGrid = new int[gridX, gridY];
         createGrid();
     }
@@ -99,7 +99,7 @@ public class HeatMap : MonoBehaviour
             {
                 Directory.CreateDirectory(path);
             }
-            File.WriteAllBytes( path + "\\HeatMap.png" , bytes);
+            File.WriteAllBytes( path + "\\HeatMap.png" , bytes); //this is the file that will be created when using the heatmap
         }
     }
 
@@ -110,6 +110,7 @@ public class HeatMap : MonoBehaviour
         relativePosition.x = (playerPos.x - topLeft.x) / (bottomRight.x - topLeft.x);
         relativePosition.y = (playerPos.z - topLeft.y) / (bottomRight.y - topLeft.y);
         
-        intGrid[Mathf.RoundToInt(relativePosition.x * gridX), Mathf.RoundToInt(relativePosition.y * gridY)] += 1;
+        intGrid[Mathf.RoundToInt(relativePosition.x * gridX), Mathf.RoundToInt(relativePosition.y * gridY)] += 1; //values of gridx and grid y can be interchanged to be more precise(more detailed) lore less precise
+                                                                                                                  //the breater the number of those two values the greater the number of pixels used in the out image
     }
 }
