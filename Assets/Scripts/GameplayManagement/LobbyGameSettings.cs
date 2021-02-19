@@ -21,7 +21,7 @@ public class LobbyGameSettings : MonoBehaviour
     private Dropdown _matchTimer = null;
 
     [SerializeField]
-    private OnlineLobbyButtons _lobbyButtons;
+    private OnlineLobbyButtons _lobbyButtons = null;
 
     private GameObject _gameManager;
     private bool _buttonsSetup = false;
