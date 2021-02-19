@@ -41,9 +41,10 @@ public class LaunchPad : MonoBehaviour
     {
         Rigidbody targetRB = target.GetComponent<Rigidbody>();
         targetRB.velocity = new Vector3(targetRB.velocity.x, 0f, targetRB.velocity.z);
-      
+
+        targetRB.GetComponent<PlayerMovement>().Launch();
         targetRB.AddForce(target.transform.forward.x * sideForce, upForce, target.transform.forward.z * sideForce);
-        Debug.Log("Launch Force: " + target.transform.forward.x * sideForce + ", " + upForce + ", " + target.transform.forward.z * sideForce);
+        //Debug.Log("Launch Force: " + target.transform.forward.x * sideForce + ", " + upForce + ", " + target.transform.forward.z * sideForce);
 
 
         ////Old Code

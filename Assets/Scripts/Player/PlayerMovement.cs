@@ -26,21 +26,26 @@ public class PlayerMovement : NetworkBehaviour
 	private bool _isSprinting = false;
 
 	[SerializeField]
+	private bool _isAiming = false;
+
+	[SerializeField]
+	private bool _isLaunched = false;
+
+	private float launchTime = .25f;
+	private float timer;
+
+	[SerializeField]
 	private float _maxSprintTime = 3f;
 	[SerializeField]
 	private float _sprintTime;
 
+	[SerializeField]
+	private Vector3 vel;
 
 	//Distance variable to see if the player is on the ground
 	[SerializeField]
 	private float _distToGround;
 
-
-	void Awake()
-	{
-		
-		
-	}
     private void Start()
     {
 		_distToGround = coll.bounds.extents.y;
@@ -59,22 +64,30 @@ public class PlayerMovement : NetworkBehaviour
 			return;
         if (active)
         {
+
+			//Displaying Vel in inspector for debugging purposes
+			vel = rbody.velocity;
+
+			//Resetting the launch state when on ground for long enough 
+            if (_isLaunched && grounded)
+            {
+				timer -= Time.deltaTime;
+				if(timer < 0)
+                {
+					_isLaunched = false;
+                }
+            }
+
 			//setting the grounded state of the player off of a raycast
 			grounded = IsGrounded();
-
-
-	
-
+			
 			//Handling the amount of sprint the player has
 			SprintTimer();
 
 			//Single Event Physics can be done in update
 			PlayerJumps();
-
-			
+				
 		}
-
-
 
 
 		//Debug control to respawn the player
@@ -99,8 +112,6 @@ public class PlayerMovement : NetworkBehaviour
 			if (grounded)
 			{
 
-			
-
 				if (Input.GetKey(Keybinds.Sprint) && _sprintTime > 0)
 				{
 					EnableSprint();
@@ -120,38 +131,68 @@ public class PlayerMovement : NetworkBehaviour
 		// We apply gravity manually for more tuning control
 		rbody.AddForce(-transform.up *  gravity, ForceMode.Acceleration);
 
-		if (rbody.velocity.y == 0)
+        if (rbody.velocity.y == 0)
         {
-			hasJumped = false;
+            hasJumped = false;
+			
         }
 
-		
-		
-		
-	}
 
-	//A Function that takes the player's input and calculates movement
-	private void Movement()
+
+
+    }
+
+    //A Function that takes the player's input and calculates movement
+    private void Movement()
     {
-    
+		float speedDebuff;
+		if (_isAiming)
+        {
+			speedDebuff = 0.05f;
+        }
+        else
+        {
+			speedDebuff = 1.0f;
+        }
+
 		//Calculate how fast we should be moving
-		Vector3 targetVelocity = new Vector3(Input.GetAxis(Keybinds.Horizontal), 0, Input.GetAxis(Keybinds.Vertical));
-		targetVelocity = transform.TransformDirection(targetVelocity);
-		targetVelocity *= speed;
-		// Apply a force that attempts to reach our target velocity
-		Vector3 velocity = rbody.velocity;
-		Vector3 velocityChange = (targetVelocity - velocity);
-		velocityChange.x = Mathf.Clamp(velocityChange.x, -maxVelocityChange, maxVelocityChange);
-		velocityChange.z = Mathf.Clamp(velocityChange.z, -maxVelocityChange, maxVelocityChange);
-		velocityChange.y = 0;
-		rbody.AddForce(velocityChange, ForceMode.VelocityChange);
+		Vector3 movementDirection = new Vector3(Input.GetAxis(Keybinds.Horizontal), 0, Input.GetAxis(Keybinds.Vertical)).normalized;
+
+		//setting local to world coordinates and then adding player speed
+		movementDirection = transform.TransformDirection(movementDirection);
+		movementDirection *= speed;
+
+		/*
+		 * Allow movement if the player is grounded or if they are in the air, but not off a launch
+		 * Thi allows the player to air strafe when falling normally but since movement is slower than
+		 * the launch pad's launch, it can mess up with the launch speed mid air. This prevents air straffing
+		 * until the player lands on the ground.
+		 */
+		if (!_isLaunched || grounded) 
+        {
+			// Apply a force that attempts to reach our target velocity
+			Vector3 velocity = rbody.velocity;
+			Vector3 velocityChange = (movementDirection - velocity);
+			velocityChange.x = Mathf.Clamp(velocityChange.x, -maxVelocityChange, maxVelocityChange);
+			velocityChange.z = Mathf.Clamp(velocityChange.z, -maxVelocityChange, maxVelocityChange);
+			velocityChange.y = 0;
+			rbody.AddForce(velocityChange * speedDebuff, ForceMode.VelocityChange);
+		}
+        else 
+		{
+			//Allow for velocity to be uncapped
+
+        }
+		
 	}
 
 	//A Function that draws a raycast below the player to see if it hits the ground beneath the player
 	private bool IsGrounded()
     {
+		
 		Debug.DrawRay(transform.position, -Vector3.up * _distToGround, Color.red);
 		return Physics.Raycast(transform.position, -Vector3.up, _distToGround + 0.5f);
+	
     }
 	
 	//Function for allowing the player to jump
@@ -165,6 +206,7 @@ public class PlayerMovement : NetworkBehaviour
 		if (rbody.velocity.y < 0)
 		{
 			canJump = true;
+			
 		}
 
 		//Jump check and jump functionality
@@ -242,4 +284,16 @@ public class PlayerMovement : NetworkBehaviour
     {
 		jumpHeight = jump;
     }
+
+	public void Aiming(bool state)
+    {
+		_isAiming = state;
+    }
+
+	public void Launch()
+	{
+		_isLaunched = true;
+		timer = launchTime;
+	}
+
 }

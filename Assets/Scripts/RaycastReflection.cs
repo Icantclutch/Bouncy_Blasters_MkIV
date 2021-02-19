@@ -12,6 +12,8 @@ public class RaycastReflection : MonoBehaviour
     private LineRenderer lineRenderer;
     //Parent shooting
     private Shooting shooting;
+    //Parent Movement
+    private PlayerMovement movement;
 
     //a ray  
     private Ray ray;
@@ -42,11 +44,22 @@ public class RaycastReflection : MonoBehaviour
         lineRenderer = this.GetComponent<LineRenderer>();
         //get the parent shooting
         shooting = this.GetComponentInParent<Shooting>();
+        movement = this.GetComponentInParent<PlayerMovement>();
     }
 
     void Update()
     {
-        lineRenderer.enabled = Input.GetKey(Keybinds.Zoom);
+        if (Input.GetKey(Keybinds.Zoom))
+        {
+            lineRenderer.enabled = true;
+            movement.Aiming(true);
+        }
+        else
+        {
+            lineRenderer.enabled = false;
+            movement.Aiming(false);
+        }
+        
 
         //Update reflections based on player's gun
         nReflections = shooting.currentFireMode.maxBounces;
