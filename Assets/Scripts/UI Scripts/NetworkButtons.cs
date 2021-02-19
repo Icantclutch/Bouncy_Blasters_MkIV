@@ -8,7 +8,9 @@ using Mirror;
 public class NetworkButtons : MonoBehaviour
 {
     [SerializeField]
-    private Dropdown _dropdown;
+    private Dropdown _dropdown = null;
+    [SerializeField]
+    private ToggleGroup _toggleGroup = null;
 
     [SerializeField]
     private string _sceneName = "";
@@ -34,11 +36,11 @@ public class NetworkButtons : MonoBehaviour
         }
         else
         {
-            if (_dropdown)
+            if (_toggleGroup)
             {
                 if (_timer <= 0)
                 {
-                    RefreshLobbyList(_dropdown);
+                    RefreshLobbyList(_toggleGroup);
                     _timer = _refreshDelay;
                 }
                 _timer -= Time.deltaTime;
@@ -89,24 +91,24 @@ public class NetworkButtons : MonoBehaviour
     }
 
     //Updates the lobby list in the dropdown menu
-    public void RefreshLobbyList(Dropdown dropdown)
+    public void RefreshLobbyList(ToggleGroup toggleGroup)
     {
         if (_networkManager)
         {
             Debug.Log("Starting lobby list refresh");
             //Sets the dropdown to be used for the lobby list
-            _networkManager.GetComponent<SteamLobby>().lobbyDropDown = dropdown;
+            _networkManager.GetComponent<SteamLobby>()._lobbyToggles = toggleGroup;
             _networkManager.GetComponent<SteamLobby>().StartRefresh();
         }
     }
 
     //Joins the lobby currently selected in the dropdown parameter
-    public void JoinSelectedLobby(Dropdown dropdown)
+    public void JoinSelectedLobby(ToggleGroup toggleGroup)
     {
         if (_networkManager)
         {
             //Sets the dropdown to be used for the lobby list
-            _networkManager.GetComponent<SteamLobby>().lobbyDropDown = dropdown;
+            _networkManager.GetComponent<SteamLobby>()._lobbyToggles = toggleGroup;
             _networkManager.GetComponent<SteamLobby>().JoinSelectedLobby();
         }
     }

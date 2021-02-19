@@ -32,6 +32,8 @@ public class SteamLobby : MonoBehaviour
     //references to objects in the scene
     [SerializeField] public GameObject button = null;
     [SerializeField] public Dropdown lobbyDropDown = null;
+    [SerializeField] public ToggleGroup _lobbyToggles = null;
+    [SerializeField] public GameObject lobbyPrefab = null;
 
     //Callback variables to handle Steam calls
     protected Callback<LobbyCreated_t> lobbyCreated;
@@ -49,6 +51,8 @@ public class SteamLobby : MonoBehaviour
 
 
     private List<Lobby> lobbies = new List<Lobby>();
+    private int _selectedLobby = 0;
+
 
     private bool lobbyFound = false;
 
@@ -140,7 +144,15 @@ public class SteamLobby : MonoBehaviour
         //Reset List and dropdown menu
         lobbies.Clear();
         lobbyDropDown.ClearOptions();
-        
+        if (_lobbyToggles)
+        {
+            int size = _lobbyToggles.transform.childCount;
+            for (int i = 0; i < size; ++i)
+            {
+                _lobbyToggles.UnregisterToggle(_lobbyToggles.transform.GetChild(i).GetComponent<Toggle>());
+                Destroy(_lobbyToggles.transform.GetChild(i).gameObject);
+            }
+        }
         //Make a call request, OnLobbyMatchList() will be called when call is completed
         lobbyMatchListCallResult.Set(SteamMatchmaking.RequestLobbyList());
         yield return new WaitForSeconds(1);
@@ -218,7 +230,12 @@ public class SteamLobby : MonoBehaviour
                 lobbyFound = true;
             }
         }
+        
+
+        
     }
+
+    
 
     //Reads in lobby info into a Lobby struct and adds it to the lobby list
     void StoreLobbyInfo(CSteamID lobbyID)
@@ -232,7 +249,23 @@ public class SteamLobby : MonoBehaviour
 
         lobbies.Add(lobby);
         if(lobbyDropDown)
-            lobbyDropDown.AddOptions(new List<string> { lobby.lobbyName});
+            lobbyDropDown.AddOptions(new List<string> { lobby.lobbyName + " " + lobby.numOfPlayers + "/" + lobby.playerLimit});
+        if (_lobbyToggles)
+        {
+            GameObject b = Instantiate(lobbyPrefab, _lobbyToggles.transform);
+            _lobbyToggles.RegisterToggle(b.GetComponent<Toggle>());
+            Text[] lobbyInfo = b.GetComponentsInChildren<Text>();
+            lobbyInfo[0].text = lobby.lobbyName;
+            lobbyInfo[1].text = lobby.numOfPlayers + "/" + lobby.playerLimit;
+            b.GetComponent<Toggle>().group = _lobbyToggles;
+
+            if (lobbies.Count == 1)
+            {
+                b.GetComponent<Toggle>().Select();
+            }
+        }
+
+        
     }
 
     //Starts the coroutine to refresh the lobby list in the dropdown menu
@@ -244,9 +277,20 @@ public class SteamLobby : MonoBehaviour
     //Joins the lobby currently selected in the dropdown menu
     public void JoinSelectedLobby()
     {
-        if (lobbyDropDown && lobbies.Count > 0)
+        if (_lobbyToggles && lobbies.Count > 0)
         {
-            SteamMatchmaking.JoinLobby(lobbies[lobbyDropDown.value].steamID);
+
+            IEnumerator<Toggle> toggles = _lobbyToggles.ActiveToggles().GetEnumerator();
+            toggles.MoveNext();
+            for (int i = 0; i < lobbies.Count; ++i)
+            {
+                if (toggles.Current && toggles.Current.isOn)
+                {
+                    SteamMatchmaking.JoinLobby(lobbies[i].steamID);
+                    break;
+                }
+                toggles.MoveNext();
+            }
         }
     }
 }

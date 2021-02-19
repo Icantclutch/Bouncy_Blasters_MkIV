@@ -36,6 +36,12 @@ public class OnlineLobbyButtons : MonoBehaviour
 
     private bool _buttonsSetup = false;
 
+    [SerializeField]
+    private GameObject _playerSlot;
+    [SerializeField]
+    private Transform[] _playerListLocations;
+    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -123,6 +129,58 @@ public class OnlineLobbyButtons : MonoBehaviour
             //_mapName.text = _networkManager.GetComponentInChildren<LobbyManager>().mapName;
         }
 
+        if(_gameManager && _playerNames.Count < _gameManager.GetComponent<LobbyManager>().players.Count)
+        {
+            AddPlayer();
+        }
+        else if(_gameManager && _playerNames.Count > _gameManager.GetComponent<LobbyManager>().players.Count){
+            RemovePlayer();
+        }
+
+    }
+
+    public void AddPlayer()
+    {
+        int i = _gameManager.GetComponent<LobbyManager>().players[_playerNames.Count].team;
+        if (i <= _playerListLocations.Length)
+        {
+            if(i <= 0)
+            {
+                i = 1;
+            }
+            GameObject b = Instantiate(_playerSlot, _playerListLocations[i-1]);
+            _playerNames.Add(b.GetComponent<Text>());
+            _teamDisplay.Add(b.GetComponentsInChildren<Text>()[1]);
+            int playerIndex = _playerNames.Count - 1;
+            b.GetComponentInChildren<Button>().onClick.AddListener(delegate { CycleTeam(playerIndex); });
+        }
+    }
+
+    public void RemovePlayer()
+    {
+        int i = _playerNames.Count - 1;
+        GameObject b = _playerNames[i].gameObject;
+        _playerNames.RemoveAt(i);
+        _teamDisplay.RemoveAt(i);
+        Destroy(b);
+    }
+
+    public void UpdateDisplayLocation(int index, int team)
+    {
+        if (index >= 0 && index < _playerNames.Count && index < _gameManager.GetComponent<LobbyManager>().players.Count)
+        {
+            //int i = _gameManager.GetComponent<LobbyManager>().players[index].team;
+            int i = team;
+            if (i <= _playerListLocations.Length)
+            {
+                if (i <= 0)
+                {
+                    i = 1;
+                }
+                GameObject b = _playerNames[index].gameObject;
+                b.transform.SetParent(_playerListLocations[i - 1], false);
+            }
+        }
     }
 
     private void StartMatch()
@@ -134,8 +192,12 @@ public class OnlineLobbyButtons : MonoBehaviour
 
     public void CycleTeam(int playerIndex = 0)
     {
-        if(_teamDisplay.Count > playerIndex)
-            _teamDisplay[playerIndex].text = "Team: " + _gameManager.GetComponent<LobbyManager>().CycleTeam(playerIndex);
+        if (_teamDisplay.Count > playerIndex)
+        {
+            _gameManager.GetComponent<LobbyManager>().CycleTeam(playerIndex);
+            //_teamDisplay[playerIndex].text = "Team: " + _gameManager.GetComponent<LobbyManager>().CycleTeam(playerIndex);
+            //UpdateDisplayLocation(playerIndex);
+        }
     }
     public void CycleMap()
     {

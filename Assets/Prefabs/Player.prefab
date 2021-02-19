@@ -446,7 +446,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 8afccf9c75d225d4cbe0515ee4b5e564, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1765,7 +1765,7 @@ MonoBehaviour:
   coll: {fileID: 4357171600822209695}
   speed: 8
   sprintModifier: 2
-  gravity: 10
+  gravity: 20
   maxVelocityChange: 10
   canJump: 1
   jumpHeight: 2
@@ -1773,8 +1773,10 @@ MonoBehaviour:
   inRespawnRoom: 0
   grounded: 0
   _isSprinting: 0
+  _isAiming: 0
   _maxSprintTime: 6
   _sprintTime: 0
+  vel: {x: 0, y: 0, z: 0}
   _distToGround: 0
 --- !u!114 &4357171600822209693
 MonoBehaviour:

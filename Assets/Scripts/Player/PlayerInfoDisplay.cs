@@ -7,11 +7,11 @@ using Mirror;
 public class PlayerInfoDisplay : NetworkBehaviour
 {
     [SerializeField]
-    private Text _nameDisplayText;
+    private Text _nameDisplayText = null;
     [SerializeField]
-    private SpriteRenderer _miniMapDisplay;
+    private SpriteRenderer _miniMapDisplay = null;
     [SerializeField]
-    private GameObject _infoDisplay;
+    private GameObject _infoDisplay = null;
 
     private MyNetworkManager _networkManager;
 
@@ -42,7 +42,7 @@ public class PlayerInfoDisplay : NetworkBehaviour
         if (isLocalPlayer)
         {
             if (_miniMapDisplay)
-                _miniMapDisplay.color = Color.green;
+                _miniMapDisplay.color = Color.yellow;
         }
         else if (team == 0 || (/*localPlayer &&*/ team != localPlayerTeam))
         {
@@ -52,9 +52,9 @@ public class PlayerInfoDisplay : NetworkBehaviour
         }
         else
         {
-            _nameDisplayText.color = Color.white;
+            _nameDisplayText.color = Color.blue;
             if(_miniMapDisplay)
-                _miniMapDisplay.color = Color.white;
+                _miniMapDisplay.color = Color.blue;
         }
         if(!isLocalPlayer && Camera.main)
             _infoDisplay.transform.LookAt(Camera.main.transform);

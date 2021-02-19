@@ -7,19 +7,21 @@ public class LobbyGameSettings : MonoBehaviour
 {
     //Stored Variables from the Online Lobby Settings Panel
     [SerializeField]
-    private Dropdown _playerHealth;
+    private Dropdown _playerHealth = null;
     [SerializeField]
-    private Dropdown _playerMovementSpeed;
+    private Dropdown _playerMovementSpeed = null;
     [SerializeField]
-    private Dropdown _playerJumpHeight;
+    private Dropdown _playerJumpHeight = null;
 
     [SerializeField]
-    private Dropdown _gamemodeSetting;
+    private Dropdown _gamemodeSetting = null;
     [SerializeField]
-    private Dropdown _maxGameScore;
+    private Dropdown _maxGameScore = null;
     [SerializeField]
-    private Dropdown _matchTimer;
+    private Dropdown _matchTimer = null;
 
+    [SerializeField]
+    private OnlineLobbyButtons _lobbyButtons = null;
 
     private GameObject _gameManager;
     private bool _buttonsSetup = false;
@@ -114,5 +116,10 @@ public class LobbyGameSettings : MonoBehaviour
     {
         int[] values = { _playerHealth.value, _playerMovementSpeed.value, _playerJumpHeight.value, _gamemodeSetting.value, _maxGameScore.value, _matchTimer.value};
         return values;
+    }
+
+    public void UpdatePlayerDisplayLocation(int playerIndex, int team)
+    {
+        _lobbyButtons.UpdateDisplayLocation(playerIndex, team);
     }
 }

@@ -10,17 +10,17 @@ using Mirror.Cloud.Examples.Pong;
 public class PlayerEffects : NetworkBehaviour
 {
     [SerializeField]
-    private Canvas _canvas;
+    private Canvas _canvas = null;
     [SerializeField]
-    private GameObject _hitmarker;
+    private GameObject _hitmarker = null;
     [SerializeField]
-    private Image _killFeed;
+    private Image _killFeed = null;
 
     [SerializeField]
-    private GameObject _killFeedPrefab;
+    private GameObject _killFeedPrefab = null;
 
     [SerializeField]
-    private GameObject _blastedPrefab;
+    private GameObject _blastedPrefab = null;
 
     private float _growSize = 0.75f;
 
