@@ -232,7 +232,7 @@ public class SteamLobby : MonoBehaviour
 
         lobbies.Add(lobby);
         if(lobbyDropDown)
-            lobbyDropDown.AddOptions(new List<string> { lobby.lobbyName});
+            lobbyDropDown.AddOptions(new List<string> { lobby.lobbyName + " " + lobby.numOfPlayers + "/" + lobby.playerLimit});
     }
 
     //Starts the coroutine to refresh the lobby list in the dropdown menu
