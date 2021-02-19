@@ -7,18 +7,18 @@ public class LobbyGameSettings : MonoBehaviour
 {
     //Stored Variables from the Online Lobby Settings Panel
     [SerializeField]
-    private Dropdown _playerHealth;
+    private Dropdown _playerHealth = null;
     [SerializeField]
-    private Dropdown _playerMovementSpeed;
+    private Dropdown _playerMovementSpeed = null;
     [SerializeField]
-    private Dropdown _playerJumpHeight;
+    private Dropdown _playerJumpHeight = null;
 
     [SerializeField]
-    private Dropdown _gamemodeSetting;
+    private Dropdown _gamemodeSetting = null;
     [SerializeField]
-    private Dropdown _maxGameScore;
+    private Dropdown _maxGameScore = null;
     [SerializeField]
-    private Dropdown _matchTimer;
+    private Dropdown _matchTimer = null;
 
     [SerializeField]
     private OnlineLobbyButtons _lobbyButtons;

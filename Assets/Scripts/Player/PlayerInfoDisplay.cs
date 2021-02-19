@@ -11,7 +11,7 @@ public class PlayerInfoDisplay : NetworkBehaviour
     [SerializeField]
     private SpriteRenderer _miniMapDisplay;
     [SerializeField]
-    private GameObject _infoDisplay;
+    private GameObject _infoDisplay = null;
 
     private MyNetworkManager _networkManager;
 

@@ -13,7 +13,7 @@ public class PlayerMovement : NetworkBehaviour
 	private CapsuleCollider coll = null;
 	public float speed = 10.0f;
 	public float sprintModifier = 2.0f;
-	public float gravity = 10.0f;
+	public float gravity = 20.0f;
 	public float maxVelocityChange = 10.0f;
 	public bool canJump = true;
 	public float jumpHeight = 2.0f;
@@ -52,20 +52,54 @@ public class PlayerMovement : NetworkBehaviour
 		_sprintTime = _maxSprintTime;
 	}
 
+	[Client]
+    private void Update()
+    {
+		if (!hasAuthority)
+			return;
+        if (active)
+        {
+			//setting the grounded state of the player off of a raycast
+			grounded = IsGrounded();
+
+
+	
+
+			//Handling the amount of sprint the player has
+			SprintTimer();
+
+			//Single Event Physics can be done in update
+			PlayerJumps();
+
+			
+		}
+
+
+
+
+		//Debug control to respawn the player
+		if (Input.GetKeyUp(KeyCode.Return))
+		{
+			PlayerSpawnSystem.SpawnPlayer(gameObject);
+		}
+	}
+
     [Client]
 	void FixedUpdate()
 	{
-		//Debug.Log("Movement");
 		if (!hasAuthority)
-            return;
+        {
+			return;
+		}
+	
 		if (active)
 		{
-			grounded = IsGrounded();
+			//GetKey or GetAxis physics are done in FixedUpdate
+			Movement();
 			if (grounded)
-			{ 
-				Movement();
-				SprintTimer();
-				PlayerJumps();
+			{
+
+			
 
 				if (Input.GetKey(Keybinds.Sprint) && _sprintTime > 0)
 				{
@@ -82,18 +116,9 @@ public class PlayerMovement : NetworkBehaviour
 			{
 				DisableSprint();
 			}
-
-			
-			if (Input.GetKeyUp(KeyCode.Return))
-			{
-				PlayerSpawnSystem.SpawnPlayer(gameObject);
-			}
-			
-
-
 		}
 		// We apply gravity manually for more tuning control
-		rbody.AddForce(new Vector3(0, -gravity * rbody.mass, 0));
+		rbody.AddForce(-transform.up *  gravity, ForceMode.Acceleration);
 
 		if (rbody.velocity.y == 0)
         {
@@ -108,11 +133,11 @@ public class PlayerMovement : NetworkBehaviour
 	//A Function that takes the player's input and calculates movement
 	private void Movement()
     {
-		// Calculate how fast we should be moving
+    
+		//Calculate how fast we should be moving
 		Vector3 targetVelocity = new Vector3(Input.GetAxis(Keybinds.Horizontal), 0, Input.GetAxis(Keybinds.Vertical));
 		targetVelocity = transform.TransformDirection(targetVelocity);
 		targetVelocity *= speed;
-		//Debug.Log("Velocity");
 		// Apply a force that attempts to reach our target velocity
 		Vector3 velocity = rbody.velocity;
 		Vector3 velocityChange = (targetVelocity - velocity);
@@ -121,11 +146,12 @@ public class PlayerMovement : NetworkBehaviour
 		velocityChange.y = 0;
 		rbody.AddForce(velocityChange, ForceMode.VelocityChange);
 	}
+
 	//A Function that draws a raycast below the player to see if it hits the ground beneath the player
 	private bool IsGrounded()
     {
 		Debug.DrawRay(transform.position, -Vector3.up * _distToGround, Color.red);
-		return Physics.Raycast(transform.position, -Vector3.up, _distToGround + 0.4f);
+		return Physics.Raycast(transform.position, -Vector3.up, _distToGround + 0.5f);
     }
 	
 	//Function for allowing the player to jump
@@ -148,7 +174,8 @@ public class PlayerMovement : NetworkBehaviour
 			hasJumped = true;
 			//rbody.AddForce(0, gravity * 0.5f * jumpHeight, 0, ForceMode.Impulse);
 			Debug.Log("Jumped " + jumpHeight);
-			rbody.velocity += new Vector3(0, CalculateJumpVerticalSpeed(), 0);
+			rbody.AddForce(0, CalculateJumpVerticalSpeed(), 0, ForceMode.VelocityChange);
+			//rbody.velocity += new Vector3(0, CalculateJumpVerticalSpeed(), 0);
 		}
 	}
 

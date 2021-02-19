@@ -18,7 +18,7 @@ public class PlayerHealth : HitInteraction
     private int currentCharge;
 
     [SerializeField]
-    private AudioClip _deathClip;
+    private AudioClip _deathClip = null;
     [SerializeField]
     private float _respawnDelay = 10;
 
