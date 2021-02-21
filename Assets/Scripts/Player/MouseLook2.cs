@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class MouseLook2 : NetworkBehaviour
 {
@@ -20,6 +21,8 @@ public class MouseLook2 : NetworkBehaviour
     private float doubleClickTimer = 0.25f;
     [SerializeField]
     private bool beginTimer;
+
+    public Canvas Settings;
 
 
 
@@ -106,7 +109,8 @@ public class MouseLook2 : NetworkBehaviour
         {
             pause = !pause;
             Cursor.visible = pause;
-            
+
+            Settings.gameObject.SetActive(pause);
         }
 
         //Functionality for allowing the player to double press zoom to snap the reticle to the horizon
