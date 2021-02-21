@@ -1774,9 +1774,11 @@ MonoBehaviour:
   grounded: 0
   _isSprinting: 0
   _isAiming: 0
+  _isLaunched: 0
   _maxSprintTime: 6
   _sprintTime: 0
   vel: {x: 0, y: 0, z: 0}
+  MainCamera: {fileID: 4357171599448871527}
   _distToGround: 0
 --- !u!114 &4357171600822209693
 MonoBehaviour:
@@ -1795,6 +1797,8 @@ MonoBehaviour:
   UI: {fileID: 4032727308342530195}
   eyes: {fileID: 4357171599887525653}
   sens: 5
+  doubleClickTimer: 0.25
+  beginTimer: 0
 --- !u!82 &4357171600822209670
 AudioSource:
   m_ObjectHideFlags: 0

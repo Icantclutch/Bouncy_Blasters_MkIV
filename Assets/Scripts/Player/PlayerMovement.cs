@@ -39,22 +39,44 @@ public class PlayerMovement : NetworkBehaviour
 	[SerializeField]
 	private float _sprintTime;
 
+
 	[SerializeField]
 	private Vector3 vel;
+
+	public Camera MainCamera;
+	private float FovSpeed;
+	private float StartingFov;
+
+
+
+
 
 	//Distance variable to see if the player is on the ground
 	[SerializeField]
 	private float _distToGround;
 
-    private void Start()
-    {
-		_distToGround = coll.bounds.extents.y;
+
+  
+
+
+	void Awake()
+	{
 		
+		
+	}
+	private void Start()
+	{
+
+		_distToGround = coll.bounds.extents.y;
+
 		if (hasAuthority)
 		{
 			//PlayerSpawnSystem.SpawnPlayer(gameObject);
 		}
 		_sprintTime = _maxSprintTime;
+
+		StartingFov = MainCamera.fieldOfView;
+		FovSpeed = 3;
 	}
 
 	[Client]
@@ -89,7 +111,7 @@ public class PlayerMovement : NetworkBehaviour
 				
 		}
 
-
+		
 		//Debug control to respawn the player
 		if (Input.GetKeyUp(KeyCode.Return))
 		{
@@ -245,6 +267,7 @@ public class PlayerMovement : NetworkBehaviour
 			_isSprinting = !_isSprinting;
 			speed *= sprintModifier;
 			GetComponent<Shooting>().active = false;
+			SprintFov();
 			_sprintTime -= Time.deltaTime;
 		}
 	}
@@ -255,17 +278,12 @@ public class PlayerMovement : NetworkBehaviour
 		if (_isSprinting)
 		{
 			_isSprinting = !_isSprinting;
+			ResetFov();
 			speed /= sprintModifier;
 			if(!inRespawnRoom)
 				GetComponent<Shooting>().active = true;
 		}
 	}
-
-	/*
-    void OnCollisionStay()
-	{
-		grounded = true;
-	}*/
 	
 
 	float CalculateJumpVerticalSpeed()
@@ -285,6 +303,7 @@ public class PlayerMovement : NetworkBehaviour
 		jumpHeight = jump;
     }
 
+
 	public void Aiming(bool state)
     {
 		_isAiming = state;
@@ -295,5 +314,17 @@ public class PlayerMovement : NetworkBehaviour
 		_isLaunched = true;
 		timer = launchTime;
 	}
+
+	//call to reset the FOV
+	public void ResetFov()
+    {
+		MainCamera.fieldOfView = StartingFov;
+    }
+
+	//increase Fov slighly
+	public void SprintFov()
+    {
+		MainCamera.fieldOfView += FovSpeed;
+    }
 
 }
