@@ -197,6 +197,6 @@ public class PlayerHealth : HitInteraction
     
     private void ChangeLoadout()
     {
-        myReference.playerShooting.GetNewLoadout();
+        myReference.playerShooting.RPC_GetNewLoadout();
     }
 }
