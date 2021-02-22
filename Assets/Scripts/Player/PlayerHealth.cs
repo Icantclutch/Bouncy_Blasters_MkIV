@@ -45,8 +45,9 @@ public class PlayerHealth : HitInteraction
     [Server]
     void Update()
     {
-        if(GetTeam() != GetComponent<PlayerData>().team)
-            AssignTeam(GetComponent<PlayerData>().team);
+        if (GetComponent<PlayerData>())
+            if (GetTeam() != GetComponent<PlayerData>().team)
+                AssignTeam(GetComponent<PlayerData>().team);
 
         //charge check to see if the player has reached the damage threshold for being teleported.
         if (currentCharge >= maxSuitCharge)

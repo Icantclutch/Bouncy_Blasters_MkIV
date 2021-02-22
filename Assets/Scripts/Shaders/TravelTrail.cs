@@ -21,11 +21,10 @@ public class TravelTrail : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log((float)TB.myShot.numBounces / TB.myShot.maxBounces);
         lerpColor = Color.Lerp(earlyColor, lateColor, (float)TB.myShot.numBounces / TB.myShot.maxBounces);
 
-        TR.colorGradient.SetKeys(
-            new GradientColorKey[] {new GradientColorKey(lerpColor,0), new GradientColorKey(Color.white, 1)},
-            new GradientAlphaKey[] {new GradientAlphaKey(1,0), new GradientAlphaKey(1, 1)}
-            );
+        TR.startColor = lerpColor;
+        TR.endColor = Color.white;
     }
 }

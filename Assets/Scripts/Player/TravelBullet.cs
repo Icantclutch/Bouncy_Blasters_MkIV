@@ -164,12 +164,9 @@ public class TravelBullet : RaycastBullet
                 //Send hit message
                 other.transform.SendMessage("Hit", myShot, SendMessageOptions.DontRequireReceiver);
 
-
-                Debug.Log("Bits");
                 //If its an enemy, break
                 if (other.transform.CompareTag("Player"))
                 {
-                    Debug.Log("Beans");
                     DestroyBullet();
                 }
             }
@@ -186,6 +183,7 @@ public class TravelBullet : RaycastBullet
     {
         stopBullet = true;
         GetComponentInChildren<ParticleSystem>().Stop();
+        GetComponentInChildren<TrailRenderer>().emitting = false;
         Rpc_DisableParticles();
 
         while (GetComponentInChildren<ParticleSystem>().IsAlive())
