@@ -93,7 +93,7 @@ public class PlayerSpawnSystem : NetworkBehaviour
                             {
                                 if (distance < 3)
                                 {
-                                    break;
+                                    closestPlayerDistance = -1;
                                 }
                             }
                             else if (distance < closestPlayerDistance)
