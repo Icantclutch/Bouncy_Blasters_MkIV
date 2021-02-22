@@ -61,7 +61,7 @@ public class PlayerHealth : HitInteraction
     private void Respawn()
     {
         Rpc_DeathSounds();
-        GetComponent<Shooting>().GetNewLoadout();
+        GetComponent<Shooting>().RPC_GetNewLoadout();
         GetComponent<Shooting>().Rpc_FullReload();
         //Teleport the player
         Rpc_TeleportPlayer();
@@ -194,6 +194,7 @@ public class PlayerHealth : HitInteraction
         PlayerSpawnSystem.RemovePlayer(gameObject);
     }
 
+    
     private void ChangeLoadout()
     {
         myReference.playerShooting.GetNewLoadout();
