@@ -97,8 +97,7 @@ public class MouseLook2 : NetworkBehaviour
             gameObject.transform.localRotation = charTargetRot;
             eyes.transform.localRotation = camTargetRot;
 
-            //Debug.Log(yRot);
-            //Debug.Log(xRot);
+
         }
         else
         {
