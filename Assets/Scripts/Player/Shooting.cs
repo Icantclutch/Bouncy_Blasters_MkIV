@@ -353,8 +353,8 @@ public class Shooting : NetworkBehaviour
     {
         newWeapon = wep;
     }
-
-    public void GetNewLoadout()
+    [ClientRpc]
+    public void RPC_GetNewLoadout()
     {
         playerWeapons[0].weapon = newWeapon;
     }
