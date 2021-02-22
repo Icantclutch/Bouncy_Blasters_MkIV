@@ -40,7 +40,7 @@ public class PlayerHealth : HitInteraction
     {
         myReference = GetComponent<PlayerReference>();
         SetCharge(0);
-        AssignTeam(0);
+        AssignTeam(GetComponent<PlayerData>().team);
     }
 
     [Server]
@@ -51,9 +51,6 @@ public class PlayerHealth : HitInteraction
         {
             Respawn();
         }
-
-        
-
     }
 
     [Server]
@@ -116,35 +113,33 @@ public class PlayerHealth : HitInteraction
         int myTeam = this.GetTeam();
 
         //Check if the source is not on your team
-        if (CheckTeamConflict(shotTeam, myTeam))
+        if (CheckTeamConflict(shotTeam, myTeam))// && Convert.ToUInt32(shot.playerID) != GetComponent<NetworkIdentity>().netId)
         {
-            Debug.Log("No Conflict");
-        }
+            //Deal damage
+            currentCharge += shot.damage[shot.numBounces];
 
-        //Deal damage
-        currentCharge += shot.damage[shot.numBounces];
+            //Play audio clips for hitting a shot and getting hit
+            NetworkIdentity.spawned[Convert.ToUInt32(shot.playerID)].GetComponent<PlayerAudioController>().RpcOnPlayerClient(0);
+            NetworkIdentity.spawned[Convert.ToUInt32(shot.playerID)].GetComponent<PlayerEffects>().CreateHitmarker();
+            GetComponent<PlayerAudioController>().RpcOnPlayerClient(1);
 
-        //Play audio clips for hitting a shot and getting hit
-        NetworkIdentity.spawned[Convert.ToUInt32(shot.playerID)].GetComponent<PlayerAudioController>().RpcOnPlayerClient(0);
-        NetworkIdentity.spawned[Convert.ToUInt32(shot.playerID)].GetComponent<PlayerEffects>().CreateHitmarker();
-        GetComponent<PlayerAudioController>().RpcOnPlayerClient(1);
+            //NetworkIdentity.spawned[Convert.ToUInt32(shot.playerID)].GetComponent<PlayerEffects>().CreateKillFeed
 
-        //NetworkIdentity.spawned[Convert.ToUInt32(shot.playerID)].GetComponent<PlayerEffects>().CreateKillFeed
+            Rpc_ShowShield();
 
-        Rpc_ShowShield();
-
-        if (currentCharge >= maxSuitCharge)
-        {
-            //Prevent adding score to team on self kill
-            if (Convert.ToUInt32(shot.playerID) != GetComponent<NetworkIdentity>().netId)
+            if (currentCharge >= maxSuitCharge)
             {
-                NetworkIdentity.spawned[Convert.ToUInt32(shot.playerID)].GetComponent<PlayerData>().AddPlayerElim();
+                //Prevent adding score to team on self kill
+                if (Convert.ToUInt32(shot.playerID) != GetComponent<NetworkIdentity>().netId)
+                {
+                    NetworkIdentity.spawned[Convert.ToUInt32(shot.playerID)].GetComponent<PlayerData>().AddPlayerElim();
+                }
+                //Create a kill feed for everyone
+                GetComponent<PlayerEffects>().CreateKillFeed(NetworkIdentity.spawned[Convert.ToUInt32(shot.playerID)].GetComponent<PlayerData>().playerName, GetComponent<PlayerData>().playerName);
+                //Show a death message to player
+                GetComponent<PlayerEffects>().ShowDeathDisplay();
+                GetComponent<PlayerData>().AddPlayerDeaths();
             }
-            //Create a kill feed for everyone
-            GetComponent<PlayerEffects>().CreateKillFeed(NetworkIdentity.spawned[Convert.ToUInt32(shot.playerID)].GetComponent<PlayerData>().playerName, GetComponent<PlayerData>().playerName);
-            //Show a death message to player
-            GetComponent<PlayerEffects>().ShowDeathDisplay();
-            GetComponent<PlayerData>().AddPlayerDeaths();
         }
     }
 
