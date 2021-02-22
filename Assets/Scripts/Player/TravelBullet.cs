@@ -96,7 +96,7 @@ public class TravelBullet : RaycastBullet
                 else
                 {
                     //Destroy the bullet
-                    //DestroyBullet();
+                    DestroyBullet();
                 }
             }
         }
