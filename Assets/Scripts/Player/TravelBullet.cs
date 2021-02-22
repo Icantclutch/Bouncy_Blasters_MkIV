@@ -165,9 +165,11 @@ public class TravelBullet : RaycastBullet
                 other.transform.SendMessage("Hit", myShot, SendMessageOptions.DontRequireReceiver);
 
 
+                Debug.Log("Bits");
                 //If its an enemy, break
                 if (other.transform.CompareTag("Player"))
                 {
+                    Debug.Log("Beans");
                     DestroyBullet();
                 }
             }
