@@ -22,7 +22,12 @@ public class Shooting : NetworkBehaviour
         public float currentCooldown = 0;
         //max bounces
         public int maxBounces;
+
+
     }
+    //The weapon that will replace the old weapon when switching loadouts
+    [SerializeField]
+    private Weapon newWeapon;
 
     //Where the player's eyes are
     [SyncVar]
@@ -52,7 +57,7 @@ public class Shooting : NetworkBehaviour
     {
         myReference = GetComponent<PlayerReference>();
         myMovement = GetComponent<PlayerMovement>();
-
+        newWeapon = null;
         if (!hasAuthority)
             return;
 
@@ -340,5 +345,17 @@ public class Shooting : NetworkBehaviour
             default: //Default if a bad value is put in
                 return false;
         }
+    }
+
+    //Function for selecting a new loadout
+    [Command]
+    public void Cmd_ChangeLoadout(Weapon wep)
+    {
+        newWeapon = wep;
+    }
+
+    public void GetNewLoadout()
+    {
+        playerWeapons[0].weapon = newWeapon;
     }
 }

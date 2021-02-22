@@ -61,6 +61,7 @@ public class PlayerHealth : HitInteraction
     private void Respawn()
     {
         Rpc_DeathSounds();
+        GetComponent<Shooting>().GetNewLoadout();
         GetComponent<Shooting>().Rpc_FullReload();
         //Teleport the player
         Rpc_TeleportPlayer();
@@ -87,6 +88,7 @@ public class PlayerHealth : HitInteraction
         Debug.Log("Player has died, Teleporting to respawn room");
         if (PlayerSpawnSystem.SpawnPlayer(gameObject, false))
         {
+          
             GetComponent<Shooting>().active = false;
             GetComponent<PlayerMovement>().active = true;
             GetComponent<PlayerMovement>().inRespawnRoom = true;
@@ -190,5 +192,10 @@ public class PlayerHealth : HitInteraction
     private void OnDestroy()
     {
         PlayerSpawnSystem.RemovePlayer(gameObject);
+    }
+
+    private void ChangeLoadout()
+    {
+        myReference.playerShooting.GetNewLoadout();
     }
 }
