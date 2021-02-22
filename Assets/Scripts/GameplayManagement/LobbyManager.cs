@@ -65,7 +65,8 @@ public class LobbyManager : NetworkBehaviour
     [ClientRpc]
     void Rpc_UpdateClientLobby(int playerHealth, int moveSpeed, int jumpHeight, int gamemode, int maxScore, int time, int respawnTime)
     {
-        _lobbySettings.UpdateClientLobby(playerHealth, moveSpeed, jumpHeight, gamemode, maxScore, time, respawnTime);
+        if(_lobbySettings)
+            _lobbySettings.UpdateClientLobby(playerHealth, moveSpeed, jumpHeight, gamemode, maxScore, time, respawnTime);
     }
 
     void DisplayMap(string oldMap, string newMap)
