@@ -103,7 +103,7 @@ public class PlayerSpawnSystem : NetworkBehaviour
                         }
                     }
                     //use current spawn point if it is further away from other players then previously checked points
-                    if (closestPlayerDistance > distanceAway)
+                    if (closestPlayerDistance > distanceAway && closestPlayerDistance != float.MaxValue)
                     {
                         distanceAway = closestPlayerDistance;
                         spawnPoint = point;
