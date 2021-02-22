@@ -57,7 +57,6 @@ public class TravelBullet : RaycastBullet
 
             if (transform.position == laserDestroyB)
             {
-                Debug.Log("Beep");
                 //Calls from bulletInfo that stores a class RayInfo
                 //RayInfo holds the Ray and the Rayhit from the collision
                 if (bulletInfos.Count >= 1)
@@ -97,7 +96,7 @@ public class TravelBullet : RaycastBullet
                 else
                 {
                     //Destroy the bullet
-                    DestroyBullet();
+                    //DestroyBullet();
                 }
             }
         }
@@ -148,7 +147,7 @@ public class TravelBullet : RaycastBullet
     [Server]
     private void OnTriggerEnter(Collider other)
     {
-        if (other.transform != NetworkIdentity.spawned[Convert.ToUInt32(myShot.playerID)].transform || myShot.numBounces > 1)
+        if (other.transform != NetworkIdentity.spawned[Convert.ToUInt32(myShot.playerID)].transform || myShot.numBounces > 0)
         {
             //If the hit is on a player and floor is active, reduce the bounce count
             if (other.transform.CompareTag("Player") && floor)
