@@ -130,7 +130,7 @@ public class PlayerMovement : NetworkBehaviour
         {
 			return;
 		}
-	
+
 		if (active)
 		{
 			//GetKey or GetAxis physics are done in FixedUpdate
@@ -138,18 +138,18 @@ public class PlayerMovement : NetworkBehaviour
 			if (grounded)
 			{
 
-				if (Input.GetKey(Keybinds.Sprint) && _sprintTime > 0)
+				if (Input.GetKeyDown(Keybinds.Sprint) && _sprintTime > 0)
 				{
 					EnableSprint();
 				}
-                else
-                {
+				else if (Input.GetKeyUp(Keybinds.Sprint) || _sprintTime <= 0)
+				{
 					DisableSprint();
-                }
+				}
 
 
 			}
-			if (!Input.GetKey(Keybinds.Sprint))
+			if (Input.GetKeyUp(Keybinds.Sprint) || _sprintTime <= 0)
 			{
 				DisableSprint();
 			}
