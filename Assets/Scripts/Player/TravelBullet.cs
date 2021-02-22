@@ -24,10 +24,13 @@ public class TravelBullet : RaycastBullet
     protected Vector3 nextDir;
 
     //For when the bullet needs to stop
+    [SyncVar]
     bool stopBullet = false;
 
     //Info for the second bounce
+    [SyncVar]
     bool floor = false;
+    [SyncVar]
     Vector3 secondBounce = new Vector3();
 
     [Server]
@@ -96,7 +99,7 @@ public class TravelBullet : RaycastBullet
                 else
                 {
                     //Destroy the bullet
-                    //DestroyBullet();
+                    DestroyBullet();
                 }
             }
         }
@@ -156,7 +159,7 @@ public class TravelBullet : RaycastBullet
             }
 
             //Check to see if it hit something
-            if (other.transform.GetComponent<HitInteraction>())
+            if (other.transform.GetComponent<HitInteraction>() && !stopBullet)
             {
                 //Send hit message
                 other.transform.SendMessage("Hit", myShot, SendMessageOptions.DontRequireReceiver);
