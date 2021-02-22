@@ -107,6 +107,7 @@ public class MouseLook2 : NetworkBehaviour
         if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P))
         {
             pause = !pause;
+            GetComponent<Shooting>().active = !pause;
             Cursor.visible = pause;
 
             Settings.gameObject.SetActive(pause);

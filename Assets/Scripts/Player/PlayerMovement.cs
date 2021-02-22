@@ -106,8 +106,12 @@ public class PlayerMovement : NetworkBehaviour
 			//Handling the amount of sprint the player has
 			SprintTimer();
 
-			//Single Event Physics can be done in update
-			PlayerJumps();
+            if (grounded)
+            {
+                //Single Event Physics can be done in update
+                PlayerJumps();
+            }
+			
 				
 		}
 
