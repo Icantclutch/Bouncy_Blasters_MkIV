@@ -27,7 +27,7 @@ public class Shooting : NetworkBehaviour
     }
     //The weapon that will replace the old weapon when switching loadouts
     [SerializeField]
-    private Weapon newWeapon;
+    private int newWeapon;
 
     //Where the player's eyes are
     [SyncVar]
@@ -57,7 +57,7 @@ public class Shooting : NetworkBehaviour
     {
         myReference = GetComponent<PlayerReference>();
         myMovement = GetComponent<PlayerMovement>();
-        newWeapon = null;
+        newWeapon = -1;
         if (!hasAuthority)
             return;
 
@@ -349,13 +349,17 @@ public class Shooting : NetworkBehaviour
 
     //Function for selecting a new loadout
     [Command]
-    public void Cmd_ChangeLoadout(Weapon wep)
+    public void Cmd_ChangeLoadout(int wep)
     {
         newWeapon = wep;
     }
     [ClientRpc]
     public void RPC_GetNewLoadout()
     {
-        playerWeapons[0].weapon = newWeapon;
+        if(newWeapon != -1)
+        {
+            playerWeapons[0].weapon = GameObject.FindGameObjectWithTag("Management").GetComponent<LoadoutManager>().loadouts[newWeapon];
+        }
+        
     }
 }
