@@ -22,6 +22,7 @@ public class SteamLobby : MonoBehaviour
         public CSteamID steamID;
         public string lobbyName;
         public string gamemode;
+        public string map;
         public int numOfPlayers;
         public int playerLimit;
         //public List<Player> players;
@@ -177,6 +178,15 @@ public class SteamLobby : MonoBehaviour
         SteamMatchmaking.SetLobbyData(lobbyId, HostAddressKey, SteamUser.GetSteamID().ToString());
         SteamMatchmaking.SetLobbyData(lobbyId, GameKey, GameName);
         SteamMatchmaking.SetLobbyData(lobbyId, "LobbyName", SteamFriends.GetFriendPersonaName(SteamUser.GetSteamID()) + "'s Lobby");
+        SteamMatchmaking.SetLobbyData(lobbyId, "Gamemode", "Pre-game");
+        SteamMatchmaking.SetLobbyData(lobbyId, "Map", "Lobby");
+    }
+
+    
+    public void SetLobbyMatchData(string gamemode, string map)
+    {
+        SteamMatchmaking.SetLobbyData(lobbyId, "Gamemode", gamemode);
+        SteamMatchmaking.SetLobbyData(lobbyId, "Map", map);
     }
 
     //Handles joining through the Steam interface
@@ -244,6 +254,7 @@ public class SteamLobby : MonoBehaviour
         lobby.steamID = lobbyID;
         lobby.lobbyName = SteamMatchmaking.GetLobbyData(lobbyID, "LobbyName");
         lobby.gamemode = SteamMatchmaking.GetLobbyData(lobbyID, "Gamemode");
+        lobby.map = SteamMatchmaking.GetLobbyData(lobbyID, "Map");
         lobby.numOfPlayers = SteamMatchmaking.GetNumLobbyMembers(lobbyID);
         lobby.playerLimit = SteamMatchmaking.GetLobbyMemberLimit(lobbyID);
 
@@ -257,6 +268,8 @@ public class SteamLobby : MonoBehaviour
             Text[] lobbyInfo = b.GetComponentsInChildren<Text>();
             lobbyInfo[0].text = lobby.lobbyName;
             lobbyInfo[1].text = lobby.numOfPlayers + "/" + lobby.playerLimit;
+            lobbyInfo[2].text = lobby.gamemode;
+            lobbyInfo[3].text = lobby.map;
             b.GetComponent<Toggle>().group = _lobbyToggles;
 
             if (lobbies.Count == 1)

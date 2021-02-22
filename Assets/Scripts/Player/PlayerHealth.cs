@@ -178,6 +178,10 @@ public class PlayerHealth : HitInteraction
         maxSuitCharge = hp;
     }
 
+    public void SetRespawnDelay(float value)
+    {
+        _respawnDelay = value;
+    }
     //Add and remove player from the SpawnSystem
     private void Awake()
     {
