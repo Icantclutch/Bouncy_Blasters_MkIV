@@ -21,7 +21,9 @@ public class PlayerData : NetworkBehaviour
     public string playerName = "";
     public int playerNum;
 
+    [SyncVar]
     public int playerElims;
+    [SyncVar]
     public int playerDeaths;
     [NonSerialized]
     public Team playerTeam;
@@ -210,11 +212,11 @@ public class PlayerData : NetworkBehaviour
     {
         if(a.playerScore > b.playerScore)
         {
-            return 1;
+            return -1;
         }
         else if(a.playerScore < b.playerScore)
         {
-            return -1;
+            return 1;
         }
         else 
         { 
