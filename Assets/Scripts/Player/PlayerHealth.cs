@@ -17,6 +17,8 @@ public class PlayerHealth : HitInteraction
     [SyncVar]
     private int currentCharge;
 
+    private bool _isDead = false;
+
     [SerializeField]
     private AudioClip _deathClip = null;
     [SerializeField]
@@ -35,11 +37,13 @@ public class PlayerHealth : HitInteraction
     private float _shieldVisibilityTime = 2f;
     private float _timer = 0;
 
+
     // Start is called before the first frame update
     void Start()
     {
         myReference = GetComponent<PlayerReference>();
         SetCharge(0);
+        _isDead = false;
     }
 
     [Server]
@@ -106,42 +110,47 @@ public class PlayerHealth : HitInteraction
         PlayerSpawnSystem.SpawnPlayer(gameObject);
         GetComponent<Shooting>().active = true;
         GetComponent<PlayerMovement>().inRespawnRoom = false;
+        _isDead = false;
     }
 
     [Server]
     public override void Hit(Bullet.Shot shot)
     {
-        //Get the source object
-        int shotTeam = NetworkIdentity.spawned[Convert.ToUInt32(shot.playerID)].GetComponent<HitInteraction>().GetTeam();
-        int myTeam = this.GetTeam();
-
-        //Check if the source is not on your team
-        if (CheckTeamConflict(shotTeam, myTeam))// && Convert.ToUInt32(shot.playerID) != GetComponent<NetworkIdentity>().netId)
+        if (!_isDead)
         {
-            //Deal damage
-            currentCharge += shot.damage[shot.numBounces];
+            //Get the source object
+            int shotTeam = NetworkIdentity.spawned[Convert.ToUInt32(shot.playerID)].GetComponent<HitInteraction>().GetTeam();
+            int myTeam = this.GetTeam();
 
-            //Play audio clips for hitting a shot and getting hit
-            NetworkIdentity.spawned[Convert.ToUInt32(shot.playerID)].GetComponent<PlayerAudioController>().RpcOnPlayerClient(0);
-            NetworkIdentity.spawned[Convert.ToUInt32(shot.playerID)].GetComponent<PlayerEffects>().CreateHitmarker();
-            GetComponent<PlayerAudioController>().RpcOnPlayerClient(1);
-
-            //NetworkIdentity.spawned[Convert.ToUInt32(shot.playerID)].GetComponent<PlayerEffects>().CreateKillFeed
-
-            Rpc_ShowShield();
-
-            if (currentCharge >= maxSuitCharge)
+            //Check if the source is not on your team
+            if (CheckTeamConflict(shotTeam, myTeam) || Convert.ToUInt32(shot.playerID) == GetComponent<NetworkIdentity>().netId)
             {
-                //Prevent adding score to team on self kill
-                if (Convert.ToUInt32(shot.playerID) != GetComponent<NetworkIdentity>().netId)
+                //Deal damage
+                currentCharge += shot.damage[shot.numBounces];
+
+                //Play audio clips for hitting a shot and getting hit
+                NetworkIdentity.spawned[Convert.ToUInt32(shot.playerID)].GetComponent<PlayerAudioController>().RpcOnPlayerClient(0);
+                NetworkIdentity.spawned[Convert.ToUInt32(shot.playerID)].GetComponent<PlayerEffects>().CreateHitmarker();
+                GetComponent<PlayerAudioController>().RpcOnPlayerClient(1);
+
+                //NetworkIdentity.spawned[Convert.ToUInt32(shot.playerID)].GetComponent<PlayerEffects>().CreateKillFeed
+
+                Rpc_ShowShield();
+
+                if (currentCharge >= maxSuitCharge)
                 {
-                    NetworkIdentity.spawned[Convert.ToUInt32(shot.playerID)].GetComponent<PlayerData>().AddPlayerElim();
+                    _isDead = true;
+                    //Prevent adding score to team on self kill
+                    if (Convert.ToUInt32(shot.playerID) != GetComponent<NetworkIdentity>().netId)
+                    {
+                        NetworkIdentity.spawned[Convert.ToUInt32(shot.playerID)].GetComponent<PlayerData>().AddPlayerElim();
+                    }
+                    //Create a kill feed for everyone
+                    GetComponent<PlayerEffects>().CreateKillFeed(NetworkIdentity.spawned[Convert.ToUInt32(shot.playerID)].GetComponent<PlayerData>().playerName, GetComponent<PlayerData>().playerName);
+                    //Show a death message to player
+                    GetComponent<PlayerEffects>().ShowDeathDisplay();
+                    GetComponent<PlayerData>().AddPlayerDeaths();
                 }
-                //Create a kill feed for everyone
-                GetComponent<PlayerEffects>().CreateKillFeed(NetworkIdentity.spawned[Convert.ToUInt32(shot.playerID)].GetComponent<PlayerData>().playerName, GetComponent<PlayerData>().playerName);
-                //Show a death message to player
-                GetComponent<PlayerEffects>().ShowDeathDisplay();
-                GetComponent<PlayerData>().AddPlayerDeaths();
             }
         }
     }
