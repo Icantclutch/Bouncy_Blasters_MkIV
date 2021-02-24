@@ -205,4 +205,20 @@ public class PlayerData : NetworkBehaviour
         playerDeaths = 0;
         playerScore = 0;
     }
+
+    public static int CompareByScore(PlayerData a, PlayerData b)
+    {
+        if(a.playerScore > b.playerScore)
+        {
+            return 1;
+        }
+        else if(a.playerScore < b.playerScore)
+        {
+            return -1;
+        }
+        else 
+        { 
+            return 0; 
+        }
+    }
 }

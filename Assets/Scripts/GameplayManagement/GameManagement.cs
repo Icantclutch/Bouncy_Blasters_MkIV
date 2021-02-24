@@ -89,6 +89,9 @@ public class GameManagement : NetworkBehaviour
             //Execute the gamemode specific instructions
             gamemodeExecution();
 
+            //Update the score board on all clients
+            UpdateScoreBoard();
+
             //Printing match score
             //DebugTeamScore();
 
@@ -123,6 +126,21 @@ public class GameManagement : NetworkBehaviour
         Debug.Log("Team B Score: " + teamBScore);
     }
 
+    //Function to update the scoreboard on all clients
+    [ClientRpc]
+    private void UpdateScoreBoard()
+    {
+        string debugScoreboard = "";
+        //creating a clone of the player list so changes wont  effect original list
+        List<PlayerData> tempPlayers = new List<PlayerData>(GetComponent<LobbyManager>().players);
+
+        tempPlayers.Sort(PlayerData.CompareByScore);
+        foreach (PlayerData p in tempPlayers)
+        {
+            debugScoreboard += p.playerName + " Eliminations: " + p.playerElims + " Defeats: " + p.playerDeaths + "\n";
+        }
+        Debug.Log(debugScoreboard);
+    }
 
     //Function for checking if the match should end
   
