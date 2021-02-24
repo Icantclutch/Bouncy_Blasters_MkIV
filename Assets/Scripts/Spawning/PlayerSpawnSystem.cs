@@ -84,18 +84,26 @@ public class PlayerSpawnSystem : NetworkBehaviour
                     foreach (GameObject p in players)
                     {
                         //Do not check it if it is the respawning player
-                        if (p != player)
+                        if (p != player /*&& (p.GetComponent<PlayerData>().team == 0 || p.GetComponent<PlayerData>().team != playerTeam)*/)
                         {
                             //Calculate distance between player and spawnpoint
                             float distance = (p.transform.position - point.transform.position).magnitude;
-                            if (distance < closestPlayerDistance)
+
+                            if (playerTeam != 0 && p.GetComponent<PlayerData>().team == playerTeam)
+                            {
+                                if (distance < 3)
+                                {
+                                    closestPlayerDistance = -1;
+                                }
+                            }
+                            else if (distance < closestPlayerDistance)
                             {
                                 closestPlayerDistance = distance;
                             }
                         }
                     }
                     //use current spawn point if it is further away from other players then previously checked points
-                    if (closestPlayerDistance > distanceAway)
+                    if (closestPlayerDistance > distanceAway && closestPlayerDistance != float.MaxValue)
                     {
                         distanceAway = closestPlayerDistance;
                         spawnPoint = point;

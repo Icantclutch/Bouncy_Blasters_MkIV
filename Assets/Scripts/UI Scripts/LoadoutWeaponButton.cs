@@ -10,6 +10,8 @@ public class LoadoutWeaponButton : MonoBehaviour
     private GameObject[] _statBars;
     List<int> stats;
 
+   
+
     // Start is called before the first frame update
     void Start()
     {
@@ -50,7 +52,7 @@ public class LoadoutWeaponButton : MonoBehaviour
         //number of Ricochets
         stats[4] = (ricochets - 1);
 
-       
+        Debug.Log("Press button");
 
         GetComponentInParent<LoadoutMenuButtons>().UpdateLoadoutStats(stats);
     }

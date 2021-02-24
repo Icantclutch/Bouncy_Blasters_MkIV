@@ -109,10 +109,23 @@ MonoBehaviour:
   reflectable:
     serializedVersion: 2
     m_Bits: 1
-  laserDestroyA: {x: 0, y: 0, z: 0}
-  laserDestroyB: {x: 0, y: 0, z: 0}
-  nextDir: {x: 0, y: 0, z: 0}
-  fucked: 0
+--- !u!114 &8920837656611052574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6622738099113538017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1524e11b1c484a489b695e72326bdca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TR: {fileID: 1545328243334797690}
+  TB: {fileID: 2269768210136216456}
+  earlyColor: {r: 1, g: 1, b: 0, a: 1}
+  lateColor: {r: 1, g: 0, b: 0, a: 1}
+  lerpColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1001 &1265542881908710486
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -163,6 +176,14 @@ PrefabInstance:
     - target: {fileID: 351851770888586540, guid: 1f6795489d1550c46a9276d768c73d69, type: 3}
       propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[2].value
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 351851770888586540, guid: 1f6795489d1550c46a9276d768c73d69, type: 3}
+      propertyPath: m_Parameters.colorGradient.atime0
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 351851770888586540, guid: 1f6795489d1550c46a9276d768c73d69, type: 3}
+      propertyPath: m_Autodestruct
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5366229985858874807, guid: 1f6795489d1550c46a9276d768c73d69, type: 3}
       propertyPath: m_Name
@@ -230,9 +251,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1f6795489d1550c46a9276d768c73d69, type: 3}
+--- !u!1 &6622738099113538017 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5366229985858874807, guid: 1f6795489d1550c46a9276d768c73d69, type: 3}
+  m_PrefabInstance: {fileID: 1265542881908710486}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8470267851604298387 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7213767353328752325, guid: 1f6795489d1550c46a9276d768c73d69, type: 3}
+  m_PrefabInstance: {fileID: 1265542881908710486}
+  m_PrefabAsset: {fileID: 0}
+--- !u!96 &1545328243334797690 stripped
+TrailRenderer:
+  m_CorrespondingSourceObject: {fileID: 351851770888586540, guid: 1f6795489d1550c46a9276d768c73d69, type: 3}
   m_PrefabInstance: {fileID: 1265542881908710486}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2419136419179251739

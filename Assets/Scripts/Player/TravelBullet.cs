@@ -24,10 +24,13 @@ public class TravelBullet : RaycastBullet
     protected Vector3 nextDir;
 
     //For when the bullet needs to stop
+    [SyncVar]
     bool stopBullet = false;
 
     //Info for the second bounce
+    [SyncVar]
     bool floor = false;
+    [SyncVar]
     Vector3 secondBounce = new Vector3();
 
     [Server]
@@ -57,7 +60,6 @@ public class TravelBullet : RaycastBullet
 
             if (transform.position == laserDestroyB)
             {
-                Debug.Log("Beep");
                 //Calls from bulletInfo that stores a class RayInfo
                 //RayInfo holds the Ray and the Rayhit from the collision
                 if (bulletInfos.Count >= 1)
@@ -148,7 +150,7 @@ public class TravelBullet : RaycastBullet
     [Server]
     private void OnTriggerEnter(Collider other)
     {
-        if (other.transform != NetworkIdentity.spawned[Convert.ToUInt32(myShot.playerID)].transform || myShot.numBounces > 1)
+        if (other.transform != NetworkIdentity.spawned[Convert.ToUInt32(myShot.playerID)].transform || myShot.numBounces > 0)
         {
             //If the hit is on a player and floor is active, reduce the bounce count
             if (other.transform.CompareTag("Player") && floor)
@@ -157,11 +159,10 @@ public class TravelBullet : RaycastBullet
             }
 
             //Check to see if it hit something
-            if (other.transform.GetComponent<HitInteraction>())
+            if (other.transform.GetComponent<HitInteraction>() && !stopBullet)
             {
                 //Send hit message
                 other.transform.SendMessage("Hit", myShot, SendMessageOptions.DontRequireReceiver);
-
 
                 //If its an enemy, break
                 if (other.transform.CompareTag("Player"))
@@ -182,6 +183,7 @@ public class TravelBullet : RaycastBullet
     {
         stopBullet = true;
         GetComponentInChildren<ParticleSystem>().Stop();
+        GetComponentInChildren<TrailRenderer>().emitting = false;
         Rpc_DisableParticles();
 
         while (GetComponentInChildren<ParticleSystem>().IsAlive())

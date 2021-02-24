@@ -22,6 +22,7 @@ public class SteamLobby : MonoBehaviour
         public CSteamID steamID;
         public string lobbyName;
         public string gamemode;
+        public string map;
         public int numOfPlayers;
         public int playerLimit;
         //public List<Player> players;
@@ -44,7 +45,7 @@ public class SteamLobby : MonoBehaviour
     //Constant variables used for setting lobby data
     private const string HostAddressKey = "HostAddress";
     private const string GameKey = "GameName";
-    private const string GameName = "BouncyBlasters";
+    private string GameName = "BouncyBlasters";
 
     private NetworkManager networkManager;
     public static CSteamID lobbyId;
@@ -70,7 +71,7 @@ public class SteamLobby : MonoBehaviour
         gameLobbyJoinRequested = Callback<GameLobbyJoinRequested_t>.Create(OnGameLobbyJoinRequested);
         lobbyEntered = Callback<LobbyEnter_t>.Create(OnLobbyEntered);
         lobbyMatchListCallResult = CallResult<LobbyMatchList_t>.Create(OnLobbyMatchList);
-
+        //GameName += Application.version;
     }
 
     //Makes a CreateLobby call for a public lobby
@@ -110,6 +111,7 @@ public class SteamLobby : MonoBehaviour
     IEnumerator SearchForLobby()
     {
         lobbies.Clear();
+        //ClearLobbyBrowser();
         //lobbyDropDown.ClearOptions();
         //Search for lobbies by open slots, starting with 1 open slot
         for (int i = 1; i < networkManager.maxConnections; ++i)
@@ -144,6 +146,15 @@ public class SteamLobby : MonoBehaviour
         //Reset List and dropdown menu
         lobbies.Clear();
         lobbyDropDown.ClearOptions();
+        //ClearLobbyBrowser();
+        //Make a call request, OnLobbyMatchList() will be called when call is completed
+        lobbyMatchListCallResult.Set(SteamMatchmaking.RequestLobbyList());
+        yield return new WaitForSeconds(1);
+        DisplayLobbies();
+    }
+
+    private void ClearLobbyBrowser()
+    {
         if (_lobbyToggles)
         {
             int size = _lobbyToggles.transform.childCount;
@@ -153,9 +164,6 @@ public class SteamLobby : MonoBehaviour
                 Destroy(_lobbyToggles.transform.GetChild(i).gameObject);
             }
         }
-        //Make a call request, OnLobbyMatchList() will be called when call is completed
-        lobbyMatchListCallResult.Set(SteamMatchmaking.RequestLobbyList());
-        yield return new WaitForSeconds(1);
     }
 
     //Called when a CreateLobby call returns
@@ -177,6 +185,15 @@ public class SteamLobby : MonoBehaviour
         SteamMatchmaking.SetLobbyData(lobbyId, HostAddressKey, SteamUser.GetSteamID().ToString());
         SteamMatchmaking.SetLobbyData(lobbyId, GameKey, GameName);
         SteamMatchmaking.SetLobbyData(lobbyId, "LobbyName", SteamFriends.GetFriendPersonaName(SteamUser.GetSteamID()) + "'s Lobby");
+        SteamMatchmaking.SetLobbyData(lobbyId, "Gamemode", "Pre-game");
+        SteamMatchmaking.SetLobbyData(lobbyId, "Map", "Lobby");
+    }
+
+    
+    public void SetLobbyMatchData(string gamemode, string map)
+    {
+        SteamMatchmaking.SetLobbyData(lobbyId, "Gamemode", gamemode);
+        SteamMatchmaking.SetLobbyData(lobbyId, "Map", map);
     }
 
     //Handles joining through the Steam interface
@@ -213,6 +230,7 @@ public class SteamLobby : MonoBehaviour
     {
         //Search through the list of lobbies
         //UnityEngine.Debug.Log(pCallback.m_nLobbiesMatching+ " lobbies found");
+        
         for (int i = 0; i < pCallback.m_nLobbiesMatching; ++i)
         {
             //Make sure lobby is for bouncy blasters
@@ -244,30 +262,42 @@ public class SteamLobby : MonoBehaviour
         lobby.steamID = lobbyID;
         lobby.lobbyName = SteamMatchmaking.GetLobbyData(lobbyID, "LobbyName");
         lobby.gamemode = SteamMatchmaking.GetLobbyData(lobbyID, "Gamemode");
+        lobby.map = SteamMatchmaking.GetLobbyData(lobbyID, "Map");
         lobby.numOfPlayers = SteamMatchmaking.GetNumLobbyMembers(lobbyID);
         lobby.playerLimit = SteamMatchmaking.GetLobbyMemberLimit(lobbyID);
 
         lobbies.Add(lobby);
         if(lobbyDropDown)
             lobbyDropDown.AddOptions(new List<string> { lobby.lobbyName + " " + lobby.numOfPlayers + "/" + lobby.playerLimit});
-        if (_lobbyToggles)
-        {
-            GameObject b = Instantiate(lobbyPrefab, _lobbyToggles.transform);
-            _lobbyToggles.RegisterToggle(b.GetComponent<Toggle>());
-            Text[] lobbyInfo = b.GetComponentsInChildren<Text>();
-            lobbyInfo[0].text = lobby.lobbyName;
-            lobbyInfo[1].text = lobby.numOfPlayers + "/" + lobby.playerLimit;
-            b.GetComponent<Toggle>().group = _lobbyToggles;
-
-            if (lobbies.Count == 1)
-            {
-                b.GetComponent<Toggle>().Select();
-            }
-        }
+        
 
         
     }
+    void DisplayLobbies()
+    {
+        ClearLobbyBrowser();
+        if (_lobbyToggles)
+        {
+            int count = 0;
+            foreach (Lobby lobby in lobbies)
+            {
+                GameObject b = Instantiate(lobbyPrefab, _lobbyToggles.transform);
+                _lobbyToggles.RegisterToggle(b.GetComponent<Toggle>());
+                Text[] lobbyInfo = b.GetComponentsInChildren<Text>();
+                lobbyInfo[0].text = lobby.lobbyName;
+                lobbyInfo[1].text = lobby.numOfPlayers + "/" + lobby.playerLimit;
+                lobbyInfo[2].text = lobby.gamemode;
+                lobbyInfo[3].text = lobby.map;
+                b.GetComponent<Toggle>().group = _lobbyToggles;
 
+                if (count == 0)
+                {
+                    b.GetComponent<Toggle>().Select();
+                }
+                count++;
+            }
+        }
+    }
     //Starts the coroutine to refresh the lobby list in the dropdown menu
     public void StartRefresh()
     {

@@ -21,7 +21,9 @@ public class PlayerData : NetworkBehaviour
     public string playerName = "";
     public int playerNum;
 
+    [SyncVar]
     public int playerElims;
+    [SyncVar]
     public int playerDeaths;
     [NonSerialized]
     public Team playerTeam;
@@ -180,13 +182,13 @@ public class PlayerData : NetworkBehaviour
     public void AddPlayerScore(int score)
     {
         playerScore += score;
-        playerTeam.UpdateTeamScore();
+        //playerTeam.UpdateTeamScore();
     }
 
     public void SetPlayerScore(int score)
     {
         playerScore = score;
-        playerTeam.UpdateTeamScore();
+        //playerTeam.UpdateTeamScore();
     }
 
     public void SetSteamId(ulong steamId)
@@ -204,5 +206,21 @@ public class PlayerData : NetworkBehaviour
         playerElims = 0;
         playerDeaths = 0;
         playerScore = 0;
+    }
+
+    public static int CompareByScore(PlayerData a, PlayerData b)
+    {
+        if(a.playerScore > b.playerScore)
+        {
+            return -1;
+        }
+        else if(a.playerScore < b.playerScore)
+        {
+            return 1;
+        }
+        else 
+        { 
+            return 0; 
+        }
     }
 }

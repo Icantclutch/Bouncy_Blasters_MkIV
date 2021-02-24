@@ -89,6 +89,9 @@ public class GameManagement : NetworkBehaviour
             //Execute the gamemode specific instructions
             gamemodeExecution();
 
+            //Update the score board on all clients
+            UpdateScoreBoard();
+
             //Printing match score
             //DebugTeamScore();
 
@@ -103,15 +106,41 @@ public class GameManagement : NetworkBehaviour
     
     public void UpdateTeamScores()
     {
-        teamAScore = teamA.teamScore;
-        teamBScore = teamB.teamScore;
+        teamAScore = 0;
+        teamBScore = 0;
+        for (int i = 0; i < playerList.Count; i++)
+        {
+            if(playerList[i].team == 1)
+            {
+                teamAScore += playerList[i].playerScore;
+            }
+            else if(playerList[i].team == 2)
+            {
+                teamBScore += playerList[i].playerScore;
+            }
+        }
     }
     private void DebugTeamScore()
     {
-        Debug.Log("Team A Score: " + teamA.teamScore);
-        Debug.Log("Team B Score: " + teamB.teamScore);
+        Debug.Log("Team A Score: " + teamAScore);
+        Debug.Log("Team B Score: " + teamBScore);
     }
 
+    //Function to update the scoreboard on all clients
+    [ClientRpc]
+    private void UpdateScoreBoard()
+    {
+        string debugScoreboard = "";
+        //creating a clone of the player list so changes wont  effect original list
+        List<PlayerData> tempPlayers = new List<PlayerData>(GetComponent<LobbyManager>().players);
+
+        tempPlayers.Sort(PlayerData.CompareByScore);
+        foreach (PlayerData p in tempPlayers)
+        {
+            debugScoreboard += p.playerName + " Eliminations: " + p.playerElims + " Defeats: " + p.playerDeaths + "\n";
+        }
+        Debug.Log(debugScoreboard);
+    }
 
     //Function for checking if the match should end
   
@@ -120,13 +149,13 @@ public class GameManagement : NetworkBehaviour
         //If the match timer runs out
         if (_matchTimer <= 0)
         {
-            if (teamA.teamScore > teamB.teamScore)
+            if (teamAScore > teamBScore)
             {
-                MatchEnd(teamA);
+                MatchEnd(1);
             }
-            else if (teamB.teamScore > teamA.teamScore)
+            else if (teamBScore > teamAScore)
             {
-                MatchEnd(teamB);
+                MatchEnd(2);
             }
             else
             {
@@ -135,20 +164,20 @@ public class GameManagement : NetworkBehaviour
             HeatMap.StoreAndSave();
         }
         //If Team A reaches the score cap
-        if (teamA.teamScore >= matchGamemode.maxScore)
+        if (teamAScore >= matchGamemode.maxScore)
         {
-            MatchEnd(teamA);
+            MatchEnd(1);
         }
         //If Team B reaches the score cap
-        if (teamB.teamScore >= matchGamemode.maxScore)
+        if (teamBScore >= matchGamemode.maxScore)
         {
-            MatchEnd(teamB);
+            MatchEnd(2);
         }
 
     }
     //Function for ending the match and declaring a winner
    
-    private void MatchEnd(Team winningTeam)
+    private void MatchEnd(int winningTeam)
     {
         /*
         for (int i = 0; i < playerList.Count; i++)
@@ -164,6 +193,7 @@ public class GameManagement : NetworkBehaviour
             
         }
         */
+        DeclareWinState(winningTeam);
         Debug.Log("Match Ending and Pausing the Game");
         _gamePaused = true;
         Invoke("ReturnToLobby", 5f);
@@ -175,7 +205,7 @@ public class GameManagement : NetworkBehaviour
     {
         //Game is Tied
         //Debug.Log("Match Ending with a Tie and Pausing the Game");
-
+        DeclareWinState(-1);
         /*
         for(int i = 0; i < playerList.Count; i++)
         {
@@ -233,6 +263,7 @@ public class GameManagement : NetworkBehaviour
             playerList[i].GetComponent<PlayerHUD>().DeclareWinState("");
         }
         */
+        ResetWinState();
         _startLock = false;
         _gamePaused = true;
         teamAScore = 0;
@@ -272,13 +303,33 @@ public class GameManagement : NetworkBehaviour
         _gamePaused = false;
     }
 
-    /*
+    
     [ClientRpc]
-    private void DeclareWinState(PlayerData player, string state)
+    private void DeclareWinState(int winningTeam)
     {
-        player.GetComponent<PlayerHUD>().DeclareWinState(state);
+        string state = "Game Over";
+        GameObject p = GetComponent<LobbyManager>().GetLocalPlayer();
+        if (winningTeam == -1)
+        {
+            state = "Tie Game";
+        }
+        else if(winningTeam != 0 && p.GetComponent<PlayerData>().team == winningTeam)
+        {
+            state = "You Win!";
+        }
+        else if (winningTeam != 0 && p.GetComponent<PlayerData>().team != winningTeam)
+        {
+            state = "You Lose!";
+        }
+        p.GetComponent<PlayerHUD>().DeclareWinState(state);
+        //player.GetComponent<PlayerHUD>().DeclareWinState(state);
     }
-    */
+
+    [ClientRpc]
+    private void ResetWinState()
+    {
+        GetComponent<LobbyManager>().GetLocalPlayer().GetComponent<PlayerHUD>().DeclareWinState("");
+    }
 
     
   

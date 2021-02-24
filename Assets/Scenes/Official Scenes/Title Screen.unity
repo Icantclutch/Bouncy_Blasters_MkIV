@@ -267,6 +267,7 @@ GameObject:
   - component: {fileID: 302868755}
   - component: {fileID: 302868754}
   - component: {fileID: 302868753}
+  - component: {fileID: 302868756}
   m_Layer: 5
   m_Name: Settings Button
   m_TagString: Untagged
@@ -332,7 +333,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 302868754}
   m_OnClick:
     m_PersistentCalls:
@@ -375,6 +376,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 302868751}
   m_CullTransparentMesh: 0
+--- !u!114 &302868756
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 302868751}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2b27d66eb2071f45ba4ab3ee446ddf2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _sceneName: SettingMenu
+  _menuButton: {fileID: 302868753}
 --- !u!1 &386769193
 GameObject:
   m_ObjectHideFlags: 0
