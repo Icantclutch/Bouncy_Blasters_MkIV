@@ -290,7 +290,7 @@ public class GameManagement : NetworkBehaviour
     private void DeclareWinState(int winningTeam)
     {
         string state = "Game Over";
-        GameObject p = _networkManager.GetComponent<MyNetworkManager>().GetLocalPlayer();
+        GameObject p = GetComponent<LobbyManager>().GetLocalPlayer();
         if (winningTeam == -1)
         {
             state = "Tie Game";
@@ -310,7 +310,7 @@ public class GameManagement : NetworkBehaviour
     [ClientRpc]
     private void ResetWinState()
     {
-        _networkManager.GetComponent<MyNetworkManager>().GetLocalPlayer().GetComponent<PlayerHUD>().DeclareWinState("");
+        GetComponent<LobbyManager>().GetLocalPlayer().GetComponent<PlayerHUD>().DeclareWinState("");
     }
 
     

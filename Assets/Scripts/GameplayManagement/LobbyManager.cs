@@ -250,4 +250,16 @@ public class LobbyManager : NetworkBehaviour
             networkManager.StopClient();
         }
     }
+
+    public GameObject GetLocalPlayer()
+    {
+        foreach (PlayerData p in players)
+        {
+            if (p.isLocalPlayer)
+            {
+                return p.gameObject;
+            }
+        }
+        return null;
+    }
 }
