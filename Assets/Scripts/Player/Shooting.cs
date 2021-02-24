@@ -354,7 +354,7 @@ public class Shooting : NetworkBehaviour
         newWeapon = wep;
     }
     [ClientRpc]
-    public void RPC_GetNewLoadout()
+    public void Rpc_GetNewLoadout()
     {
         if(newWeapon != -1)
         {
