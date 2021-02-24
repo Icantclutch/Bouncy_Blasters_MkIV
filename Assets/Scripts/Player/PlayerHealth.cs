@@ -111,6 +111,7 @@ public class PlayerHealth : HitInteraction
         GetComponent<Shooting>().active = true;
         GetComponent<PlayerMovement>().inRespawnRoom = false;
         _isDead = false;
+        SetIsDead(_isDead);
     }
 
     [Server]
@@ -191,6 +192,12 @@ public class PlayerHealth : HitInteraction
     public void SetRespawnDelay(float value)
     {
         _respawnDelay = value;
+    }
+
+    [Command]
+    private void SetIsDead(bool isDead)
+    {
+        _isDead = isDead;
     }
     //Add and remove player from the SpawnSystem
     private void Awake()

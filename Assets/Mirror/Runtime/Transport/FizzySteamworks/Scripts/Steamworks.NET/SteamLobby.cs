@@ -111,6 +111,7 @@ public class SteamLobby : MonoBehaviour
     IEnumerator SearchForLobby()
     {
         lobbies.Clear();
+        //ClearLobbyBrowser();
         //lobbyDropDown.ClearOptions();
         //Search for lobbies by open slots, starting with 1 open slot
         for (int i = 1; i < networkManager.maxConnections; ++i)
@@ -145,6 +146,14 @@ public class SteamLobby : MonoBehaviour
         //Reset List and dropdown menu
         lobbies.Clear();
         lobbyDropDown.ClearOptions();
+        //ClearLobbyBrowser();
+        //Make a call request, OnLobbyMatchList() will be called when call is completed
+        lobbyMatchListCallResult.Set(SteamMatchmaking.RequestLobbyList());
+        yield return new WaitForSeconds(1);
+    }
+
+    private void ClearLobbyBrowser()
+    {
         if (_lobbyToggles)
         {
             int size = _lobbyToggles.transform.childCount;
@@ -154,9 +163,6 @@ public class SteamLobby : MonoBehaviour
                 Destroy(_lobbyToggles.transform.GetChild(i).gameObject);
             }
         }
-        //Make a call request, OnLobbyMatchList() will be called when call is completed
-        lobbyMatchListCallResult.Set(SteamMatchmaking.RequestLobbyList());
-        yield return new WaitForSeconds(1);
     }
 
     //Called when a CreateLobby call returns
@@ -223,6 +229,7 @@ public class SteamLobby : MonoBehaviour
     {
         //Search through the list of lobbies
         //UnityEngine.Debug.Log(pCallback.m_nLobbiesMatching+ " lobbies found");
+        ClearLobbyBrowser();
         for (int i = 0; i < pCallback.m_nLobbiesMatching; ++i)
         {
             //Make sure lobby is for bouncy blasters
