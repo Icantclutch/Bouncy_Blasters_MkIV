@@ -45,7 +45,7 @@ public class SteamLobby : MonoBehaviour
     //Constant variables used for setting lobby data
     private const string HostAddressKey = "HostAddress";
     private const string GameKey = "GameName";
-    private const string GameName = "BouncyBlasters";
+    private string GameName = "BouncyBlasters";
 
     private NetworkManager networkManager;
     public static CSteamID lobbyId;
@@ -71,7 +71,7 @@ public class SteamLobby : MonoBehaviour
         gameLobbyJoinRequested = Callback<GameLobbyJoinRequested_t>.Create(OnGameLobbyJoinRequested);
         lobbyEntered = Callback<LobbyEnter_t>.Create(OnLobbyEntered);
         lobbyMatchListCallResult = CallResult<LobbyMatchList_t>.Create(OnLobbyMatchList);
-
+        //GameName += Application.version;
     }
 
     //Makes a CreateLobby call for a public lobby
@@ -150,6 +150,7 @@ public class SteamLobby : MonoBehaviour
         //Make a call request, OnLobbyMatchList() will be called when call is completed
         lobbyMatchListCallResult.Set(SteamMatchmaking.RequestLobbyList());
         yield return new WaitForSeconds(1);
+        DisplayLobbies();
     }
 
     private void ClearLobbyBrowser()
@@ -229,7 +230,7 @@ public class SteamLobby : MonoBehaviour
     {
         //Search through the list of lobbies
         //UnityEngine.Debug.Log(pCallback.m_nLobbiesMatching+ " lobbies found");
-        ClearLobbyBrowser();
+        
         for (int i = 0; i < pCallback.m_nLobbiesMatching; ++i)
         {
             //Make sure lobby is for bouncy blasters
@@ -247,7 +248,7 @@ public class SteamLobby : MonoBehaviour
                 lobbyFound = true;
             }
         }
-        DisplayLobbies();
+        
 
         
     }
@@ -274,6 +275,7 @@ public class SteamLobby : MonoBehaviour
     }
     void DisplayLobbies()
     {
+        ClearLobbyBrowser();
         if (_lobbyToggles)
         {
             int count = 0;
