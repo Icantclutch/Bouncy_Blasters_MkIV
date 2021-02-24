@@ -247,7 +247,7 @@ public class SteamLobby : MonoBehaviour
                 lobbyFound = true;
             }
         }
-        
+        DisplayLobbies();
 
         
     }
@@ -268,26 +268,34 @@ public class SteamLobby : MonoBehaviour
         lobbies.Add(lobby);
         if(lobbyDropDown)
             lobbyDropDown.AddOptions(new List<string> { lobby.lobbyName + " " + lobby.numOfPlayers + "/" + lobby.playerLimit});
-        if (_lobbyToggles)
-        {
-            GameObject b = Instantiate(lobbyPrefab, _lobbyToggles.transform);
-            _lobbyToggles.RegisterToggle(b.GetComponent<Toggle>());
-            Text[] lobbyInfo = b.GetComponentsInChildren<Text>();
-            lobbyInfo[0].text = lobby.lobbyName;
-            lobbyInfo[1].text = lobby.numOfPlayers + "/" + lobby.playerLimit;
-            lobbyInfo[2].text = lobby.gamemode;
-            lobbyInfo[3].text = lobby.map;
-            b.GetComponent<Toggle>().group = _lobbyToggles;
-
-            if (lobbies.Count == 1)
-            {
-                b.GetComponent<Toggle>().Select();
-            }
-        }
+        
 
         
     }
+    void DisplayLobbies()
+    {
+        if (_lobbyToggles)
+        {
+            int count = 0;
+            foreach (Lobby lobby in lobbies)
+            {
+                GameObject b = Instantiate(lobbyPrefab, _lobbyToggles.transform);
+                _lobbyToggles.RegisterToggle(b.GetComponent<Toggle>());
+                Text[] lobbyInfo = b.GetComponentsInChildren<Text>();
+                lobbyInfo[0].text = lobby.lobbyName;
+                lobbyInfo[1].text = lobby.numOfPlayers + "/" + lobby.playerLimit;
+                lobbyInfo[2].text = lobby.gamemode;
+                lobbyInfo[3].text = lobby.map;
+                b.GetComponent<Toggle>().group = _lobbyToggles;
 
+                if (count == 0)
+                {
+                    b.GetComponent<Toggle>().Select();
+                }
+                count++;
+            }
+        }
+    }
     //Starts the coroutine to refresh the lobby list in the dropdown menu
     public void StartRefresh()
     {
