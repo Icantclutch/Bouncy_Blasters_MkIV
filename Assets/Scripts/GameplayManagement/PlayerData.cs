@@ -180,13 +180,13 @@ public class PlayerData : NetworkBehaviour
     public void AddPlayerScore(int score)
     {
         playerScore += score;
-        playerTeam.UpdateTeamScore();
+        //playerTeam.UpdateTeamScore();
     }
 
     public void SetPlayerScore(int score)
     {
         playerScore = score;
-        playerTeam.UpdateTeamScore();
+        //playerTeam.UpdateTeamScore();
     }
 
     public void SetSteamId(ulong steamId)
