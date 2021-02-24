@@ -4,6 +4,7 @@ using UnityEngine;
 using Mirror;
 using System;
 using UnityEngine.SceneManagement;
+using UnityEngine.Networking.Types;
 
 public class PlayerHealth : HitInteraction
 {
@@ -37,6 +38,8 @@ public class PlayerHealth : HitInteraction
     private float _shieldVisibilityTime = 2f;
     private float _timer = 0;
 
+    private LobbyManager _lobbyManager;
+
 
     // Start is called before the first frame update
     void Start()
@@ -49,7 +52,10 @@ public class PlayerHealth : HitInteraction
     [Server]
     void Update()
     {
-        if (GetComponent<PlayerData>())
+    if (!_lobbyManager) {
+        _lobbyManager = GameObject.FindGameObjectWithTag("Management").GetComponent<LobbyManager>();
+     }
+            if (GetComponent<PlayerData>())
             if (GetTeam() != GetComponent<PlayerData>().team)
                 AssignTeam(GetComponent<PlayerData>().team);
 
@@ -114,6 +120,8 @@ public class PlayerHealth : HitInteraction
         SetIsDead(_isDead);
     }
 
+
+
     [Server]
     public override void Hit(Bullet.Shot shot)
     {
@@ -134,7 +142,8 @@ public class PlayerHealth : HitInteraction
                 NetworkIdentity.spawned[Convert.ToUInt32(shot.playerID)].GetComponent<PlayerEffects>().CreateHitmarker();
                 GetComponent<PlayerAudioController>().RpcOnPlayerClient(1);
 
-                //NetworkIdentity.spawned[Convert.ToUInt32(shot.playerID)].GetComponent<PlayerEffects>().CreateKillFeed
+
+                //NetworkIdentity.spawned[Convert.ToUInt32(shot.playerID)].GetComponent<PlayerEffects>().Creat
 
                 Rpc_ShowShield();
 
@@ -145,9 +154,12 @@ public class PlayerHealth : HitInteraction
                     if (Convert.ToUInt32(shot.playerID) != GetComponent<NetworkIdentity>().netId)
                     {
                         NetworkIdentity.spawned[Convert.ToUInt32(shot.playerID)].GetComponent<PlayerData>().AddPlayerElim();
+                        //Create a kill feed for everyone
+                        foreach (PlayerData Data in _lobbyManager.players)
+                        {
+                            Data.GetComponent<PlayerEffects>().CreateKillFeed(NetworkIdentity.spawned[Convert.ToUInt32(shot.playerID)].GetComponent<PlayerData>().playerName, GetComponent<PlayerData>().playerName);
+                        }  
                     }
-                    //Create a kill feed for everyone
-                    GetComponent<PlayerEffects>().CreateKillFeed(NetworkIdentity.spawned[Convert.ToUInt32(shot.playerID)].GetComponent<PlayerData>().playerName, GetComponent<PlayerData>().playerName);
                     //Show a death message to player
                     GetComponent<PlayerEffects>().ShowDeathDisplay();
                     GetComponent<PlayerData>().AddPlayerDeaths();

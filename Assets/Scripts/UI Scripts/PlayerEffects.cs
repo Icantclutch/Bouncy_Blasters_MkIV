@@ -50,7 +50,7 @@ public class PlayerEffects : NetworkBehaviour
         return Hints[Random.Range(0, Hints.Length)];
     }
 
-    [ClientRpc]
+    [TargetRpc]
     //Creates a kill feed object
     public void CreateKillFeed(string Player1, string Player2)
     {
@@ -79,7 +79,6 @@ public class PlayerEffects : NetworkBehaviour
         float _timeSinceLast = Time.time - _timeStartedLerping;
         float _completedPercent = _timeSinceLast / lerpTime;
         Vector3 start = go.transform.position;
-
 
         while (true)
         {
