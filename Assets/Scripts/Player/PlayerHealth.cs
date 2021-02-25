@@ -135,11 +135,13 @@ public class PlayerHealth : HitInteraction
             if (CheckTeamConflict(shotTeam, myTeam) || Convert.ToUInt32(shot.playerID) == GetComponent<NetworkIdentity>().netId)
             {
                 //Deal damage
-                currentCharge += shot.damage[shot.numBounces];
+                int ShotDmg = shot.damage[shot.numBounces];
+                currentCharge += ShotDmg;
+                GetComponent<PlayerEffects>().DamageTakenText(shot.damage[shot.numBounces]);
 
                 //Play audio clips for hitting a shot and getting hit
                 NetworkIdentity.spawned[Convert.ToUInt32(shot.playerID)].GetComponent<PlayerAudioController>().RpcOnPlayerClient(0);
-                NetworkIdentity.spawned[Convert.ToUInt32(shot.playerID)].GetComponent<PlayerEffects>().CreateHitmarker();
+                NetworkIdentity.spawned[Convert.ToUInt32(shot.playerID)].GetComponent<PlayerEffects>().CreateHitmarker(ShotDmg);
                 GetComponent<PlayerAudioController>().RpcOnPlayerClient(1);
 
 
@@ -158,7 +160,7 @@ public class PlayerHealth : HitInteraction
                         foreach (PlayerData Data in _lobbyManager.players)
                         {
                             Data.GetComponent<PlayerEffects>().CreateKillFeed(NetworkIdentity.spawned[Convert.ToUInt32(shot.playerID)].GetComponent<PlayerData>().playerName, GetComponent<PlayerData>().playerName);
-                        }  
+                        }
                     }
                     //Show a death message to player
                     GetComponent<PlayerEffects>().ShowDeathDisplay();

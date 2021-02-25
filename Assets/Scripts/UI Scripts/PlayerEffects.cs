@@ -14,6 +14,8 @@ public class PlayerEffects : NetworkBehaviour
     [SerializeField]
     private GameObject _hitmarker = null;
     [SerializeField]
+    private GameObject _damageTakenText = null;
+    [SerializeField]
     private Image _killFeed = null;
 
     [SerializeField]
@@ -25,9 +27,24 @@ public class PlayerEffects : NetworkBehaviour
     private float _growSize = 0.75f;
 
     [TargetRpc]
-    public void CreateHitmarker()
+    public void CreateHitmarker(int DamageDealt)
     {
         GameObject Clone = Instantiate(_hitmarker, _canvas.transform);
+        //Set damage text
+        GameObject Dmg = Clone.transform.GetChild(0).gameObject;
+        Dmg.GetComponent<Text>().text = DamageDealt.ToString();
+        int Rot = Random.Range(-25, 25);
+        if (Rot < 10 && Rot >= 0)
+        {
+            Rot = 10;
+        } else if (Rot > -10 && Rot < 0)
+        {
+            Rot = -10;
+        }
+        Dmg.transform.rotation = Quaternion.Euler(new Vector3(0, Rot * 1.5f, Rot));
+        Color tempColor = new Color(1, (1f / (DamageDealt/4)), (1f / (DamageDealt / 4)));
+        Dmg.GetComponent<Text>().color = tempColor;
+        StartCoroutine(MoveObject(Dmg, Dmg.transform.position + new Vector3(Rot * -1, Random.Range(10, 25), 0), 0.4f));
         StartCoroutine(HitMarkerEffect(Clone, 1, 0, 0.5f));
     }
 
@@ -49,6 +66,18 @@ public class PlayerEffects : NetworkBehaviour
             "Watch out for crowded areas! Lots of blasters are in play!",};
         return Hints[Random.Range(0, Hints.Length)];
     }
+    public void DamageTakenText(int DamageDealt)
+    {
+        GameObject Clone = Instantiate(_damageTakenText, _canvas.transform);
+        //Set damage text
+        Clone.GetComponent<Text>().text = DamageDealt.ToString();
+        int Rot = Random.Range(-20, 20);
+        Clone.transform.rotation = Quaternion.Euler(new Vector3(0, 0, -45 + Rot));
+        Color tempColor = new Color(1, (1f / (DamageDealt / 6)), (1f / (DamageDealt / 6)));
+        Clone.GetComponent<Text>().color = tempColor;
+        StartCoroutine(MoveObject(Clone, Clone.transform.position + new Vector3(Random.Range(30, 50) + Rot, Random.Range(30, 50) + Rot, 0), 1.5f));
+    }
+
 
     [TargetRpc]
     //Creates a kill feed object
