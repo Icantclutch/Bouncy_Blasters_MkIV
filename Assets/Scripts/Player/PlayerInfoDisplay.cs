@@ -7,11 +7,11 @@ using Mirror;
 public class PlayerInfoDisplay : NetworkBehaviour
 {
     [SerializeField]
-    private Text _nameDisplayText;
+    private Text _nameDisplayText = null;
     [SerializeField]
-    private SpriteRenderer _miniMapDisplay;
+    private SpriteRenderer _miniMapDisplay = null;
     [SerializeField]
-    private GameObject _infoDisplay;
+    private GameObject _infoDisplay = null;
 
     private MyNetworkManager _networkManager;
 
@@ -42,7 +42,7 @@ public class PlayerInfoDisplay : NetworkBehaviour
         if (isLocalPlayer)
         {
             if (_miniMapDisplay)
-                _miniMapDisplay.color = Color.yellow;
+                _miniMapDisplay.color = Color.green;
         }
         else if (team == 0 || (/*localPlayer &&*/ team != localPlayerTeam))
         {

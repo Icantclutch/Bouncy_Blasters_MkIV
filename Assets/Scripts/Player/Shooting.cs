@@ -22,7 +22,12 @@ public class Shooting : NetworkBehaviour
         public float currentCooldown = 0;
         //max bounces
         public int maxBounces;
+
+
     }
+    //The weapon that will replace the old weapon when switching loadouts
+    [SerializeField]
+    private int newWeapon;
 
     //Where the player's eyes are
     [SyncVar]
@@ -52,7 +57,7 @@ public class Shooting : NetworkBehaviour
     {
         myReference = GetComponent<PlayerReference>();
         myMovement = GetComponent<PlayerMovement>();
-
+        newWeapon = -1;
         if (!hasAuthority)
             return;
 
@@ -104,7 +109,7 @@ public class Shooting : NetworkBehaviour
             if (Input.GetKeyDown(Keybinds.Reload) && playerWeapons[currentWeapon].currentReserve > 0)
             {
                 StartCoroutine(Reload());
-
+                
             }
             if (Input.GetKey(Keybinds.Reload) && playerWeapons[currentWeapon].currentReserve < playerWeapons[currentWeapon].weapon.reserveAmmo && myMovement.grounded)
             {
@@ -212,6 +217,9 @@ public class Shooting : NetworkBehaviour
     //Reload function
     IEnumerator Reload()
     {
+        //Reload delay
+        yield return new WaitForSeconds(2);
+
         //Set firing so you can't shoot while reloading
         currentlyFiring = true;
 
@@ -337,5 +345,21 @@ public class Shooting : NetworkBehaviour
             default: //Default if a bad value is put in
                 return false;
         }
+    }
+
+    //Function for selecting a new loadout
+    [Command]
+    public void Cmd_ChangeLoadout(int wep)
+    {
+        newWeapon = wep;
+    }
+    [ClientRpc]
+    public void Rpc_GetNewLoadout()
+    {
+        if(newWeapon != -1)
+        {
+            playerWeapons[0].weapon = GameObject.FindGameObjectWithTag("Management").GetComponent<LoadoutManager>().loadouts[newWeapon];
+        }
+        
     }
 }

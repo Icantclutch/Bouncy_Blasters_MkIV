@@ -83,7 +83,7 @@ public class Dummies : MonoBehaviour
     {
         if (destination1 && destination2)
         {
-            Debug.Log(atDest2);
+           
 
             if (agent.remainingDistance < .5f && atDest2 == true)
             {

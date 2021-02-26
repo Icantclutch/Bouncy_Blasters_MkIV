@@ -11,8 +11,8 @@ public class PlayerHUD : MonoBehaviour
     [SerializeField]
     private Text _batteryCountText = null;
 
-    [SerializeField]
-    private Text _reserveBatteryCountText = null;
+    //[SerializeField]
+    //private Text _reserveBatteryCountText = null;
 
     [SerializeField]
     private Text _teamAScoreText = null;
@@ -35,6 +35,7 @@ public class PlayerHUD : MonoBehaviour
     private NetworkManager _networkManager = null;
 
     private GameObject _gameManager = null;
+    public GameObject _miniMap = null;
 
     [SerializeField]
     private Text _matchEndText = null;
@@ -59,8 +60,9 @@ public class PlayerHUD : MonoBehaviour
         }
         else
         {
-            _batteryCountText.text = GetComponent<Shooting>().playerWeapons[GetComponent<Shooting>().currentWeapon].currentAmmo.ToString();
-            _reserveBatteryCountText.text = GetComponent<Shooting>().playerWeapons[GetComponent<Shooting>().currentWeapon].currentReserve.ToString();
+            _batteryCountText.text = GetComponent<Shooting>().playerWeapons[GetComponent<Shooting>().currentWeapon].currentAmmo.ToString() + "/"
+                + GetComponent<Shooting>().playerWeapons[GetComponent<Shooting>().currentWeapon].currentReserve.ToString();
+            //_reserveBatteryCountText.text = GetComponent<Shooting>().playerWeapons[GetComponent<Shooting>().currentWeapon].currentReserve.ToString();
             SetHealthDisplay(GetComponent<PlayerHealth>().GetCharge());
             _playerWeaponText.text = GetComponent<Shooting>().playerWeapons[GetComponent<Shooting>().currentWeapon].weapon.name;
 
@@ -68,7 +70,16 @@ public class PlayerHUD : MonoBehaviour
             _teamBScoreText.text = _gameManager.GetComponentInChildren<GameManagement>().teamBScore.ToString();
             _matchTimer.text = FormatTime(_gameManager.GetComponentInChildren<GameManagement>().MatchTimer);//_gameManager.GetComponentInChildren<GameManagement>().MatchTimer.ToString();
         }
-      
+
+        if (Input.GetKey(KeyCode.M))
+        {
+            _miniMap.transform.localScale = new Vector3(1.5f, 1.5f, 1);
+        }
+        else
+        {
+            _miniMap.transform.localScale = new Vector3(1, 1, 1);
+        }
+
     }
 
     public string FormatTime(float Timer)
@@ -83,8 +94,8 @@ public class PlayerHUD : MonoBehaviour
         //Set the bar color and display here
         float BarDisplayVal = ((float)Charge) / ((float)100);
         float Max = Mathf.Max(0, 0.75f - BarDisplayVal);
-        Color newColor = new Color(BarDisplayVal, 0, Max, 1);
-        _playerHealthBar.color = newColor;
+        //Color newColor = new Color(BarDisplayVal, 0, Max, 1);
+        //_playerHealthBar.color = newColor;
         _playerHealthBar.fillAmount = BarDisplayVal;
         _playerHealthText.text = Charge.ToString();
     }

@@ -58,9 +58,10 @@ public class MyNetworkManager : NetworkManager
 
     public override void OnStopHost()
     {
-        base.OnStopHost();
         GetComponent<SteamLobby>().button.SetActive(true);
         GetComponent<SteamLobby>().ExitLobby();
+        base.OnStopHost();
+        
     }
 
     public override void OnStartClient()
@@ -72,11 +73,12 @@ public class MyNetworkManager : NetworkManager
 
     public override void OnStopClient()
     {
-        
-        base.OnStopClient();
 
         GetComponent<SteamLobby>().button.SetActive(true);
         GetComponent<SteamLobby>().ExitLobby();
+        base.OnStopClient();
+
+        
     }
 
     public override void OnClientSceneChanged(NetworkConnection conn)

@@ -58,14 +58,15 @@ public class LobbyManager : NetworkBehaviour
                 _settingsVals = _lobbySettings.GetDropdownValues();
             }
             _settingsSaved = true;
-            Rpc_UpdateClientLobby(_settingsVals[0], _settingsVals[1], _settingsVals[2], _settingsVals[3], _settingsVals[4], _settingsVals[5]);
+            Rpc_UpdateClientLobby(_settingsVals[0], _settingsVals[1], _settingsVals[2], _settingsVals[3], _settingsVals[4], _settingsVals[5], _settingsVals[6]);
         }
     }
 
     [ClientRpc]
-    void Rpc_UpdateClientLobby(int playerHealth, int moveSpeed, int jumpHeight, int gamemode, int maxScore, int time)
+    void Rpc_UpdateClientLobby(int playerHealth, int moveSpeed, int jumpHeight, int gamemode, int maxScore, int time, int respawnTime)
     {
-        _lobbySettings.UpdateClientLobby(playerHealth, moveSpeed, jumpHeight, gamemode, maxScore, time);
+        if(_lobbySettings)
+            _lobbySettings.UpdateClientLobby(playerHealth, moveSpeed, jumpHeight, gamemode, maxScore, time, respawnTime);
     }
 
     void DisplayMap(string oldMap, string newMap)
@@ -115,11 +116,12 @@ public class LobbyManager : NetworkBehaviour
             p.GetComponent<PlayerHealth>().SetMaxCharge(_lobbySettings.GetPlayerHealthSetting());
             p.GetComponent<PlayerMovement>().SetMoveSpeed(_lobbySettings.GetPlayerSpeedSetting());
             p.GetComponent<PlayerMovement>().SetJumpHeight(_lobbySettings.GetPlayerJumpHeightSetting());
+            p.GetComponent<PlayerHealth>().SetRespawnDelay(_lobbySettings.GetPlayerRespawnTimeSetting());
             p.GetComponent<PlayerData>().ResetPlayerStats();
             p.GetComponent<PlayerHealth>().SetCharge(0);
             //teamA.teamScore = 0;
             //teamB.teamScore = 0;
-           
+
         }
         //Debug.Log("LobbyManager is setting the gamemode to: " + _lobbySettings.GetGameModeSetting());
         //Debug.Log("LobbyManager is setting the gamemode Max score to : " + _lobbySettings.GetMatchScoreSetting());
@@ -167,7 +169,10 @@ public class LobbyManager : NetworkBehaviour
             
             //Setup Game Management
             gameManager.SetUpMatch(gamemode, teamA, teamB);
-            
+            if (isServer)
+            {
+                networkManager.GetComponent<SteamLobby>().SetLobbyMatchData(_lobbySettings.GetGameModeName(), mapName);
+            }
 
             //Debug.Log("Enabling player gameobjects");
             //SpawnPlayers
@@ -244,5 +249,17 @@ public class LobbyManager : NetworkBehaviour
         {
             networkManager.StopClient();
         }
+    }
+
+    public GameObject GetLocalPlayer()
+    {
+        foreach (PlayerData p in players)
+        {
+            if (p.isLocalPlayer)
+            {
+                return p.gameObject;
+            }
+        }
+        return null;
     }
 }

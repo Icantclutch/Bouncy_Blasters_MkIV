@@ -7,21 +7,23 @@ public class LobbyGameSettings : MonoBehaviour
 {
     //Stored Variables from the Online Lobby Settings Panel
     [SerializeField]
-    private Dropdown _playerHealth;
+    private Dropdown _playerHealth = null;
     [SerializeField]
-    private Dropdown _playerMovementSpeed;
+    private Dropdown _playerMovementSpeed = null;
     [SerializeField]
-    private Dropdown _playerJumpHeight;
+    private Dropdown _playerJumpHeight = null;
+    [SerializeField]
+    private Dropdown _playerRespawnTime = null;
 
     [SerializeField]
-    private Dropdown _gamemodeSetting;
+    private Dropdown _gamemodeSetting = null;
     [SerializeField]
-    private Dropdown _maxGameScore;
+    private Dropdown _maxGameScore = null;
     [SerializeField]
-    private Dropdown _matchTimer;
+    private Dropdown _matchTimer = null;
 
     [SerializeField]
-    private OnlineLobbyButtons _lobbyButtons;
+    private OnlineLobbyButtons _lobbyButtons = null;
 
     private GameObject _gameManager;
     private bool _buttonsSetup = false;
@@ -72,7 +74,7 @@ public class LobbyGameSettings : MonoBehaviour
         
     }
 
-    public void UpdateClientLobby(int playerHealth, int moveSpeed, int jumpHeight, int gamemode, int maxScore, int time)
+    public void UpdateClientLobby(int playerHealth, int moveSpeed, int jumpHeight, int gamemode, int maxScore, int time, int respawnTime)
     {
         _playerHealth.value = playerHealth;
         _playerMovementSpeed.value = moveSpeed;
@@ -80,13 +82,17 @@ public class LobbyGameSettings : MonoBehaviour
         _gamemodeSetting.value = gamemode;
         _maxGameScore.value = maxScore;
         _matchTimer.value = time;
+        _playerRespawnTime.value = respawnTime;
     }
 
     public int GetGameModeSetting()
     { 
         return _gamemodeSetting.value;
     }
-
+    public string GetGameModeName()
+    {
+        return _gamemodeSetting.captionText.text;
+    }
     public int GetPlayerHealthSetting()
     {
         return int.Parse(_playerHealth.captionText.text);
@@ -101,6 +107,10 @@ public class LobbyGameSettings : MonoBehaviour
     {
         return float.Parse(_playerJumpHeight.captionText.text);
     }
+    public float GetPlayerRespawnTimeSetting()
+    {
+        return float.Parse(_playerRespawnTime.captionText.text);
+    }
 
     public int GetMatchScoreSetting()
     {
@@ -109,12 +119,19 @@ public class LobbyGameSettings : MonoBehaviour
 
     public int GetMatchTimeSetting()
     {
-        return int.Parse(_matchTimer.captionText.text);
+        if (_matchTimer.captionText.text == "Infinite")
+        {
+            return int.MaxValue;
+        }
+        else
+        {
+            return int.Parse(_matchTimer.captionText.text);
+        }
     }
 
     public int[] GetDropdownValues()
     {
-        int[] values = { _playerHealth.value, _playerMovementSpeed.value, _playerJumpHeight.value, _gamemodeSetting.value, _maxGameScore.value, _matchTimer.value};
+        int[] values = { _playerHealth.value, _playerMovementSpeed.value, _playerJumpHeight.value, _gamemodeSetting.value, _maxGameScore.value, _matchTimer.value, _playerRespawnTime.value};
         return values;
     }
 
