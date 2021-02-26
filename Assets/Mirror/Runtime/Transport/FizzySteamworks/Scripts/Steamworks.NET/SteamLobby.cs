@@ -144,7 +144,7 @@ public class SteamLobby : MonoBehaviour
     IEnumerator RefreshLobbyList()
     {
         //Reset List and dropdown menu
-        lobbies.Clear();
+        
         lobbyDropDown.ClearOptions();
         //ClearLobbyBrowser();
         //Make a call request, OnLobbyMatchList() will be called when call is completed
@@ -230,7 +230,7 @@ public class SteamLobby : MonoBehaviour
     {
         //Search through the list of lobbies
         //UnityEngine.Debug.Log(pCallback.m_nLobbiesMatching+ " lobbies found");
-        
+        lobbies.Clear();
         for (int i = 0; i < pCallback.m_nLobbiesMatching; ++i)
         {
             //Make sure lobby is for bouncy blasters
