@@ -42,7 +42,7 @@ public class PlayerInfoDisplay : NetworkBehaviour
         if (isLocalPlayer)
         {
             if (_miniMapDisplay)
-                _miniMapDisplay.color = Color.yellow;
+                _miniMapDisplay.color = Color.green;
         }
         else if (team == 0 || (/*localPlayer &&*/ team != localPlayerTeam))
         {
