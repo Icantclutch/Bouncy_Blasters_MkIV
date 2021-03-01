@@ -117,6 +117,10 @@ public class OnlineLobbyButtons : MonoBehaviour
                     {
                         button.interactable = false;
                     }
+                    else
+                    {
+                        button.interactable = true;
+                    }
                     ++i;
                 }
             }
