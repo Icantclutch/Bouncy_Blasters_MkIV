@@ -262,4 +262,16 @@ public class LobbyManager : NetworkBehaviour
         }
         return null;
     }
+
+    public int GetLocalPlayerIndex()
+    {
+        for (int i = 0;  i < players.Count; ++i)
+        {
+            if (players[i].isLocalPlayer)
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
 }
