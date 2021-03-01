@@ -221,6 +221,7 @@ public class Shooting : NetworkBehaviour
     IEnumerator Reload()
     {
         //Reload delay
+        _ReloadingFrame.SetActive(true);
         yield return new WaitForSeconds(2);
 
         //Set firing so you can't shoot while reloading
@@ -243,6 +244,7 @@ public class Shooting : NetworkBehaviour
 
         //Disable firing when reloading is done
         currentlyFiring = false;
+        _ReloadingFrame.SetActive(false);
         yield return null;
     }
 
@@ -251,7 +253,6 @@ public class Shooting : NetworkBehaviour
     {
         //Set firing so you can't shoot while recharging
         currentlyFiring = true;
-        _ReloadingFrame.SetActive(true);
 
         //Improve once animations are implemented
         //While loop to recharge ammo to max reserves
@@ -263,7 +264,6 @@ public class Shooting : NetworkBehaviour
 
         //Disable firing when reloading is done
         currentlyFiring = false;
-        _ReloadingFrame.SetActive(false);
 
         yield return null;
     }
