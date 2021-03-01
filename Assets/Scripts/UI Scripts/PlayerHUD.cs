@@ -39,7 +39,11 @@ public class PlayerHUD : MonoBehaviour
 
     [SerializeField]
     private Text _matchEndText = null;
+
     
+    [SerializeField]
+    public Transform[] scoreboardTeamLocations;
+
     // Start is called before the first frame update
     void Start()
     {
