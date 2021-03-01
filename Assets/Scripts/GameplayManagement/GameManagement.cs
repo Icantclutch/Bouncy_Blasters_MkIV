@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Mirror;
 
 
@@ -29,6 +30,9 @@ public class GameManagement : NetworkBehaviour
     //A bool for pausing the match
     [SerializeField]
     private bool _gamePaused;
+
+    [SerializeField]
+    private GameObject _scoreboardPlayerSlot;
 
     /*
      This is a function delegate. This allows the functions to be treated and passed as variables
@@ -132,14 +136,77 @@ public class GameManagement : NetworkBehaviour
     {
         string debugScoreboard = "";
         //creating a clone of the player list so changes wont  effect original list
+        PlayerData localPlayer = GetComponent<LobbyManager>().GetLocalPlayer().GetComponent<PlayerData>();
         List<PlayerData> tempPlayers = new List<PlayerData>(GetComponent<LobbyManager>().players);
 
-        tempPlayers.Sort(PlayerData.CompareByScore);
-        foreach (PlayerData p in tempPlayers)
+        //Determine the winnign team
+        int winningTeam = 0;
+        if(teamBScore > teamAScore)
         {
-            debugScoreboard += p.playerName + " Eliminations: " + p.playerElims + " Defeats: " + p.playerDeaths + "\n";
+            winningTeam = 2;
         }
-        Debug.Log(debugScoreboard);
+        else
+        {
+            winningTeam = 1;
+        }
+
+        tempPlayers.Sort(PlayerData.CompareByScore);
+        Transform[] locations = localPlayer.GetComponent<PlayerHUD>().scoreboardTeamLocations;
+        if (locations.Length > 1)
+        {
+            //Clear the scoreboard
+            for(int i = 0; i < locations.Length; ++i)
+            {
+                foreach (Transform child in locations[i])
+                {
+                    Destroy(child.gameObject);
+                }
+            }
+            foreach (PlayerData p in tempPlayers)
+            {
+                debugScoreboard += p.playerName + " Eliminations: " + p.playerElims + " Defeats: " + p.playerDeaths + "\n";
+                //Determine if the player is on the winning leam
+                Transform loc;
+                if(p.team == winningTeam)
+                {
+                    loc = locations[0];
+                }
+                else
+                {
+                    loc = locations[1];
+                }
+                //Create player slot
+                GameObject b = Instantiate(_scoreboardPlayerSlot, loc);
+                //Set color based on team
+                if (p.team == localPlayer.team) {
+                    b.GetComponentInChildren<Image>().color = Color.blue;
+                }
+                else
+                {
+                    b.GetComponentInChildren<Image>().color = Color.red;
+                }
+
+                //Get text fields
+                Text[] playerInfo = b.GetComponentsInChildren<Text>();
+                //Set text fields to players score/data
+                if (playerInfo.Length >= 4)
+                {
+                    playerInfo[0].text = p.playerName;
+                    playerInfo[1].text = "" + p.playerScore;
+                    playerInfo[2].text = "" + p.playerElims;
+                    playerInfo[3].text = "" + p.playerDeaths;
+                }
+            }
+
+        }
+        else
+        {
+            foreach (PlayerData p in tempPlayers)
+            {
+                debugScoreboard += p.playerName + " Eliminations: " + p.playerElims + " Defeats: " + p.playerDeaths + "\n";
+            }
+            Debug.Log(debugScoreboard);
+        }
     }
 
     //Function for checking if the match should end
