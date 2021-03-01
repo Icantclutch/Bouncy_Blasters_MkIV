@@ -109,9 +109,15 @@ public class OnlineLobbyButtons : MonoBehaviour
                 _startMatchButton.interactable = false;
                 _nextGamemodeButton.interactable = false;
                 _nextMapButton.interactable = false;
+                int i = 0;
+                int playerIndex = _gameManager.GetComponent<LobbyManager>().GetLocalPlayerIndex();
                 foreach (Button button in GetComponentsInChildren<Button>())
                 {
-                    button.interactable = false;
+                    if (i != playerIndex)
+                    {
+                        button.interactable = false;
+                    }
+                    ++i;
                 }
             }
 
