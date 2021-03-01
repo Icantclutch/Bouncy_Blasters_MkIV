@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
+using UnityEngine.UI;
 
 //[RequireComponent(typeof(Rigidbody))]
 //[RequireComponent(typeof(CapsuleCollider))]
@@ -38,6 +39,8 @@ public class PlayerMovement : NetworkBehaviour
 	private float _maxSprintTime = 3f;
 	[SerializeField]
 	private float _sprintTime;
+	[SerializeField]
+	private GameObject _sprintSlider;
 
 
 	[SerializeField]
@@ -74,6 +77,7 @@ public class PlayerMovement : NetworkBehaviour
 			//PlayerSpawnSystem.SpawnPlayer(gameObject);
 		}
 		_sprintTime = _maxSprintTime;
+		_sprintSlider.GetComponent<Slider>().maxValue = _maxSprintTime;
 
 		StartingFov = MainCamera.fieldOfView;
 		FovSpeed = 3;
@@ -163,10 +167,16 @@ public class PlayerMovement : NetworkBehaviour
 			
         }
 
-
-
-
-    }
+		Slider tempSlider = _sprintSlider.GetComponent<Slider>();
+		if (_sprintTime >= _maxSprintTime)
+        {
+			_sprintSlider.SetActive(false);
+        } else
+        {
+			_sprintSlider.SetActive(true);
+		}
+		tempSlider.value = _sprintTime;
+	}
 
     //A Function that takes the player's input and calculates movement
     private void Movement()
