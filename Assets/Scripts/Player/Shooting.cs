@@ -220,12 +220,10 @@ public class Shooting : NetworkBehaviour
     //Reload function
     IEnumerator Reload()
     {
-        //Reload delay
-        _ReloadingFrame.SetActive(true);
-        yield return new WaitForSeconds(2);
-
         //Set firing so you can't shoot while reloading
         currentlyFiring = true;
+        _ReloadingFrame.SetActive(true);
+        yield return new WaitForSeconds(2);
 
         //Improve once animations are implemented
         //For loop repeating a number of times equal to the missing ammo.

@@ -81,7 +81,7 @@ public class PlayerEffects : NetworkBehaviour
         GameObject Clone = Instantiate(_damageTakenText, _canvas.transform);
         //Set damage text
         Clone.GetComponent<Text>().text = DamageDealt.ToString();
-        int Rot = Random.Range(-20, 20);
+        int Rot = Random.Range(-10, 30);
         Clone.transform.rotation = Quaternion.Euler(new Vector3(0, 0, -45 + Rot));
         Color tempColor = new Color(1, (1f / (DamageDealt / 6)), (1f / (DamageDealt / 6)));
         Clone.GetComponent<Text>().color = tempColor;
