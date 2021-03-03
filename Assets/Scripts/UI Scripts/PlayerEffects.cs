@@ -24,6 +24,9 @@ public class PlayerEffects : NetworkBehaviour
     [SerializeField]
     private GameObject _blastedPrefab = null;
 
+    [SerializeField]
+    private GameObject _enemyKilled = null;
+
     private float _growSize = 0.75f;
 
     [TargetRpc]
@@ -45,6 +48,13 @@ public class PlayerEffects : NetworkBehaviour
         Color tempColor = new Color(1, (1f / (DamageDealt/4)), (1f / (DamageDealt / 4)));
         Dmg.GetComponent<Text>().color = tempColor;
         StartCoroutine(MoveObject(Dmg, Dmg.transform.position + new Vector3(Rot * -1, Random.Range(10, 25), 0), 0.4f));
+        StartCoroutine(HitMarkerEffect(Clone, 1, 0, 0.5f));
+    }
+
+    [TargetRpc]
+    public void CreateKillmarker()
+    {
+        GameObject Clone = Instantiate(_enemyKilled, _canvas.transform);
         StartCoroutine(HitMarkerEffect(Clone, 1, 0, 0.5f));
     }
 
