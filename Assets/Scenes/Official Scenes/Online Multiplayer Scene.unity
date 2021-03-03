@@ -539,6 +539,7 @@ GameObject:
   - component: {fileID: 446836619}
   - component: {fileID: 446836618}
   - component: {fileID: 446836617}
+  - component: {fileID: 446836620}
   m_Layer: 5
   m_Name: Host Session Button
   m_TagString: Untagged
@@ -621,6 +622,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 446836620}
+        m_TargetAssemblyTypeName: DisableButton, Assembly-CSharp
+        m_MethodName: DisableButtonForDuration
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 2
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &446836618
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -659,6 +672,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 446836615}
   m_CullTransparentMesh: 0
+--- !u!114 &446836620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 446836615}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9138a7a7ec24d6742b63cf6a8f2655a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &548691363
 GameObject:
   m_ObjectHideFlags: 0
@@ -971,6 +996,7 @@ GameObject:
   - component: {fileID: 707761044}
   - component: {fileID: 707761043}
   - component: {fileID: 707761042}
+  - component: {fileID: 707761045}
   m_Layer: 5
   m_Name: Join
   m_TagString: Untagged
@@ -1053,6 +1079,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 707761045}
+        m_TargetAssemblyTypeName: DisableButton, Assembly-CSharp
+        m_MethodName: DisableButtonForDuration
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 2
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &707761043
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1091,6 +1129,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 707761040}
   m_CullTransparentMesh: 0
+--- !u!114 &707761045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 707761040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9138a7a7ec24d6742b63cf6a8f2655a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &725121371
 GameObject:
   m_ObjectHideFlags: 0
@@ -3221,6 +3271,7 @@ GameObject:
   - component: {fileID: 1412967191}
   - component: {fileID: 1412967190}
   - component: {fileID: 1412967189}
+  - component: {fileID: 1412967192}
   m_Layer: 5
   m_Name: ' Session Search Button'
   m_TagString: Untagged
@@ -3303,6 +3354,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1412967192}
+        m_TargetAssemblyTypeName: DisableButton, Assembly-CSharp
+        m_MethodName: DisableButtonForDuration
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 1.5
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1412967190
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3341,6 +3404,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1412967187}
   m_CullTransparentMesh: 0
+--- !u!114 &1412967192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1412967187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9138a7a7ec24d6742b63cf6a8f2655a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1464573093
 GameObject:
   m_ObjectHideFlags: 0
@@ -4660,6 +4735,7 @@ GameObject:
   - component: {fileID: 1799580543}
   - component: {fileID: 1799580542}
   - component: {fileID: 1799580541}
+  - component: {fileID: 1799580544}
   m_Layer: 5
   m_Name: Join Session Button
   m_TagString: Untagged
@@ -4742,6 +4818,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1799580544}
+        m_TargetAssemblyTypeName: DisableButton, Assembly-CSharp
+        m_MethodName: DisableButtonForDuration
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 5
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1799580542
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4780,6 +4868,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1799580539}
   m_CullTransparentMesh: 0
+--- !u!114 &1799580544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1799580539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9138a7a7ec24d6742b63cf6a8f2655a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1858882920
 GameObject:
   m_ObjectHideFlags: 0
@@ -4976,8 +5076,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1038212738}
   m_HandleRect: {fileID: 1038212737}
   m_Direction: 2
-  m_Value: 0
-  m_Size: 0.9997891
+  m_Value: 1
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -5290,7 +5390,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.0005210477}
+  m_AnchoredPosition: {x: 0, y: -0.000069878995}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &2036348568
