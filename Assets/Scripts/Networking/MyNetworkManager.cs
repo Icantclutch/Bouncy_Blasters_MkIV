@@ -60,17 +60,17 @@ public class MyNetworkManager : NetworkManager
     {
         GetComponent<SteamLobby>().button.SetActive(true);
         GetComponent<SteamLobby>().ExitLobby();
-        LeaveSteamLobby();
+        //LeaveSteamLobby();
         base.OnStopHost();
         
     }
-    [ClientRpc]
+    /*[ClientRpc]
     public void LeaveSteamLobby()
     {
         GetComponent<SteamLobby>().ExitLobby();
         StopClient();
     }
-
+    */
     public override void OnStartClient()
     {
         base.OnStartClient();
