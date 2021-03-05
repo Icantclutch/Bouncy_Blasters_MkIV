@@ -114,9 +114,23 @@ public class PlayerMovement : NetworkBehaviour
             {
                 //Single Event Physics can be done in update
                 PlayerJumps();
-            }
-			
-				
+
+				//Code for sprint modifier
+				if (Input.GetKeyDown(Keybinds.Sprint) && _sprintTime > 0)
+				{
+					EnableSprint();
+				}
+				else if (Input.GetKeyUp(Keybinds.Sprint) || _sprintTime <= 0)
+				{
+					DisableSprint();
+				}
+			}
+			if (Input.GetKeyUp(Keybinds.Sprint) || _sprintTime <= 0)
+			{
+				DisableSprint();
+			}
+
+
 		}
 
 		
@@ -139,24 +153,7 @@ public class PlayerMovement : NetworkBehaviour
 		{
 			//GetKey or GetAxis physics are done in FixedUpdate
 			Movement();
-			if (grounded)
-			{
-
-				if (Input.GetKeyDown(Keybinds.Sprint) && _sprintTime > 0)
-				{
-					EnableSprint();
-				}
-				else if (Input.GetKeyUp(Keybinds.Sprint) || _sprintTime <= 0)
-				{
-					DisableSprint();
-				}
-
-
-			}
-			if (Input.GetKeyUp(Keybinds.Sprint) || _sprintTime <= 0)
-			{
-				DisableSprint();
-			}
+		
 		}
 		// We apply gravity manually for more tuning control
 		rbody.AddForce(-transform.up *  gravity, ForceMode.Acceleration);
