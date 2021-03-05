@@ -118,6 +118,7 @@ public class PlayerSpawnSystem : NetworkBehaviour
                 Debug.Log(spawnPoint);
                 player.transform.position = spawnPoint.transform.position;
                 player.transform.rotation = spawnPoint.transform.rotation;
+                player.GetComponent<MouseLook2>().SetCharacterRotation(spawnPoint.transform.rotation);
                 //player.transform.Find("Eyes").rotation = spawnPoint.transform.rotation;
                 return true;
             }
