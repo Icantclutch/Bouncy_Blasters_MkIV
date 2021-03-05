@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Mirror;
 
 public class LobbyManager : NetworkBehaviour
@@ -81,7 +82,7 @@ public class LobbyManager : NetworkBehaviour
         //Debug.Log(networkManager.onlineScene);
 
         //Used for backwards compatability with testing scenes
-        if(!networkManager.onlineScene.Contains("OnlineLobby Scene"))
+        if(!networkManager.onlineScene.Contains("OnlineLobby Scene") || !SceneManager.GetActiveScene().name.Contains("OnlineLobby Scene"))
         {
             player.RpcSpawnPlayer();
         }
