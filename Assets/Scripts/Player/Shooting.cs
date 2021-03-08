@@ -30,7 +30,6 @@ public class Shooting : NetworkBehaviour
     private int newWeapon;
 
     //Where the player's eyes are
-    [SyncVar]
     public Transform eyes;
     //The current weapon the player is using
     [SyncVar]
