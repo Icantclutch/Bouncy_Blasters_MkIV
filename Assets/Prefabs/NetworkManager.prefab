@@ -2121,6 +2121,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   button: {fileID: 425590580670305786}
   lobbyDropDown: {fileID: 1179697114}
+  _lobbyToggles: {fileID: 0}
+  lobbyPrefab: {fileID: 0}
 --- !u!114 &7405393509088402197
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2142,7 +2144,7 @@ MonoBehaviour:
   onlineScene: Assets/Scenes/Official Scenes/OnlineLobby Scene.unity
   transport: {fileID: 425590579435277467}
   networkAddress: localhost
-  maxConnections: 4
+  maxConnections: 6
   disconnectInactiveConnections: 0
   disconnectInactiveTimeout: 60
   authenticator: {fileID: 0}

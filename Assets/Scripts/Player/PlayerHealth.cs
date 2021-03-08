@@ -162,6 +162,8 @@ public class PlayerHealth : HitInteraction
                             Data.GetComponent<PlayerEffects>().CreateKillFeed(NetworkIdentity.spawned[Convert.ToUInt32(shot.playerID)].GetComponent<PlayerData>().playerName, GetComponent<PlayerData>().playerName);
                         }
                     }
+                    //displays a kill marker to the player who killed you
+                    NetworkIdentity.spawned[Convert.ToUInt32(shot.playerID)].GetComponent<PlayerEffects>().CreateKillmarker();
                     //Show a death message to player
                     GetComponent<PlayerEffects>().ShowDeathDisplay();
                     GetComponent<PlayerData>().AddPlayerDeaths();

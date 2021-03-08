@@ -111,6 +111,7 @@ public class SteamLobby : MonoBehaviour
     IEnumerator SearchForLobby()
     {
         lobbies.Clear();
+        lobbyFound = false;
         //ClearLobbyBrowser();
         //lobbyDropDown.ClearOptions();
         //Search for lobbies by open slots, starting with 1 open slot
@@ -119,6 +120,7 @@ public class SteamLobby : MonoBehaviour
             //Stop searching if an open lobby is found
             if (lobbyFound)
             {
+                UnityEngine.Debug.Log(lobbies[0]);
                 SteamMatchmaking.JoinLobby(lobbies[0].steamID);
                 break;
             }

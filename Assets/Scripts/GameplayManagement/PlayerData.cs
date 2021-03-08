@@ -129,7 +129,9 @@ public class PlayerData : NetworkBehaviour
         GetComponent<MouseLook2>().enabled = true;
         GetComponent<PlayerReference>().enabled = true;
         GetComponent<PlayerHUD>().enabled = true;
-
+        //Stops the players momentum
+        //Should prevent them from falling through the floor
+        GetComponent<Rigidbody>().velocity = new Vector3(0, 0);
         /*if (!PlayerSpawnSystem.SpawnPlayer(gameObject, true, true)) 
         {
             if (PlayerSpawnSystem.SpawnPlayer(gameObject))

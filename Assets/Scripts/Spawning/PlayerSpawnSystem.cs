@@ -115,8 +115,10 @@ public class PlayerSpawnSystem : NetworkBehaviour
             //Todo: Rotation is not being set, might be something with the mouseLook script
             if (spawnPoint != null)
             {
+                Debug.Log(spawnPoint);
                 player.transform.position = spawnPoint.transform.position;
                 player.transform.rotation = spawnPoint.transform.rotation;
+                player.GetComponent<MouseLook2>().SetCharacterRotation(spawnPoint.transform.rotation);
                 //player.transform.Find("Eyes").rotation = spawnPoint.transform.rotation;
                 return true;
             }

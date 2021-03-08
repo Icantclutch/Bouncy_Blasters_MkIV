@@ -53,6 +53,9 @@ public class Shooting : NetworkBehaviour
     [SerializeField]
     private float _rechargeHoldTime = 1.5f;
 
+    [SerializeField]
+    private GameObject _ReloadingFrame;
+
     private void Start()
     {
         myReference = GetComponent<PlayerReference>();
@@ -217,11 +220,10 @@ public class Shooting : NetworkBehaviour
     //Reload function
     IEnumerator Reload()
     {
-        //Reload delay
-        yield return new WaitForSeconds(2);
-
         //Set firing so you can't shoot while reloading
         currentlyFiring = true;
+        _ReloadingFrame.SetActive(true);
+        yield return new WaitForSeconds(2);
 
         //Improve once animations are implemented
         //For loop repeating a number of times equal to the missing ammo.
@@ -240,6 +242,7 @@ public class Shooting : NetworkBehaviour
 
         //Disable firing when reloading is done
         currentlyFiring = false;
+        _ReloadingFrame.SetActive(false);
         yield return null;
     }
 
@@ -248,7 +251,7 @@ public class Shooting : NetworkBehaviour
     {
         //Set firing so you can't shoot while recharging
         currentlyFiring = true;
-        
+
         //Improve once animations are implemented
         //While loop to recharge ammo to max reserves
         while (playerWeapons[currentWeapon].currentReserve < playerWeapons[currentWeapon].weapon.reserveAmmo && Input.GetKey(Keybinds.Reload))
@@ -259,7 +262,7 @@ public class Shooting : NetworkBehaviour
 
         //Disable firing when reloading is done
         currentlyFiring = false;
-        
+
         yield return null;
     }
 

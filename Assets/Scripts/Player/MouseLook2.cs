@@ -156,4 +156,9 @@ public class MouseLook2 : NetworkBehaviour
         }
 
     }
+
+    public void SetCharacterRotation(Quaternion rotation)
+    {
+        charTargetRot = rotation;
+    }
 }
