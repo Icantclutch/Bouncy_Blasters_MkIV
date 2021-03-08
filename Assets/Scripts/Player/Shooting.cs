@@ -30,7 +30,6 @@ public class Shooting : NetworkBehaviour
     private int newWeapon;
 
     //Where the player's eyes are
-    [SyncVar]
     public Transform eyes;
     //The current weapon the player is using
     [SyncVar]
@@ -276,7 +275,6 @@ public class Shooting : NetworkBehaviour
             //Play audio of firing
             //GetComponent<AudioSource>().PlayOneShot(GetComponent<AudioSource>().clip);
             
-
             //Subtract from the ammo
             playerWeapons[currentWeapon].currentAmmo -= currentFireMode.ammoUsedEachShot;
             //Fire bullet over server

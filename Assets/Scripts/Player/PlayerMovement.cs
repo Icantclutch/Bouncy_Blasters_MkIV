@@ -50,6 +50,8 @@ public class PlayerMovement : NetworkBehaviour
 	private float FovSpeed;
 	private float StartingFov;
 
+    private Vector3 movementDirection;
+
 
 
 
@@ -133,7 +135,6 @@ public class PlayerMovement : NetworkBehaviour
 
 		}
 
-		
 		//Debug control to respawn the player
 		if (Input.GetKeyUp(KeyCode.Return))
 		{
@@ -189,7 +190,7 @@ public class PlayerMovement : NetworkBehaviour
         }
 
 		//Calculate how fast we should be moving
-		Vector3 movementDirection = new Vector3(Input.GetAxis(Keybinds.Horizontal), 0, Input.GetAxis(Keybinds.Vertical)).normalized;
+		movementDirection = new Vector3(Input.GetAxis(Keybinds.Horizontal), 0, Input.GetAxis(Keybinds.Vertical)).normalized;
 
 		//setting local to world coordinates and then adding player speed
 		movementDirection = transform.TransformDirection(movementDirection);
