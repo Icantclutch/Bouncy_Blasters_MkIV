@@ -279,8 +279,14 @@ public class Shooting : NetworkBehaviour
 
             //Subtract from the ammo
             playerWeapons[currentWeapon].currentAmmo -= currentFireMode.ammoUsedEachShot;
+            //Fetch Bullet Prefab from Network Manager
+            GameObject bulletPrefab = NetworkManager.singleton.spawnPrefabs.Find(bu => bu.name.Equals(currentFireMode.bulletPrefabName));
+            //Summon the bullet
+            GameObject b = Instantiate(bulletPrefab, eyes.transform.position, eyes.transform.rotation);
             //Fire bullet over server
             Cmd_ServerFireBullet(currentFireMode.bulletPrefabName, currentFireMode.bulletDamage, currentFireMode.maxBounces, currentFireMode.fireSpeed);
+            //Destroy temp bullet
+            Destroy(b);
             //Wait
             yield return new WaitForSeconds(60 / currentFireMode.fireRate);
         }
