@@ -94,7 +94,20 @@ public class MyNetworkManager : NetworkManager
         //conn.identity.GetComponent<PlayerData>().RpcSpawnPlayer();
         if (!networkSceneName.Contains("OnlineLobby Scene"))
         {
-            conn.identity.GetComponent<PlayerData>().SpawnPlayer();
+            //conn.identity.GetComponent<PlayerData>().SpawnPlayer();
+        }
+        
+    }
+
+    public override void OnServerSceneChanged(string sceneName)
+    {
+        base.OnServerSceneChanged(sceneName);
+        if (!sceneName.Contains("OnlineLobby Scene"))
+        {
+            foreach (NetworkConnection player in players)
+            {
+                player.identity.GetComponent<PlayerData>().RpcSpawnPlayer();
+            }
         }
     }
 
