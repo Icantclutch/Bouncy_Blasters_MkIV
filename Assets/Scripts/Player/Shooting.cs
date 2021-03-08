@@ -285,7 +285,7 @@ public class Shooting : NetworkBehaviour
             //Fire bullet over server
             Cmd_ServerFireBullet(currentFireMode.bulletPrefabName, currentFireMode.bulletDamage, currentFireMode.maxBounces, currentFireMode.fireSpeed);
             //Destroy temp bullet
-            Destroy(b);
+            Destroy(b, (float)NetworkTime.rtt);
             //Wait
             yield return new WaitForSeconds(60 / currentFireMode.fireRate);
         }
