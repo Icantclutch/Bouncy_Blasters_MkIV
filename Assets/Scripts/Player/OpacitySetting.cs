@@ -22,18 +22,16 @@ public class OpacitySetting : MonoBehaviour
         
     }
 
-    public 
+    //public void changeOpacity()
+    //{
+    //    //if(opacitySlider.value == 100)
+    //    //{
+    //    //    minimapCamera.backgroundColor = new Color(18.0f, 16.0f, 16.0f, 1);
+    //    //}
+    //    //else if (opacitySlider.value == 10)
+    //    //{
 
-    public void changeOpacity()
-    {
-        if(opacitySlider.value == 100)
-        {
-            minimapCamera.backgroundColor = new Color(18.0f, 16.0f, 16.0f, 1);
-        }
-        else if (opacitySlider.value == 10)
-        {
-
-        }
+    //    //}
         
-    }
+    //}
 }
