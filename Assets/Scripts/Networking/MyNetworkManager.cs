@@ -92,7 +92,7 @@ public class MyNetworkManager : NetworkManager
     {
         // always become ready.
         //if (!ClientScene.ready) ClientScene.Ready(conn);
-        //base.OnClientSceneChanged(conn);
+        base.OnClientSceneChanged(conn);
         //conn.identity.GetComponent<PlayerData>().RpcSpawnPlayer();
         if (!networkSceneName.Contains("OnlineLobby Scene"))
         {
