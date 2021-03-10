@@ -95,7 +95,7 @@ public class PlayerData : NetworkBehaviour
     }
 
     [TargetRpc]
-    public void RpcSpawnPlayer()
+    public void RpcSpawnPlayer(bool partialSpawn, bool prematch)
     {
         //transform.Find("Player").gameObject.SetActive(true);
         PlayerInfoDisplay.SetLocalPlayerTeam(team);
@@ -116,18 +116,21 @@ public class PlayerData : NetworkBehaviour
         //    }
         //}
 
-        SpawnPlayer();
+        SpawnPlayer(partialSpawn, prematch);
     }
 
-    public void SpawnPlayer()
+    public void SpawnPlayer(bool partialSpawn = false, bool prematch = false)
     {
         //transform.Find("Player").gameObject.SetActive(true);
         GetComponent<Shooting>().enabled = true;
-        GetComponent<Shooting>().active = true;
+        if (!partialSpawn)
+        {
+            GetComponent<Shooting>().active = true;
 
-        GetComponent<PlayerMovement>().enabled = true;
+            GetComponent<PlayerMovement>().enabled = true;
+            GetComponent<PlayerReference>().enabled = true;
+        }
         GetComponent<MouseLook2>().enabled = true;
-        GetComponent<PlayerReference>().enabled = true;
         GetComponent<PlayerHUD>().enabled = true;
         //Stops the players momentum
         //Should prevent them from falling through the floor
@@ -143,7 +146,10 @@ public class PlayerData : NetworkBehaviour
         {
             //_spawned = true;
         }*/
-        StartCoroutine(DelaySpawn());
+        if (!prematch || partialSpawn)
+        {
+            StartCoroutine(DelaySpawn());
+        }
     }
     IEnumerator DelaySpawn()
     {

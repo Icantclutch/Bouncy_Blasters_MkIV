@@ -45,8 +45,14 @@ public class GameManagement : NetworkBehaviour
 
     public float MatchTimer { get => (int)_matchTimer; }
 
+    [SerializeField]
+    private float _preMatchWaitTime = 10;
+    [SyncVar]
+    private float _preMatchTimer = 0;
+    public float PreMatchTimer { get => (int)_preMatchTimer;  }
+
     //This is a flag for making sure the match isn't constantly resumed
-    private bool _startLock = false;
+    private bool _startLock = true;
 
     private NetworkManager _networkManager;
 
@@ -84,6 +90,11 @@ public class GameManagement : NetworkBehaviour
           
         }
 
+        if(_preMatchTimer > 0)
+        {
+            _preMatchTimer -= Time.deltaTime;
+        }
+
         //If the game is paused, freeze the match timer
         if (!_gamePaused)
         {
@@ -108,6 +119,26 @@ public class GameManagement : NetworkBehaviour
 
     }
     
+    public void StartPreMatch()
+    {
+        StartCoroutine(PreMatchWait());
+    }
+
+    IEnumerator PreMatchWait()
+    {
+        _preMatchTimer = _preMatchWaitTime;
+        foreach(PlayerData player in playerList)
+        {
+            player.RpcSpawnPlayer(true, true);
+        }
+        yield return new WaitForSeconds(_preMatchWaitTime);
+        _startLock = false;
+        foreach (PlayerData player in playerList)
+        {
+            player.RpcSpawnPlayer(false, true);
+        }
+    }
+
     public void UpdateTeamScores()
     {
         teamAScore = 0;
@@ -331,7 +362,7 @@ public class GameManagement : NetworkBehaviour
         }
         */
         ResetWinState();
-        _startLock = false;
+        //_startLock = false;
         _gamePaused = true;
         teamAScore = 0;
         teamBScore = 0;

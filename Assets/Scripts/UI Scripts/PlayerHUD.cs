@@ -32,6 +32,8 @@ public class PlayerHUD : MonoBehaviour
     [SerializeField]
     private Text _matchTimer = null;
     [SerializeField]
+    private Text _preMatchTimer = null;
+    [SerializeField]
     private NetworkManager _networkManager = null;
 
     private GameObject _gameManager = null;
@@ -73,6 +75,15 @@ public class PlayerHUD : MonoBehaviour
             _teamAScoreText.text = _gameManager.GetComponentInChildren<GameManagement>().teamAScore.ToString();
             _teamBScoreText.text = _gameManager.GetComponentInChildren<GameManagement>().teamBScore.ToString();
             _matchTimer.text = FormatTime(_gameManager.GetComponentInChildren<GameManagement>().MatchTimer);//_gameManager.GetComponentInChildren<GameManagement>().MatchTimer.ToString();
+            float preTimer = _gameManager.GetComponentInChildren<GameManagement>().PreMatchTimer;
+            if (preTimer > 0)
+            {
+                _preMatchTimer.text = "Match Begins In\n" + preTimer;
+            }
+            else
+            {
+                _preMatchTimer.text = "";
+            }
         }
 
         if (Input.GetKey(KeyCode.M))
