@@ -84,7 +84,7 @@ public class LobbyManager : NetworkBehaviour
         //Used for backwards compatability with testing scenes
         if(!networkManager.onlineScene.Contains("OnlineLobby Scene") || !SceneManager.GetActiveScene().name.Contains("OnlineLobby Scene"))
         {
-            player.RpcSpawnPlayer();
+            player.RpcSpawnPlayer(false, false);
         }
 
         

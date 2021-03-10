@@ -90,11 +90,27 @@ public class MyNetworkManager : NetworkManager
 
     public override void OnClientSceneChanged(NetworkConnection conn)
     {
+        // always become ready.
+        //if (!ClientScene.ready) ClientScene.Ready(conn);
         base.OnClientSceneChanged(conn);
         //conn.identity.GetComponent<PlayerData>().RpcSpawnPlayer();
         if (!networkSceneName.Contains("OnlineLobby Scene"))
         {
-            conn.identity.GetComponent<PlayerData>().SpawnPlayer();
+            //conn.identity.GetComponent<PlayerData>().SpawnPlayer();
+        }
+        
+    }
+
+    public override void OnServerSceneChanged(string sceneName)
+    {
+        base.OnServerSceneChanged(sceneName);
+        if (!sceneName.Contains("OnlineLobby Scene"))
+        {
+            GameObject.FindGameObjectWithTag("Management").GetComponent<GameManagement>().StartPreMatch();
+            /*foreach (NetworkConnection player in players)
+            {
+                player.identity.GetComponent<PlayerData>().RpcSpawnPlayer();
+            }*/
         }
     }
 

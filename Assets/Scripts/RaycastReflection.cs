@@ -59,10 +59,17 @@ public class RaycastReflection : MonoBehaviour
             lineRenderer.enabled = false;
             movement.Aiming(false);
         }
-        
+
 
         //Update reflections based on player's gun
-        nReflections = shooting.currentFireMode.maxBounces;
+        if (shooting.active)
+        {
+            nReflections = shooting.currentFireMode.maxBounces;
+        }
+        else
+        {
+            nReflections = 4;
+        }
 
         //cast a new ray forward, from the current attached game object position  
         ray = new Ray(goTransform.position, goTransform.forward);
