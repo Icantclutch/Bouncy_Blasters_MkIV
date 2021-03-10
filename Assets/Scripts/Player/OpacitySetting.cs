@@ -22,6 +22,8 @@ public class OpacitySetting : MonoBehaviour
         
     }
 
+    public 
+
     public void changeOpacity()
     {
         if(opacitySlider.value == 100)
