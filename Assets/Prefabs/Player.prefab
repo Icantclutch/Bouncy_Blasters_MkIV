@@ -592,7 +592,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 410147660120126091}
-  m_RootOrder: 18
+  m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -654,6 +654,7 @@ GameObject:
   - component: {fileID: 2003816617317864958}
   - component: {fileID: 5890483472476341023}
   - component: {fileID: 3243386042727317697}
+  - component: {fileID: 5683809088484051927}
   m_Layer: 10
   m_Name: Minimap Camera
   m_TagString: Untagged
@@ -669,7 +670,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1718903082678943919}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 6, z: 0}
+  m_LocalPosition: {x: 0, y: 20, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2349851022982101160}
@@ -691,7 +692,7 @@ Camera:
   m_FOVAxisMode: 0
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
-  m_FocalLength: 50
+  m_FocalLength: 1000
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -713,7 +714,7 @@ Camera:
   m_TargetEye: 3
   m_HDR: 0
   m_AllowMSAA: 0
-  m_AllowDynamicResolution: 0
+  m_AllowDynamicResolution: 1
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
@@ -786,7 +787,7 @@ MonoBehaviour:
       enableBigTilePrepass: 0
       isFptlEnabled: 0
   clearColorMode: 1
-  backgroundColorHDR: {r: 0, g: 0, b: 0, a: 0}
+  backgroundColorHDR: {r: 0.07156863, g: 0.0627451, b: 0.063725494, a: 0}
   clearDepth: 1
   volumeLayerMask:
     serializedVersion: 2
@@ -808,7 +809,7 @@ MonoBehaviour:
   flipYMode: 0
   xrRendering: 1
   fullscreenPassthrough: 0
-  allowDynamicResolution: 0
+  allowDynamicResolution: 1
   customRenderingSettings: 0
   invertFaceCulling: 0
   probeLayerMask:
@@ -843,6 +844,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58a0faa83ee7a70458b6476f1d2d1edc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5683809088484051927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1718903082678943919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3af361d8a38be3479599284d0b3afeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minimapCamera: {fileID: 2658744595623562324}
 --- !u!1 &2187169954643799169
 GameObject:
   m_ObjectHideFlags: 0
@@ -2420,7 +2434,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3af361d8a38be3479599284d0b3afeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 1718903082678943919}
+  minimapCamera: {fileID: 0}
 --- !u!1 &4384819657786414322
 GameObject:
   m_ObjectHideFlags: 0
@@ -3151,6 +3165,20 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &9075881709754812062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7018487934172591397}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afb0838725a582b4da753046240185c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  opacitySlider: {fileID: 431262425872479170}
+  minimapCamera: {fileID: 2658744595623562324}
 --- !u!1 &7524532649634274016
 GameObject:
   m_ObjectHideFlags: 0
@@ -3503,7 +3531,7 @@ Transform:
   m_GameObject: {fileID: 8845466092278203780}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 4.7, z: 0}
-  m_LocalScale: {x: 30, y: 30, z: 5}
+  m_LocalScale: {x: 3.7539704, y: 3.7539704, z: 0.62566173}
   m_Children: []
   m_Father: {fileID: 7164985317577078470}
   m_RootOrder: 1
@@ -3548,7 +3576,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300000, guid: 7eebd988601d6784b8eebf491641e740, type: 3}
   m_Color: {r: 1, g: 0, b: 0.01999569, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -4285,6 +4313,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4357171600822209690}
     m_Modifications:
+    - target: {fileID: 1470882319137043103, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
+      propertyPath: m_RootOrder
+      value: 19
+      objectReference: {fileID: 0}
+    - target: {fileID: 6020351406556087361, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6020351406556087361, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6243194740799596944, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
+      propertyPath: m_RootOrder
+      value: 18
+      objectReference: {fileID: 0}
     - target: {fileID: 8229628230764440891, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -4657,6 +4701,38 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8248490867061226466, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8248490867061226466, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8248490867061226466, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8248490867061226466, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 11500000, guid: afb0838725a582b4da753046240185c5, type: 3}
+    - target: {fileID: 8248490867061226466, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UnityEditor.MonoScript, UnityEditor
+      objectReference: {fileID: 0}
+    - target: {fileID: 8577353432930189392, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8577353432930189392, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8577353432930189392, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
 --- !u!224 &410147660120126091 stripped
@@ -4669,3 +4745,19 @@ Canvas:
   m_CorrespondingSourceObject: {fileID: 8229628231864302250, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
   m_PrefabInstance: {fileID: 8612184695631169568}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &7018487934172591397 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1648895595267374341, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
+  m_PrefabInstance: {fileID: 8612184695631169568}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &431262425872479170 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8248490867061226466, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
+  m_PrefabInstance: {fileID: 8612184695631169568}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7018487934172591397}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
