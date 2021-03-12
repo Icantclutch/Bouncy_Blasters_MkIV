@@ -153,7 +153,7 @@ public class PlayerData : NetworkBehaviour
     }
     IEnumerator DelaySpawn()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(10f);
         if (!PlayerSpawnSystem.SpawnPlayer(gameObject, true, true))
         {
             if (PlayerSpawnSystem.SpawnPlayer(gameObject))
