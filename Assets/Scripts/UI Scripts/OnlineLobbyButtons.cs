@@ -40,7 +40,8 @@ public class OnlineLobbyButtons : MonoBehaviour
     private GameObject _playerSlot;
     [SerializeField]
     private Transform[] _playerListLocations;
-    
+
+    public Transform[] scoreboardTeamLocations;
 
     // Start is called before the first frame update
     void Start()
