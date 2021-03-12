@@ -103,7 +103,7 @@ public class MyNetworkManager : NetworkManager
 
     public override void OnServerSceneChanged(string sceneName)
     {
-        //base.OnServerSceneChanged(sceneName);
+        base.OnServerSceneChanged(sceneName);
         if (!sceneName.Contains("OnlineLobby Scene"))
         {
             GameObject.FindGameObjectWithTag("Management").GetComponent<GameManagement>().StartPreMatch();
