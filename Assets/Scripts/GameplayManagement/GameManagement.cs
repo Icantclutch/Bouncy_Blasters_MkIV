@@ -55,7 +55,7 @@ public class GameManagement : NetworkBehaviour
     //This is a flag for making sure the match isn't constantly resumed
     private bool _startLock = true;
 
-    private bool _lobbyScoreboardUpdated = false;
+    private bool _lobbyScoreboardUpdated = true;
 
     private NetworkManager _networkManager;
 
@@ -122,7 +122,7 @@ public class GameManagement : NetworkBehaviour
         //Debug.Log("Is scoreboard updated: " + _lobbyScoreboardUpdated);
         if(isServer && !_lobbyScoreboardUpdated && SceneManager.GetActiveScene().name.Contains("OnlineLobby Scene"))
         {
-            UpdateScoreBoard();
+            Invoke("UpdateScoreBoard", 3);
             
         }
 

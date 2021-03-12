@@ -109,6 +109,11 @@ public class PlayerHUD : MonoBehaviour
 
     public string FormatTime(float Timer)
     {
+        if(Timer < 0)
+        {
+            Timer = 0;
+        }
+
         string minutes = Mathf.Floor(Timer / 60).ToString("00");
         string seconds = (Timer % 60).ToString("00");
         return string.Format("{0}:{1}", minutes, seconds);
