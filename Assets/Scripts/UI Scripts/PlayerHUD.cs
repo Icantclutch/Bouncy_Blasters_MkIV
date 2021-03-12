@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class PlayerHUD : MonoBehaviour
 {
+    
 
     [SerializeField]
     private Text _batteryCountText = null;
@@ -35,6 +36,11 @@ public class PlayerHUD : MonoBehaviour
     private Text _preMatchTimer = null;
     [SerializeField]
     private NetworkManager _networkManager = null;
+   
+    [SerializeField]
+    private Animator _anim = null;
+    [SerializeField]
+    private Animator _mapAnim = null;
 
     private GameObject _gameManager = null;
     public GameObject _miniMap = null;
@@ -86,14 +92,18 @@ public class PlayerHUD : MonoBehaviour
             }
         }
 
-        if (Input.GetKey(KeyCode.M))
+        if (Input.GetKeyDown(KeyCode.E))
         {
-            _miniMap.transform.localScale = new Vector3(1.5f, 1.5f, 1);
+            _anim.SetTrigger("Zoom");
+            _mapAnim.SetTrigger("Start");
         }
-        else
+        if (Input.GetKeyUp(KeyCode.E))
         {
-            _miniMap.transform.localScale = new Vector3(1, 1, 1);
+            _anim.SetTrigger("Out");
+            _mapAnim.SetTrigger("End");
         }
+
+      
 
     }
 
