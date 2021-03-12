@@ -94,7 +94,7 @@ public class GameManagement : NetworkBehaviour
           
         }
 
-        if(_preMatchTimer > 0)
+        if(isServer && _preMatchTimer > 0)
         {
             if(_preMatchTimer > _preMatchWaitTime - 0.5)
                 UpdateScoreBoard();
@@ -120,7 +120,7 @@ public class GameManagement : NetworkBehaviour
             CheckMatchEnd();
         }
         //Debug.Log("Is scoreboard updated: " + _lobbyScoreboardUpdated);
-        if(!_lobbyScoreboardUpdated && SceneManager.GetActiveScene().name.Contains("OnlineLobby Scene"))
+        if(isServer && !_lobbyScoreboardUpdated && SceneManager.GetActiveScene().name.Contains("OnlineLobby Scene"))
         {
             UpdateScoreBoard();
             
