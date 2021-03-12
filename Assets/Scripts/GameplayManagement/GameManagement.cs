@@ -66,7 +66,7 @@ public class GameManagement : NetworkBehaviour
         DontDestroyOnLoad(this.gameObject);
         _networkManager = GameObject.Find("NetworkManager").GetComponent<NetworkManager>();
         _gamePaused = true;
-        _lobbyScoreboardUpdated = false;
+        
         //playerList = new List<PlayerData>();
         //SetUpMatch(new Gamemode(0, 30, 0, 300), new Team("Nova", new List<PlayerData>()), new Team("Super Nova", new List<PlayerData>()));
   
