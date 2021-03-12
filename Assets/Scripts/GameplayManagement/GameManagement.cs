@@ -57,6 +57,9 @@ public class GameManagement : NetworkBehaviour
 
     private bool _lobbyScoreboardUpdated = true;
 
+    [SyncVar]
+    public bool hostSpawned = false;
+
     private NetworkManager _networkManager;
 
     // Start is called before the first frame update
@@ -138,9 +141,11 @@ public class GameManagement : NetworkBehaviour
     IEnumerator PreMatchWait()
     {
         _preMatchTimer = _preMatchWaitTime;
+        RpcUpdateHostSpawned(true);
+        hostSpawned = true;
         foreach(PlayerData player in playerList)
         {
-            //player.RpcSpawnPlayer(true, true);
+            player.RpcSpawnPlayer(true, true);
         }
         yield return new WaitForSeconds(_preMatchWaitTime);
         _startLock = false;
@@ -148,6 +153,11 @@ public class GameManagement : NetworkBehaviour
         {
             player.RpcSpawnPlayer(false, true);
         }
+    }
+    [ClientRpc]
+    public void RpcUpdateHostSpawned(bool spawned)
+    {
+        PlayerData.hostSpawned = spawned;
     }
 
     public void UpdateTeamScores()
@@ -341,7 +351,8 @@ public class GameManagement : NetworkBehaviour
     private void ReturnToLobby()
     {
         ResetMatch();
-       
+        RpcUpdateHostSpawned(false);
+        hostSpawned = false;
         GetComponent<LobbyManager>().ReturnPlayers();
         _lobbyScoreboardUpdated = false;
         _networkManager.ServerChangeScene("OnlineLobby Scene");
