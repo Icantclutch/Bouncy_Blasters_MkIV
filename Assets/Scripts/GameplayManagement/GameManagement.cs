@@ -129,7 +129,7 @@ public class GameManagement : NetworkBehaviour
         _preMatchTimer = _preMatchWaitTime;
         foreach(PlayerData player in playerList)
         {
-            player.RpcSpawnPlayer(true, true);
+            //player.RpcSpawnPlayer(true, true);
         }
         yield return new WaitForSeconds(_preMatchWaitTime);
         _startLock = false;
