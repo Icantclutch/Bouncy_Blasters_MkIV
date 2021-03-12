@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using Mirror;
 
 
@@ -54,6 +55,8 @@ public class GameManagement : NetworkBehaviour
     //This is a flag for making sure the match isn't constantly resumed
     private bool _startLock = true;
 
+    private bool _lobbyScoreboardUpdated = true;
+
     private NetworkManager _networkManager;
 
     // Start is called before the first frame update
@@ -63,6 +66,7 @@ public class GameManagement : NetworkBehaviour
         DontDestroyOnLoad(this.gameObject);
         _networkManager = GameObject.Find("NetworkManager").GetComponent<NetworkManager>();
         _gamePaused = true;
+        
         //playerList = new List<PlayerData>();
         //SetUpMatch(new Gamemode(0, 30, 0, 300), new Team("Nova", new List<PlayerData>()), new Team("Super Nova", new List<PlayerData>()));
   
@@ -90,11 +94,13 @@ public class GameManagement : NetworkBehaviour
           
         }
 
-        if(_preMatchTimer > 0)
+        if(isServer && _preMatchTimer > 0)
         {
+            if(_preMatchTimer > _preMatchWaitTime - 0.5)
+                UpdateScoreBoard();
             _preMatchTimer -= Time.deltaTime;
         }
-
+        
         //If the game is paused, freeze the match timer
         if (!_gamePaused)
         {
@@ -113,14 +119,19 @@ public class GameManagement : NetworkBehaviour
             //Does a Score and timer check to see if there is a winner
             CheckMatchEnd();
         }
-     
-
+        //Debug.Log("Is scoreboard updated: " + _lobbyScoreboardUpdated);
+        if(isServer && !_lobbyScoreboardUpdated && SceneManager.GetActiveScene().name.Contains("OnlineLobby Scene"))
+        {
+            Invoke("UpdateScoreBoard", 3);
+            
+        }
 
 
     }
     
     public void StartPreMatch()
     {
+        UpdateScoreBoard();
         StartCoroutine(PreMatchWait());
     }
 
@@ -129,7 +140,7 @@ public class GameManagement : NetworkBehaviour
         _preMatchTimer = _preMatchWaitTime;
         foreach(PlayerData player in playerList)
         {
-            player.RpcSpawnPlayer(true, true);
+            //player.RpcSpawnPlayer(true, true);
         }
         yield return new WaitForSeconds(_preMatchWaitTime);
         _startLock = false;
@@ -165,6 +176,7 @@ public class GameManagement : NetworkBehaviour
     [ClientRpc]
     private void UpdateScoreBoard()
     {
+        //Debug.Log("Update scoreboard");
         string debugScoreboard = "";
         //creating a clone of the player list so changes wont  effect original list
         PlayerData localPlayer = GetComponent<LobbyManager>().GetLocalPlayer().GetComponent<PlayerData>();
@@ -182,7 +194,19 @@ public class GameManagement : NetworkBehaviour
         }
 
         tempPlayers.Sort(PlayerData.CompareByScore);
-        Transform[] locations = localPlayer.GetComponent<PlayerHUD>().scoreboardTeamLocations;
+        Transform[] locations;
+        if (!SceneManager.GetActiveScene().name.Contains("OnlineLobby Scene"))
+        {
+            //Debug.Log("Updating match scoreboard");
+            locations = localPlayer.GetComponent<PlayerHUD>().scoreboardTeamLocations;
+        }
+        else
+        {
+            //Debug.Log("Updating lobby scoreboard");
+            locations = GameObject.Find("Lobby Panel").GetComponent<OnlineLobbyButtons>().scoreboardTeamLocations;
+            _lobbyScoreboardUpdated = true;
+        }
+
         if (locations.Length > 1)
         {
             //Clear the scoreboard
@@ -319,6 +343,7 @@ public class GameManagement : NetworkBehaviour
         ResetMatch();
        
         GetComponent<LobbyManager>().ReturnPlayers();
+        _lobbyScoreboardUpdated = false;
         _networkManager.ServerChangeScene("OnlineLobby Scene");
     }
 
@@ -329,6 +354,8 @@ public class GameManagement : NetworkBehaviour
         matchGamemode = game;
         teamA = a;
         teamB = b;
+        teamAScore = 0;
+        teamBScore = 0;
         for (int i = 0; i < teamA.playerList.Count; i++)
         {
             playerList.Add(teamA.playerList[i]);
@@ -364,8 +391,8 @@ public class GameManagement : NetworkBehaviour
         ResetWinState();
         //_startLock = false;
         _gamePaused = true;
-        teamAScore = 0;
-        teamBScore = 0;
+        //teamAScore = 0;
+        //teamBScore = 0;
         teamA = null;
         teamB = null;
         playerList = null;

@@ -1449,6 +1449,7 @@ namespace Mirror
             {
                 // add player if existing one is null
                 ClientScene.AddPlayer(conn);
+                //autoCreatePlayer = false;
             }
         }
 

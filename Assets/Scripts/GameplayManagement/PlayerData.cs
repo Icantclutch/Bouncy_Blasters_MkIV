@@ -130,7 +130,7 @@ public class PlayerData : NetworkBehaviour
             GetComponent<PlayerMovement>().enabled = true;
             GetComponent<PlayerReference>().enabled = true;
         }
-        GetComponent<MouseLook2>().enabled = true;
+        //GetComponent<MouseLook2>().enabled = true;
         GetComponent<PlayerHUD>().enabled = true;
         //Stops the players momentum
         //Should prevent them from falling through the floor
@@ -153,7 +153,7 @@ public class PlayerData : NetworkBehaviour
     }
     IEnumerator DelaySpawn()
     {
-        yield return new WaitForSeconds(0.02f);
+        yield return new WaitForSeconds(0.2f);
         if (!PlayerSpawnSystem.SpawnPlayer(gameObject, true, true))
         {
             if (PlayerSpawnSystem.SpawnPlayer(gameObject))
@@ -165,6 +165,7 @@ public class PlayerData : NetworkBehaviour
         {
             _spawned = true;
         }
+        GetComponent<MouseLook2>().enabled = true;
     }
 
     [TargetRpc]

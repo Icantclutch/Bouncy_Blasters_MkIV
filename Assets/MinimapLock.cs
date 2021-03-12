@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class MinimapLock : MonoBehaviour
 {
-    public Camera minimapCamera;
+    [SerializeField]
+    private Camera _minimapCamera;
 
     // Start is called before the first frame update
     void Start()
@@ -14,9 +15,9 @@ public class MinimapLock : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         Quaternion setRotation = Quaternion.Euler(90, -90, 0);
-        minimapCamera.transform.rotation = setRotation;
+        _minimapCamera.transform.rotation = setRotation;
     }
 }
