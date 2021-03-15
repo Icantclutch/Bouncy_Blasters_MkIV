@@ -26,7 +26,7 @@ public class Shooting : NetworkBehaviour
 
     }
     //The weapon that will replace the old weapon when switching loadouts
-    [SerializeField]
+    [SyncVar]
     private int newWeapon;
 
     //Where the player's eyes are
@@ -216,6 +216,16 @@ public class Shooting : NetworkBehaviour
         }
     }
 
+    public void FullReload()
+    {
+        for (int i = 0; i < playerWeapons.Count; i++)
+        {
+            playerWeapons[i].currentAmmo = playerWeapons[i].weapon.ammoCount;
+            playerWeapons[i].currentReserve = playerWeapons[i].weapon.reserveAmmo;
+        }
+    }
+
+
     //Reload function
     IEnumerator Reload()
     {
@@ -360,7 +370,17 @@ public class Shooting : NetworkBehaviour
         if(newWeapon != -1)
         {
             playerWeapons[0].weapon = GameObject.FindGameObjectWithTag("Management").GetComponent<LoadoutManager>().loadouts[newWeapon];
+            FullReload();
         }
         
+    }
+    public void GetNewLoadout()
+    {
+        if (newWeapon != -1)
+        {
+            playerWeapons[0].weapon = GameObject.FindGameObjectWithTag("Management").GetComponent<LoadoutManager>().loadouts[newWeapon];
+            FullReload();
+        }
+
     }
 }

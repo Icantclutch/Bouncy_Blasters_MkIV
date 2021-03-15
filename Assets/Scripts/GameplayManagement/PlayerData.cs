@@ -126,6 +126,7 @@ public class PlayerData : NetworkBehaviour
     {
         //transform.Find("Player").gameObject.SetActive(true);
         GetComponent<Shooting>().enabled = true;
+        GetComponent<Shooting>().GetNewLoadout();
         if (!partialSpawn)
         {
             GetComponent<Shooting>().active = true;
