@@ -727,6 +727,63 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 867888929}
   m_CullTransparentMesh: 0
+--- !u!1001 &1105881221
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 425590579435277465, guid: bf5bf063424b9564eb10b7894371b148, type: 3}
+      propertyPath: m_Name
+      value: NetworkManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 425590579435277477, guid: bf5bf063424b9564eb10b7894371b148, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.054829013
+      objectReference: {fileID: 0}
+    - target: {fileID: 425590579435277477, guid: bf5bf063424b9564eb10b7894371b148, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 14.621347
+      objectReference: {fileID: 0}
+    - target: {fileID: 425590579435277477, guid: bf5bf063424b9564eb10b7894371b148, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -11.976827
+      objectReference: {fileID: 0}
+    - target: {fileID: 425590579435277477, guid: bf5bf063424b9564eb10b7894371b148, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 425590579435277477, guid: bf5bf063424b9564eb10b7894371b148, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 425590579435277477, guid: bf5bf063424b9564eb10b7894371b148, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 425590579435277477, guid: bf5bf063424b9564eb10b7894371b148, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 425590579435277477, guid: bf5bf063424b9564eb10b7894371b148, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 425590579435277477, guid: bf5bf063424b9564eb10b7894371b148, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 425590579435277477, guid: bf5bf063424b9564eb10b7894371b148, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 425590579435277477, guid: bf5bf063424b9564eb10b7894371b148, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: bf5bf063424b9564eb10b7894371b148, type: 3}
 --- !u!1 &1266233183
 GameObject:
   m_ObjectHideFlags: 0
@@ -740,6 +797,7 @@ GameObject:
   - component: {fileID: 1266233186}
   - component: {fileID: 1266233185}
   - component: {fileID: 1266233188}
+  - component: {fileID: 1266233189}
   m_Layer: 5
   m_Name: Launch Tutorial
   m_TagString: Untagged
@@ -809,7 +867,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1266233186}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1266233189}
+        m_TargetAssemblyTypeName: NetworkButtons, Assembly-CSharp
+        m_MethodName: CreatePrivateLobby
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1266233186
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -855,13 +925,29 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1266233183}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f2b27d66eb2071f45ba4ab3ee446ddf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _sceneName: Tutorial Menu
   _menuButton: {fileID: 1266233185}
+--- !u!114 &1266233189
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1266233183}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: faa4726f588608c4a949fa6ee769d947, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _dropdown: {fileID: 0}
+  _toggleGroup: {fileID: 0}
+  _sceneName: Tutorial2
+  _refreshDelay: 15
 --- !u!1 &1285656113
 GameObject:
   m_ObjectHideFlags: 0
