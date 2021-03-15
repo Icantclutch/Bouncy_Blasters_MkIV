@@ -21,7 +21,6 @@ public class TravelTrail : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log((float)TB.myShot.numBounces / TB.myShot.maxBounces);
         lerpColor = Color.Lerp(earlyColor, lateColor, (float)TB.myShot.numBounces / TB.myShot.maxBounces);
 
         TR.startColor = lerpColor;
