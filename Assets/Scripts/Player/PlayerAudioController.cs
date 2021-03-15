@@ -9,6 +9,14 @@ public class PlayerAudioController : NetworkBehaviour
     private List<AudioClip> _sounds;
     public Dictionary<string, AudioClip> soundsD;
 
+    /// <summary>
+    /// Plays a oneshot of the sound on all clients
+    /// <para>
+    /// 0: Bullet hits another player<br/>
+    /// 1: Bullet hits local player<br/>
+    /// 2: Shooting bullet<br/>
+    /// </para>
+    /// </summary>
     [ClientRpc]
     public void RpcOnAllClients(int soundIndex)
     {
@@ -18,6 +26,14 @@ public class PlayerAudioController : NetworkBehaviour
         }
     }
 
+    /// <summary>
+    /// Plays a oneshot of the sound only on the local client
+    /// <para>
+    /// 0: Bullet hits another player<br/>
+    /// 1: Bullet hits local player<br/>
+    /// 2: Shooting bullet<br/>
+    /// </para>
+    /// </summary>
     [TargetRpc]
     public void RpcOnPlayerClient(int soundIndex)
     {

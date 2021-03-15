@@ -45,6 +45,9 @@ public class PlayerData : NetworkBehaviour
     private LobbyManager _lobbyManager;
     private bool inLobby = false;
     private bool _spawned = false;
+    
+    public static bool hostSpawned = false;
+
     /*
     public PlayerData(int teamNum = 0, string name = "Name")
     {
@@ -95,7 +98,7 @@ public class PlayerData : NetworkBehaviour
     }
 
     [TargetRpc]
-    public void RpcSpawnPlayer()
+    public void RpcSpawnPlayer(bool partialSpawn, bool prematch)
     {
         //transform.Find("Player").gameObject.SetActive(true);
         PlayerInfoDisplay.SetLocalPlayerTeam(team);
@@ -116,18 +119,22 @@ public class PlayerData : NetworkBehaviour
         //    }
         //}
 
-        SpawnPlayer();
+        SpawnPlayer(partialSpawn, prematch);
     }
 
-    public void SpawnPlayer()
+    public void SpawnPlayer(bool partialSpawn = false, bool prematch = false)
     {
         //transform.Find("Player").gameObject.SetActive(true);
         GetComponent<Shooting>().enabled = true;
-        GetComponent<Shooting>().active = true;
+        GetComponent<Shooting>().GetNewLoadout();
+        if (!partialSpawn)
+        {
+            GetComponent<Shooting>().active = true;
 
-        GetComponent<PlayerMovement>().enabled = true;
-        GetComponent<MouseLook2>().enabled = true;
-        GetComponent<PlayerReference>().enabled = true;
+            GetComponent<PlayerMovement>().enabled = true;
+            GetComponent<PlayerReference>().enabled = true;
+        }
+        //GetComponent<MouseLook2>().enabled = true;
         GetComponent<PlayerHUD>().enabled = true;
         //Stops the players momentum
         //Should prevent them from falling through the floor
@@ -143,21 +150,30 @@ public class PlayerData : NetworkBehaviour
         {
             //_spawned = true;
         }*/
-        StartCoroutine(DelaySpawn());
+        if (!prematch || partialSpawn)
+        {
+            StartCoroutine(DelaySpawn());
+        }
     }
     IEnumerator DelaySpawn()
     {
-        yield return new WaitForSeconds(0.02f);
-        if (!PlayerSpawnSystem.SpawnPlayer(gameObject, true, true))
+        yield return new WaitForSeconds(0.2f);
+        Debug.Log(_lobbyManager.GetComponent<GameManagement>().hostSpawned);
+        if (isServer || _lobbyManager.GetComponent<GameManagement>().hostSpawned)
         {
-            if (PlayerSpawnSystem.SpawnPlayer(gameObject))
+            if (!PlayerSpawnSystem.SpawnPlayer(gameObject, true, true))
+            {
+                if (PlayerSpawnSystem.SpawnPlayer(gameObject))
+                {
+                    _spawned = true;
+                }
+            }
+            else
             {
                 _spawned = true;
             }
-        }
-        else
-        {
-            _spawned = true;
+
+            GetComponent<MouseLook2>().enabled = true;
         }
     }
 

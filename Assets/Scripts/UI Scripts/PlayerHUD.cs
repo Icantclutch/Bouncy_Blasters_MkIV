@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class PlayerHUD : MonoBehaviour
 {
+    
 
     [SerializeField]
     private Text _batteryCountText = null;
@@ -32,7 +33,14 @@ public class PlayerHUD : MonoBehaviour
     [SerializeField]
     private Text _matchTimer = null;
     [SerializeField]
+    private Text _preMatchTimer = null;
+    [SerializeField]
     private NetworkManager _networkManager = null;
+   
+    [SerializeField]
+    private Animator _anim = null;
+    [SerializeField]
+    private Animator _mapAnim = null;
 
     private GameObject _gameManager = null;
     public GameObject _miniMap = null;
@@ -73,21 +81,39 @@ public class PlayerHUD : MonoBehaviour
             _teamAScoreText.text = _gameManager.GetComponentInChildren<GameManagement>().teamAScore.ToString();
             _teamBScoreText.text = _gameManager.GetComponentInChildren<GameManagement>().teamBScore.ToString();
             _matchTimer.text = FormatTime(_gameManager.GetComponentInChildren<GameManagement>().MatchTimer);//_gameManager.GetComponentInChildren<GameManagement>().MatchTimer.ToString();
+            float preTimer = _gameManager.GetComponentInChildren<GameManagement>().PreMatchTimer;
+            if (preTimer > 0)
+            {
+                _preMatchTimer.text = "Match Begins In\n" + preTimer;
+            }
+            else
+            {
+                _preMatchTimer.text = "";
+            }
         }
 
-        if (Input.GetKey(KeyCode.M))
+        if (Input.GetKeyDown(KeyCode.E))
         {
-            _miniMap.transform.localScale = new Vector3(1.5f, 1.5f, 1);
+            _anim.SetTrigger("Zoom");
+            _mapAnim.SetTrigger("Start");
         }
-        else
+        if (Input.GetKeyUp(KeyCode.E))
         {
-            _miniMap.transform.localScale = new Vector3(1, 1, 1);
+            _anim.SetTrigger("Out");
+            _mapAnim.SetTrigger("End");
         }
+
+      
 
     }
 
     public string FormatTime(float Timer)
     {
+        if(Timer < 0)
+        {
+            Timer = 0;
+        }
+
         string minutes = Mathf.Floor(Timer / 60).ToString("00");
         string seconds = (Timer % 60).ToString("00");
         return string.Format("{0}:{1}", minutes, seconds);

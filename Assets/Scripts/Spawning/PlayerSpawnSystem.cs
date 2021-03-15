@@ -89,7 +89,7 @@ public class PlayerSpawnSystem : NetworkBehaviour
                             //Calculate distance between player and spawnpoint
                             float distance = (p.transform.position - point.transform.position).magnitude;
 
-                            if (playerTeam != 0 && p.GetComponent<PlayerData>().team == playerTeam)
+                            if (playerTeam != 0 && p.GetComponent<PlayerData>() && p.GetComponent<PlayerData>().team == playerTeam)
                             {
                                 if (distance < 3)
                                 {
