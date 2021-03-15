@@ -10,7 +10,7 @@ public class PlayerAudioController : NetworkBehaviour
     public Dictionary<string, AudioClip> soundsD;
 
     /// <summary>
-    /// Plays a oneshot of the sound only on the local client
+    /// Plays a oneshot of the sound on all clients
     /// <para>
     /// 0: Bullet hits another player<br/>
     /// 1: Bullet hits local player<br/>
