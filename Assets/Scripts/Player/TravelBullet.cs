@@ -39,7 +39,8 @@ public class TravelBullet : RaycastBullet
         base.Initialize(damage, bounces, fireSpeed, playerId);
         laserDestroyA = transform.position;
         nextDir = transform.forward;
-        Vel(transform.forward, myShot.speed);
+        laserDestroyB = nextDir * 10000;
+        //Vel(transform.forward, myShot.speed);
     }
 
     [Server]
@@ -51,10 +52,11 @@ public class TravelBullet : RaycastBullet
             Vel(transform.forward, myShot.speed);
 
             //Increase the lerp,
+
             destroyLerp += (Time.deltaTime * bulletSpeed * 100) / (Vector3.Distance(laserDestroyA, laserDestroyB));
             if (destroyLerp > 1)
                 destroyLerp = 1;
-            
+
             //Set the position to the relative position
             transform.position = Vector3.Lerp(laserDestroyA, laserDestroyB, destroyLerp);
 
@@ -115,9 +117,14 @@ public class TravelBullet : RaycastBullet
         Ray ray = new Ray(transform.position, vel);
         RaycastHit hit;
 
+        float rayLength = 100;// - Vector3.Distance(laserDestroyA, transform.position);
+
         //Cast ray
-        if (Physics.Raycast(ray, out hit, 100, reflectable))
+        if (Physics.Raycast(ray, out hit, rayLength, reflectable))
         {
+            if (hit.point == laserDestroyB)
+                return;
+
             destroyLerp = Vector3.Distance(laserDestroyA, transform.position) / Vector3.Distance(laserDestroyA, laserDestroyB);
             destroyLerp = (destroyLerp * Vector3.Distance(laserDestroyA, laserDestroyB)) / Vector3.Distance(laserDestroyA, hit.point);
 
@@ -139,7 +146,7 @@ public class TravelBullet : RaycastBullet
         else //If it didn't hit anything, end the ray
         {
             //If endpoint hasn't been set, set it to 100 away
-            laserDestroyB = laserDestroyA + (ray.direction * 100);
+            laserDestroyB = laserDestroyA + (ray.direction * rayLength);
             nextDir = Vector3.zero;
 
             //Add effects (shouldn't need since there is no collision)

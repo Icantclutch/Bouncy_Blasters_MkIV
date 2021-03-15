@@ -104,7 +104,7 @@ public class MyNetworkManager : NetworkManager
     public override void OnServerSceneChanged(string sceneName)
     {
         base.OnServerSceneChanged(sceneName);
-        if (!sceneName.Contains("OnlineLobby Scene"))
+        if (!sceneName.Contains("OnlineLobby Scene") && !sceneName.Contains("Tutorial2"))
         {
             GameObject.FindGameObjectWithTag("Management").GetComponent<GameManagement>().StartPreMatch();
             /*foreach (NetworkConnection player in players)

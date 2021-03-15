@@ -159,7 +159,7 @@ public class PlayerData : NetworkBehaviour
     {
         yield return new WaitForSeconds(0.2f);
         Debug.Log(_lobbyManager.GetComponent<GameManagement>().hostSpawned);
-        if (_lobbyManager.GetComponent<GameManagement>().hostSpawned)
+        if (isServer || _lobbyManager.GetComponent<GameManagement>().hostSpawned)
         {
             if (!PlayerSpawnSystem.SpawnPlayer(gameObject, true, true))
             {
