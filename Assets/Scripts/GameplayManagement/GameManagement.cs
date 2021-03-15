@@ -62,6 +62,17 @@ public class GameManagement : NetworkBehaviour
 
     private NetworkManager _networkManager;
 
+    //****************************************************************************//
+    //Hard point Variables
+    [SerializeField]
+    private HardpointManager _hardptManager = null;
+
+    //Time between hard point switches
+    private float _hardpointLifeTime;
+
+    //Time left on hardpoint life time
+    private float _hardpointTimer;
+
     // Start is called before the first frame update
     
     void Start()
@@ -488,6 +499,17 @@ public class GameManagement : NetworkBehaviour
     
     private void Hardpt()
     {
-        Debug.Log("HardPt");
+        if(_hardpointTimer > 0)
+        {
+            _hardpointTimer -= Time.deltaTime;
+        }
+        else
+        {
+            //Set the new hardpoint on the map
+            _hardptManager.SelectNewHardpoint();
+            _hardpointTimer = _hardpointLifeTime;
+        }
+        
+       
     }
 }
