@@ -8,6 +8,16 @@ using UnityEngine.SceneManagement;
 public class SettingsManager : MonoBehaviour
 {
 
+    public AudioMixer masterMixer;
+    public Slider VolumeSlider;
+    public Dropdown QualityDrop;
+    public Toggle FullscreenToggle;
+
+    private int videoQuality;
+    private float currVolume;
+    private int windowType;
+    
+
     Resolution[] resolutionsList;
     public Dropdown resolutionsDrop;
     private void Start()
@@ -34,24 +44,73 @@ public class SettingsManager : MonoBehaviour
         resolutionsDrop.AddOptions(options);
         resolutionsDrop.value = currentResolution;
         resolutionsDrop.RefreshShownValue();
+
+        videoQuality = PlayerPrefs.GetInt("quality");
+        currVolume = PlayerPrefs.GetFloat("volume");
+        windowType = PlayerPrefs.GetInt("fullscreen");
+
+        masterMixer.SetFloat("MasterVolume", currVolume);
+        VolumeSlider.value = currVolume;
+
+        QualitySettings.SetQualityLevel(videoQuality);
+        QualityDrop.value = videoQuality;
+
+        if(windowType == 1)
+        {
+            Screen.fullScreen = true;
+            FullscreenToggle.isOn = true;
+        }
+        else
+        {
+            Screen.fullScreen = false;
+            FullscreenToggle.isOn = false;
+        }
+
+    }
+
+    private void FixedUpdate()
+    {
+        PlayerPrefs.SetInt("quality", videoQuality);
+        PlayerPrefs.SetInt("fullscreen", windowType);
+        PlayerPrefs.SetFloat("volume", currVolume);
+
+
+        if (windowType == 1)
+        {
+            Screen.fullScreen = true;
+        }
+        else
+        {
+            Screen.fullScreen = false;
+        }
+        masterMixer.SetFloat("MasterVolume", currVolume);
+        QualitySettings.SetQualityLevel(videoQuality);
     }
 
 
 
-    public AudioMixer masterMixer;
+
     public void SetMasterVolume (float masterVolume)
-    {
-        masterMixer.SetFloat("MasterVolume", masterVolume);
+    { 
+        currVolume = masterVolume;
     }
 
     public void SetQuality(int quality)
     {
-        QualitySettings.SetQualityLevel(quality);
+        videoQuality = quality;
     }
 
     public void WindowMode(bool isFullscreen)
     {
         Screen.fullScreen = isFullscreen;
+        if (isFullscreen)
+        {
+            windowType = 1;
+        }
+        else
+        {
+            windowType = 0;
+        }
     }
 
     public void OnButtonPress()
