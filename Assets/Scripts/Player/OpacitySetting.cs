@@ -6,22 +6,29 @@ using UnityEngine.UI;
 public class OpacitySetting : MonoBehaviour
 {
     public Slider opacitySlider;
-    public Camera minimapCamera;
+    public RawImage minimap;
+    public Image minimapMask;
+    float opaque = 0.0f;
+  
 
-    
 
     // Start is called before the first frame update
     void Start()
     {
-        
+       
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            opaque = 0.0f;
+            minimap.color = new Color(255.0f, 255.0f, 255.0f, opaque);
+        }
     }
 
+  
     //public void changeOpacity()
     //{
     //    //if(opacitySlider.value == 100)
@@ -32,6 +39,6 @@ public class OpacitySetting : MonoBehaviour
     //    //{
 
     //    //}
-        
+
     //}
 }
