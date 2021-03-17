@@ -107,6 +107,7 @@ public class MyNetworkManager : NetworkManager
         if (!sceneName.Contains("OnlineLobby Scene") && !sceneName.Contains("Tutorial2"))
         {
             GameObject.FindGameObjectWithTag("Management").GetComponent<GameManagement>().StartPreMatch();
+          
             /*foreach (NetworkConnection player in players)
             {
                 player.identity.GetComponent<PlayerData>().RpcSpawnPlayer();

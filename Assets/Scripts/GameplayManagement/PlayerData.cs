@@ -158,7 +158,7 @@ public class PlayerData : NetworkBehaviour
     IEnumerator DelaySpawn()
     {
         yield return new WaitForSeconds(0.2f);
-        Debug.Log(_lobbyManager.GetComponent<GameManagement>().hostSpawned);
+        //Debug.Log(_lobbyManager.GetComponent<GameManagement>().hostSpawned);
         if (isServer || _lobbyManager.GetComponent<GameManagement>().hostSpawned)
         {
             if (!PlayerSpawnSystem.SpawnPlayer(gameObject, true, true))

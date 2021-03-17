@@ -14,7 +14,7 @@ public class HardpointManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _ListOfHardpoints = GetComponentsInChildren<HardpointArea>();
+        //_ListOfHardpoints = GetComponentsInChildren<HardpointArea>();
         
     }
 

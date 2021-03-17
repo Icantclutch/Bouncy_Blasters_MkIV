@@ -68,9 +68,11 @@ public class GameManagement : NetworkBehaviour
     private HardpointManager _hardptManager = null;
 
     //Time between hard point switches
+    [SerializeField]
     private float _hardpointLifeTime;
 
     //Time left on hardpoint life time
+    [SerializeField]
     private float _hardpointTimer;
 
     // Start is called before the first frame update
@@ -80,7 +82,7 @@ public class GameManagement : NetworkBehaviour
         DontDestroyOnLoad(this.gameObject);
         _networkManager = GameObject.Find("NetworkManager").GetComponent<NetworkManager>();
         _gamePaused = true;
-        
+      
         //playerList = new List<PlayerData>();
         //SetUpMatch(new Gamemode(0, 30, 0, 300), new Team("Nova", new List<PlayerData>()), new Team("Super Nova", new List<PlayerData>()));
   
@@ -147,6 +149,7 @@ public class GameManagement : NetworkBehaviour
     {
         UpdateScoreBoard();
         StartCoroutine(PreMatchWait());
+        _hardptManager = GameObject.Find("OverchargeLocations").GetComponent<HardpointManager>();
     }
 
     IEnumerator PreMatchWait()
@@ -394,7 +397,7 @@ public class GameManagement : NetworkBehaviour
                 gamemodeExecution = TDM;
                 break;
             case 1:
-                gamemodeExecution = Hardpt;
+                gamemodeExecution = Overcharge;
                 break;
         }
 
@@ -497,18 +500,23 @@ public class GameManagement : NetworkBehaviour
 
     }
     
-    private void Hardpt()
+    private void Overcharge()
     {
-        if(_hardpointTimer > 0)
+        if (!_startLock)
         {
-            _hardpointTimer -= Time.deltaTime;
+            if (_hardpointTimer > 0)
+            {
+                _hardpointTimer -= Time.deltaTime;
+            }
+            else
+            {
+                //Set the new hardpoint on the map
+                _hardptManager.SelectNewHardpoint();
+                _hardpointTimer = _hardpointLifeTime;
+            }
+            
         }
-        else
-        {
-            //Set the new hardpoint on the map
-            _hardptManager.SelectNewHardpoint();
-            _hardpointTimer = _hardpointLifeTime;
-        }
+       
         
        
     }
