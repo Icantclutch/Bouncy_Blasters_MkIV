@@ -232,6 +232,7 @@ public class Shooting : NetworkBehaviour
         //Set firing so you can't shoot while reloading
         currentlyFiring = true;
         _ReloadingFrame.SetActive(true);
+        Cmd_ServerReload(currentFireMode.reloadSoundIndex);
         yield return new WaitForSeconds(2);
 
         //Improve once animations are implemented
@@ -253,6 +254,12 @@ public class Shooting : NetworkBehaviour
         currentlyFiring = false;
         _ReloadingFrame.SetActive(false);
         yield return null;
+    }
+
+    [Command]
+    public void Cmd_ServerReload(int soundIndex)
+    {
+        GetComponent<PlayerAudioController>().RpcOnAllClients(soundIndex);
     }
 
     //Recharge function
