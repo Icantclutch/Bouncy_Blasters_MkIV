@@ -25,6 +25,9 @@ public class LobbyGameSettings : MonoBehaviour
     private GameObject _OverchargeLabel = null;
 
     [SerializeField]
+    private GameObject _gamemodeSpecificSettings = null;
+
+    [SerializeField]
     private OnlineLobbyButtons _lobbyButtons = null;
 
     private GameObject _gameManager;
@@ -69,6 +72,13 @@ public class LobbyGameSettings : MonoBehaviour
                 {
                     d.interactable = false;
                 }
+                foreach (Dropdown d in _gamemodeSpecificSettings.GetComponentsInChildren<Dropdown>())
+                {
+                    d.interactable = false;
+                }
+                //_maxGameScore.interactable = false;
+                //_OverchargeLabel.GetComponentInChildren<Dropdown>().interactable = false;
+
             }
             _buttonsSetup = true;
         }
