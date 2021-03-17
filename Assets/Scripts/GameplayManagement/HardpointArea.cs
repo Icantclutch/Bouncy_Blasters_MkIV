@@ -19,9 +19,9 @@ public class HardpointArea : NetworkBehaviour
 
     public int ControllingTeam { get => _controllingTeam; }
 
-
-    [SyncVar]
-    [SerializeField]
+    //PlayerData cant be a SyncVar or a SerializeField
+    //[SyncVar]
+    //[SerializeField]
     private List<PlayerData> _occupants;
 
     // Start is called before the first frame update
