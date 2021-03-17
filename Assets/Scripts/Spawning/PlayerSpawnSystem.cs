@@ -89,7 +89,7 @@ public class PlayerSpawnSystem : NetworkBehaviour
                             //Calculate distance between player and spawnpoint
                             float distance = (p.transform.position - point.transform.position).magnitude;
 
-                            if (playerTeam != 0 && p.GetComponent<PlayerData>().team == playerTeam)
+                            if (playerTeam != 0 && p.GetComponent<PlayerData>() && p.GetComponent<PlayerData>().team == playerTeam)
                             {
                                 if (distance < 3)
                                 {
@@ -115,7 +115,7 @@ public class PlayerSpawnSystem : NetworkBehaviour
             //Todo: Rotation is not being set, might be something with the mouseLook script
             if (spawnPoint != null)
             {
-                Debug.Log(spawnPoint);
+                //Debug.Log(spawnPoint);
                 player.transform.position = spawnPoint.transform.position;
                 player.transform.rotation = spawnPoint.transform.rotation;
                 player.GetComponent<MouseLook2>().SetCharacterRotation(spawnPoint.transform.rotation);

@@ -13,15 +13,17 @@ MonoBehaviour:
   m_Name: SMG
   m_EditorClassIdentifier: 
   name: Small Auto Blaster
-  ammoCount: 18
-  reserveAmmo: 36
+  ammoCount: 15
+  reserveAmmo: 45
   modeSwapKey: 0
   fireModes:
   - key: 1
     fireType: 1
     shotsFiredAtOnce: 1
     ammoUsedEachShot: 1
-    bulletDamage: 070000001400000023000000
+    bulletDamage: 070000001e000000
     fireSpeed: 1
-    fireRate: 700
+    fireRate: 800
     bulletPrefabName: TravelBullet
+    shotSoundIndex: 2
+    reloadSoundIndex: 5

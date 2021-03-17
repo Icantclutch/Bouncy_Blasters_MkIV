@@ -5,6 +5,7 @@ using UnityEngine;
 public class HardpointManager : MonoBehaviour
 {
     //The list of hardpoints for the map
+    [SerializeField]
     private HardpointArea[] _ListOfHardpoints;
 
     //the active hardpoint index
@@ -13,7 +14,7 @@ public class HardpointManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _ListOfHardpoints = GetComponentsInChildren<HardpointArea>();
+        //_ListOfHardpoints = GetComponentsInChildren<HardpointArea>();
         
     }
 
@@ -23,7 +24,7 @@ public class HardpointManager : MonoBehaviour
         
     }
 
-    private void SelectNewHardpoint()
+    public void SelectNewHardpoint()
     {
         int listSize = _ListOfHardpoints.Length;
         _activeHardpoint = Random.Range(0, listSize - 1);
@@ -39,4 +40,5 @@ public class HardpointManager : MonoBehaviour
         }
         _ListOfHardpoints[_activeHardpoint].enabled = true;
     }
+
 }

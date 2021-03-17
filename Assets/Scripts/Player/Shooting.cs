@@ -26,7 +26,7 @@ public class Shooting : NetworkBehaviour
 
     }
     //The weapon that will replace the old weapon when switching loadouts
-    [SerializeField]
+    [SyncVar]
     private int newWeapon;
 
     //Where the player's eyes are
@@ -216,12 +216,23 @@ public class Shooting : NetworkBehaviour
         }
     }
 
+    public void FullReload()
+    {
+        for (int i = 0; i < playerWeapons.Count; i++)
+        {
+            playerWeapons[i].currentAmmo = playerWeapons[i].weapon.ammoCount;
+            playerWeapons[i].currentReserve = playerWeapons[i].weapon.reserveAmmo;
+        }
+    }
+
+
     //Reload function
     IEnumerator Reload()
     {
         //Set firing so you can't shoot while reloading
         currentlyFiring = true;
         _ReloadingFrame.SetActive(true);
+        Cmd_ServerReload(currentFireMode.reloadSoundIndex);
         yield return new WaitForSeconds(2);
 
         //Improve once animations are implemented
@@ -243,6 +254,12 @@ public class Shooting : NetworkBehaviour
         currentlyFiring = false;
         _ReloadingFrame.SetActive(false);
         yield return null;
+    }
+
+    [Command]
+    public void Cmd_ServerReload(int soundIndex)
+    {
+        GetComponent<PlayerAudioController>().RpcOnAllClients(soundIndex);
     }
 
     //Recharge function
@@ -278,7 +295,7 @@ public class Shooting : NetworkBehaviour
             //Subtract from the ammo
             playerWeapons[currentWeapon].currentAmmo -= currentFireMode.ammoUsedEachShot;
             //Fire bullet over server
-            Cmd_ServerFireBullet(currentFireMode.bulletPrefabName, currentFireMode.bulletDamage, currentFireMode.maxBounces, currentFireMode.fireSpeed);
+            Cmd_ServerFireBullet(currentFireMode.bulletPrefabName, currentFireMode.bulletDamage, currentFireMode.maxBounces, currentFireMode.fireSpeed, currentFireMode.shotSoundIndex);
             //Wait
             yield return new WaitForSeconds(60 / currentFireMode.fireRate);
         }
@@ -288,7 +305,7 @@ public class Shooting : NetworkBehaviour
 
     //Server reference for firing bullets
     [Command]
-    void Cmd_ServerFireBullet(string bullet, List<int> damage, int bounces, float fireSpeed)
+    void Cmd_ServerFireBullet(string bullet, List<int> damage, int bounces, float fireSpeed, int soundIndex)
     {
         //Fetch Bullet Prefab from Network Manager
         GameObject bulletPrefab = NetworkManager.singleton.spawnPrefabs.Find(bu => bu.name.Equals(bullet));
@@ -302,7 +319,7 @@ public class Shooting : NetworkBehaviour
         b.GetComponent<Bullet>().Initialize(damage, bounces, fireSpeed, playerID);
         //Play the firing audio
         //GetComponent<AudioSource>().PlayOneShot(fireMode.firingSound, .5f);
-        GetComponent<PlayerAudioController>().RpcOnAllClients(2);
+        GetComponent<PlayerAudioController>().RpcOnAllClients(soundIndex);
     }
 
     [Command]
@@ -360,7 +377,17 @@ public class Shooting : NetworkBehaviour
         if(newWeapon != -1)
         {
             playerWeapons[0].weapon = GameObject.FindGameObjectWithTag("Management").GetComponent<LoadoutManager>().loadouts[newWeapon];
+            FullReload();
         }
         
+    }
+    public void GetNewLoadout()
+    {
+        if (newWeapon != -1)
+        {
+            playerWeapons[0].weapon = GameObject.FindGameObjectWithTag("Management").GetComponent<LoadoutManager>().loadouts[newWeapon];
+            FullReload();
+        }
+
     }
 }

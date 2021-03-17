@@ -59,15 +59,15 @@ public class LobbyManager : NetworkBehaviour
                 _settingsVals = _lobbySettings.GetDropdownValues();
             }
             _settingsSaved = true;
-            Rpc_UpdateClientLobby(_settingsVals[0], _settingsVals[1], _settingsVals[2], _settingsVals[3], _settingsVals[4], _settingsVals[5], _settingsVals[6]);
+            Rpc_UpdateClientLobby(_settingsVals[0], _settingsVals[1], _settingsVals[2], _settingsVals[3], _settingsVals[4], _settingsVals[5], _settingsVals[6], _settingsVals[7]);
         }
     }
 
     [ClientRpc]
-    void Rpc_UpdateClientLobby(int playerHealth, int moveSpeed, int jumpHeight, int gamemode, int maxScore, int time, int respawnTime)
+    void Rpc_UpdateClientLobby(int playerHealth, int moveSpeed, int jumpHeight, int gamemode, int maxScore, int time, int respawnTime, int overchargeTime)
     {
         if(_lobbySettings)
-            _lobbySettings.UpdateClientLobby(playerHealth, moveSpeed, jumpHeight, gamemode, maxScore, time, respawnTime);
+            _lobbySettings.UpdateClientLobby(playerHealth, moveSpeed, jumpHeight, gamemode, maxScore, time, respawnTime, overchargeTime);
     }
 
     void DisplayMap(string oldMap, string newMap)

@@ -45,6 +45,9 @@ public class PlayerData : NetworkBehaviour
     private LobbyManager _lobbyManager;
     private bool inLobby = false;
     private bool _spawned = false;
+    
+    public static bool hostSpawned = false;
+
     /*
     public PlayerData(int teamNum = 0, string name = "Name")
     {
@@ -123,6 +126,7 @@ public class PlayerData : NetworkBehaviour
     {
         //transform.Find("Player").gameObject.SetActive(true);
         GetComponent<Shooting>().enabled = true;
+        GetComponent<Shooting>().GetNewLoadout();
         if (!partialSpawn)
         {
             GetComponent<Shooting>().active = true;
@@ -154,18 +158,23 @@ public class PlayerData : NetworkBehaviour
     IEnumerator DelaySpawn()
     {
         yield return new WaitForSeconds(0.2f);
-        if (!PlayerSpawnSystem.SpawnPlayer(gameObject, true, true))
+        //Debug.Log(_lobbyManager.GetComponent<GameManagement>().hostSpawned);
+        if (isServer || _lobbyManager.GetComponent<GameManagement>().hostSpawned)
         {
-            if (PlayerSpawnSystem.SpawnPlayer(gameObject))
+            if (!PlayerSpawnSystem.SpawnPlayer(gameObject, true, true))
+            {
+                if (PlayerSpawnSystem.SpawnPlayer(gameObject))
+                {
+                    _spawned = true;
+                }
+            }
+            else
             {
                 _spawned = true;
             }
+
+            GetComponent<MouseLook2>().enabled = true;
         }
-        else
-        {
-            _spawned = true;
-        }
-        GetComponent<MouseLook2>().enabled = true;
     }
 
     [TargetRpc]

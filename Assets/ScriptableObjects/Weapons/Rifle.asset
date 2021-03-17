@@ -13,15 +13,17 @@ MonoBehaviour:
   m_Name: Rifle
   m_EditorClassIdentifier: 
   name: Rifle
-  ammoCount: 25
-  reserveAmmo: 75
+  ammoCount: 20
+  reserveAmmo: 60
   modeSwapKey: 0
   fireModes:
   - key: 1
     fireType: 1
     shotsFiredAtOnce: 1
     ammoUsedEachShot: 1
-    bulletDamage: 0b00000023000000370000004b000000
+    bulletDamage: 0b0000002300000037000000
     fireSpeed: 1
     fireRate: 450
     bulletPrefabName: TravelBullet
+    shotSoundIndex: 3
+    reloadSoundIndex: 5

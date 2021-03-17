@@ -21,6 +21,11 @@ public class LobbyGameSettings : MonoBehaviour
     private Dropdown _maxGameScore = null;
     [SerializeField]
     private Dropdown _matchTimer = null;
+    [SerializeField]
+    private GameObject _OverchargeLabel = null;
+
+    [SerializeField]
+    private GameObject _gamemodeSpecificSettings = null;
 
     [SerializeField]
     private OnlineLobbyButtons _lobbyButtons = null;
@@ -67,6 +72,13 @@ public class LobbyGameSettings : MonoBehaviour
                 {
                     d.interactable = false;
                 }
+                foreach (Dropdown d in _gamemodeSpecificSettings.GetComponentsInChildren<Dropdown>())
+                {
+                    d.interactable = false;
+                }
+                //_maxGameScore.interactable = false;
+                //_OverchargeLabel.GetComponentInChildren<Dropdown>().interactable = false;
+
             }
             _buttonsSetup = true;
         }
@@ -74,15 +86,27 @@ public class LobbyGameSettings : MonoBehaviour
         
     }
 
-    public void UpdateClientLobby(int playerHealth, int moveSpeed, int jumpHeight, int gamemode, int maxScore, int time, int respawnTime)
+    public void UpdateClientLobby(int playerHealth, int moveSpeed, int jumpHeight, int gamemode, int maxScore, int time, int respawnTime, int overchargeTime)
     {
         _playerHealth.value = playerHealth;
         _playerMovementSpeed.value = moveSpeed;
         _playerJumpHeight.value = jumpHeight;
         _gamemodeSetting.value = gamemode;
-        _maxGameScore.value = maxScore;
+     
         _matchTimer.value = time;
         _playerRespawnTime.value = respawnTime;
+
+        if(gamemode == 0)
+        {
+            _OverchargeLabel.SetActive(false);
+        }
+        else if(gamemode == 1)
+        {
+            _OverchargeLabel.SetActive(true);
+            _OverchargeLabel.GetComponentInChildren<Dropdown>().value = 7;
+        }
+
+        _maxGameScore.value = maxScore;
     }
 
     public int GetGameModeSetting()
@@ -131,7 +155,7 @@ public class LobbyGameSettings : MonoBehaviour
 
     public int[] GetDropdownValues()
     {
-        int[] values = { _playerHealth.value, _playerMovementSpeed.value, _playerJumpHeight.value, _gamemodeSetting.value, _maxGameScore.value, _matchTimer.value, _playerRespawnTime.value};
+        int[] values = { _playerHealth.value, _playerMovementSpeed.value, _playerJumpHeight.value, _gamemodeSetting.value, _maxGameScore.value, _matchTimer.value, _playerRespawnTime.value, _OverchargeLabel.GetComponentInChildren<Dropdown>().value};
         return values;
     }
 

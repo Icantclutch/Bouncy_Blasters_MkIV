@@ -57,7 +57,23 @@ public class GameManagement : NetworkBehaviour
 
     private bool _lobbyScoreboardUpdated = true;
 
+    [SyncVar]
+    public bool hostSpawned = false;
+
     private NetworkManager _networkManager;
+
+    //****************************************************************************//
+    //Hard point Variables
+    [SerializeField]
+    private HardpointManager _hardptManager = null;
+
+    //Time between hard point switches
+    [SerializeField]
+    private float _hardpointLifeTime;
+
+    //Time left on hardpoint life time
+    [SerializeField]
+    private float _hardpointTimer;
 
     // Start is called before the first frame update
     
@@ -66,7 +82,7 @@ public class GameManagement : NetworkBehaviour
         DontDestroyOnLoad(this.gameObject);
         _networkManager = GameObject.Find("NetworkManager").GetComponent<NetworkManager>();
         _gamePaused = true;
-        
+      
         //playerList = new List<PlayerData>();
         //SetUpMatch(new Gamemode(0, 30, 0, 300), new Team("Nova", new List<PlayerData>()), new Team("Super Nova", new List<PlayerData>()));
   
@@ -133,14 +149,17 @@ public class GameManagement : NetworkBehaviour
     {
         UpdateScoreBoard();
         StartCoroutine(PreMatchWait());
+        _hardptManager = GameObject.Find("OverchargeLocations").GetComponent<HardpointManager>();
     }
 
     IEnumerator PreMatchWait()
     {
         _preMatchTimer = _preMatchWaitTime;
+        RpcUpdateHostSpawned(true);
+        hostSpawned = true;
         foreach(PlayerData player in playerList)
         {
-            //player.RpcSpawnPlayer(true, true);
+            player.RpcSpawnPlayer(true, true);
         }
         yield return new WaitForSeconds(_preMatchWaitTime);
         _startLock = false;
@@ -148,6 +167,11 @@ public class GameManagement : NetworkBehaviour
         {
             player.RpcSpawnPlayer(false, true);
         }
+    }
+    [ClientRpc]
+    public void RpcUpdateHostSpawned(bool spawned)
+    {
+        PlayerData.hostSpawned = spawned;
     }
 
     public void UpdateTeamScores()
@@ -341,7 +365,8 @@ public class GameManagement : NetworkBehaviour
     private void ReturnToLobby()
     {
         ResetMatch();
-       
+        RpcUpdateHostSpawned(false);
+        hostSpawned = false;
         GetComponent<LobbyManager>().ReturnPlayers();
         _lobbyScoreboardUpdated = false;
         _networkManager.ServerChangeScene("OnlineLobby Scene");
@@ -372,7 +397,7 @@ public class GameManagement : NetworkBehaviour
                 gamemodeExecution = TDM;
                 break;
             case 1:
-                gamemodeExecution = Hardpt;
+                gamemodeExecution = Overcharge;
                 break;
         }
 
@@ -475,8 +500,24 @@ public class GameManagement : NetworkBehaviour
 
     }
     
-    private void Hardpt()
+    private void Overcharge()
     {
-        Debug.Log("HardPt");
+        if (!_startLock)
+        {
+            if (_hardpointTimer > 0)
+            {
+                _hardpointTimer -= Time.deltaTime;
+            }
+            else
+            {
+                //Set the new hardpoint on the map
+                _hardptManager.SelectNewHardpoint();
+                _hardpointTimer = _hardpointLifeTime;
+            }
+            
+        }
+       
+        
+       
     }
 }

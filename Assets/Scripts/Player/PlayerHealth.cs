@@ -40,6 +40,12 @@ public class PlayerHealth : HitInteraction
 
     private LobbyManager _lobbyManager;
 
+    public GameObject MainCamera;
+    public GameObject SceneRespawnCam;
+
+    //Camera that is Null if not dead
+    private GameObject ToUseCam;
+
 
     // Start is called before the first frame update
     void Start()
@@ -52,6 +58,14 @@ public class PlayerHealth : HitInteraction
     [Server]
     void Update()
     {
+
+        if (ToUseCam != null) {
+            ToUseCam.transform.Translate(0, Time.deltaTime, 0, Space.World);
+            ToUseCam.GetComponent<Camera>().enabled = true;
+            MainCamera.GetComponent<Camera>().enabled = false;
+        } else {
+            MainCamera.GetComponent<Camera>().enabled = true;
+        }
     if (!_lobbyManager) {
         _lobbyManager = GameObject.FindGameObjectWithTag("Management").GetComponent<LobbyManager>();
      }
@@ -96,9 +110,11 @@ public class PlayerHealth : HitInteraction
     {
         //TODO Call to game controller to teleport player to designated spawn point
         Debug.Log("Player has died, Teleporting to respawn room");
+        Vector3 savedPos = transform.position + new Vector3(0, 5, 0);
         if (PlayerSpawnSystem.SpawnPlayer(gameObject, false))
         {
-          
+            ToUseCam = Instantiate(SceneRespawnCam, savedPos, Quaternion.Euler(90, 0, 0));
+            Destroy(ToUseCam, _respawnDelay);
             GetComponent<Shooting>().active = false;
             GetComponent<PlayerMovement>().active = true;
             GetComponent<PlayerMovement>().inRespawnRoom = true;
@@ -107,7 +123,7 @@ public class PlayerHealth : HitInteraction
         }
         else
         {
-            PlayerSpawnSystem.SpawnPlayer(gameObject);
+            Destroy(ToUseCam);
         }
     }
     IEnumerator RespawnPlayer()

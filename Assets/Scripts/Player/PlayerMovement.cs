@@ -71,6 +71,7 @@ public class PlayerMovement : NetworkBehaviour
 	}
 	private void Start()
 	{
+		//GetComponent<PlayerMovement>().inRespawnRoom = true
 
 		_distToGround = coll.bounds.extents.y;
 
