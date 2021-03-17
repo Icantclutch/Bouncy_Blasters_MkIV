@@ -15,6 +15,8 @@ public class PlayerAudioController : NetworkBehaviour
     /// 0: Bullet hits another player<br/>
     /// 1: Bullet hits local player<br/>
     /// 2: Shooting bullet<br/>
+    /// 3: Autoblaster shooting</br>
+    /// 4: Pistol shooting</summary>br>
     /// </para>
     /// </summary>
     [ClientRpc]
@@ -32,6 +34,8 @@ public class PlayerAudioController : NetworkBehaviour
     /// 0: Bullet hits another player<br/>
     /// 1: Bullet hits local player<br/>
     /// 2: Shooting bullet<br/>
+    /// 3: Autoblaster shooting</br>
+    /// 4: Pistol shooting</summary>br>
     /// </para>
     /// </summary>
     [TargetRpc]

@@ -288,7 +288,7 @@ public class Shooting : NetworkBehaviour
             //Subtract from the ammo
             playerWeapons[currentWeapon].currentAmmo -= currentFireMode.ammoUsedEachShot;
             //Fire bullet over server
-            Cmd_ServerFireBullet(currentFireMode.bulletPrefabName, currentFireMode.bulletDamage, currentFireMode.maxBounces, currentFireMode.fireSpeed);
+            Cmd_ServerFireBullet(currentFireMode.bulletPrefabName, currentFireMode.bulletDamage, currentFireMode.maxBounces, currentFireMode.fireSpeed, currentFireMode.shotSoundIndex);
             //Wait
             yield return new WaitForSeconds(60 / currentFireMode.fireRate);
         }
@@ -298,7 +298,7 @@ public class Shooting : NetworkBehaviour
 
     //Server reference for firing bullets
     [Command]
-    void Cmd_ServerFireBullet(string bullet, List<int> damage, int bounces, float fireSpeed)
+    void Cmd_ServerFireBullet(string bullet, List<int> damage, int bounces, float fireSpeed, int soundIndex)
     {
         //Fetch Bullet Prefab from Network Manager
         GameObject bulletPrefab = NetworkManager.singleton.spawnPrefabs.Find(bu => bu.name.Equals(bullet));
@@ -312,7 +312,7 @@ public class Shooting : NetworkBehaviour
         b.GetComponent<Bullet>().Initialize(damage, bounces, fireSpeed, playerID);
         //Play the firing audio
         //GetComponent<AudioSource>().PlayOneShot(fireMode.firingSound, .5f);
-        GetComponent<PlayerAudioController>().RpcOnAllClients(2);
+        GetComponent<PlayerAudioController>().RpcOnAllClients(soundIndex);
     }
 
     [Command]
