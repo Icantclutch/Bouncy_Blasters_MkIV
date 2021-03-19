@@ -27,13 +27,22 @@ public class HardpointManager : NetworkBehaviour
     
     public void InitializeHardPoints()
     {
-        
         _ListOfHardpoints = GameObject.FindGameObjectWithTag("Objective").GetComponentsInChildren<HardpointArea>();
         foreach(HardpointArea g in _ListOfHardpoints)
         {
             g.gameObject.SetActive(false);
         }
-       
+        Rpc_InitializeHardPoints();
+    }
+    [ClientRpc]
+    public void Rpc_InitializeHardPoints()
+    {
+        _ListOfHardpoints = GameObject.FindGameObjectWithTag("Objective").GetComponentsInChildren<HardpointArea>();
+        foreach (HardpointArea g in _ListOfHardpoints)
+        {
+            g.gameObject.SetActive(false);
+        }
+
     }
 
 
