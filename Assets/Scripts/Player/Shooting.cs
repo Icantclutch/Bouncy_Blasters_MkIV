@@ -329,8 +329,19 @@ public class Shooting : NetworkBehaviour
         //loop around if at the end
         if (currentWeapon >= playerWeapons.Count)
             currentWeapon = 0;
-    }
 
+        Rpc_UpdateWeaponModel(playerWeapons[currentWeapon].weapon.modelIndex);
+    }
+    [Command]
+    void Cmd_UpdateWeaponModel(int index)
+    {
+        Rpc_UpdateWeaponModel(index);
+    }
+    [ClientRpc]
+    void Rpc_UpdateWeaponModel(int index)
+    {
+        GetComponentInChildren<BlasterController>().swapTo(index);
+    }
     //Boolean that checks if a weapon has single-fired
     bool GetButtonFired(Weapon.FireKey key)
     {
@@ -378,6 +389,7 @@ public class Shooting : NetworkBehaviour
         {
             playerWeapons[0].weapon = GameObject.FindGameObjectWithTag("Management").GetComponent<LoadoutManager>().loadouts[newWeapon];
             FullReload();
+            GetComponentInChildren<BlasterController>().swapTo(playerWeapons[currentWeapon].weapon.modelIndex);
         }
         
     }
@@ -387,6 +399,7 @@ public class Shooting : NetworkBehaviour
         {
             playerWeapons[0].weapon = GameObject.FindGameObjectWithTag("Management").GetComponent<LoadoutManager>().loadouts[newWeapon];
             FullReload();
+            Cmd_UpdateWeaponModel(playerWeapons[currentWeapon].weapon.modelIndex);
         }
 
     }
