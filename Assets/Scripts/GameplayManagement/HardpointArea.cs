@@ -7,11 +7,12 @@ public class HardpointArea : NetworkBehaviour
 {
     //Variables for the number of players from each team attempting to capture the hardpoint area
     [SyncVar]
-    [SerializeField]
     private int _numTeamAPlayers = 0;
     [SyncVar]
-    [SerializeField]
     private int _numTeamBPlayers = 0;
+
+    [SerializeField]
+    private float hardpointTimer = 1.0f;
 
     //The team controlling the hardpoint area
     [SyncVar]
@@ -20,20 +21,24 @@ public class HardpointArea : NetworkBehaviour
     public int ControllingTeam { get => _controllingTeam; }
 
     //PlayerData cant be a SyncVar or a SerializeField
-    //[SyncVar]
-    //[SerializeField]
     private List<PlayerData> _occupants;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        _occupants = new List<PlayerData>();
     }
 
     // Update is called once per frame
     void Update()
     {
-       
+        hardpointTimer -= Time.deltaTime;
+        CompareAreaController();
+        if(hardpointTimer < 0)
+        {
+            AssignPoints();
+            hardpointTimer = 1.0f;
+        }
     }
 
     private void OnDisable()
@@ -43,18 +48,24 @@ public class HardpointArea : NetworkBehaviour
 
     private void OnEnable()
     {
-        InvokeRepeating("AssignPoints", 0, 1f);
+        //InvokeRepeating("AssignPoints", 0, 1f);
     }
 
     private void AssignPoints()
     {
-        foreach (PlayerData p in _occupants)
+        if (_occupants != null)
         {
-            if(p.team == ControllingTeam)
+            
+            foreach (PlayerData p in _occupants)
             {
-                p.AddPlayerScore(1);
+                Debug.Log("player datas: " + p.gameObject.name);
+                if (p.team == ControllingTeam)
+                {
+                    p.AddPlayerScore(1);
+                }
             }
         }
+        
 
     }
 
@@ -77,19 +88,23 @@ public class HardpointArea : NetworkBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == "Player")
+        if(other.isTrigger == false)
         {
-            _occupants.Add(other.GetComponent<PlayerData>());
+            if (other.gameObject.tag == "Player")
+            {
+                _occupants.Add(other.GetComponent<PlayerData>());
 
-            if (other.gameObject.GetComponent<PlayerData>().team == 1)
-            {
-                _numTeamAPlayers++;
-            }
-            else if(other.gameObject.GetComponent<PlayerData>().team == 2)
-            {
-                _numTeamBPlayers++;
+                if (other.gameObject.GetComponent<PlayerData>().team == 1)
+                {
+                    _numTeamAPlayers++;
+                }
+                else if (other.gameObject.GetComponent<PlayerData>().team == 2)
+                {
+                    _numTeamBPlayers++;
+                }
             }
         }
+        
     }
 
     private void OnTriggerExit(Collider other)

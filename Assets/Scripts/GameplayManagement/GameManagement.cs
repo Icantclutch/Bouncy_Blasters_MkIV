@@ -64,15 +64,15 @@ public class GameManagement : NetworkBehaviour
 
     //****************************************************************************//
     //Hard point Variables
-    [SerializeField]
+    
     private HardpointManager _hardptManager = null;
 
     //Time between hard point switches
-    [SerializeField]
+ 
     private float _hardpointLifeTime;
 
     //Time left on hardpoint life time
-    [SerializeField]
+  
     private float _hardpointTimer;
 
     // Start is called before the first frame update
@@ -149,7 +149,9 @@ public class GameManagement : NetworkBehaviour
     {
         UpdateScoreBoard();
         StartCoroutine(PreMatchWait());
-        _hardptManager = GameObject.Find("OverchargeLocations").GetComponent<HardpointManager>();
+        _hardptManager = GetComponent<HardpointManager>();
+        _hardptManager.InitializeHardPoints();
+        Debug.Log("Start Prematch End");
     }
 
     IEnumerator PreMatchWait()
@@ -398,6 +400,9 @@ public class GameManagement : NetworkBehaviour
                 break;
             case 1:
                 gamemodeExecution = Overcharge;
+                Debug.Log("Game overcharge time: " + game.overchargeTime);
+                _hardpointLifeTime = game.overchargeTime;
+                _hardpointTimer = 0.5f;
                 break;
         }
 
@@ -502,22 +507,20 @@ public class GameManagement : NetworkBehaviour
     
     private void Overcharge()
     {
-        if (!_startLock)
+        if (_hardpointTimer > 0)
         {
-            if (_hardpointTimer > 0)
-            {
-                _hardpointTimer -= Time.deltaTime;
-            }
-            else
-            {
-                //Set the new hardpoint on the map
-                _hardptManager.SelectNewHardpoint();
-                _hardpointTimer = _hardpointLifeTime;
-            }
-            
+            _hardpointTimer -= Time.deltaTime;
         }
-       
-        
-       
+        else
+        {
+            //Set the new hardpoint on the map
+            _hardptManager.SelectNewHardpoint();
+            _hardpointTimer = _hardpointLifeTime;
+        }
+
+
+
+
+
     }
 }
