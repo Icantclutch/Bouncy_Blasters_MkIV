@@ -60,7 +60,7 @@ public class PlayerHealth : HitInteraction
     {
 
         if (ToUseCam != null) {
-            ToUseCam.transform.Translate(0, Time.deltaTime, 0, Space.World);
+            ToUseCam.transform.Translate(0, Time.deltaTime * 1.5f, 0, Space.World);
             ToUseCam.GetComponent<Camera>().enabled = true;
             MainCamera.GetComponent<Camera>().enabled = false;
         } else {
@@ -110,7 +110,7 @@ public class PlayerHealth : HitInteraction
     {
         //TODO Call to game controller to teleport player to designated spawn point
         Debug.Log("Player has died, Teleporting to respawn room");
-        Vector3 savedPos = transform.position + new Vector3(0, 5, 0);
+        Vector3 savedPos = transform.position + new Vector3(0, 10, 0);
         if (PlayerSpawnSystem.SpawnPlayer(gameObject, false))
         {
             ToUseCam = Instantiate(SceneRespawnCam, savedPos, Quaternion.Euler(90, 0, 0));
@@ -159,9 +159,6 @@ public class PlayerHealth : HitInteraction
                 NetworkIdentity.spawned[Convert.ToUInt32(shot.playerID)].GetComponent<PlayerAudioController>().RpcOnPlayerClient(0);
                 NetworkIdentity.spawned[Convert.ToUInt32(shot.playerID)].GetComponent<PlayerEffects>().CreateHitmarker(ShotDmg);
                 GetComponent<PlayerAudioController>().RpcOnPlayerClient(1);
-
-
-                //NetworkIdentity.spawned[Convert.ToUInt32(shot.playerID)].GetComponent<PlayerEffects>().Creat
 
                 Rpc_ShowShield();
 
