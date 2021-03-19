@@ -40,7 +40,7 @@ public class PlayerMovement : NetworkBehaviour
 	[SerializeField]
 	private float _sprintTime;
 	[SerializeField]
-	private GameObject _sprintSlider;
+	private GameObject _sprintSlider = null;
 
 
 	[SerializeField]
@@ -250,7 +250,7 @@ public class PlayerMovement : NetworkBehaviour
 			canJump = false;
 			hasJumped = true;
 			//rbody.AddForce(0, gravity * 0.5f * jumpHeight, 0, ForceMode.Impulse);
-			Debug.Log("Jumped " + jumpHeight);
+			
 			rbody.AddForce(0, CalculateJumpVerticalSpeed(), 0, ForceMode.VelocityChange);
 			//rbody.velocity += new Vector3(0, CalculateJumpVerticalSpeed(), 0);
 		}

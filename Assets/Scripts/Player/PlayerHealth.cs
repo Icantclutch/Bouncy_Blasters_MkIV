@@ -36,7 +36,7 @@ public class PlayerHealth : HitInteraction
     private MeshRenderer _shield;
     [SerializeField]
     private float _shieldVisibilityTime = 2f;
-    private float _timer = 0;
+    
 
     private LobbyManager _lobbyManager;
 

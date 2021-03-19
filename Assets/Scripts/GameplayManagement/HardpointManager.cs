@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class HardpointManager : MonoBehaviour
+public class HardpointManager : NetworkBehaviour
 {
     //The list of hardpoints for the map
     [SerializeField]
@@ -14,7 +15,7 @@ public class HardpointManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //_ListOfHardpoints = GetComponentsInChildren<HardpointArea>();
+       
         
     }
 
@@ -23,22 +24,49 @@ public class HardpointManager : MonoBehaviour
     {
         
     }
+    
+    public void InitializeHardPoints()
+    {
+        
+        _ListOfHardpoints = GameObject.FindGameObjectWithTag("Objective").GetComponentsInChildren<HardpointArea>();
+        foreach(HardpointArea g in _ListOfHardpoints)
+        {
+            g.gameObject.SetActive(false);
+        }
+       
+    }
+
 
     public void SelectNewHardpoint()
     {
+        Debug.Log("Selecting new Hardpoint");
         int listSize = _ListOfHardpoints.Length;
         _activeHardpoint = Random.Range(0, listSize - 1);
 
         ActivateNewHardpoint();
     }
 
+  
     private void ActivateNewHardpoint()
     {
         for(int i = 0; i < _ListOfHardpoints.Length; i++)
         {
-            _ListOfHardpoints[i].enabled = false;
+            _ListOfHardpoints[i].gameObject.SetActive(false);
         }
-        _ListOfHardpoints[_activeHardpoint].enabled = true;
+        Debug.Log("Enabled: " + _activeHardpoint);
+        _ListOfHardpoints[_activeHardpoint].gameObject.SetActive(true);
+        Rpc_ActivateNewHardpoint(_activeHardpoint);
+       
+    }
+
+    [ClientRpc]
+    private void Rpc_ActivateNewHardpoint(int index)
+    {
+        for (int i = 0; i < _ListOfHardpoints.Length; i++)
+        {
+            _ListOfHardpoints[i].gameObject.SetActive(false);
+        }
+        _ListOfHardpoints[index].gameObject.SetActive(true);
     }
 
 }

@@ -152,9 +152,12 @@ public class PlayerEffects : NetworkBehaviour
             //Set the Image alpha (fade)
             float currVal = Mathf.Lerp(start, end, _completedPercent);
             Image newImg = go.GetComponent<Image>();
-            Color tempColor = newImg.color;
-            tempColor.a = currVal;
-            newImg.color = tempColor;
+            if (newImg != null)
+            {
+                Color tempColor = newImg.color;
+                tempColor.a = currVal;
+                newImg.color = tempColor;
+            }
             if (_completedPercent >= 1) break;
 
             yield return null;

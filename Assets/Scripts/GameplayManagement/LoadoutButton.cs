@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class LoadoutButton : MonoBehaviour
 {
     [SerializeField]
-    private int loadout;
+    private int loadout = 0;
 
     private Button button;
     // Start is called before the first frame update

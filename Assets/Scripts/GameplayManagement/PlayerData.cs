@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
+using UnityEngine.UI;
 
 public class PlayerData : NetworkBehaviour
 {
@@ -24,11 +25,14 @@ public class PlayerData : NetworkBehaviour
     [SyncVar]
     public int playerElims;
     [SyncVar]
+    public int killStreak;
+    [SyncVar]
     public int playerDeaths;
     [NonSerialized]
     public Team playerTeam;
     [SyncVar(hook = nameof(HandleTeamUpdated))]
     public int team;
+    public GameObject GO_killStreak;
     private void HandleTeamUpdated(int oldTeam, int newTeam)
     {
         if (isLocalPlayer)
@@ -65,6 +69,8 @@ public class PlayerData : NetworkBehaviour
         {
             PlayerInfoDisplay.SetLocalPlayerTeam(team);
         }
+        GO_killStreak.GetComponent<Text>().text = "";
+        GO_killStreak.SetActive(false);
     }
     void Update()
     {
@@ -125,6 +131,7 @@ public class PlayerData : NetworkBehaviour
     public void SpawnPlayer(bool partialSpawn = false, bool prematch = false)
     {
         //transform.Find("Player").gameObject.SetActive(true);
+        KillStreakUpdate();
         GetComponent<Shooting>().enabled = true;
         GetComponent<Shooting>().GetNewLoadout();
         if (!partialSpawn)
@@ -189,13 +196,30 @@ public class PlayerData : NetworkBehaviour
         GetComponent<Shooting>().enabled = false;
 
     }
+
+    private void KillStreakUpdate()
+    {
+        if (killStreak >= 2)
+        {
+            GO_killStreak.GetComponent<Text>().text = "Kill Streak x" + killStreak.ToString();
+            GO_killStreak.SetActive(true);
+        } else
+        {
+            GO_killStreak.GetComponent<Text>().text = "";
+            GO_killStreak.SetActive(false);
+        }
+    }
     public void AddPlayerElim()
     {
         playerElims += 1;
+        killStreak += 1;
+        KillStreakUpdate();
     }
     public void AddPlayerDeaths()
     {
         playerDeaths += 1;
+        killStreak = 0;
+        KillStreakUpdate();
     }
     public void AddPlayerScore(int score)
     {
@@ -224,6 +248,7 @@ public class PlayerData : NetworkBehaviour
         playerElims = 0;
         playerDeaths = 0;
         playerScore = 0;
+        killStreak = 0;
     }
 
     public static int CompareByScore(PlayerData a, PlayerData b)

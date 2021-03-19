@@ -104,15 +104,16 @@ public class LobbyManager : NetworkBehaviour
         players.Remove(player);
         DisplayPlayers();
     }
-    public void SetGamemode(int mode, int mScore, int sScore, int time)
+    public void SetGamemode(int mode, int mScore, int sScore, int time, int overchargeTime)
     {
-        gamemode = new Gamemode(mode, mScore, sScore, time);
+        gamemode = new Gamemode(mode, mScore, sScore, time, overchargeTime);
     }
 
     public void SetGamemode()
     {
         GetLobbySettings();
-        gamemode = new Gamemode(_lobbySettings.GetGameModeSetting(), _lobbySettings.GetMatchScoreSetting(), 0, _lobbySettings.GetMatchTimeSetting());
+        gamemode = new Gamemode(_lobbySettings.GetGameModeSetting(), _lobbySettings.GetMatchScoreSetting(),
+            0, _lobbySettings.GetMatchTimeSetting(), _lobbySettings.GetOverchargeTimeSetting());
         foreach (PlayerData p in players) {
             p.GetComponent<PlayerHealth>().SetMaxCharge(_lobbySettings.GetPlayerHealthSetting());
             p.GetComponent<PlayerMovement>().SetMoveSpeed(_lobbySettings.GetPlayerSpeedSetting());
