@@ -48,7 +48,7 @@ public class HardpointArea : NetworkBehaviour
 
     private void OnEnable()
     {
-        //InvokeRepeating("AssignPoints", 0, 1f);
+        
     }
 
     private void AssignPoints()
@@ -72,7 +72,7 @@ public class HardpointArea : NetworkBehaviour
 
     private void CompareAreaController()
     {
-        if (_numTeamAPlayers == 0 && _numTeamBPlayers == 0)
+        if ((_numTeamAPlayers == 0 && _numTeamBPlayers == 0) || _numTeamAPlayers == _numTeamBPlayers )
         {
             _controllingTeam = -1;
         }
