@@ -150,7 +150,7 @@ public class GameManagement : NetworkBehaviour
         UpdateScoreBoard();
         StartCoroutine(PreMatchWait());
         _hardptManager = GetComponent<HardpointManager>();
-        _hardptManager.InitializeHardPoints();
+        _hardptManager.Rpc_InitializeHardPoints();
         Debug.Log("Start Prematch End");
     }
 
