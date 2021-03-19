@@ -249,6 +249,7 @@ public class PlayerData : NetworkBehaviour
         playerDeaths = 0;
         playerScore = 0;
         killStreak = 0;
+        KillStreakUpdate();
     }
 
     public static int CompareByScore(PlayerData a, PlayerData b)
