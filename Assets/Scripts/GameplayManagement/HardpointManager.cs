@@ -27,9 +27,7 @@ public class HardpointManager : NetworkBehaviour
 
     public void InitializeHardPoints()
     {
-        Debug.Log("Stupid function call for Rpc_InitializingHardpoints");
-        Rpc_InitializeHardPoints();
-
+        Invoke("Rpc_InitializeHardPoints", 2f);
     }
 
     [ClientRpc]
