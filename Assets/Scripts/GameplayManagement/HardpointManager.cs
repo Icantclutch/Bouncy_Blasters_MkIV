@@ -24,11 +24,18 @@ public class HardpointManager : NetworkBehaviour
     {
         
     }
-    
-   
+
+    public void InitializeHardPoints()
+    {
+        Debug.Log("Stupid function call for Rpc_InitializingHardpoints");
+        Rpc_InitializeHardPoints();
+
+    }
+
     [ClientRpc]
     public void Rpc_InitializeHardPoints()
     {
+        Debug.Log("Rpc_InitializingHardpoints");
         _ListOfHardpoints = GameObject.FindGameObjectWithTag("Objective").GetComponentsInChildren<HardpointArea>();
         foreach (HardpointArea g in _ListOfHardpoints)
         {
@@ -53,6 +60,7 @@ public class HardpointManager : NetworkBehaviour
     [ClientRpc]
     private void Rpc_ActivateNewHardpoint(int index)
     {
+        Debug.Log("Rpc_ActivateNewHardpoint");
         for (int i = 0; i < _ListOfHardpoints.Length; i++)
         {
             _ListOfHardpoints[i].gameObject.SetActive(false);
