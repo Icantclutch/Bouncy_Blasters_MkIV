@@ -109,18 +109,22 @@ public class HardpointArea : NetworkBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.tag == "Player")
+        if(other.isTrigger == false)
         {
-            _occupants.Remove(other.GetComponent<PlayerData>());
+            if (other.gameObject.tag == "Player")
+            {
+                _occupants.Remove(other.GetComponent<PlayerData>());
 
-            if (other.gameObject.GetComponent<PlayerData>().team == 1)
-            {
-                _numTeamAPlayers--;
-            }
-            else if (other.gameObject.GetComponent<PlayerData>().team == 2)
-            {
-                _numTeamBPlayers--;
+                if (other.gameObject.GetComponent<PlayerData>().team == 1)
+                {
+                    _numTeamAPlayers--;
+                }
+                else if (other.gameObject.GetComponent<PlayerData>().team == 2)
+                {
+                    _numTeamBPlayers--;
+                }
             }
         }
+        
     }
 }
