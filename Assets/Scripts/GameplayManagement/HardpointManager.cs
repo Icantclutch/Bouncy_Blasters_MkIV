@@ -48,7 +48,7 @@ public class HardpointManager : NetworkBehaviour
         Debug.Log("Selecting new Hardpoint");
         int listSize = _ListOfHardpoints.Length;
         _activeHardpoint = Random.Range(0, listSize - 1);
-
+      
         Rpc_ActivateNewHardpoint(_activeHardpoint);
     }
 

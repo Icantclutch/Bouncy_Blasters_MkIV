@@ -96,7 +96,7 @@ public class LobbyGameSettings : MonoBehaviour
         else if(gamemode == 1)
         {
             _OverchargeLabel.SetActive(true);
-            _OverchargeLabel.GetComponentInChildren<Dropdown>().value = 7;
+            _OverchargeLabel.GetComponentInChildren<Dropdown>().value = overchargeTime;
         }
 
         _maxGameScore.value = maxScore;

@@ -402,7 +402,7 @@ public class GameManagement : NetworkBehaviour
                 gamemodeExecution = Overcharge;
                 Debug.Log("Game overcharge time: " + game.overchargeTime);
                 _hardpointLifeTime = game.overchargeTime;
-                _hardpointTimer = 0.5f;
+                _hardpointTimer = 20f;
                 break;
         }
 
