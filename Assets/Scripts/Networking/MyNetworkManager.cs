@@ -109,7 +109,11 @@ public class MyNetworkManager : NetworkManager
 
 
         //Loading Data
-        SettingsManager.LoadJsonData(settingsManager);
+        if (settingsManager)
+        {
+            Debug.Log(settingsManager);
+            SettingsManager.LoadJsonData(settingsManager);
+        }
     }
 
     public override void OnServerSceneChanged(string sceneName)
