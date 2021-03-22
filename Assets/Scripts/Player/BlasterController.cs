@@ -1,12 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.Experimental.Rendering.RenderGraphModule;
 public class BlasterController : MonoBehaviour
 {
 
     public List<GameObject> blasters;
     public GameObject currentBlaster = null;
+
+    [SerializeField]
+    private float _shotingEffectTime = 1.5f;
+    private float _shootingEffectTimer = 0;
 
     private void Start()
     {
@@ -22,6 +26,44 @@ public class BlasterController : MonoBehaviour
             }
         }
     }
+
+    private void Update()
+    {
+        if(_shootingEffectTimer > 0)
+        {
+            _shootingEffectTimer -= Time.deltaTime;
+            if(_shootingEffectTimer <= 0 && currentBlaster)
+            {
+                
+                foreach (Transform child in currentBlaster.transform)
+                {
+                    if (child.tag == "Barrel")
+                    {
+                        child.Find("Blaster Firing-VFX Graph").gameObject.SetActive(false);
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    public void StartShootingEffect()
+    {
+        if(_shootingEffectTimer <= 0)
+        {
+            foreach (Transform child in currentBlaster.transform)
+            {
+                if (child.tag == "Barrel")
+                {
+                    child.Find("Blaster Firing-VFX Graph").gameObject.SetActive(true);
+                    break;
+                }
+            }
+        }
+        _shootingEffectTimer = _shotingEffectTime;
+        
+    }
+
     /// <summary>
     /// Swaps weapon model based on game object name
     /// (can be unreliable)
@@ -88,4 +130,6 @@ public class BlasterController : MonoBehaviour
 
         return false;
     }
+
+
 }

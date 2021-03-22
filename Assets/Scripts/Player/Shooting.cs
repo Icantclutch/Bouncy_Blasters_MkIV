@@ -320,6 +320,8 @@ public class Shooting : NetworkBehaviour
         //Play the firing audio
         //GetComponent<AudioSource>().PlayOneShot(fireMode.firingSound, .5f);
         GetComponent<PlayerAudioController>().RpcOnAllClients(soundIndex);
+
+        Rpc_ShootingEffects();
     }
 
     [Command]
@@ -341,6 +343,11 @@ public class Shooting : NetworkBehaviour
     void Rpc_UpdateWeaponModel(int index)
     {
         GetComponentInChildren<BlasterController>().swapTo(index);
+    }
+    [ClientRpc]
+    void Rpc_ShootingEffects()
+    {
+        GetComponentInChildren<BlasterController>().StartShootingEffect();
     }
     //Boolean that checks if a weapon has single-fired
     bool GetButtonFired(Weapon.FireKey key)

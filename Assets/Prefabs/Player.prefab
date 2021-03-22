@@ -3042,6 +3042,7 @@ MonoBehaviour:
   - {fileID: 6139257295653746931}
   - {fileID: 4617499230050241315}
   currentBlaster: {fileID: 0}
+  _shotingEffectTime: 1
 --- !u!1 &6200394319100493827
 GameObject:
   m_ObjectHideFlags: 0
@@ -4180,6 +4181,18 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8764315823313098887, guid: 0cde37b7b715d794ebf4fd4f86111722, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8764315823313098887, guid: 0cde37b7b715d794ebf4fd4f86111722, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8764315823313098887, guid: 0cde37b7b715d794ebf4fd4f86111722, type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0cde37b7b715d794ebf4fd4f86111722, type: 3}
 --- !u!1 &1733745405477816160 stripped
@@ -4329,6 +4342,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5742147483487113184, guid: a8418589469c375468639439974e8db3, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5742147483487113184, guid: a8418589469c375468639439974e8db3, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5742147483487113184, guid: a8418589469c375468639439974e8db3, type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a8418589469c375468639439974e8db3, type: 3}
 --- !u!1 &1263324136840323096 stripped
@@ -4348,6 +4373,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6994367259480995102}
     m_Modifications:
+    - target: {fileID: 7773810979152152248, guid: beee930b70cea534bbab226a9e576b48, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7773810979152152248, guid: beee930b70cea534bbab226a9e576b48, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7773810979152152248, guid: beee930b70cea534bbab226a9e576b48, type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8253446009720694562, guid: beee930b70cea534bbab226a9e576b48, type: 3}
       propertyPath: m_Name
       value: Shorgun-001 (2)
@@ -4579,6 +4616,18 @@ PrefabInstance:
     - target: {fileID: 757725881943718585, guid: fdec027a4fcde19428e604fdfa2d1ed7, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2623322702957408700, guid: fdec027a4fcde19428e604fdfa2d1ed7, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2623322702957408700, guid: fdec027a4fcde19428e604fdfa2d1ed7, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2623322702957408700, guid: fdec027a4fcde19428e604fdfa2d1ed7, type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fdec027a4fcde19428e604fdfa2d1ed7, type: 3}
@@ -4976,6 +5025,18 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6579302096073032277, guid: f9b219c2bc025204289c3129dc07dca3, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6579302096073032277, guid: f9b219c2bc025204289c3129dc07dca3, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6579302096073032277, guid: f9b219c2bc025204289c3129dc07dca3, type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f9b219c2bc025204289c3129dc07dca3, type: 3}
 --- !u!1 &8059360281311517520 stripped
@@ -4997,7 +5058,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1470882319137043103, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
       propertyPath: m_RootOrder
-      value: 19
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 6020351406556087361, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
       propertyPath: m_AnchorMax.x
@@ -5009,7 +5070,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6243194740799596944, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
       propertyPath: m_RootOrder
-      value: 18
+      value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 8229628230764440891, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
       propertyPath: m_IsActive
@@ -5516,6 +5577,18 @@ PrefabInstance:
     - target: {fileID: 7557600195763654245, guid: 8d808d2b6ca5dae4e83f27fc1c3e6127, type: 3}
       propertyPath: m_Name
       value: Auto Blaster-01
+      objectReference: {fileID: 0}
+    - target: {fileID: 7730275733873902280, guid: 8d808d2b6ca5dae4e83f27fc1c3e6127, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7730275733873902280, guid: 8d808d2b6ca5dae4e83f27fc1c3e6127, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7730275733873902280, guid: 8d808d2b6ca5dae4e83f27fc1c3e6127, type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8d808d2b6ca5dae4e83f27fc1c3e6127, type: 3}
