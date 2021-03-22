@@ -323,8 +323,27 @@ public class GameManagement : NetworkBehaviour
         }
 
     }
+    //Function to end the match
+    public void EndMatch()
+    {
+        if (isServer)
+        {
+            if (teamAScore > teamBScore)
+            {
+                MatchEnd(1);
+            }
+            else if (teamBScore > teamAScore)
+            {
+                MatchEnd(2);
+            }
+            else
+            {
+                MatchEnd();
+            }
+            HeatMap.StoreAndSave();
+        }
+    }
     //Function for ending the match and declaring a winner
-   
     private void MatchEnd(int winningTeam)
     {
         /*
