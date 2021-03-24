@@ -84,11 +84,13 @@ public class PlayerHealth : HitInteraction
     //Holds all the servserside calls for respawning the player, 
     private void Respawn()
     {
-        Rpc_DeathSounds();
+        //Rpc_DeathSounds();
+        GetComponent<PlayerAudioController>().RpcOnAllClients(7);
         GetComponent<Shooting>().Rpc_GetNewLoadout();
         GetComponent<Shooting>().Rpc_FullReload();
         //Teleport the player
         Rpc_TeleportPlayer();
+        GetComponent<PlayerAudioController>().RpcOnAllClients(7);
         currentCharge = 0;
     }
 
@@ -103,6 +105,7 @@ public class PlayerHealth : HitInteraction
         //    NetworkServer.Spawn(b);
         //}
         GetComponent<AudioSource>().PlayOneShot(_deathClip, .25f);
+        
     }
 
     [TargetRpc]
@@ -128,15 +131,22 @@ public class PlayerHealth : HitInteraction
     }
     IEnumerator RespawnPlayer()
     {
-        yield return new WaitForSeconds(_respawnDelay);
+        yield return new WaitForSeconds(_respawnDelay-2);
+        CmdRespawnEffects();
+        yield return new WaitForSeconds(2);
         PlayerSpawnSystem.SpawnPlayer(gameObject);
         GetComponent<Shooting>().active = true;
         GetComponent<PlayerMovement>().inRespawnRoom = false;
         _isDead = false;
         SetIsDead(_isDead);
+        
     }
 
-
+    [Command]
+    private void CmdRespawnEffects()
+    {
+        GetComponent<PlayerAudioController>().RpcOnAllClients(8);
+    }
 
     [Server]
     public override void Hit(Bullet.Shot shot)
