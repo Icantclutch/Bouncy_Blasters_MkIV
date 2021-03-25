@@ -13,10 +13,13 @@ public class SettingsManager : MonoBehaviour, ISaveable
     public Slider VolumeSlider;
     public Dropdown QualityDrop;
     public Toggle FullscreenToggle;
+    public Slider SensitiviySlider;
 
-    public int videoQuality;
-    public float currVolume;
-    public int windowType;
+    private int videoQuality;
+    private float currVolume;
+    private int windowType;
+    private float sensitivity;
+
     
 
     Resolution[] resolutionsList;
@@ -46,13 +49,30 @@ public class SettingsManager : MonoBehaviour, ISaveable
         resolutionsDrop.value = currentResolution;
         resolutionsDrop.RefreshShownValue();
 
+        LoadJsonData(this);
 
+          currVolume = PlayerPrefs.GetFloat("masterVolume", currVolume);
+          windowType = PlayerPrefs.GetInt("fullscreen", windowType);
+          videoQuality = PlayerPrefs.GetInt("qualitylevel", videoQuality);
+
+        if (sensitivity == -100)
+        {
+            sensitivity = SensitiviySlider.value;
+        }
+        else
+        {
+            SensitiviySlider.value = sensitivity;
+        }
+        
+        
 
         masterMixer.SetFloat("MasterVolume", currVolume);
         VolumeSlider.value = currVolume;
+       
 
         QualitySettings.SetQualityLevel(videoQuality);
         QualityDrop.value = videoQuality;
+     
 
         if(windowType == 1)
         {
@@ -64,36 +84,32 @@ public class SettingsManager : MonoBehaviour, ISaveable
             Screen.fullScreen = false;
             FullscreenToggle.isOn = false;
         }
-
+       
     }
 
     private void FixedUpdate()
     {
+
         SaveJsonData(this);
 
-        if (windowType == 1)
-        {
-            Screen.fullScreen = true;
-        }
-        else
-        {
-            Screen.fullScreen = false;
-        }
-        masterMixer.SetFloat("MasterVolume", currVolume);
-        QualitySettings.SetQualityLevel(videoQuality);
     }
 
 
 
 
     public void SetMasterVolume (float masterVolume)
-    { 
+    {
+        VolumeSlider.value = currVolume;
         currVolume = masterVolume;
+        masterMixer.SetFloat("MasterVolume", currVolume);
+
     }
 
     public void SetQuality(int quality)
     {
         videoQuality = quality;
+        QualitySettings.SetQualityLevel(videoQuality);
+
     }
 
     public void WindowMode(bool isFullscreen)
@@ -112,6 +128,9 @@ public class SettingsManager : MonoBehaviour, ISaveable
     public void OnButtonPress()
     {
         SaveJsonData(this);
+        PlayerPrefs.SetFloat("masterVolume", currVolume);
+        PlayerPrefs.SetInt("fullscreen", windowType);
+        PlayerPrefs.SetInt("qualitylevel", videoQuality);
         SceneManager.LoadScene("Title Screen");
     }
 
@@ -123,7 +142,7 @@ public class SettingsManager : MonoBehaviour, ISaveable
 
         if(FileManager.WriteToFile("SaveData.dat", sd.ToJson()))
         {
-            Debug.Log("Save Successful");
+           // Debug.Log("Save Successful");
         }
     }
     
@@ -144,6 +163,7 @@ public class SettingsManager : MonoBehaviour, ISaveable
         a_SaveData.videoQuality = videoQuality;
         a_SaveData.windowType = windowType;
         a_SaveData.currVolume = currVolume;
+        a_SaveData.sensitivity = sensitivity;
     }
 
     public void LoadFromSaveData(SaveData a_SaveData)
@@ -151,5 +171,6 @@ public class SettingsManager : MonoBehaviour, ISaveable
         videoQuality = a_SaveData.videoQuality;
         windowType = a_SaveData.windowType;
         currVolume = a_SaveData.currVolume;
+        sensitivity = a_SaveData.sensitivity;
     }
 }
