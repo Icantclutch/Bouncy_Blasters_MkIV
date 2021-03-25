@@ -13,6 +13,7 @@ public class SettingsManager : MonoBehaviour, ISaveable
     public Slider VolumeSlider;
     public Dropdown QualityDrop;
     public Toggle FullscreenToggle;
+
     public Slider SensitiviySlider;
 
     private int videoQuality;
@@ -20,6 +21,8 @@ public class SettingsManager : MonoBehaviour, ISaveable
     private int windowType;
     private float sensitivity;
 
+    public Slider opacitySlider;
+    public RawImage minimap;
     
 
     Resolution[] resolutionsList;
@@ -70,9 +73,12 @@ public class SettingsManager : MonoBehaviour, ISaveable
         VolumeSlider.value = currVolume;
        
 
+       
+
         QualitySettings.SetQualityLevel(videoQuality);
         QualityDrop.value = videoQuality;
      
+
 
         if(windowType == 1)
         {
@@ -95,7 +101,12 @@ public class SettingsManager : MonoBehaviour, ISaveable
     }
 
 
-
+    public void setOpacity(float mapSlider)
+    {
+        currSlider = mapSlider;
+        //minimap.color = new Color(255.0f, 255.0f, 255.0f, currSlider);
+        //opacitySlider.value = currSlider;
+    }
 
     public void SetMasterVolume (float masterVolume)
     {
