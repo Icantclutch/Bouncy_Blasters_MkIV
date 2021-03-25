@@ -12,10 +12,13 @@ public class SettingsManager : MonoBehaviour
     public Slider VolumeSlider;
     public Dropdown QualityDrop;
     public Toggle FullscreenToggle;
+    public Slider opacitySlider;
+    public RawImage minimap;
 
     private int videoQuality;
     private float currVolume;
     private int windowType;
+    private float currSlider;
     
 
     Resolution[] resolutionsList;
@@ -52,8 +55,11 @@ public class SettingsManager : MonoBehaviour
         masterMixer.SetFloat("MasterVolume", currVolume);
         VolumeSlider.value = currVolume;
 
+       
+
         QualitySettings.SetQualityLevel(videoQuality);
         QualityDrop.value = videoQuality;
+
 
         if(windowType == 1)
         {
@@ -88,7 +94,12 @@ public class SettingsManager : MonoBehaviour
     }
 
 
-
+    public void setOpacity(float mapSlider)
+    {
+        currSlider = mapSlider;
+        minimap.color = new Color(255.0f, 255.0f, 255.0f, currSlider);
+        //opacitySlider.value = currSlider;
+    }
 
     public void SetMasterVolume (float masterVolume)
     { 

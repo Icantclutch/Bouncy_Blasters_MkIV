@@ -21,11 +21,10 @@ public class OpacitySetting : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            opaque = 0.0f;
+        
+            opaque = opacitySlider.value;
             minimap.color = new Color(255.0f, 255.0f, 255.0f, opaque);
-        }
+        
     }
 
   

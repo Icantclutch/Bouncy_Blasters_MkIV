@@ -21,3 +21,5 @@ public static class Keybinds
     public static string MouseX = "Mouse X"; //Mouse Horizontal
     public static string MouseY = "Mouse Y"; //Mouse Vertical
 }
+
+
