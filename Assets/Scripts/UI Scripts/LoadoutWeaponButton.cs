@@ -52,7 +52,7 @@ public class LoadoutWeaponButton : MonoBehaviour
         //number of Ricochets
         stats[4] = (ricochets - 1);
 
-        Debug.Log("Press button");
+        //Debug.Log("Press button");
 
         GetComponentInParent<LoadoutMenuButtons>().UpdateLoadoutStats(stats);
     }

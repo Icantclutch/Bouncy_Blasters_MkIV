@@ -7,8 +7,8 @@ using Mirror;
 
 public class NetworkButtons : MonoBehaviour
 {
-    [SerializeField]
-    private Dropdown _dropdown = null;
+    //[SerializeField]
+    //private Dropdown _dropdown = null;
     [SerializeField]
     private ToggleGroup _toggleGroup = null;
 

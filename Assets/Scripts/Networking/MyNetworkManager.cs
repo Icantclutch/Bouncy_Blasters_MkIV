@@ -7,7 +7,15 @@ using Steamworks;
 public class MyNetworkManager : NetworkManager
 {
     public GameObject gameManager;
+    SettingsManager settingsManager;
+
     public List<NetworkConnection> players = new List<NetworkConnection>();
+
+    public void Start()
+    {
+        settingsManager = GameObject.FindGameObjectWithTag("SettingsMenu").GetComponent<SettingsManager>();
+    }
+
 
     //Overrides OnServerAddPlayer to also get and set the players Steam Id
     public override void OnServerAddPlayer(NetworkConnection conn)
@@ -98,7 +106,14 @@ public class MyNetworkManager : NetworkManager
         {
             conn.identity.GetComponent<PlayerData>().SpawnPlayer(true, true);
         }
-        
+
+
+        //Loading Data
+        if (settingsManager)
+        {
+            Debug.Log(settingsManager);
+            SettingsManager.LoadJsonData(settingsManager);
+        }
     }
 
     public override void OnServerSceneChanged(string sceneName)
@@ -139,3 +154,4 @@ public class MyNetworkManager : NetworkManager
         return -1;
     }
 }
+

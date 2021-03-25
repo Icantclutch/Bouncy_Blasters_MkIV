@@ -10,14 +10,16 @@ public class Gamemode
     public int startingScore;
 
     public int matchTime;
+    public int overchargeTime;
   
     public int selectedGameMode;
-    public Gamemode(int mode, int mScore, int sScore, int time)
+    public Gamemode(int mode, int mScore, int sScore, int time, int oChargeTime)
     {
         selectedGameMode = mode;
         maxScore = mScore;
         startingScore = sScore;
         matchTime = time;
+        overchargeTime = oChargeTime;
 
     
     }

@@ -122,6 +122,8 @@ public class TravelBullet : RaycastBullet
         //Cast ray
         if (Physics.Raycast(ray, out hit, rayLength, reflectable))
         {
+            if (hit.transform.gameObject.tag == "OverchargeArea")
+                return;
             if (hit.point == laserDestroyB)
                 return;
 
@@ -139,6 +141,7 @@ public class TravelBullet : RaycastBullet
             {
                 floor = true;
             }
+            
 
             //If it hits a NoBounce object, end the bouncing; otherwise, generate the reflection
             nextDir = (hit.transform.CompareTag("NoBounce")) ? Vector3.zero : Vector3.Reflect(ray.direction, hit.normal);

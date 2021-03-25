@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class HardpointManager : MonoBehaviour
+public class HardpointManager : NetworkBehaviour
 {
     //The list of hardpoints for the map
     [SerializeField]
@@ -14,7 +15,7 @@ public class HardpointManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //_ListOfHardpoints = GetComponentsInChildren<HardpointArea>();
+       
         
     }
 
@@ -24,21 +25,45 @@ public class HardpointManager : MonoBehaviour
         
     }
 
-    public void SelectNewHardpoint()
+    public void InitializeHardPoints()
     {
-        int listSize = _ListOfHardpoints.Length;
-        _activeHardpoint = Random.Range(0, listSize - 1);
-
-        ActivateNewHardpoint();
+        Invoke("Rpc_InitializeHardPoints", 2f);
     }
 
-    private void ActivateNewHardpoint()
+    [ClientRpc]
+    public void Rpc_InitializeHardPoints()
     {
-        for(int i = 0; i < _ListOfHardpoints.Length; i++)
+        Debug.Log("Rpc_InitializingHardpoints");
+        _ListOfHardpoints = GameObject.FindGameObjectWithTag("Objective").GetComponentsInChildren<HardpointArea>();
+        foreach (HardpointArea g in _ListOfHardpoints)
         {
-            _ListOfHardpoints[i].enabled = false;
+            g.gameObject.SetActive(false);
         }
-        _ListOfHardpoints[_activeHardpoint].enabled = true;
+
+    }
+
+
+    public void SelectNewHardpoint()
+    {
+        Debug.Log("Selecting new Hardpoint");
+        int listSize = _ListOfHardpoints.Length;
+        _activeHardpoint = Random.Range(0, listSize - 1);
+      
+        Rpc_ActivateNewHardpoint(_activeHardpoint);
+    }
+
+  
+  
+
+    [ClientRpc]
+    private void Rpc_ActivateNewHardpoint(int index)
+    {
+        Debug.Log("Rpc_ActivateNewHardpoint");
+        for (int i = 0; i < _ListOfHardpoints.Length; i++)
+        {
+            _ListOfHardpoints[i].gameObject.SetActive(false);
+        }
+        _ListOfHardpoints[index].gameObject.SetActive(true);
     }
 
 }

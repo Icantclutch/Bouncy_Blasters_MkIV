@@ -19,7 +19,7 @@ public class GamemodeSpecificSettings : MonoBehaviour
 
     private List<string> _tdmScores = new List<string> { "15", "30", "45" };
 
-    private List<string> _overchargeScores = new List<string> { "100", "150", "200" };
+    private List<string> _overchargeScores = new List<string> { "150", "200", "250" };
 
     // Start is called before the first frame update
     void Start()
