@@ -19,6 +19,7 @@ public class SettingsManager : MonoBehaviour, ISaveable
     public int videoQuality;
     public float currVolume;
     public int windowType;
+    public float currSlider;
     
 
     Resolution[] resolutionsList;
@@ -92,7 +93,7 @@ public class SettingsManager : MonoBehaviour, ISaveable
     public void setOpacity(float mapSlider)
     {
         currSlider = mapSlider;
-        minimap.color = new Color(255.0f, 255.0f, 255.0f, currSlider);
+        //minimap.color = new Color(255.0f, 255.0f, 255.0f, currSlider);
         //opacitySlider.value = currSlider;
     }
 

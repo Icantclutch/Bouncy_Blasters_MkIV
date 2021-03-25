@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class WallCollisionSetting : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public GameObject wallInstance;
+    public Ray myRay;
+    private RaycastReflection rayScript;
 
-    // Update is called once per frame
-    void Update()
+    GameObject aimRay = GameObject.Find("RaycastReflection");
+
+    
+    void detectCollision(Collider col)
     {
         
     }
+    
 }
