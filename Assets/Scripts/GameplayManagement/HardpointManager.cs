@@ -45,11 +45,24 @@ public class HardpointManager : NetworkBehaviour
 
     public void SelectNewHardpoint()
     {
-        Debug.Log("Selecting new Hardpoint");
-        int listSize = _ListOfHardpoints.Length;
-        _activeHardpoint = Random.Range(0, listSize - 1);
-      
+        //Create a list of the overcharge points
+        List<int> indices = new List<int>();
+        for(int i = 0; i < _ListOfHardpoints.Length; i++)
+        {
+            indices.Add(i);
+        }
+        //Remove the old point from the list of potential options
+        indices.Remove(_activeHardpoint);
+
+        //Selecting a new point
+        int tempIndex = Random.Range(0, indices.Count - 1);
+        _activeHardpoint = tempIndex;
         Rpc_ActivateNewHardpoint(_activeHardpoint);
+
+        
+        
+      
+       
     }
 
   
