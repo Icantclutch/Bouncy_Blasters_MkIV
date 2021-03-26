@@ -9,6 +9,7 @@ public class SaveData
     public float currVolume;
     public int videoQuality;
     public int windowType;
+    public float sensitivity;
 
     public string ToJson()
     {
