@@ -5,10 +5,10 @@ using UnityEngine;
 public class WallCollisionSetting : MonoBehaviour
 {
     public GameObject wallInstance;
-    public Ray myRay;
-    private RaycastReflection rayScript;
+    //public Ray myRay;
+    //private RaycastReflection rayScript;
 
-    GameObject aimRay = GameObject.Find("RaycastReflection");
+    //GameObject aimRay = GameObject.Find("RaycastReflection");
 
     
     void detectCollision(Collider col)
