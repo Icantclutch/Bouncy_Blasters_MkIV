@@ -50,7 +50,11 @@ public class MyNetworkManager : NetworkManager
         base.OnServerDisconnect(conn);
         
     }
-
+    public override void OnClientDisconnect(NetworkConnection conn)
+    {
+        base.OnClientDisconnect(conn);
+        GetComponent<SteamLobby>().ExitLobby();
+    }
     public override void OnStartHost()
     {
         base.OnStartHost();
