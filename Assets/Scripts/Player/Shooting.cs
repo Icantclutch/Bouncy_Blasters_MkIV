@@ -108,7 +108,8 @@ public class Shooting : NetworkBehaviour
             }
 
             //Reload if button is pressed and there is any reserve ammo
-            if (Input.GetKeyDown(Keybinds.Reload) && playerWeapons[currentWeapon].currentReserve > 0)
+            if (Input.GetKeyDown(Keybinds.Reload) && playerWeapons[currentWeapon].currentReserve > 0 &&
+                playerWeapons[currentWeapon].currentAmmo != playerWeapons[currentWeapon].weapon.ammoCount)
             {
                 StartCoroutine(Reload());
                 
@@ -200,6 +201,13 @@ public class Shooting : NetworkBehaviour
                         StartCoroutine(FireBullet(currentWeapon));
                         return;
                     }
+                }
+            }
+            else if(playerWeapons[currentWeapon].currentCooldown <= 0 && playerWeapons[currentWeapon].currentAmmo == 0)
+            {
+                if(GetButtonFired(currentFireMode.key) || GetButtonHeld(currentFireMode.key))
+                {
+                    StartCoroutine(Reload());
                 }
             }
         }
