@@ -114,13 +114,12 @@ public class Shooting : NetworkBehaviour
                 StartCoroutine(Reload());
                 
             }
-            if (Input.GetKey(Keybinds.Reload) && playerWeapons[currentWeapon].currentReserve < playerWeapons[currentWeapon].weapon.reserveAmmo && myMovement.grounded)
+            if (Input.GetKey(Keybinds.Recharge) && playerWeapons[currentWeapon].currentReserve < playerWeapons[currentWeapon].weapon.reserveAmmo && myMovement.grounded)
             {
                 _rechargeHoldTime -= Time.deltaTime;
                 
                 if(_rechargeHoldTime <= 0 && !currentlyFiring)
                 {
-                    
                     StartCoroutine(Recharge());
                 }
                 else if(_rechargeHoldTime <= 0.5)
