@@ -27,6 +27,10 @@ public class SettingsManager : MonoBehaviour, ISaveable
 
     Resolution[] resolutionsList;
     public Dropdown resolutionsDrop;
+
+    //Auto-generated to fix compiler error
+    private float currSlider;
+
     private void Start()
     {
         resolutionsList = Screen.resolutions;
