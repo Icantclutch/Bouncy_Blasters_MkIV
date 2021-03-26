@@ -102,6 +102,7 @@ public class LobbyManager : NetworkBehaviour
     public void RemovePlayer(PlayerData player)
     {
         players.Remove(player);
+        networkManager.GetComponent<SteamLobby>().ExitLobby();
         DisplayPlayers();
     }
     public void SetGamemode(int mode, int mScore, int sScore, int time, int overchargeTime)
@@ -245,10 +246,12 @@ public class LobbyManager : NetworkBehaviour
         Debug.Log("Stopping Client");
         if (isServer)
         {
+            networkManager.GetComponent<SteamLobby>().ExitLobby();
             networkManager.StopHost();
         }
         else
         {
+            networkManager.GetComponent<SteamLobby>().ExitLobby();
             networkManager.StopClient();
         }
     }
