@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 using UnityEngine.UI;
+using System;
 
 //[RequireComponent(typeof(Rigidbody))]
 //[RequireComponent(typeof(CapsuleCollider))]
@@ -61,10 +62,16 @@ public class PlayerMovement : NetworkBehaviour
 	private float _distToGround;
 
 
-  
+	[SyncVar(hook = nameof(HandleisRunningUpdated))]
+	private bool isRunning = false;
 
+    private void HandleisRunningUpdated(bool oldBool, bool newBool)
+    {
+		isRunning = newBool;
+		GetComponentInChildren<Animator>().SetBool("running", isRunning);
+	}
 
-	void Awake()
+    void Awake()
 	{
 		
 		
@@ -199,11 +206,11 @@ public class PlayerMovement : NetworkBehaviour
 
 		if(movementDirection.magnitude > 0.1)
         {
-			GetComponentInChildren<Animator>().SetBool("running", true);
+			isRunning = true;
         }
         else
         {
-			GetComponentInChildren<Animator>().SetBool("running", false);
+			isRunning = false;
 		}
 
 		/*
