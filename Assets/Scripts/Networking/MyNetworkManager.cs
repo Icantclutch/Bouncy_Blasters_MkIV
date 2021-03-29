@@ -7,7 +7,11 @@ using Steamworks;
 public class MyNetworkManager : NetworkManager
 {
     public GameObject gameManager;
+    public SettingsManager settingsManager;
+
     public List<NetworkConnection> players = new List<NetworkConnection>();
+
+
 
     //Overrides OnServerAddPlayer to also get and set the players Steam Id
     public override void OnServerAddPlayer(NetworkConnection conn)
@@ -46,7 +50,11 @@ public class MyNetworkManager : NetworkManager
         base.OnServerDisconnect(conn);
         
     }
-
+    public override void OnClientDisconnect(NetworkConnection conn)
+    {
+        base.OnClientDisconnect(conn);
+        GetComponent<SteamLobby>().ExitLobby();
+    }
     public override void OnStartHost()
     {
         base.OnStartHost();
@@ -90,6 +98,7 @@ public class MyNetworkManager : NetworkManager
 
     public override void OnClientSceneChanged(NetworkConnection conn)
     {
+
         // always become ready.
         //if (!ClientScene.ready) ClientScene.Ready(conn);
         base.OnClientSceneChanged(conn);
@@ -98,7 +107,7 @@ public class MyNetworkManager : NetworkManager
         {
             conn.identity.GetComponent<PlayerData>().SpawnPlayer(true, true);
         }
-        
+
     }
 
     public override void OnServerSceneChanged(string sceneName)
@@ -107,11 +116,13 @@ public class MyNetworkManager : NetworkManager
         if (!sceneName.Contains("OnlineLobby Scene") && !sceneName.Contains("Tutorial2"))
         {
             GameObject.FindGameObjectWithTag("Management").GetComponent<GameManagement>().StartPreMatch();
+          
             /*foreach (NetworkConnection player in players)
             {
                 player.identity.GetComponent<PlayerData>().RpcSpawnPlayer();
             }*/
         }
+
     }
 
     public GameObject GetLocalPlayer()
@@ -138,3 +149,4 @@ public class MyNetworkManager : NetworkManager
         return -1;
     }
 }
+

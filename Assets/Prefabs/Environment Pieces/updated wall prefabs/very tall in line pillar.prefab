@@ -14,7 +14,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &8166264706869669579
 Transform:
@@ -39,6 +39,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8166264706869669579}
     m_Modifications:
+    - target: {fileID: 1520837912317232086, guid: f721bfac8933da24fbcc599e7d11408b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1932815982602693055, guid: f721bfac8933da24fbcc599e7d11408b, type: 3}
       propertyPath: m_Name
       value: tall small pillar
@@ -117,6 +121,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[1]
       value: 
       objectReference: {fileID: 7794395161262391607, guid: 227d67a306fbaf447bdb4b73b41c0cb6, type: 3}
+    - target: {fileID: 5160042996028526421, guid: 447c122d1d1d8ad4087333c301d253ec, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8562202178308765677, guid: 447c122d1d1d8ad4087333c301d253ec, type: 3}
       propertyPath: m_LocalPosition.x
       value: -104.3

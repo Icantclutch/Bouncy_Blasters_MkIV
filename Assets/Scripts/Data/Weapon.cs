@@ -32,6 +32,7 @@ public class Weapon : ScriptableObject
     public FireKey modeSwapKey;
     //List of fire modes
     public List<FireMode> fireModes;
+    public int modelIndex;
 
     [System.Serializable]
     public struct FireMode
@@ -64,5 +65,8 @@ public class Weapon : ScriptableObject
         //Audio clip
         [NonSerialized]
         public AudioClip firingSound;
+        public int shotSoundIndex;
+        public int reloadSoundIndex;
+        
     }
 }

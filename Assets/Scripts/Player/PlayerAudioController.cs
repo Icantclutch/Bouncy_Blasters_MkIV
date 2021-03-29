@@ -15,6 +15,12 @@ public class PlayerAudioController : NetworkBehaviour
     /// 0: Bullet hits another player<br/>
     /// 1: Bullet hits local player<br/>
     /// 2: Shooting bullet<br/>
+    /// 3: Autoblaster shooting<br/>
+    /// 4: Pistol shooting<br/>
+    /// 5: Rifle Reload<br/>
+    /// 6: Pistol Reload<br/>
+    /// 7: Teleport to Respawn Room<br/>
+    /// 8: Teleport out of Respawn Room<br/>
     /// </para>
     /// </summary>
     [ClientRpc]
@@ -32,6 +38,12 @@ public class PlayerAudioController : NetworkBehaviour
     /// 0: Bullet hits another player<br/>
     /// 1: Bullet hits local player<br/>
     /// 2: Shooting bullet<br/>
+    /// 3: Autoblaster shooting<br/>
+    /// 4: Pistol shooting<br/>
+    /// 5: Rifle Reload<br/>
+    /// 6: Pistol Reload<br/>
+    /// 7: Teleport to Respawn Room<br/>
+    /// 8: Teleport out of Respawn Room<br/>
     /// </para>
     /// </summary>
     [TargetRpc]

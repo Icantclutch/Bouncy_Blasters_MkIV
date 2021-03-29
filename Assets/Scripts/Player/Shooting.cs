@@ -108,18 +108,18 @@ public class Shooting : NetworkBehaviour
             }
 
             //Reload if button is pressed and there is any reserve ammo
-            if (Input.GetKeyDown(Keybinds.Reload) && playerWeapons[currentWeapon].currentReserve > 0)
+            if (Input.GetKeyDown(Keybinds.Reload) && playerWeapons[currentWeapon].currentReserve > 0 &&
+                playerWeapons[currentWeapon].currentAmmo != playerWeapons[currentWeapon].weapon.ammoCount)
             {
                 StartCoroutine(Reload());
                 
             }
-            if (Input.GetKey(Keybinds.Reload) && playerWeapons[currentWeapon].currentReserve < playerWeapons[currentWeapon].weapon.reserveAmmo && myMovement.grounded)
+            if (Input.GetKey(Keybinds.Recharge) && playerWeapons[currentWeapon].currentReserve < playerWeapons[currentWeapon].weapon.reserveAmmo && myMovement.grounded)
             {
                 _rechargeHoldTime -= Time.deltaTime;
                 
                 if(_rechargeHoldTime <= 0 && !currentlyFiring)
                 {
-                    
                     StartCoroutine(Recharge());
                 }
                 else if(_rechargeHoldTime <= 0.5)
@@ -202,6 +202,13 @@ public class Shooting : NetworkBehaviour
                     }
                 }
             }
+            else if(playerWeapons[currentWeapon].currentCooldown <= 0 && playerWeapons[currentWeapon].currentAmmo == 0)
+            {
+                if(GetButtonFired(currentFireMode.key) || GetButtonHeld(currentFireMode.key))
+                {
+                    StartCoroutine(Reload());
+                }
+            }
         }
     }
 
@@ -232,6 +239,7 @@ public class Shooting : NetworkBehaviour
         //Set firing so you can't shoot while reloading
         currentlyFiring = true;
         _ReloadingFrame.SetActive(true);
+        Cmd_ServerReload(currentFireMode.reloadSoundIndex);
         yield return new WaitForSeconds(2);
 
         //Improve once animations are implemented
@@ -253,6 +261,12 @@ public class Shooting : NetworkBehaviour
         currentlyFiring = false;
         _ReloadingFrame.SetActive(false);
         yield return null;
+    }
+
+    [Command]
+    public void Cmd_ServerReload(int soundIndex)
+    {
+        GetComponent<PlayerAudioController>().RpcOnAllClients(soundIndex);
     }
 
     //Recharge function
@@ -288,7 +302,7 @@ public class Shooting : NetworkBehaviour
             //Subtract from the ammo
             playerWeapons[currentWeapon].currentAmmo -= currentFireMode.ammoUsedEachShot;
             //Fire bullet over server
-            Cmd_ServerFireBullet(currentFireMode.bulletPrefabName, currentFireMode.bulletDamage, currentFireMode.maxBounces, currentFireMode.fireSpeed);
+            Cmd_ServerFireBullet(currentFireMode.bulletPrefabName, currentFireMode.bulletDamage, currentFireMode.maxBounces, currentFireMode.fireSpeed, currentFireMode.shotSoundIndex);
             //Wait
             yield return new WaitForSeconds(60 / currentFireMode.fireRate);
         }
@@ -298,7 +312,7 @@ public class Shooting : NetworkBehaviour
 
     //Server reference for firing bullets
     [Command]
-    void Cmd_ServerFireBullet(string bullet, List<int> damage, int bounces, float fireSpeed)
+    void Cmd_ServerFireBullet(string bullet, List<int> damage, int bounces, float fireSpeed, int soundIndex)
     {
         //Fetch Bullet Prefab from Network Manager
         GameObject bulletPrefab = NetworkManager.singleton.spawnPrefabs.Find(bu => bu.name.Equals(bullet));
@@ -312,7 +326,9 @@ public class Shooting : NetworkBehaviour
         b.GetComponent<Bullet>().Initialize(damage, bounces, fireSpeed, playerID);
         //Play the firing audio
         //GetComponent<AudioSource>().PlayOneShot(fireMode.firingSound, .5f);
-        GetComponent<PlayerAudioController>().RpcOnAllClients(2);
+        GetComponent<PlayerAudioController>().RpcOnAllClients(soundIndex);
+
+        Rpc_ShootingEffects();
     }
 
     [Command]
@@ -322,8 +338,24 @@ public class Shooting : NetworkBehaviour
         //loop around if at the end
         if (currentWeapon >= playerWeapons.Count)
             currentWeapon = 0;
-    }
 
+        Rpc_UpdateWeaponModel(playerWeapons[currentWeapon].weapon.modelIndex);
+    }
+    [Command]
+    void Cmd_UpdateWeaponModel(int index)
+    {
+        Rpc_UpdateWeaponModel(index);
+    }
+    [ClientRpc]
+    void Rpc_UpdateWeaponModel(int index)
+    {
+        GetComponentInChildren<BlasterController>().swapTo(index);
+    }
+    [ClientRpc]
+    void Rpc_ShootingEffects()
+    {
+        GetComponentInChildren<BlasterController>().StartShootingEffect();
+    }
     //Boolean that checks if a weapon has single-fired
     bool GetButtonFired(Weapon.FireKey key)
     {
@@ -371,6 +403,7 @@ public class Shooting : NetworkBehaviour
         {
             playerWeapons[0].weapon = GameObject.FindGameObjectWithTag("Management").GetComponent<LoadoutManager>().loadouts[newWeapon];
             FullReload();
+            GetComponentInChildren<BlasterController>().swapTo(playerWeapons[currentWeapon].weapon.modelIndex);
         }
         
     }
@@ -380,6 +413,7 @@ public class Shooting : NetworkBehaviour
         {
             playerWeapons[0].weapon = GameObject.FindGameObjectWithTag("Management").GetComponent<LoadoutManager>().loadouts[newWeapon];
             FullReload();
+            Cmd_UpdateWeaponModel(playerWeapons[currentWeapon].weapon.modelIndex);
         }
 
     }

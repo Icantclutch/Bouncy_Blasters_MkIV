@@ -10,6 +10,7 @@ public static class Keybinds
     public static KeyCode SecondaryFire = KeyCode.Mouse2; //Middle click secondary fire
     public static KeyCode GrenadeFire = KeyCode.G; //G grenade fire
     public static KeyCode Reload = KeyCode.R; //R Reload weapon
+    public static KeyCode Recharge = KeyCode.F; //F Recharge ammo
     public static KeyCode SwapWeapon = KeyCode.Q; //Q Swap weapon
 
     //Movement
@@ -21,3 +22,5 @@ public static class Keybinds
     public static string MouseX = "Mouse X"; //Mouse Horizontal
     public static string MouseY = "Mouse Y"; //Mouse Vertical
 }
+
+

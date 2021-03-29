@@ -48,7 +48,8 @@ public class PlayerHUD : MonoBehaviour
     [SerializeField]
     private Text _matchEndText = null;
 
-    
+    [SerializeField]
+    private Button _endMatchButton = null;
     [SerializeField]
     public Transform[] scoreboardTeamLocations;
 
@@ -57,6 +58,10 @@ public class PlayerHUD : MonoBehaviour
     {
         _networkManager = GameObject.Find("NetworkManager").GetComponent<NetworkManager>();
         _gameManager = GameObject.FindGameObjectWithTag("Management");
+        if (_gameManager.GetComponent<GameManagement>().isServer)
+        {
+            _endMatchButton.interactable = true;
+        }
     }
 
    // string minutes = $$anonymous$$athf.Floor(timer / 60).ToString("00");
@@ -109,11 +114,6 @@ public class PlayerHUD : MonoBehaviour
 
     public string FormatTime(float Timer)
     {
-        if(Timer < 0)
-        {
-            Timer = 0;
-        }
-
         string minutes = Mathf.Floor(Timer / 60).ToString("00");
         string seconds = (Timer % 60).ToString("00");
         return string.Format("{0}:{1}", minutes, seconds);
@@ -140,6 +140,14 @@ public class PlayerHUD : MonoBehaviour
         if (_gameManager)
         {
             _gameManager.GetComponent<LobbyManager>().LeaveLobby();
+        }
+    }
+
+    public void EndMatch()
+    {
+        if (_gameManager)
+        {
+            _gameManager.GetComponent<GameManagement>().EndMatch();
         }
     }
 }

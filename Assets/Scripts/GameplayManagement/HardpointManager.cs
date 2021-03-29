@@ -1,19 +1,31 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class HardpointManager : MonoBehaviour
+public class HardpointManager : NetworkBehaviour
 {
     //The list of hardpoints for the map
+    [SerializeField]
     private HardpointArea[] _ListOfHardpoints;
 
+   [SerializeField]
+    private List<int> _pointIndices;
+
+    [SerializeField]
+    private List<int> _runtimeIndices;
+
     //the active hardpoint index
-    private int _activeHardpoint;
+    [SerializeField]
+    private int _activeHardpointIndex = -1;
+
+    [SerializeField]
+    private int tempIndex;
 
     // Start is called before the first frame update
     void Start()
     {
-        _ListOfHardpoints = GetComponentsInChildren<HardpointArea>();
+       
         
     }
 
@@ -23,20 +35,72 @@ public class HardpointManager : MonoBehaviour
         
     }
 
-    private void SelectNewHardpoint()
+    public void InitializeHardPoints()
     {
-        int listSize = _ListOfHardpoints.Length;
-        _activeHardpoint = Random.Range(0, listSize - 1);
-
-        ActivateNewHardpoint();
+        Invoke("Rpc_InitializeHardPoints", 2f);
     }
 
-    private void ActivateNewHardpoint()
+    [ClientRpc]
+    public void Rpc_InitializeHardPoints()
     {
-        for(int i = 0; i < _ListOfHardpoints.Length; i++)
+        Debug.Log("Rpc_InitializingHardpoints");
+        _ListOfHardpoints = GameObject.FindGameObjectWithTag("Objective").GetComponentsInChildren<HardpointArea>();
+        _pointIndices = new List<int>();
+        for (int i = 0; i < _ListOfHardpoints.Length; i++)
         {
-            _ListOfHardpoints[i].enabled = false;
+            _pointIndices.Add(i);
         }
-        _ListOfHardpoints[_activeHardpoint].enabled = true;
+        _runtimeIndices = new List<int>(_pointIndices);
+        foreach (HardpointArea g in _ListOfHardpoints)
+        {
+            g.gameObject.SetActive(false);
+        }
+
     }
+
+
+    public void SelectNewHardpoint()
+    {
+        //First hardpoint of the cycle
+        if(_activeHardpointIndex == -1)
+        {
+            _activeHardpointIndex = 0;
+            _runtimeIndices.Remove(_activeHardpointIndex);
+            Debug.Log("New Hardpoint: " + _activeHardpointIndex);
+            Rpc_ActivateNewHardpoint(_activeHardpointIndex);
+            return;
+        }
+
+        //Selecting a new point
+        tempIndex = Random.Range(0, _runtimeIndices.Count);
+        _activeHardpointIndex = _runtimeIndices[tempIndex];
+
+        //Remove the old point from the list of potential options
+        _runtimeIndices.Remove(_activeHardpointIndex);
+           
+        Rpc_ActivateNewHardpoint(_activeHardpointIndex);
+
+        //Refreshing the list of available hardpoints
+        if(_runtimeIndices.Count == 0)
+        {
+            _runtimeIndices = new List<int>(_pointIndices);
+            _activeHardpointIndex = -1;
+        }
+
+
+    }
+
+  
+  
+
+    [ClientRpc]
+    private void Rpc_ActivateNewHardpoint(int index)
+    {
+        for (int i = 0; i < _ListOfHardpoints.Length; i++)
+        {
+            _ListOfHardpoints[i].gameObject.SetActive(false);
+        }
+        _ListOfHardpoints[index].gameObject.SetActive(true);
+    }
+
 }

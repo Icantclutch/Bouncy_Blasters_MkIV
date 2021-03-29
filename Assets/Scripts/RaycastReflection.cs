@@ -36,6 +36,7 @@ public class RaycastReflection : MonoBehaviour
     public Material redMat;
     public Material greenMat;
 
+
     void Awake()
     {
         //get the attached Transform component  
@@ -70,6 +71,8 @@ public class RaycastReflection : MonoBehaviour
         {
             nReflections = 4;
         }
+
+        
 
         //cast a new ray forward, from the current attached game object position  
         ray = new Ray(goTransform.position, goTransform.forward);

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 using UnityEngine.UI;
+using System;
 
 //[RequireComponent(typeof(Rigidbody))]
 //[RequireComponent(typeof(CapsuleCollider))]
@@ -40,7 +41,7 @@ public class PlayerMovement : NetworkBehaviour
 	[SerializeField]
 	private float _sprintTime;
 	[SerializeField]
-	private GameObject _sprintSlider;
+	private GameObject _sprintSlider = null;
 
 
 	[SerializeField]
@@ -61,10 +62,16 @@ public class PlayerMovement : NetworkBehaviour
 	private float _distToGround;
 
 
-  
+	[SyncVar(hook = nameof(HandleisRunningUpdated))]
+	private bool isRunning = false;
 
+    private void HandleisRunningUpdated(bool oldBool, bool newBool)
+    {
+		isRunning = newBool;
+		GetComponentInChildren<Animator>().SetBool("running", isRunning);
+	}
 
-	void Awake()
+    void Awake()
 	{
 		
 		
@@ -197,6 +204,15 @@ public class PlayerMovement : NetworkBehaviour
 		movementDirection = transform.TransformDirection(movementDirection);
 		movementDirection *= speed;
 
+		if(movementDirection.magnitude > 0.1)
+        {
+			isRunning = true;
+        }
+        else
+        {
+			isRunning = false;
+		}
+
 		/*
 		 * Allow movement if the player is grounded or if they are in the air, but not off a launch
 		 * Thi allows the player to air strafe when falling normally but since movement is slower than
@@ -250,7 +266,7 @@ public class PlayerMovement : NetworkBehaviour
 			canJump = false;
 			hasJumped = true;
 			//rbody.AddForce(0, gravity * 0.5f * jumpHeight, 0, ForceMode.Impulse);
-			Debug.Log("Jumped " + jumpHeight);
+			
 			rbody.AddForce(0, CalculateJumpVerticalSpeed(), 0, ForceMode.VelocityChange);
 			//rbody.velocity += new Vector3(0, CalculateJumpVerticalSpeed(), 0);
 		}

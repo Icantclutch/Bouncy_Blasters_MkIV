@@ -59,15 +59,15 @@ public class LobbyManager : NetworkBehaviour
                 _settingsVals = _lobbySettings.GetDropdownValues();
             }
             _settingsSaved = true;
-            Rpc_UpdateClientLobby(_settingsVals[0], _settingsVals[1], _settingsVals[2], _settingsVals[3], _settingsVals[4], _settingsVals[5], _settingsVals[6]);
+            Rpc_UpdateClientLobby(_settingsVals[0], _settingsVals[1], _settingsVals[2], _settingsVals[3], _settingsVals[4], _settingsVals[5], _settingsVals[6], _settingsVals[7]);
         }
     }
 
     [ClientRpc]
-    void Rpc_UpdateClientLobby(int playerHealth, int moveSpeed, int jumpHeight, int gamemode, int maxScore, int time, int respawnTime)
+    void Rpc_UpdateClientLobby(int playerHealth, int moveSpeed, int jumpHeight, int gamemode, int maxScore, int time, int respawnTime, int overchargeTime)
     {
         if(_lobbySettings)
-            _lobbySettings.UpdateClientLobby(playerHealth, moveSpeed, jumpHeight, gamemode, maxScore, time, respawnTime);
+            _lobbySettings.UpdateClientLobby(playerHealth, moveSpeed, jumpHeight, gamemode, maxScore, time, respawnTime, overchargeTime);
     }
 
     void DisplayMap(string oldMap, string newMap)
@@ -102,17 +102,19 @@ public class LobbyManager : NetworkBehaviour
     public void RemovePlayer(PlayerData player)
     {
         players.Remove(player);
+        networkManager.GetComponent<SteamLobby>().ExitLobby();
         DisplayPlayers();
     }
-    public void SetGamemode(int mode, int mScore, int sScore, int time)
+    public void SetGamemode(int mode, int mScore, int sScore, int time, int overchargeTime)
     {
-        gamemode = new Gamemode(mode, mScore, sScore, time);
+        gamemode = new Gamemode(mode, mScore, sScore, time, overchargeTime);
     }
 
     public void SetGamemode()
     {
         GetLobbySettings();
-        gamemode = new Gamemode(_lobbySettings.GetGameModeSetting(), _lobbySettings.GetMatchScoreSetting(), 0, _lobbySettings.GetMatchTimeSetting());
+        gamemode = new Gamemode(_lobbySettings.GetGameModeSetting(), _lobbySettings.GetMatchScoreSetting(),
+            0, _lobbySettings.GetMatchTimeSetting(), _lobbySettings.GetOverchargeTimeSetting());
         foreach (PlayerData p in players) {
             p.GetComponent<PlayerHealth>().SetMaxCharge(_lobbySettings.GetPlayerHealthSetting());
             p.GetComponent<PlayerMovement>().SetMoveSpeed(_lobbySettings.GetPlayerSpeedSetting());
@@ -244,10 +246,12 @@ public class LobbyManager : NetworkBehaviour
         Debug.Log("Stopping Client");
         if (isServer)
         {
+            //networkManager.GetComponent<SteamLobby>().ExitLobby();
             networkManager.StopHost();
         }
         else
         {
+            networkManager.GetComponent<SteamLobby>().ExitLobby();
             networkManager.StopClient();
         }
     }

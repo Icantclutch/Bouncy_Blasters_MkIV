@@ -27,6 +27,12 @@ public class LoadoutMenuButtons : MonoBehaviour
         PopulateLoadoutScreen();
     }
 
+
+    //1 Max 800
+    //2 max 20
+    //3 max 25
+    //4 max 200
+    //5 max 4
     // Update is called once per frame
     void Update()
     {
