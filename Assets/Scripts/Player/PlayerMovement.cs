@@ -197,6 +197,15 @@ public class PlayerMovement : NetworkBehaviour
 		movementDirection = transform.TransformDirection(movementDirection);
 		movementDirection *= speed;
 
+		if(movementDirection.magnitude > 0.1)
+        {
+			GetComponentInChildren<Animator>().SetBool("running", true);
+        }
+        else
+        {
+			GetComponentInChildren<Animator>().SetBool("running", false);
+		}
+
 		/*
 		 * Allow movement if the player is grounded or if they are in the air, but not off a launch
 		 * Thi allows the player to air strafe when falling normally but since movement is slower than
