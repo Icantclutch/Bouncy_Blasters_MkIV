@@ -197,7 +197,7 @@ public class PlayerHealth : HitInteraction
 
                 if (currentCharge >= maxSuitCharge)
                 {
-                    _LookToPos = shooterIdentity.GetComponent<Transform>().transform.position;
+                    _LookToPos = shooterIdentity.GetComponent<Transform>().position;
                     _isDead = true;
                     //Prevent adding score to team on self kill
                     if (Convert.ToUInt32(shot.playerID) != GetComponent<NetworkIdentity>().netId)
