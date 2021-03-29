@@ -246,7 +246,7 @@ public class LobbyManager : NetworkBehaviour
         Debug.Log("Stopping Client");
         if (isServer)
         {
-            networkManager.GetComponent<SteamLobby>().ExitLobby();
+            //networkManager.GetComponent<SteamLobby>().ExitLobby();
             networkManager.StopHost();
         }
         else

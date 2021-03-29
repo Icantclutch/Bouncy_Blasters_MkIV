@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 using UnityEngine.UI;
+using System;
 
 //[RequireComponent(typeof(Rigidbody))]
 //[RequireComponent(typeof(CapsuleCollider))]
@@ -61,10 +62,16 @@ public class PlayerMovement : NetworkBehaviour
 	private float _distToGround;
 
 
-  
+	[SyncVar(hook = nameof(HandleisRunningUpdated))]
+	private bool isRunning = false;
 
+    private void HandleisRunningUpdated(bool oldBool, bool newBool)
+    {
+		isRunning = newBool;
+		GetComponentInChildren<Animator>().SetBool("running", isRunning);
+	}
 
-	void Awake()
+    void Awake()
 	{
 		
 		
@@ -196,6 +203,15 @@ public class PlayerMovement : NetworkBehaviour
 		//setting local to world coordinates and then adding player speed
 		movementDirection = transform.TransformDirection(movementDirection);
 		movementDirection *= speed;
+
+		if(movementDirection.magnitude > 0.1)
+        {
+			isRunning = true;
+        }
+        else
+        {
+			isRunning = false;
+		}
 
 		/*
 		 * Allow movement if the player is grounded or if they are in the air, but not off a launch
