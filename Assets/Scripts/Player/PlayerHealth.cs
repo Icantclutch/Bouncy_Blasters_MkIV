@@ -138,7 +138,7 @@ public class PlayerHealth : HitInteraction
             Destroy(ToUseCam, _respawnDelay);
             if (_RunningDeath == false)
             {
-                StartCoroutine(LookAtTransformCorutine(savedPos + new Vector3(0, 10, 0), _LookToPos, _respawnDelay));
+                StartCoroutine(LookAtTransformCorutine(savedPos + new Vector3(0, 5, 0), _LookToPos, _respawnDelay));
             }
             GetComponent<Shooting>().active = false;
             GetComponent<PlayerMovement>().active = true;
@@ -161,7 +161,6 @@ public class PlayerHealth : HitInteraction
         GetComponent<PlayerMovement>().inRespawnRoom = false;
         _isDead = false;
         SetIsDead(_isDead);
-        
     }
 
     [Command]
