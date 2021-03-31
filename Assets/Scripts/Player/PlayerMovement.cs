@@ -90,7 +90,7 @@ public class PlayerMovement : NetworkBehaviour
 		_sprintSlider.GetComponent<Slider>().maxValue = _maxSprintTime;
 
 		StartingFov = MainCamera.fieldOfView;
-		FovSpeed = 3;
+		FovSpeed = 0.3f;
 	}
 
 	[Client]
@@ -277,12 +277,14 @@ public class PlayerMovement : NetworkBehaviour
     {
         if (_isSprinting)
         {
+			SprintFov();
 			_sprintTime -= Time.deltaTime;
         }
         else
         {
 			if(_sprintTime < _maxSprintTime)
             {
+				ResetFov();
 				_sprintTime += Time.deltaTime;
             }
         }
@@ -296,7 +298,7 @@ public class PlayerMovement : NetworkBehaviour
 			_isSprinting = !_isSprinting;
 			speed *= sprintModifier;
 			GetComponent<Shooting>().active = false;
-			SprintFov();
+			//SprintFov();
 			_sprintTime -= Time.deltaTime;
 		}
 	}
@@ -307,7 +309,7 @@ public class PlayerMovement : NetworkBehaviour
 		if (_isSprinting)
 		{
 			_isSprinting = !_isSprinting;
-			ResetFov();
+			//ResetFov();
 			speed /= sprintModifier;
 			if(!inRespawnRoom)
 				GetComponent<Shooting>().active = true;
@@ -354,6 +356,11 @@ public class PlayerMovement : NetworkBehaviour
 	public void SprintFov()
     {
 		MainCamera.fieldOfView += FovSpeed;
+		if(MainCamera.fieldOfView >= 70)
+        {
+			MainCamera.fieldOfView = 70;
+
+		}
     }
 
 }
