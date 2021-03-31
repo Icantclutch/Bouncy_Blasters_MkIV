@@ -29,7 +29,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &4617217888736090818
 Transform:
@@ -110,7 +110,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &6101870187445238396
 Transform:
@@ -147,7 +147,7 @@ GameObject:
   m_TagString: NoBounce
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &7063928213129817314
 Transform:
@@ -191,7 +191,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 0
 --- !u!4 &3682540078296252106
 Transform:
@@ -343,6 +343,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Wall
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: dd33048f011bc7e438517e188596c1fd, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd33048f011bc7e438517e188596c1fd, type: 3}
 --- !u!1 &881261185281025898 stripped
@@ -409,6 +413,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 74caa558631f1c44e91cc0333b4ca4e8, type: 3}
       propertyPath: m_Name
       value: sm_wall_360_base_updated
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 74caa558631f1c44e91cc0333b4ca4e8, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 74caa558631f1c44e91cc0333b4ca4e8, type: 3}
@@ -507,6 +515,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 14c8f8bc594a1254086e3a73a1a226cc, type: 3}
       propertyPath: m_TagString
       value: NoBounce
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 14c8f8bc594a1254086e3a73a1a226cc, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 14c8f8bc594a1254086e3a73a1a226cc, type: 3}

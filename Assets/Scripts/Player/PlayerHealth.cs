@@ -36,12 +36,17 @@ public class PlayerHealth : HitInteraction
     private MeshRenderer _shield;
     [SerializeField]
     private float _shieldVisibilityTime = 2f;
+
+
+    private bool _RunningDeath = false;
+    private Vector3 _LookToPos = new Vector3(0, 0, 0);
     
 
     private LobbyManager _lobbyManager;
 
     public GameObject MainCamera;
     public GameObject SceneRespawnCam;
+
 
     //Camera that is Null if not dead
     private GameObject ToUseCam;
@@ -55,12 +60,33 @@ public class PlayerHealth : HitInteraction
         _isDead = false;
     }
 
+    public IEnumerator LookAtTransformCorutine(Vector3 goPosition, Vector3 lookPosition, float speed)
+    {
+        _RunningDeath = true;
+        var currentPos = ToUseCam.transform.position;
+        var t = 0f;
+        while (t < 1)
+        {
+            if (ToUseCam != null)
+            {
+                t += Time.deltaTime / speed;
+                Vector3 Holder1 = Vector3.Lerp(currentPos, goPosition, t);
+                ToUseCam.transform.position = Holder1;
+
+                Vector3 holder = Vector3.Lerp(ToUseCam.transform.position, lookPosition, t);
+                ToUseCam.transform.LookAt(holder);
+                yield return new WaitForEndOfFrame();
+            }
+        }
+        _RunningDeath = false;
+        //Changing DONE allows the camera to continue moving
+    }
+
     [Server]
     void Update()
     {
-
         if (ToUseCam != null) {
-            ToUseCam.transform.Translate(0, Time.deltaTime * 1.5f, 0, Space.World);
+            //ToUseCam.transform.Translate(0, Time.deltaTime * 1.5f, 0, Space.World);
             ToUseCam.GetComponent<Camera>().enabled = true;
             MainCamera.GetComponent<Camera>().enabled = false;
         } else {
@@ -97,15 +123,7 @@ public class PlayerHealth : HitInteraction
     [ClientRpc]
     private void Rpc_DeathSounds()
     {
-        //print("CREATING EFFECT " + transform.position);
-        //if (deathEffect != null)
-        //{
-        //    GameObject b = Instantiate(deathEffect, transform.position, Quaternion.identity);
-            //Spawn on server
-        //    NetworkServer.Spawn(b);
-        //}
         GetComponent<AudioSource>().PlayOneShot(_deathClip, .25f);
-        
     }
 
     [TargetRpc]
@@ -113,11 +131,15 @@ public class PlayerHealth : HitInteraction
     {
         //TODO Call to game controller to teleport player to designated spawn point
         Debug.Log("Player has died, Teleporting to respawn room");
-        Vector3 savedPos = transform.position + new Vector3(0, 10, 0);
+        Vector3 savedPos = transform.position; //+ new Vector3(0, 10, 0);
         if (PlayerSpawnSystem.SpawnPlayer(gameObject, false))
         {
-            ToUseCam = Instantiate(SceneRespawnCam, savedPos, Quaternion.Euler(90, 0, 0));
+            ToUseCam = Instantiate(SceneRespawnCam, savedPos, MainCamera.transform.rotation); //Quaternion.Euler(90, 0, 0)
             Destroy(ToUseCam, _respawnDelay);
+            if (_RunningDeath == false)
+            {
+                StartCoroutine(LookAtTransformCorutine(savedPos + new Vector3(0, 5, 0), _LookToPos, _respawnDelay));
+            }
             GetComponent<Shooting>().active = false;
             GetComponent<PlayerMovement>().active = true;
             GetComponent<PlayerMovement>().inRespawnRoom = true;
@@ -139,7 +161,6 @@ public class PlayerHealth : HitInteraction
         GetComponent<PlayerMovement>().inRespawnRoom = false;
         _isDead = false;
         SetIsDead(_isDead);
-        
     }
 
     [Command]
@@ -154,7 +175,8 @@ public class PlayerHealth : HitInteraction
         if (!_isDead)
         {
             //Get the source object
-            int shotTeam = NetworkIdentity.spawned[Convert.ToUInt32(shot.playerID)].GetComponent<HitInteraction>().GetTeam();
+            NetworkIdentity shooterIdentity = NetworkIdentity.spawned[Convert.ToUInt32(shot.playerID)];
+            int shotTeam = shooterIdentity.GetComponent<HitInteraction>().GetTeam();
             int myTeam = this.GetTeam();
 
             //Check if the source is not on your team
@@ -166,27 +188,28 @@ public class PlayerHealth : HitInteraction
                 GetComponent<PlayerEffects>().DamageTakenText(shot.damage[shot.numBounces]);
 
                 //Play audio clips for hitting a shot and getting hit
-                NetworkIdentity.spawned[Convert.ToUInt32(shot.playerID)].GetComponent<PlayerAudioController>().RpcOnPlayerClient(0);
-                NetworkIdentity.spawned[Convert.ToUInt32(shot.playerID)].GetComponent<PlayerEffects>().CreateHitmarker(ShotDmg);
+                shooterIdentity.GetComponent<PlayerAudioController>().RpcOnPlayerClient(0);
+                shooterIdentity.GetComponent<PlayerEffects>().CreateHitmarker(ShotDmg);
                 GetComponent<PlayerAudioController>().RpcOnPlayerClient(1);
 
                 Rpc_ShowShield();
 
                 if (currentCharge >= maxSuitCharge)
                 {
+                    _LookToPos = shooterIdentity.GetComponent<Transform>().position;
                     _isDead = true;
                     //Prevent adding score to team on self kill
                     if (Convert.ToUInt32(shot.playerID) != GetComponent<NetworkIdentity>().netId)
                     {
-                        NetworkIdentity.spawned[Convert.ToUInt32(shot.playerID)].GetComponent<PlayerData>().AddPlayerElim();
+                        shooterIdentity.GetComponent<PlayerData>().AddPlayerElim();
                         //Create a kill feed for everyone
                         foreach (PlayerData Data in _lobbyManager.players)
                         {
-                            Data.GetComponent<PlayerEffects>().CreateKillFeed(NetworkIdentity.spawned[Convert.ToUInt32(shot.playerID)].GetComponent<PlayerData>().playerName, GetComponent<PlayerData>().playerName);
+                            Data.GetComponent<PlayerEffects>().CreateKillFeed(shooterIdentity.GetComponent<PlayerData>().playerName, GetComponent<PlayerData>().playerName);
                         }
                     }
                     //displays a kill marker to the player who killed you
-                    NetworkIdentity.spawned[Convert.ToUInt32(shot.playerID)].GetComponent<PlayerEffects>().CreateKillmarker();
+                    shooterIdentity.GetComponent<PlayerEffects>().CreateKillmarker();
                     //Show a death message to player
                     GetComponent<PlayerEffects>().ShowDeathDisplay();
                     GetComponent<PlayerData>().AddPlayerDeaths();

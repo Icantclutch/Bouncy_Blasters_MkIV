@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 using UnityEngine.UI;
+using System;
 
 //[RequireComponent(typeof(Rigidbody))]
 //[RequireComponent(typeof(CapsuleCollider))]
@@ -61,10 +62,9 @@ public class PlayerMovement : NetworkBehaviour
 	private float _distToGround;
 
 
-  
+	
 
-
-	void Awake()
+    void Awake()
 	{
 		
 		
@@ -83,7 +83,7 @@ public class PlayerMovement : NetworkBehaviour
 		_sprintSlider.GetComponent<Slider>().maxValue = _maxSprintTime;
 
 		StartingFov = MainCamera.fieldOfView;
-		FovSpeed = 3;
+		FovSpeed = 0.3f;
 	}
 
 	[Client]
@@ -197,6 +197,16 @@ public class PlayerMovement : NetworkBehaviour
 		movementDirection = transform.TransformDirection(movementDirection);
 		movementDirection *= speed;
 
+		if(movementDirection.magnitude > 0.1)
+        {
+			GetComponent<PlayerAnimationController>().SetIsRunning(true);
+
+		}
+        else
+        {
+			GetComponent<PlayerAnimationController>().SetIsRunning(false);
+		}
+
 		/*
 		 * Allow movement if the player is grounded or if they are in the air, but not off a launch
 		 * Thi allows the player to air strafe when falling normally but since movement is slower than
@@ -216,9 +226,9 @@ public class PlayerMovement : NetworkBehaviour
         else 
 		{
 			//Allow for velocity to be uncapped
-
+			
         }
-		
+		GetComponent<PlayerAnimationController>().SetVelocity(rbody.velocity.x, rbody.velocity.z);
 	}
 
 	//A Function that draws a raycast below the player to see if it hits the ground beneath the player
@@ -261,12 +271,14 @@ public class PlayerMovement : NetworkBehaviour
     {
         if (_isSprinting)
         {
+			SprintFov();
 			_sprintTime -= Time.deltaTime;
         }
         else
         {
 			if(_sprintTime < _maxSprintTime)
             {
+				ResetFov();
 				_sprintTime += Time.deltaTime;
             }
         }
@@ -280,7 +292,7 @@ public class PlayerMovement : NetworkBehaviour
 			_isSprinting = !_isSprinting;
 			speed *= sprintModifier;
 			GetComponent<Shooting>().active = false;
-			SprintFov();
+			//SprintFov();
 			_sprintTime -= Time.deltaTime;
 		}
 	}
@@ -291,7 +303,7 @@ public class PlayerMovement : NetworkBehaviour
 		if (_isSprinting)
 		{
 			_isSprinting = !_isSprinting;
-			ResetFov();
+			//ResetFov();
 			speed /= sprintModifier;
 			if(!inRespawnRoom)
 				GetComponent<Shooting>().active = true;
@@ -338,6 +350,11 @@ public class PlayerMovement : NetworkBehaviour
 	public void SprintFov()
     {
 		MainCamera.fieldOfView += FovSpeed;
+		if(MainCamera.fieldOfView >= 70)
+        {
+			MainCamera.fieldOfView = 70;
+
+		}
     }
 
 }
