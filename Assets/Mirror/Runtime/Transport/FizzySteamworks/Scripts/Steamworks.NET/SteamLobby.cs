@@ -217,6 +217,7 @@ public class SteamLobby : MonoBehaviour
         //Get the lobby host's Steam ID
         //UnityEngine.Debug.Log(HostAddressKey);
         string hostAddress = SteamMatchmaking.GetLobbyData(new CSteamID(callback.m_ulSteamIDLobby), HostAddressKey);
+        lobbyId = new CSteamID(callback.m_ulSteamIDLobby);
         //UnityEngine.Debug.Log(callback.m_ulSteamIDLobby);
         //UnityEngine.Debug.Log(hostAddress);
 
