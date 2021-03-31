@@ -104,6 +104,7 @@ public class SteamLobby : MonoBehaviour
 
     public void ExitLobby()
     {
+        UnityEngine.Debug.Log("Leaving Steam Lobby");
         SteamMatchmaking.LeaveLobby(lobbyId);
     }
 
