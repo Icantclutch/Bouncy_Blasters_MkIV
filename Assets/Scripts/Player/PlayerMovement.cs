@@ -62,14 +62,7 @@ public class PlayerMovement : NetworkBehaviour
 	private float _distToGround;
 
 
-	[SyncVar(hook = nameof(HandleisRunningUpdated))]
-	private bool isRunning = false;
-
-    private void HandleisRunningUpdated(bool oldBool, bool newBool)
-    {
-		isRunning = newBool;
-		GetComponentInChildren<Animator>().SetBool("running", isRunning);
-	}
+	
 
     void Awake()
 	{
@@ -206,11 +199,12 @@ public class PlayerMovement : NetworkBehaviour
 
 		if(movementDirection.magnitude > 0.1)
         {
-			isRunning = true;
-        }
+			GetComponent<PlayerAnimationController>().SetIsRunning(true);
+
+		}
         else
         {
-			isRunning = false;
+			GetComponent<PlayerAnimationController>().SetIsRunning(false);
 		}
 
 		/*
@@ -232,9 +226,9 @@ public class PlayerMovement : NetworkBehaviour
         else 
 		{
 			//Allow for velocity to be uncapped
-
+			
         }
-		
+		GetComponent<PlayerAnimationController>().SetVelocity(rbody.velocity.x, rbody.velocity.z);
 	}
 
 	//A Function that draws a raycast below the player to see if it hits the ground beneath the player
