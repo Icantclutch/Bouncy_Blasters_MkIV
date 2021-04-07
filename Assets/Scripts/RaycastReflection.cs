@@ -16,9 +16,9 @@ public class RaycastReflection : MonoBehaviour
     private PlayerMovement movement;
 
     //a ray  
-    private Ray ray;
+    public Ray ray;
     //a RaycastHit variable, to gather informartion about the ray's collision  
-    private RaycastHit hit;
+    public RaycastHit hit;
 
     //reflection direction  
     private Vector3 inDirection;
