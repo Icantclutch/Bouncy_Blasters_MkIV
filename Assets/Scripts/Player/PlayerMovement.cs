@@ -342,17 +342,22 @@ public class PlayerMovement : NetworkBehaviour
 
 	//call to reset the FOV
 	public void ResetFov()
-    {
-		MainCamera.fieldOfView = StartingFov;
-    }
+	{ 
+		MainCamera.fieldOfView -= FovSpeed;
+		if (MainCamera.fieldOfView <= StartingFov )
+		{
+			MainCamera.fieldOfView = StartingFov;
+
+		}
+	}
 
 	//increase Fov slighly
 	public void SprintFov()
     {
 		MainCamera.fieldOfView += FovSpeed;
-		if(MainCamera.fieldOfView >= 70)
+		if(MainCamera.fieldOfView >= StartingFov + 10)
         {
-			MainCamera.fieldOfView = 70;
+			MainCamera.fieldOfView = StartingFov + 10;
 
 		}
     }

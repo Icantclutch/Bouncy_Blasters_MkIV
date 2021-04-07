@@ -87,7 +87,7 @@ public class PlayerHUD : MonoBehaviour
             _teamBScoreText.text = _gameManager.GetComponentInChildren<GameManagement>().teamBScore.ToString();
             _matchTimer.text = FormatTime(_gameManager.GetComponentInChildren<GameManagement>().MatchTimer);//_gameManager.GetComponentInChildren<GameManagement>().MatchTimer.ToString();
             float preTimer = _gameManager.GetComponentInChildren<GameManagement>().PreMatchTimer;
-            if (preTimer > 0)
+            if (preTimer >= 0)
             {
                 _preMatchTimer.text = "Match Begins In\n" + preTimer;
             }

@@ -19,7 +19,7 @@ public class LoadoutMenuButtons : MonoBehaviour
     private List<Text> _statValueList = null;
 
     [SerializeField]
-    private List<Image> _weaponIcons = null;
+    private List<Sprite> _weaponIcons = null;
 
     // Start is called before the first frame update
     void Start()
@@ -45,7 +45,7 @@ public class LoadoutMenuButtons : MonoBehaviour
         {
             Button b = Instantiate(_weaponButtonPrefab, gameObject.transform);
             b.GetComponent<LoadoutWeaponButton>().wep = _weaponList[i];
-            b.GetComponent<Button>().image = _weaponIcons[i];
+            b.GetComponent<Button>().image.sprite = _weaponIcons[i];
             b.GetComponent<LoadoutWeaponButton>().SetupButton();
         }
     }
