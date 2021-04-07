@@ -122,6 +122,7 @@ public class LobbyManager : NetworkBehaviour
             p.GetComponent<PlayerHealth>().SetRespawnDelay(_lobbySettings.GetPlayerRespawnTimeSetting());
             p.GetComponent<PlayerData>().ResetPlayerStats();
             p.GetComponent<PlayerHealth>().SetCharge(0);
+            p.GetComponent<TwitchChat>().SetTwitchInfo(_lobbySettings.GetTwitchUsername(), _lobbySettings.GetTwitchOauth());
             //teamA.teamScore = 0;
             //teamB.teamScore = 0;
 
@@ -143,8 +144,8 @@ public class LobbyManager : NetworkBehaviour
     public void StartGame()
     {
         //To-do: check if is host
-        
-        if(networkManager.numPlayers >= minPlayersNeeded)
+
+        if (networkManager.numPlayers >= minPlayersNeeded)
         {
             //To-do:
             //Set up components needed for gamemode

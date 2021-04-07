@@ -18,7 +18,10 @@ public class TwitchChat : MonoBehaviour
     //Secure this!
     //TwitchPassword Link https://twitchapps.com/tmi
     //WHEN the player enters this make sure its set to lowercase! [Upper Case DOES NOT WORK]
-    public string username, password, channelName;
+    public string username; //= "mrunholybus";
+    public string password; //= "oauth:948xc4qk988hosacvahiunspztjpwz"; //Please dont steal this from me
+    //public string channelName; //= "mrunholybus";
+    private LobbyManager _lobbyManager;
 
     //Where to put chat output
     public Text chatBox;
@@ -26,22 +29,22 @@ public class TwitchChat : MonoBehaviour
 
     //--------------------
     //Project Review Addition! (makes showing what I did easy)
-    public GameObject objectSpawner;
-    public Camera camMain;
-    public Transform camPosSpawner;
-    public Transform camLookSpawner;
-    private float timeToMoveCam = 5;
+    //public GameObject objectSpawner;
+    //public Camera camMain;
+    //public Transform camPosSpawner;
+    //public Transform camLookSpawner;
+    //private float timeToMoveCam = 5;
 
     //Camera Test
-    public Transform camPosTest;
-    public Transform camLookTest;
-    private float timeToMoveCamTest = 5;
+    //public Transform camPosTest;
+    //public Transform camLookTest;
+    //private float timeToMoveCamTest = 5;
 
     //Grenade Test Prefab
-    public GameObject GrenadePrefab;
-    public Transform camPosGrenade;
-    public Transform camLookGrenade;
-    private float timeGrenade = 3;
+    //public GameObject GrenadePrefab;
+    //public Transform camPosGrenade;
+    //public Transform camLookGrenade;
+    //private float timeGrenade = 3;
     //--------------------
 
     //CONNECT ON START
@@ -59,6 +62,11 @@ public class TwitchChat : MonoBehaviour
         {
             Connect();
         }
+
+        if (!_lobbyManager)
+        {
+            _lobbyManager = GameObject.FindGameObjectWithTag("Management").GetComponent<LobbyManager>();
+        }
         ReadChat();
         //Runs to prevent a disconnect
         //KeepConnectionAlive();
@@ -66,17 +74,24 @@ public class TwitchChat : MonoBehaviour
 
     private void Connect()
     {
-        twitchClient = new TcpClient("irc.chat.twitch.tv", 6667);
-        reader = new StreamReader(twitchClient.GetStream());
-        writer = new StreamWriter(twitchClient.GetStream());
+        //If host
+        if (_lobbyManager.isServer)
+        {
+            if (password != null && username != null)
+            {
+                twitchClient = new TcpClient("irc.chat.twitch.tv", 6667);
+                reader = new StreamReader(twitchClient.GetStream());
+                writer = new StreamWriter(twitchClient.GetStream());
 
-        //LOGGIN IN
-        //Do not change (Sends to Twitch Servers) / From Twitch.API
-        writer.WriteLine("PASS " + password);
-        writer.WriteLine("NICK " + username);
-        writer.WriteLine("USER " + username + " 8 * :" + username);
-        writer.WriteLine("JOIN #" + channelName);
-        writer.Flush();
+                //LOGGIN IN
+                //Do not change (Sends to Twitch Servers) / From Twitch.API
+                writer.WriteLine("PASS " + password);
+                writer.WriteLine("NICK " + username);
+                writer.WriteLine("USER " + username + " 8 * :" + username);
+                writer.WriteLine("JOIN #" + username); //channelName
+                writer.Flush();
+            }
+        }
     }
 
     public void ReadChat()
@@ -95,7 +110,7 @@ public class TwitchChat : MonoBehaviour
                 splitPoint = message.IndexOf(":", 1);
                 message = message.Substring(splitPoint + 1);
 
-                chatBox.text = chatBox.text + "\n" + String.Format("{0}: {1}", chatName, message);
+                //chatBox.text = chatBox.text + "\n" + String.Format("{0}: {1}", chatName, message);
                 Input(chatName, message);
             }
 
@@ -103,61 +118,88 @@ public class TwitchChat : MonoBehaviour
 
     }
 
+    public void SetTwitchInfo(string name, string oauth)
+    {
+        //If host then set
+        if (_lobbyManager.isServer)
+        {
+            username = name;
+            password = oauth;
+            //channelName = name;
+        }
+    }
+
     private void Input(string viewerName, string viewerMessage)
     {
-        if (viewerMessage.ToLower() == "join")
+        if (viewerMessage.ToLower() == "test")
         {
             print("JOIN EVENT");
         }
 
-        if (viewerMessage.ToLower() == "pool")
+        if (viewerMessage.ToLower() == "hitmarker")
         {
-            print("Creating Particle Pooler");
-            objectSpawner.SetActive(true);
-
-            //Move the camera if the camera exists
-            if (camMain != null)
+            foreach (PlayerData Data in _lobbyManager.players)
             {
-                CameraShaking toUseShake = camMain.GetComponent<CameraShaking>();
-                if (toUseShake != null)
-                {
-                    toUseShake.AddCameraTween(camPosSpawner, camLookSpawner, timeToMoveCam);
-                }
+                Data.GetComponent<PlayerEffects>().CreateHitmarker(5);
             }
         }
+
+        if (viewerMessage.ToLower() == "reload")
+        {
+            foreach (PlayerData Data in _lobbyManager.players)
+            {
+                Data.GetComponent<Shooting>().Rpc_FullReload();
+            }
+        }
+
+        //if (viewerMessage.ToLower() == "pool")
+        //{
+        //    print("Creating Particle Pooler");
+        //    objectSpawner.SetActive(true);
+
+        //    //Move the camera if the camera exists
+        //    if (camMain != null)
+        //    {
+        //        CameraShaking toUseShake = camMain.GetComponent<CameraShaking>();
+        //        if (toUseShake != null)
+        //        {
+        //            toUseShake.AddCameraTween(camPosSpawner, camLookSpawner, timeToMoveCam);
+        //        }
+        //    }
+        //}
 
         //Camera Movement
-        if (viewerMessage.ToLower() == "camtest")
-        {
-            print("Camera Test");
+        //if (viewerMessage.ToLower() == "camtest")
+        //{
+        //    print("Camera Test");
 
-            //Move the camera if the camera exists
-            if (camMain != null)
-            {
-                CameraShaking toUseShake = camMain.GetComponent<CameraShaking>();
-                if (toUseShake != null)
-                {
-                    toUseShake.AddCameraTween(camPosTest, camLookTest, timeToMoveCamTest);
-                }
-            }
-        }
+        //    //Move the camera if the camera exists
+        //    if (camMain != null)
+        //    {
+        //        CameraShaking toUseShake = camMain.GetComponent<CameraShaking>();
+        //        if (toUseShake != null)
+        //        {
+        //            toUseShake.AddCameraTween(camPosTest, camLookTest, timeToMoveCamTest);
+        //        }
+        //    }
+        //}
 
         //Camera Movement
-        if (viewerMessage.ToLower() == "grenade")
-        {
-            print("Running grenade Test");
+        //if (viewerMessage.ToLower() == "grenade")
+        //{
+        //    print("Running grenade Test");
 
-            //Move the camera if the camera exists
-            if (camMain != null)
-            {
-                CameraShaking toUseShake = camMain.GetComponent<CameraShaking>();
-                if (toUseShake != null)
-                {
-                    Instantiate(GrenadePrefab);
-                    toUseShake.AddCameraTween(camPosGrenade, camLookGrenade, timeGrenade);
-                }
-            }
-        }
+        //    //Move the camera if the camera exists
+        //    if (camMain != null)
+        //    {
+        //        CameraShaking toUseShake = camMain.GetComponent<CameraShaking>();
+        //        if (toUseShake != null)
+        //        {
+        //            Instantiate(GrenadePrefab);
+        //            toUseShake.AddCameraTween(camPosGrenade, camLookGrenade, timeGrenade);
+        //        }
+        //    }
+        //}
     }
 
     private void KeepConnectionAlive()
