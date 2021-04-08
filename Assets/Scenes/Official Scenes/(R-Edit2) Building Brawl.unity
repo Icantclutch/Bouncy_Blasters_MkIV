@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 513.9911, g: 636.8652, b: 842.9049, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -18517,6 +18517,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sky and Fog Volume
       objectReference: {fileID: 0}
+    - target: {fileID: 5583879788728698234, guid: df7985bc229dfa44eab508d9b2ac79a1, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5583879788728698235, guid: df7985bc229dfa44eab508d9b2ac79a1, type: 3}
       propertyPath: m_LocalPosition.x
       value: 47.05894
@@ -23103,10 +23107,34 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2186265805410676745, guid: 3e20f9bd199f77b4d8e177ef38ae5aff, type: 3}
       propertyPath: m_Intensity
-      value: 1600000
+      value: 30000
       objectReference: {fileID: 0}
     - target: {fileID: 2186265805410676745, guid: 3e20f9bd199f77b4d8e177ef38ae5aff, type: 3}
       propertyPath: m_InteractsWithSky
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2186265805410676745, guid: 3e20f9bd199f77b4d8e177ef38ae5aff, type: 3}
+      propertyPath: useVolumetric
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2186265805410676745, guid: 3e20f9bd199f77b4d8e177ef38ae5aff, type: 3}
+      propertyPath: m_NonLightmappedOnly
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2186265805410676745, guid: 3e20f9bd199f77b4d8e177ef38ae5aff, type: 3}
+      propertyPath: m_UseContactShadow.m_Override
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2186265805410676745, guid: 3e20f9bd199f77b4d8e177ef38ae5aff, type: 3}
+      propertyPath: m_UseContactShadow.m_UseOverride
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2186265805410676745, guid: 3e20f9bd199f77b4d8e177ef38ae5aff, type: 3}
+      propertyPath: m_UseContactShadow.m_Level
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2186265805410676745, guid: 3e20f9bd199f77b4d8e177ef38ae5aff, type: 3}
+      propertyPath: m_VolumetricDimmer
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3907596807368072596, guid: 3e20f9bd199f77b4d8e177ef38ae5aff, type: 3}
@@ -23155,19 +23183,35 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7679539863931823636, guid: 3e20f9bd199f77b4d8e177ef38ae5aff, type: 3}
       propertyPath: m_BoundingSphereOverride.x
-      value: 0
+      value: NaN
       objectReference: {fileID: 0}
     - target: {fileID: 7679539863931823636, guid: 3e20f9bd199f77b4d8e177ef38ae5aff, type: 3}
       propertyPath: m_BoundingSphereOverride.y
-      value: 0
+      value: 8e-44
       objectReference: {fileID: 0}
     - target: {fileID: 7679539863931823636, guid: 3e20f9bd199f77b4d8e177ef38ae5aff, type: 3}
       propertyPath: m_BoundingSphereOverride.w
-      value: -1.6735982e-15
+      value: 1e-44
       objectReference: {fileID: 0}
     - target: {fileID: 7679539863931823636, guid: 3e20f9bd199f77b4d8e177ef38ae5aff, type: 3}
       propertyPath: m_Intensity
-      value: 1600000
+      value: 30000
+      objectReference: {fileID: 0}
+    - target: {fileID: 7679539863931823636, guid: 3e20f9bd199f77b4d8e177ef38ae5aff, type: 3}
+      propertyPath: m_Shadows.m_Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7679539863931823636, guid: 3e20f9bd199f77b4d8e177ef38ae5aff, type: 3}
+      propertyPath: m_LightShadowCasterMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7679539863931823636, guid: 3e20f9bd199f77b4d8e177ef38ae5aff, type: 3}
+      propertyPath: m_UseColorTemperature
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7679539863931823636, guid: 3e20f9bd199f77b4d8e177ef38ae5aff, type: 3}
+      propertyPath: m_BoundingSphereOverride.z
+      value: 4e-45
       objectReference: {fileID: 0}
     - target: {fileID: 8357196619830436102, guid: 3e20f9bd199f77b4d8e177ef38ae5aff, type: 3}
       propertyPath: m_Name
@@ -32855,6 +32899,10 @@ PrefabInstance:
     - target: {fileID: 9211517369579639061, guid: 41a85bd45cca76946a5face8b000f8b6, type: 3}
       propertyPath: m_Name
       value: HDRI Sky
+      objectReference: {fileID: 0}
+    - target: {fileID: 9211517369579639061, guid: 41a85bd45cca76946a5face8b000f8b6, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 41a85bd45cca76946a5face8b000f8b6, type: 3}
