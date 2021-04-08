@@ -122,7 +122,10 @@ public class LobbyManager : NetworkBehaviour
             p.GetComponent<PlayerHealth>().SetRespawnDelay(_lobbySettings.GetPlayerRespawnTimeSetting());
             p.GetComponent<PlayerData>().ResetPlayerStats();
             p.GetComponent<PlayerHealth>().SetCharge(0);
-            p.GetComponent<TwitchChat>().SetTwitchInfo(_lobbySettings.GetTwitchUsername(), _lobbySettings.GetTwitchOauth());
+            if (p.GetComponent<TwitchChat>())
+            {
+                p.GetComponent<TwitchChat>().SetTwitchInfo(_lobbySettings.GetTwitchUsername(), _lobbySettings.GetTwitchOauth());
+            }
             //teamA.teamScore = 0;
             //teamB.teamScore = 0;
 
