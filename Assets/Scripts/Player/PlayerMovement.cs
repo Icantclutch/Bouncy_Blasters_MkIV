@@ -132,8 +132,6 @@ public class PlayerMovement : NetworkBehaviour
 			{
 				DisableSprint();
 			}
-
-
 		}
 
 		//Debug control to respawn the player
@@ -200,7 +198,6 @@ public class PlayerMovement : NetworkBehaviour
 		if(movementDirection.magnitude > 0.1)
         {
 			GetComponent<PlayerAnimationController>().SetIsRunning(true);
-
 		}
         else
         {
@@ -226,7 +223,6 @@ public class PlayerMovement : NetworkBehaviour
         else 
 		{
 			//Allow for velocity to be uncapped
-			
         }
 		GetComponent<PlayerAnimationController>().SetVelocity(rbody.velocity.x, rbody.velocity.z);
 	}
