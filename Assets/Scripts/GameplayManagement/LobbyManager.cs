@@ -38,7 +38,6 @@ public class LobbyManager : NetworkBehaviour
 
         networkManager = GameObject.Find("NetworkManager").GetComponent<NetworkManager>();
 
-
         _settingsSaved = true;
     }
 
@@ -80,14 +79,11 @@ public class LobbyManager : NetworkBehaviour
         players.Add(player);
         DisplayPlayers();
         //Debug.Log(networkManager.onlineScene);
-
         //Used for backwards compatability with testing scenes
         if(!networkManager.onlineScene.Contains("OnlineLobby Scene") || !SceneManager.GetActiveScene().name.Contains("OnlineLobby Scene"))
         {
             player.RpcSpawnPlayer(false, false);
         }
-
-        
     }
 
     public void ReturnPlayers()
@@ -128,7 +124,6 @@ public class LobbyManager : NetworkBehaviour
             }
             //teamA.teamScore = 0;
             //teamB.teamScore = 0;
-
         }
         //Debug.Log("LobbyManager is setting the gamemode to: " + _lobbySettings.GetGameModeSetting());
         //Debug.Log("LobbyManager is setting the gamemode Max score to : " + _lobbySettings.GetMatchScoreSetting());
