@@ -108,8 +108,6 @@ public class PlayerHUD : MonoBehaviour
             _mapAnim.SetTrigger("End");
         }
 
-      
-
     }
 
     public string FormatTime(float Timer)
