@@ -277,6 +277,8 @@ public class SteamLobby : MonoBehaviour
 
         
     }
+
+    //Displays found lobbies to the lobby browser
     void DisplayLobbies()
     {
         ClearLobbyBrowser();

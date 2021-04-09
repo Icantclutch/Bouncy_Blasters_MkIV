@@ -141,15 +141,9 @@ public class LobbyManager : NetworkBehaviour
      */
     public void StartGame()
     {
-        //To-do: check if is host
-
-        if (networkManager.numPlayers >= minPlayersNeeded)
+        //Check if it is the host and there is the minimun number of players needed
+        if (isServer && networkManager.numPlayers >= minPlayersNeeded)
         {
-            //To-do:
-            //Set up components needed for gamemode
-            //Create Gamemode: default of DeathMatch temporarily
-           
-            
             //Create teams
             List<PlayerData> teamAPlayers = new List<PlayerData>();
             List<PlayerData> teamBPlayers = new List<PlayerData>();
@@ -171,12 +165,12 @@ public class LobbyManager : NetworkBehaviour
             
             //Setup Game Management
             gameManager.SetUpMatch(gamemode, teamA, teamB);
+            //Update steam lobby data
             if (isServer)
             {
                 networkManager.GetComponent<SteamLobby>().SetLobbyMatchData(_lobbySettings.GetGameModeName(), mapName);
             }
 
-            //Debug.Log("Enabling player gameobjects");
             //SpawnPlayers
             SpawnPlayers();
 

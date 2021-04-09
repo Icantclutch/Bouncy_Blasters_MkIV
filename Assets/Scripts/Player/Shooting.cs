@@ -351,7 +351,7 @@ public class Shooting : NetworkBehaviour
     [ClientRpc]
     void Rpc_UpdateWeaponModel(int index)
     {
-        GetComponentInChildren<BlasterController>().swapTo(index);
+        GetComponentInChildren<BlasterController>().SwapTo(index);
         if (index == 3)
         {
             GetComponent<PlayerAnimationController>().SetUsingPistol(true);
@@ -414,7 +414,7 @@ public class Shooting : NetworkBehaviour
             playerWeapons[0].weapon = GameObject.FindGameObjectWithTag("Management").GetComponent<LoadoutManager>().loadouts[newWeapon];
             FullReload();
             int index = playerWeapons[currentWeapon].weapon.modelIndex;
-            GetComponentInChildren<BlasterController>().swapTo(index);
+            GetComponentInChildren<BlasterController>().SwapTo(index);
             if(index == 3)
             {
                 GetComponent<PlayerAnimationController>().SetUsingPistol(true);
