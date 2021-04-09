@@ -29,6 +29,9 @@ public class PlayerEffects : NetworkBehaviour
 
     private float _growSize = 0.75f;
 
+
+    //Creates a hitmarker.
+    //Run from PlayerHealth and tells client they hit someone
     [TargetRpc]
     public void CreateHitmarker(int DamageDealt)
     {
@@ -51,6 +54,9 @@ public class PlayerEffects : NetworkBehaviour
         StartCoroutine(HitMarkerEffect(Clone, 1, 0, 0.5f));
     }
 
+
+    //Creates the kill marker and adds it to
+    //the function
     [TargetRpc]
     public void CreateKillmarker()
     {
@@ -58,6 +64,8 @@ public class PlayerEffects : NetworkBehaviour
         StartCoroutine(HitMarkerEffect(Clone, 1, 0, 0.5f));
     }
 
+
+    //Creates a death display that starts center of the screen and tweens up
     [TargetRpc]
     public void ShowDeathDisplay()
     {
@@ -67,6 +75,8 @@ public class PlayerEffects : NetworkBehaviour
         StartCoroutine(MoveObject(Clone, Clone.transform.position + new Vector3(0,600,0), TimeToDestroy));
     }
 
+    //Returns a random hint
+    //Can add more before release
     private string ReturnRandomHint()
     {
         string[] Hints = new string[] { 
@@ -76,6 +86,9 @@ public class PlayerEffects : NetworkBehaviour
             "Watch out for crowded areas! Lots of blasters are in play!",};
         return Hints[Random.Range(0, Hints.Length)];
     }
+
+    //Creates a pop up near health bar
+    //Allows players to know how much damage they took
     public void DamageTakenText(int DamageDealt)
     {
         GameObject Clone = Instantiate(_damageTakenText, _canvas.transform);
@@ -112,6 +125,9 @@ public class PlayerEffects : NetworkBehaviour
         Bar.GetComponent<RectTransform>().sizeDelta = new Vector2(Val, 40);
         Destroy(Clone, 10f);
     }
+
+    //Creates a tween
+    //Destroys the object after movement
     public IEnumerator MoveObject(GameObject go, Vector3 end, float lerpTime)
     {
         float _timeStartedLerping = Time.time;
@@ -134,6 +150,8 @@ public class PlayerEffects : NetworkBehaviour
         Destroy(go);
     }
 
+
+    //Creates a color changing X that is a hitmarker
     public IEnumerator HitMarkerEffect(GameObject go, float start, float end, float lerpTime)
     {
         float _timeStartedLerping = Time.time;

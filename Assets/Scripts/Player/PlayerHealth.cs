@@ -208,7 +208,7 @@ public class PlayerHealth : HitInteraction
                             Data.GetComponent<PlayerEffects>().CreateKillFeed(shooterIdentity.GetComponent<PlayerData>().playerName, GetComponent<PlayerData>().playerName);
                         }
                     }
-                    //displays a kill marker to the player who killed you
+                    //Displays a kill marker to the player who killed you
                     shooterIdentity.GetComponent<PlayerEffects>().CreateKillmarker();
                     //Show a death message to player
                     GetComponent<PlayerEffects>().ShowDeathDisplay();

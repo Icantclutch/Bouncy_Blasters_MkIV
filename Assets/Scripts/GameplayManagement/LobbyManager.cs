@@ -38,7 +38,6 @@ public class LobbyManager : NetworkBehaviour
 
         networkManager = GameObject.Find("NetworkManager").GetComponent<NetworkManager>();
 
-
         _settingsSaved = true;
     }
 
@@ -80,14 +79,11 @@ public class LobbyManager : NetworkBehaviour
         players.Add(player);
         DisplayPlayers();
         //Debug.Log(networkManager.onlineScene);
-
         //Used for backwards compatability with testing scenes
         if(!networkManager.onlineScene.Contains("OnlineLobby Scene") || !SceneManager.GetActiveScene().name.Contains("OnlineLobby Scene"))
         {
             player.RpcSpawnPlayer(false, false);
         }
-
-        
     }
 
     public void ReturnPlayers()
@@ -122,9 +118,12 @@ public class LobbyManager : NetworkBehaviour
             p.GetComponent<PlayerHealth>().SetRespawnDelay(_lobbySettings.GetPlayerRespawnTimeSetting());
             p.GetComponent<PlayerData>().ResetPlayerStats();
             p.GetComponent<PlayerHealth>().SetCharge(0);
+            if (p.GetComponent<TwitchChat>())
+            {
+                p.GetComponent<TwitchChat>().SetTwitchInfo(_lobbySettings.GetTwitchUsername(), _lobbySettings.GetTwitchOauth());
+            }
             //teamA.teamScore = 0;
             //teamB.teamScore = 0;
-
         }
         //Debug.Log("LobbyManager is setting the gamemode to: " + _lobbySettings.GetGameModeSetting());
         //Debug.Log("LobbyManager is setting the gamemode Max score to : " + _lobbySettings.GetMatchScoreSetting());
@@ -142,15 +141,9 @@ public class LobbyManager : NetworkBehaviour
      */
     public void StartGame()
     {
-        //To-do: check if is host
-        
-        if(networkManager.numPlayers >= minPlayersNeeded)
+        //Check if it is the host and there is the minimun number of players needed
+        if (isServer && networkManager.numPlayers >= minPlayersNeeded)
         {
-            //To-do:
-            //Set up components needed for gamemode
-            //Create Gamemode: default of DeathMatch temporarily
-           
-            
             //Create teams
             List<PlayerData> teamAPlayers = new List<PlayerData>();
             List<PlayerData> teamBPlayers = new List<PlayerData>();
@@ -172,12 +165,12 @@ public class LobbyManager : NetworkBehaviour
             
             //Setup Game Management
             gameManager.SetUpMatch(gamemode, teamA, teamB);
+            //Update steam lobby data
             if (isServer)
             {
                 networkManager.GetComponent<SteamLobby>().SetLobbyMatchData(_lobbySettings.GetGameModeName(), mapName);
             }
 
-            //Debug.Log("Enabling player gameobjects");
             //SpawnPlayers
             SpawnPlayers();
 

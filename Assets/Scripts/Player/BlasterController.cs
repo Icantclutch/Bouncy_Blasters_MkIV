@@ -14,9 +14,10 @@ public class BlasterController : MonoBehaviour
 
     private void Start()
     {
+        //Sets the first active blaster model as the currentBlaster
         foreach (GameObject blaster in blasters)
         {
-            if(currentBlaster != null)
+            if(currentBlaster != null && currentBlaster != blaster)
             {
                 blaster.SetActive(false);
             }
@@ -29,9 +30,11 @@ public class BlasterController : MonoBehaviour
 
     private void Update()
     {
+        //Keep the shooting effect enabled for a set duration
         if(_shootingEffectTimer > 0)
         {
             _shootingEffectTimer -= Time.deltaTime;
+            //Disable the shooting effect after the set duration
             if(_shootingEffectTimer <= 0 && currentBlaster)
             {
                 
@@ -47,6 +50,9 @@ public class BlasterController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Enables the shooting particle effect and sets the duration it should be active for
+    /// </summary>
     public void StartShootingEffect()
     {
         if(_shootingEffectTimer <= 0)
@@ -68,14 +74,16 @@ public class BlasterController : MonoBehaviour
     /// Swaps weapon model based on game object name
     /// (can be unreliable)
     /// </summary>
-    public bool swapTo(string blasterName)
+    public bool SwapTo(string blasterName)
     {
+        //Loop throught the list of blaster models
         foreach(GameObject blaster in blasters)
         {
             if (blaster.name.Contains(blasterName))
             {
                 if(blaster != currentBlaster)
                 {
+                    //Disable previous blaster model
                     if(currentBlaster != null)
                     {
                         currentBlaster.SetActive(false);
@@ -105,13 +113,14 @@ public class BlasterController : MonoBehaviour
     /// 5: SMG<br/>
     /// </para>
     /// </summary>
-    public bool swapTo(int blasterIndex)
+    public bool SwapTo(int blasterIndex)
     {
         
             if (blasterIndex < blasters.Count && blasterIndex >= 0)
             {
                 if (blasters[blasterIndex] != currentBlaster)
                 {
+                    //Disable previous blaster model
                     if (currentBlaster != null)
                     {
                         currentBlaster.SetActive(false);
