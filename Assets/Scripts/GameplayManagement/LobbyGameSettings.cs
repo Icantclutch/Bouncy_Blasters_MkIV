@@ -27,7 +27,7 @@ public class LobbyGameSettings : MonoBehaviour
     [SerializeField]
     private Text _TwitchUsername = null;
     [SerializeField]
-    private Text _TwitchOauth = null;
+    private InputField _TwitchOauth = null;
 
     [SerializeField]
     private OnlineLobbyButtons _lobbyButtons = null;
@@ -159,7 +159,7 @@ public class LobbyGameSettings : MonoBehaviour
 
     public string GetTwitchOauth()
     {
-        return _TwitchOauth.text;
+        return _TwitchOauth.text.ToString();
     }
 
     public int GetMatchTimeSetting()
