@@ -25,7 +25,7 @@ public class LobbyGameSettings : MonoBehaviour
     private GameObject _OverchargeLabel = null;
 
     [SerializeField]
-    private Text _TwitchUsername = null;
+    private InputField _TwitchUsername = null;
     [SerializeField]
     private InputField _TwitchOauth = null;
 
@@ -154,7 +154,7 @@ public class LobbyGameSettings : MonoBehaviour
 
     public string GetTwitchUsername()
     {
-        return _TwitchUsername.text;
+        return _TwitchUsername.text.ToString(); //_TwitchUsername.text;
     }
 
     public string GetTwitchOauth()

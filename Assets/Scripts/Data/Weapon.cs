@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [CreateAssetMenu(menuName = "BouncyBlasters/Weapon")]
 public class Weapon : ScriptableObject
@@ -28,6 +29,8 @@ public class Weapon : ScriptableObject
     public int ammoCount;
     //The amount of ammo kept in reserve
     public int reserveAmmo;
+    //The amount of ammo kept in reserve
+    public Sprite weaponImg;
     //button used to swap between fire modes, optional
     public FireKey modeSwapKey;
     //List of fire modes

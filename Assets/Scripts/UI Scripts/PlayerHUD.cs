@@ -31,6 +31,9 @@ public class PlayerHUD : MonoBehaviour
     private Text _playerWeaponText = null;
 
     [SerializeField]
+    private Image _playerWeaponImg = null;
+
+    [SerializeField]
     private Text _matchTimer = null;
     [SerializeField]
     private Text _preMatchTimer = null;
@@ -82,6 +85,7 @@ public class PlayerHUD : MonoBehaviour
             //_reserveBatteryCountText.text = GetComponent<Shooting>().playerWeapons[GetComponent<Shooting>().currentWeapon].currentReserve.ToString();
             SetHealthDisplay(GetComponent<PlayerHealth>().GetCharge());
             _playerWeaponText.text = GetComponent<Shooting>().playerWeapons[GetComponent<Shooting>().currentWeapon].weapon.name;
+            _playerWeaponImg.sprite = GetComponent<Shooting>().playerWeapons[GetComponent<Shooting>().currentWeapon].weapon.weaponImg;
 
             _teamAScoreText.text = _gameManager.GetComponentInChildren<GameManagement>().teamAScore.ToString();
             _teamBScoreText.text = _gameManager.GetComponentInChildren<GameManagement>().teamBScore.ToString();
