@@ -30,7 +30,7 @@ public class PlayerHUD : MonoBehaviour
     [SerializeField]
     private Text _playerWeaponText = null;
 
-    [SerializeField]
+    [SerializeReference]
     private Image _playerWeaponImg = null;
 
     [SerializeField]
