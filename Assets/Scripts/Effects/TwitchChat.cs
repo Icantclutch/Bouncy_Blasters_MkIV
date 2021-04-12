@@ -135,6 +135,10 @@ public class TwitchChat : MonoBehaviour
         }
     }
 
+    //Twitch Events
+    //Loading screens
+    //
+
     private void Input(string viewerName, string viewerMessage)
     {
         if (viewerMessage.ToLower() == "test")
@@ -157,6 +161,15 @@ public class TwitchChat : MonoBehaviour
                 Data.GetComponent<Shooting>().Rpc_FullReload();
             }
         }
+
+        //EVENTS
+        //Low Gravity (change PlayerMovement.JumpHeight)
+
+        //Super speed (sprint increase too) (change PlayerMovement.Speed)
+
+        //Earth Quake
+
+        //Team randomize
 
         //if (viewerMessage.ToLower() == "pool")
         //{
