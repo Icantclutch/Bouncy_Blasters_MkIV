@@ -21,6 +21,10 @@ public static class Keybinds
     public static string Vertical = "Vertical"; //Forward/Bakc movement axis
     public static string MouseX = "Mouse X"; //Mouse Horizontal
     public static string MouseY = "Mouse Y"; //Mouse Vertical
+
+
+
+    //public static KeyCode j = KeyCode.Joystick1Button0;
 }
 
 

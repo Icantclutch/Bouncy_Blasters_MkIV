@@ -26,7 +26,7 @@ public class WallCollisionSetting : MonoBehaviour
             }
             else
             {
-                Debug.Log("laser error. blue wall should have by default set to active unless told otherwise");
+                Debug.Log("Wall error");
             }
         }
 
