@@ -88,9 +88,12 @@ public class PlayerHealth : HitInteraction
         if (ToUseCam != null) {
             //ToUseCam.transform.Translate(0, Time.deltaTime * 1.5f, 0, Space.World);
             ToUseCam.GetComponent<Camera>().enabled = true;
-            MainCamera.GetComponent<Camera>().enabled = false;
-        } else {
-            MainCamera.GetComponent<Camera>().enabled = true;
+            if(MainCamera != null)
+                MainCamera.GetComponent<Camera>().enabled = false;
+        } else
+        {
+            if (MainCamera != null)
+                MainCamera.GetComponent<Camera>().enabled = true;
         }
     if (!_lobbyManager) {
         _lobbyManager = GameObject.FindGameObjectWithTag("Management").GetComponent<LobbyManager>();

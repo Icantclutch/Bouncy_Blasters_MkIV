@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Linq;
 using Mirror;
 
+//Basic projectile bullet, uses physical hitbox and basic bounce calculations
 public class Bullet : NetworkBehaviour
 {
     [System.Serializable]
