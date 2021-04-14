@@ -322,9 +322,11 @@ public class Shooting : NetworkBehaviour
         Ray ray = new Ray(eyes.transform.position, eyes.transform.forward);
         RaycastHit hit;
         Quaternion rotation;
+        Vector3 nextReflection = Vector3.zero;
         if (Physics.Raycast(ray, out hit, 100)) {
             Vector3 direction = hit.point - barrel.position;
             rotation = Quaternion.LookRotation(direction);
+            nextReflection = (hit.transform.CompareTag("NoBounce")) ? Vector3.zero : Vector3.Reflect(ray.direction, hit.normal);
         }
         else
         {
@@ -338,6 +340,10 @@ public class Shooting : NetworkBehaviour
         int playerID = Convert.ToInt32(GetComponent<NetworkIdentity>().netId);
         //Assign it its properties
         b.GetComponent<Bullet>().Initialize(damage, bounces, fireSpeed, playerID);
+        if (b.GetComponent<TravelBullet>())
+        {
+            b.GetComponent<TravelBullet>().SetNextReflectionDirection(nextReflection);
+        }
         //Play the firing audio
         //GetComponent<AudioSource>().PlayOneShot(fireMode.firingSound, .5f);
         GetComponent<PlayerAudioController>().RpcOnAllClients(soundIndex);
