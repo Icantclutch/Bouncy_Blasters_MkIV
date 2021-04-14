@@ -130,33 +130,36 @@ public class PlayerData : NetworkBehaviour
 
     public void SpawnPlayer(bool partialSpawn = false, bool prematch = false)
     {
-        //transform.Find("Player").gameObject.SetActive(true);
-        KillStreakUpdate();
-        GetComponent<Shooting>().enabled = true;
-        GetComponent<Shooting>().GetNewLoadout();
-        if (!partialSpawn)
+        if (team >= 0)
         {
-            GetComponent<Shooting>().active = true;
-
-            GetComponent<PlayerMovement>().enabled = true;
-            GetComponent<PlayerReference>().enabled = true;
-        }
-        //GetComponent<MouseLook2>().enabled = true;
-        GetComponent<PlayerHUD>().enabled = true;
-        //Stops the players momentum
-        //Should prevent them from falling through the floor
-        GetComponent<Rigidbody>().velocity = new Vector3(0, 0);
-        /*if (!PlayerSpawnSystem.SpawnPlayer(gameObject, true, true)) 
-        {
-            if (PlayerSpawnSystem.SpawnPlayer(gameObject))
+            //transform.Find("Player").gameObject.SetActive(true);
+            KillStreakUpdate();
+            GetComponent<Shooting>().enabled = true;
+            GetComponent<Shooting>().GetNewLoadout();
+            if (!partialSpawn)
             {
-                _spawned = true;
+                GetComponent<Shooting>().active = true;
+
+                GetComponent<PlayerMovement>().enabled = true;
+                GetComponent<PlayerReference>().enabled = true;
             }
+            //GetComponent<MouseLook2>().enabled = true;
+            GetComponent<PlayerHUD>().enabled = true;
+            //Stops the players momentum
+            //Should prevent them from falling through the floor
+            GetComponent<Rigidbody>().velocity = new Vector3(0, 0);
+            /*if (!PlayerSpawnSystem.SpawnPlayer(gameObject, true, true)) 
+            {
+                if (PlayerSpawnSystem.SpawnPlayer(gameObject))
+                {
+                    _spawned = true;
+                }
+            }
+            else
+            {
+                //_spawned = true;
+            }*/
         }
-        else
-        {
-            //_spawned = true;
-        }*/
         if (!prematch || partialSpawn)
         {
             StartCoroutine(DelaySpawn());
@@ -179,8 +182,14 @@ public class PlayerData : NetworkBehaviour
             {
                 _spawned = true;
             }
-
-            GetComponent<MouseLook2>().enabled = true;
+            if (team >= 0)
+            {
+                GetComponent<MouseLook2>().enabled = true;
+            }
+            else
+            {
+                GetComponent<SpectatorMovement>().enabled = true;
+            }
         }
     }
 

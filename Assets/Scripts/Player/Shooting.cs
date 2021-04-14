@@ -317,15 +317,33 @@ public class Shooting : NetworkBehaviour
         //Fetch Bullet Prefab from Network Manager
         GameObject bulletPrefab = NetworkManager.singleton.spawnPrefabs.Find(bu => bu.name.Equals(bullet));
         //Summon the bullet
-        //Transform barrel = GetComponent<BlasterController>().currentBlaster.transform.Find("Barrel"); ;
-        //Debug.Log(barrel);
-        GameObject b = Instantiate(bulletPrefab, eyes.transform.position, eyes.transform.rotation);
+        //Debug.Log(GetComponent<BlasterController>().currentBlaster);
+        Transform barrel = GetComponentInChildren<BlasterController>().currentBlaster.transform.Find("Barrel");
+        Ray ray = new Ray(eyes.transform.position, eyes.transform.forward);
+        RaycastHit hit;
+        Quaternion rotation;
+        Vector3 nextReflection = Vector3.zero;
+        if (Physics.Raycast(ray, out hit, 100)) {
+            Vector3 direction = hit.point - barrel.position;
+            rotation = Quaternion.LookRotation(direction);
+            nextReflection = (hit.transform.CompareTag("NoBounce")) ? Vector3.zero : Vector3.Reflect(ray.direction, hit.normal);
+        }
+        else
+        {
+            Vector3 direction = (eyes.position + eyes.forward*100) - barrel.position;
+            rotation = Quaternion.LookRotation(direction);
+        }
+        GameObject b = Instantiate(bulletPrefab, barrel.position, rotation);
         //Spawn on server
         NetworkServer.Spawn(b);
         //Get the player's id
         int playerID = Convert.ToInt32(GetComponent<NetworkIdentity>().netId);
         //Assign it its properties
         b.GetComponent<Bullet>().Initialize(damage, bounces, fireSpeed, playerID);
+        if (b.GetComponent<TravelBullet>())
+        {
+            b.GetComponent<TravelBullet>().SetNextReflectionDirection(nextReflection);
+        }
         //Play the firing audio
         //GetComponent<AudioSource>().PlayOneShot(fireMode.firingSound, .5f);
         GetComponent<PlayerAudioController>().RpcOnAllClients(soundIndex);

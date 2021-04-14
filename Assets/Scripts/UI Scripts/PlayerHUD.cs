@@ -30,6 +30,9 @@ public class PlayerHUD : MonoBehaviour
     [SerializeField]
     private Text _playerWeaponText = null;
 
+    [SerializeReference]
+    private Image _playerWeaponImg = null;
+
     [SerializeField]
     private Text _matchTimer = null;
     [SerializeField]
@@ -44,6 +47,8 @@ public class PlayerHUD : MonoBehaviour
 
     private GameObject _gameManager = null;
     public GameObject _miniMap = null;
+
+    public List<Sprite> weaponImages;
 
     [SerializeField]
     private Text _matchEndText = null;
@@ -64,6 +69,35 @@ public class PlayerHUD : MonoBehaviour
         }
     }
 
+    private Sprite ReturnWeaponImg(string weaponName)
+    {
+        if (weaponName == "DMR")
+        {
+            return weaponImages[0];
+        }
+        else if(weaponName == "Pistol")
+        {
+            return weaponImages[1];
+        }
+        else if (weaponName == "Rifle")
+        {
+            return weaponImages[2];
+        }
+        else if (weaponName == "Shotgun")
+        {
+            return weaponImages[4];
+        }
+        else if (weaponName == "SMG")
+        {
+            return weaponImages[5];
+        }
+        else if (weaponName == "Sniper")
+        {
+            return weaponImages[6];
+        }
+        return weaponImages[0];
+    }
+
    // string minutes = $$anonymous$$athf.Floor(timer / 60).ToString("00");
    // string seconds = (timer % 60).ToString("00");
 
@@ -81,7 +115,9 @@ public class PlayerHUD : MonoBehaviour
                 + GetComponent<Shooting>().playerWeapons[GetComponent<Shooting>().currentWeapon].currentReserve.ToString();
             //_reserveBatteryCountText.text = GetComponent<Shooting>().playerWeapons[GetComponent<Shooting>().currentWeapon].currentReserve.ToString();
             SetHealthDisplay(GetComponent<PlayerHealth>().GetCharge());
-            _playerWeaponText.text = GetComponent<Shooting>().playerWeapons[GetComponent<Shooting>().currentWeapon].weapon.name;
+            string wepname = GetComponent<Shooting>().playerWeapons[GetComponent<Shooting>().currentWeapon].weapon.name;
+            _playerWeaponText.text = wepname;
+            _playerWeaponImg.sprite = ReturnWeaponImg(wepname);
 
             _teamAScoreText.text = _gameManager.GetComponentInChildren<GameManagement>().teamAScore.ToString();
             _teamBScoreText.text = _gameManager.GetComponentInChildren<GameManagement>().teamBScore.ToString();

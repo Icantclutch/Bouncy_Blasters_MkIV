@@ -7,6 +7,7 @@ public class BlasterController : MonoBehaviour
 
     public List<GameObject> blasters;
     public GameObject currentBlaster = null;
+    public int currentBlasterIndex;
 
     [SerializeField]
     private float _shotingEffectTime = 1.5f;
@@ -14,6 +15,7 @@ public class BlasterController : MonoBehaviour
 
     private void Start()
     {
+        int i = 0;
         //Sets the first active blaster model as the currentBlaster
         foreach (GameObject blaster in blasters)
         {
@@ -24,7 +26,9 @@ public class BlasterController : MonoBehaviour
             else if (blaster.activeSelf)
             {
                 currentBlaster = blaster;
+                currentBlasterIndex = i;
             }
+            ++i;
         }
     }
 
@@ -76,6 +80,7 @@ public class BlasterController : MonoBehaviour
     /// </summary>
     public bool SwapTo(string blasterName)
     {
+        int i = 0;
         //Loop throught the list of blaster models
         foreach(GameObject blaster in blasters)
         {
@@ -91,6 +96,7 @@ public class BlasterController : MonoBehaviour
 
                     blaster.SetActive(true);
                     currentBlaster = blaster;
+                    currentBlasterIndex = i;
                     return true;
                 }
                 else
@@ -98,6 +104,7 @@ public class BlasterController : MonoBehaviour
                     return true;
                 }
             }
+            ++i;
         }
 
         return false;
@@ -128,6 +135,7 @@ public class BlasterController : MonoBehaviour
 
                     blasters[blasterIndex].SetActive(true);
                     currentBlaster = blasters[blasterIndex];
+                currentBlasterIndex = blasterIndex;
                     return true;
                 }
                 else
@@ -139,6 +147,5 @@ public class BlasterController : MonoBehaviour
 
         return false;
     }
-
 
 }
