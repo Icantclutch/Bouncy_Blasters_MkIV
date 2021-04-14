@@ -6,19 +6,26 @@ using Mirror;
 
 public class MovingWall : NetworkBehaviour
 {
+    //Clock used to track cycles
     [SyncVar]
     float clock;
+    //How fast the wall completes a cycle
     [SyncVar]
     public float SpeedMultiplier;
 
+    //The curve representing the y-axis movement of the wall
     public AnimationCurve MovementCycle;
 
+    //THe value on the curve the wall starts at, in a range of 0-1
     [SyncVar, Range(0,1)]
     public float startValue = 0f;
+    //Recorded starting position
     [SyncVar]
     Vector3 startPos;
+    //The relative position when fully up (typically Vector3.zero)
     [SyncVar]
     public Vector3 fullyUp;
+    //The relative position when fully down
     [SyncVar]
     public Vector3 fullyDown;
 
@@ -32,11 +39,13 @@ public class MovingWall : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Tick clock
         if (isServer)
         {
             clock += Time.deltaTime;
         }
 
+        //Lerp transform between up and down position
         transform.position = startPos + Vector3.Lerp(fullyDown, fullyUp, MovementCycle.Evaluate((clock * SpeedMultiplier) % 1f));
     }
 }

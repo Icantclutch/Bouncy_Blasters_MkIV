@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 
+//A bullet that fires in a shotgun spread.
+//Uses other bullets as the pellets
 public class ShotgunBullet : Bullet
 {
     //The actual bullet used
