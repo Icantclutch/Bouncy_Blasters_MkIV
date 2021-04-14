@@ -317,9 +317,21 @@ public class Shooting : NetworkBehaviour
         //Fetch Bullet Prefab from Network Manager
         GameObject bulletPrefab = NetworkManager.singleton.spawnPrefabs.Find(bu => bu.name.Equals(bullet));
         //Summon the bullet
-        //Transform barrel = GetComponent<BlasterController>().currentBlaster.transform.Find("Barrel"); ;
-        //Debug.Log(barrel);
-        GameObject b = Instantiate(bulletPrefab, eyes.transform.position, eyes.transform.rotation);
+        //Debug.Log(GetComponent<BlasterController>().currentBlaster);
+        Transform barrel = GetComponentInChildren<BlasterController>().currentBlaster.transform.Find("Barrel");
+        Ray ray = new Ray(eyes.transform.position, eyes.transform.forward);
+        RaycastHit hit;
+        Quaternion rotation;
+        if (Physics.Raycast(ray, out hit, 100)) {
+            Vector3 direction = hit.point - barrel.position;
+            rotation = Quaternion.LookRotation(direction);
+        }
+        else
+        {
+            Vector3 direction = (eyes.position + eyes.forward*100) - barrel.position;
+            rotation = Quaternion.LookRotation(direction);
+        }
+        GameObject b = Instantiate(bulletPrefab, barrel.position, rotation);
         //Spawn on server
         NetworkServer.Spawn(b);
         //Get the player's id
