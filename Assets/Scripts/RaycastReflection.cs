@@ -61,11 +61,12 @@ public class RaycastReflection : MonoBehaviour
             movement.Aiming(false);
         }
 
-
+        Transform barrel = null;
         //Update reflections based on player's gun
         if (shooting.active)
         {
             nReflections = shooting.currentFireMode.maxBounces;
+            barrel = shooting.GetComponentInChildren<BlasterController>().currentBlaster.transform.Find("Barrel");
         }
         else
         {
@@ -84,14 +85,28 @@ public class RaycastReflection : MonoBehaviour
         nPoints = nReflections;
         //make the lineRenderer have nPoints  
         lineRenderer.positionCount = nPoints;
-        //Set the first point of the line at the current attached game object position  
-        lineRenderer.SetPosition(0, goTransform.position);
-        //Set the color to red
-        lineRenderer.material = redMat;
 
         //Get bounce points
         List<Vector3> bouncePoints = new List<Vector3>();
-        bouncePoints.Add(goTransform.position);
+        
+        if (barrel)
+        {
+            //Set the first point of the line at the current barrel position  
+            lineRenderer.SetPosition(0, barrel.position);
+
+            bouncePoints.Add(barrel.position);
+        }
+        else
+        {
+            //Set the first point of the line at the current attached game object position  
+            lineRenderer.SetPosition(0, goTransform.position);
+
+            bouncePoints.Add(goTransform.position);
+        }
+        //Set the color to red
+        lineRenderer.material = redMat;
+
+        
 
         //Loop through reflections
         for (int i = 0; i <= nReflections; i++)
