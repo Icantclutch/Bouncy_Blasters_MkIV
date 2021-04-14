@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Linq;
 using Mirror;
 
+//Fires using raycast which the bullet follows along
 public class RaycastBullet : Bullet
 {
     //Line renderer
