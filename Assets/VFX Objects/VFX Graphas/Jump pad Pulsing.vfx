@@ -144,9 +144,9 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 50
+      m_SerializableObject: 75
     min: 1
-    max: 50
+    max: 100
     descendantCount: 0
   - name: Sphere Size-Min
     path: Sphere Size-Min
@@ -183,7 +183,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Gradient, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"colorKeys":[{"color":{"r":0.42352941632270815,"g":0.9333333373069763,"b":1.5843137502670289,"a":1.0},"time":0.0},{"color":{"r":0.29019609093666079,"g":0.9960784316062927,"b":1.1686275005340577,"a":1.0},"time":0.38823530077934267},{"color":{"r":1.1764706373214722,"g":1.6392157077789307,"b":1.701960802078247,"a":1.0},"time":0.6676432490348816}],"alphaKeys":[{"alpha":0.0,"time":0.0},{"alpha":1.0,"time":0.2235294133424759},{"alpha":1.0,"time":0.8088197112083435},{"alpha":0.0,"time":1.0}],"gradientMode":0}'
+      m_SerializableObject: '{"colorKeys":[{"color":{"r":0.42352941632270815,"g":0.9333333373069763,"b":1.5843137502670289,"a":1.0},"time":0.0},{"color":{"r":0.29019609093666079,"g":0.9960784316062927,"b":1.1686275005340577,"a":1.0},"time":0.38823530077934267},{"color":{"r":1.1391592025756837,"g":1.7585148811340333,"b":1.8435248136520386,"a":1.0},"time":0.6676432490348816}],"alphaKeys":[{"alpha":0.0,"time":0.0},{"alpha":1.0,"time":0.2235294133424759},{"alpha":1.0,"time":0.8088197112083435},{"alpha":0.0,"time":1.0}],"gradientMode":0}'
     min: -Infinity
     max: Infinity
     descendantCount: 0
@@ -1171,7 +1171,7 @@ MonoBehaviour:
     m_Type:
       m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
-    m_SerializableObject: 50
+    m_SerializableObject: 100
   m_IsOutput: 0
   m_Tooltip: 
   m_Nodes:
@@ -1206,7 +1206,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 50
+      m_SerializableObject: 75
     m_Space: 2147483647
   m_Property:
     name: o
@@ -2552,7 +2552,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Gradient, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"colorKeys":[{"color":{"r":0.42352941632270815,"g":0.9333333373069763,"b":1.5843137502670289,"a":1.0},"time":0.0},{"color":{"r":0.29019609093666079,"g":0.9960784316062927,"b":1.1686275005340577,"a":1.0},"time":0.38823530077934267},{"color":{"r":1.1764706373214722,"g":1.6392157077789307,"b":1.701960802078247,"a":1.0},"time":0.6676432490348816}],"alphaKeys":[{"alpha":0.0,"time":0.0},{"alpha":1.0,"time":0.2235294133424759},{"alpha":1.0,"time":0.8088197112083435},{"alpha":0.0,"time":1.0}],"gradientMode":0}'
+      m_SerializableObject: '{"colorKeys":[{"color":{"r":0.42352941632270815,"g":0.9333333373069763,"b":1.5843137502670289,"a":1.0},"time":0.0},{"color":{"r":0.29019609093666079,"g":0.9960784316062927,"b":1.1686275005340577,"a":1.0},"time":0.38823530077934267},{"color":{"r":1.1391592025756837,"g":1.7585148811340333,"b":1.8435248136520386,"a":1.0},"time":0.6676432490348816}],"alphaKeys":[{"alpha":0.0,"time":0.0},{"alpha":1.0,"time":0.2235294133424759},{"alpha":1.0,"time":0.8088197112083435},{"alpha":0.0,"time":1.0}],"gradientMode":0}'
     m_Space: 2147483647
   m_Property:
     name: o
@@ -4267,7 +4267,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d78581a96eae8bf4398c282eb0b098bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Parent: {fileID: 0}
+  m_Parent: {fileID: 114350483966674976}
   m_Children: []
   m_UIPosition: {x: 0, y: 0}
   m_UICollapsed: 1
@@ -4828,7 +4828,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d78581a96eae8bf4398c282eb0b098bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Parent: {fileID: 0}
+  m_Parent: {fileID: 114350483966674976}
   m_Children: []
   m_UIPosition: {x: 0, y: 0}
   m_UICollapsed: 1
@@ -7862,7 +7862,7 @@ MonoBehaviour:
   - {fileID: 8926484042661614897}
   m_ExposedName: Trails Lifetime
   m_Exposed: 1
-  m_Order: 4
+  m_Order: 5
   m_Category: 
   m_Min:
     m_Type:
@@ -7942,7 +7942,7 @@ MonoBehaviour:
   - {fileID: 8926484042661614899}
   m_ExposedName: Trail-Sphere Size
   m_Exposed: 1
-  m_Order: 4
+  m_Order: 6
   m_Category: 
   m_Min:
     m_Type:
@@ -8038,7 +8038,7 @@ MonoBehaviour:
   - {fileID: 8926484042661614901}
   m_ExposedName: Trail Color
   m_Exposed: 0
-  m_Order: 4
+  m_Order: 7
   m_Category: 
   m_Min:
     m_Type:
