@@ -25,6 +25,8 @@ public class TravelBullet : RaycastBullet
 
     //Next direction the bullet should bounce
     protected Vector3 nextDir;
+    //Next direction the bullet should bounce
+    protected Vector3 forcedDir = Vector3.zero;
 
     //For when the bullet needs to stop
     [SyncVar]
@@ -116,6 +118,11 @@ public class TravelBullet : RaycastBullet
                 //Continue if there are still 2 positions
                 if (nextDir != Vector3.zero && myShot.numBounces < myShot.maxBounces)
                 {
+                    if(forcedDir != Vector3.zero)
+                    {
+                        nextDir = forcedDir;
+                        forcedDir = Vector3.zero;
+                    }
                     //Reset lerping
                     laserDestroyA = laserDestroyB;
                     laserDestroyB = Vector3.zero;
@@ -218,5 +225,10 @@ public class TravelBullet : RaycastBullet
     protected void Rpc_DisableParticles()
     {
         GetComponentInChildren<ParticleSystem>().Stop();
+    }
+
+    public void SetNextReflectionDirection(Vector3 nextReflection)
+    {
+        forcedDir = nextReflection;
     }
 }

@@ -24,7 +24,7 @@ public class TwitchChat : MonoBehaviour
     private LobbyManager _lobbyManager;
 
     //Where to put chat output
-    public Text chatBox;
+    //public Text chatBox;
     private float timer;
 
     //--------------------
@@ -51,16 +51,18 @@ public class TwitchChat : MonoBehaviour
     //For testing this is fine / prompt the password in the future
     void Start()
     {
-        print("Connecting");
-        Connect();
+        //print("Connecting");
+        //Connect();
     }
 
     void Update()
     {
         //Create a connection if its not connected
-        if (!twitchClient.Connected)
-        {
-            Connect();
+        if (twitchClient != null) {
+            if (!twitchClient.Connected)
+            {
+                Connect();
+            }
         }
 
         if (!_lobbyManager)
@@ -96,24 +98,27 @@ public class TwitchChat : MonoBehaviour
 
     public void ReadChat()
     {
-        //If messages to read
-        if (twitchClient.Available > 0)
+        if (twitchClient != null)
         {
-            var message = reader.ReadLine();
-            //Returns only custom messages
-            if (message.Contains("PRIVMSG"))
+            //If messages to read
+            if (twitchClient.Available > 0)
             {
-                var splitPoint = message.IndexOf("!", 1);
-                var chatName = message.Substring(0, splitPoint);
-                chatName = chatName.Substring(1);
+                var message = reader.ReadLine();
+                //Returns only custom messages
+                if (message.Contains("PRIVMSG"))
+                {
+                    var splitPoint = message.IndexOf("!", 1);
+                    var chatName = message.Substring(0, splitPoint);
+                    chatName = chatName.Substring(1);
 
-                splitPoint = message.IndexOf(":", 1);
-                message = message.Substring(splitPoint + 1);
+                    splitPoint = message.IndexOf(":", 1);
+                    message = message.Substring(splitPoint + 1);
 
-                //chatBox.text = chatBox.text + "\n" + String.Format("{0}: {1}", chatName, message);
-                Input(chatName, message);
+                    //chatBox.text = chatBox.text + "\n" + String.Format("{0}: {1}", chatName, message);
+                    Input(chatName, message);
+                }
+
             }
-
         }
 
     }
@@ -126,8 +131,13 @@ public class TwitchChat : MonoBehaviour
             username = name;
             password = oauth;
             //channelName = name;
+            Connect();
         }
     }
+
+    //Twitch Events
+    //Loading screens
+    //
 
     private void Input(string viewerName, string viewerMessage)
     {
@@ -151,6 +161,15 @@ public class TwitchChat : MonoBehaviour
                 Data.GetComponent<Shooting>().Rpc_FullReload();
             }
         }
+
+        //EVENTS
+        //Low Gravity (change PlayerMovement.JumpHeight)
+
+        //Super speed (sprint increase too) (change PlayerMovement.Speed)
+
+        //Earth Quake
+
+        //Team randomize
 
         //if (viewerMessage.ToLower() == "pool")
         //{

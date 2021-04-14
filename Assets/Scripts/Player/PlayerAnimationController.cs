@@ -13,29 +13,29 @@ public class PlayerAnimationController : NetworkBehaviour
     float _xVelocity;
     private void XVelocityUpdated(float oldVel, float newVel)
     {
-        //Debug.Log(newVel);
         _xVelocity = newVel;
         GetComponentInChildren<Animator>().SetFloat("xVel", _xVelocity);
     }
+
     [SyncVar(hook = nameof(YVelocityUpdated))]
     float _yVelocity;
     private void YVelocityUpdated(float oldVel, float newVel)
     {
-        //Debug.Log(newVel);
         _yVelocity = newVel;
         GetComponentInChildren<Animator>().SetFloat("yVel", _yVelocity);
     }
 
+    //Sets the target velocity that the animation blend tree will use
     public void SetVelocity(float x, float y)
     {
         _targetXVel = x;
         _targetYVel = y;
     }
 
-    [SyncVar(hook = nameof(usingPistolUpdated))]
+    [SyncVar(hook = nameof(UsingPistolUpdated))]
     private bool _usingPistol = false;
 
-    private void usingPistolUpdated(bool oldBool, bool newBool)
+    private void UsingPistolUpdated(bool oldBool, bool newBool)
     {
         _usingPistol = newBool;
         GetComponentInChildren<Animator>().SetBool("pistol", _usingPistol);
@@ -45,10 +45,10 @@ public class PlayerAnimationController : NetworkBehaviour
     {
         _usingPistol = newBool;
     }
-    [SyncVar(hook = nameof(HandleisRunningUpdated))]
+    [SyncVar(hook = nameof(IsRunningUpdated))]
     private bool isRunning = false;
 
-    private void HandleisRunningUpdated(bool oldBool, bool newBool)
+    private void IsRunningUpdated(bool oldBool, bool newBool)
     {
         isRunning = newBool;
         GetComponentInChildren<Animator>().SetBool("running", isRunning);
@@ -58,6 +58,8 @@ public class PlayerAnimationController : NetworkBehaviour
     {
         isRunning = isRun;
     }
+
+    //slowly change velocity used by the animation until it is close the the target velocity
     private void FixedUpdate()
     {
         

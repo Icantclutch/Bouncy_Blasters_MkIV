@@ -126,8 +126,13 @@ public class PlayerEffects : NetworkBehaviour
         Destroy(Clone, 10f);
     }
 
-    //Creates a tween
-    //Destroys the object after movement
+    /// <summary>
+    /// Creates a tween effect that later destroys it after the lerp is complete
+    /// </summary>
+    /// <param name="go"> Game object to move </param>
+    /// <param name="end"> End vector 3 position to go to</param>
+    /// <param name="lerpTime"> Time it takes to lerp (move to point) </param>
+    /// <returns></returns>
     public IEnumerator MoveObject(GameObject go, Vector3 end, float lerpTime)
     {
         float _timeStartedLerping = Time.time;
