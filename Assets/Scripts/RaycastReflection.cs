@@ -63,10 +63,11 @@ public class RaycastReflection : MonoBehaviour
 
         Transform barrel = null;
         //Update reflections based on player's gun
-        if (shooting.active)
+        if (shooting)
         {
             nReflections = shooting.currentFireMode.maxBounces;
             barrel = shooting.GetComponentInChildren<BlasterController>().currentBlaster.transform.Find("Barrel");
+            Debug.Log(barrel);
         }
         else
         {
