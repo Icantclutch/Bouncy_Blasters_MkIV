@@ -108,7 +108,22 @@ public class MouseLook2 : NetworkBehaviour
         {
             pause = !pause;
             GetComponent<Shooting>().active = !pause;
-            Cursor.visible = pause;
+            if (pause)
+            {
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.Confined;
+            }
+            else
+            {
+                Cursor.visible = false;
+                Cursor.lockState = CursorLockMode.Locked;
+            }
+ 
+          
+            if(GameObject.FindGameObjectWithTag("Management").GetComponent<GameManagement>().PreMatchTimer >= 0)
+            {
+                GetComponent<Shooting>().active = false;
+            }
 
             Settings.gameObject.SetActive(pause);
         }
