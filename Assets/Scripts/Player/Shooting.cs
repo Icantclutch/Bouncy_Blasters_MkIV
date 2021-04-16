@@ -120,11 +120,12 @@ public class Shooting : NetworkBehaviour
                 
                 if(_rechargeHoldTime <= 0 && !currentlyFiring)
                 {
+                    Debug.Log("Recharge");
                     StartCoroutine(Recharge());
                 }
-                else if(_rechargeHoldTime <= 0.5)
+                else if(_rechargeHoldTime <= 0.5 && _rechargeHoldTime > 0)
                 {
-                    //Debug.Log("Disabling Movement");
+                    Debug.Log("Disabling Movement");
                     GetComponent<Rigidbody>().velocity = new Vector3(0, GetComponent<Rigidbody>().velocity.y, 0);
                     myMovement.active = false;
                 }
@@ -277,7 +278,7 @@ public class Shooting : NetworkBehaviour
 
         //Improve once animations are implemented
         //While loop to recharge ammo to max reserves
-        while (playerWeapons[currentWeapon].currentReserve < playerWeapons[currentWeapon].weapon.reserveAmmo && Input.GetKey(Keybinds.Reload))
+        while (playerWeapons[currentWeapon].currentReserve < playerWeapons[currentWeapon].weapon.reserveAmmo)
         {
             playerWeapons[currentWeapon].currentReserve++;
             yield return null;
