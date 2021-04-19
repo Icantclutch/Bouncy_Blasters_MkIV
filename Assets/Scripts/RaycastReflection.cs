@@ -73,75 +73,77 @@ public class RaycastReflection : MonoBehaviour
         {
             nReflections = 4;
         }
-
-        //cast a new ray forward, from the current attached game object position  
-        ray = new Ray(goTransform.position, goTransform.forward);
-
-        //represent the ray using a line that can only be viewed at the scene tab  
-        Debug.DrawRay(goTransform.position, goTransform.forward * 100, Color.magenta);
-
-        //set the number of points to be the same as the number of reflections  
-        nPoints = nReflections;
-        //make the lineRenderer have nPoints  
-        lineRenderer.positionCount = nPoints;
-
-        //Get bounce points
-        List<Vector3> bouncePoints = new List<Vector3>();
-        
-        if (barrel)
+        if (lineRenderer.enabled)
         {
-            //Set the first point of the line at the current barrel position  
-            lineRenderer.SetPosition(0, barrel.position);
+            //cast a new ray forward, from the current attached game object position  
+            ray = new Ray(goTransform.position, goTransform.forward);
 
-            bouncePoints.Add(barrel.position);
-        }
-        else
-        {
-            //Set the first point of the line at the current attached game object position  
-            lineRenderer.SetPosition(0, goTransform.position);
+            //represent the ray using a line that can only be viewed at the scene tab  
+            Debug.DrawRay(goTransform.position, goTransform.forward * 100, Color.magenta);
 
-            bouncePoints.Add(goTransform.position);
-        }
-        //Set the color to red
-        lineRenderer.material = redMat;
+            //set the number of points to be the same as the number of reflections  
+            nPoints = nReflections;
+            //make the lineRenderer have nPoints  
+            lineRenderer.positionCount = nPoints;
 
-        
+            //Get bounce points
+            List<Vector3> bouncePoints = new List<Vector3>();
 
-        //Loop through reflections
-        for (int i = 0; i <= nReflections; i++)
-        {
-            //Cast ray
-            if (Physics.Raycast(ray, out hit, 100, reflectable))
+            if (barrel)
             {
-                //Add hit point to the list of line points
-                bouncePoints.Add(hit.point);
+                //Set the first point of the line at the current barrel position  
+                lineRenderer.SetPosition(0, barrel.position);
 
-                //If its an enemy, break
-                if (hit.transform.CompareTag("Player"))
+                bouncePoints.Add(barrel.position);
+            }
+            else
+            {
+                //Set the first point of the line at the current attached game object position  
+                lineRenderer.SetPosition(0, goTransform.position);
+
+                bouncePoints.Add(goTransform.position);
+            }
+            //Set the color to red
+            lineRenderer.material = redMat;
+
+
+
+            //Loop through reflections
+            for (int i = 0; i <= nReflections; i++)
+            {
+                //Cast ray
+                if (Physics.Raycast(ray, out hit, 100, reflectable))
                 {
-                    lineRenderer.material = greenMat;
+                    //Add hit point to the list of line points
+                    bouncePoints.Add(hit.point);
+
+                    //If its an enemy, break
+                    if (hit.transform.CompareTag("Player"))
+                    {
+                        lineRenderer.material = greenMat;
+                        break;
+                    }
+
+                    //Generate the reflection
+                    Vector3 reflection = Vector3.Reflect(ray.direction, hit.normal);
+
+                    //If it hasn't been stopped, create a new ray
+                    ray = new Ray(hit.point, reflection);
+                }
+                else //If it didn't hit anything, end the ray
+                {
+                    //Create the endpoint and add it to the lists
+                    Vector3 endPoint = ray.origin + (ray.direction * 100);
+                    bouncePoints.Add(endPoint);
+                    //End loop early
                     break;
                 }
-
-                //Generate the reflection
-                Vector3 reflection = Vector3.Reflect(ray.direction, hit.normal);
-
-                //If it hasn't been stopped, create a new ray
-                ray = new Ray(hit.point, reflection);
             }
-            else //If it didn't hit anything, end the ray
-            {
-                //Create the endpoint and add it to the lists
-                Vector3 endPoint = ray.origin + (ray.direction * 100);
-                bouncePoints.Add(endPoint);
-                //End loop early
-                break;
-            }
+
+            //Assign points
+            Vector3[] bounces = bouncePoints.ToArray();
+            lineRenderer.positionCount = bounces.Length;
+            lineRenderer.SetPositions(bounces);
         }
-
-        //Assign points
-        Vector3[] bounces = bouncePoints.ToArray();
-        lineRenderer.positionCount = bounces.Length;
-        lineRenderer.SetPositions(bounces);
     }
 }

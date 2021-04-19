@@ -239,6 +239,7 @@ public class Shooting : NetworkBehaviour
         //Set firing so you can't shoot while reloading
         currentlyFiring = true;
         _ReloadingFrame.SetActive(true);
+        GetComponentInChildren<Animator>().SetBool("reloading", true);
         Cmd_ServerReload(currentFireMode.reloadSoundIndex);
         yield return new WaitForSeconds(2);
 
@@ -260,6 +261,7 @@ public class Shooting : NetworkBehaviour
         //Disable firing when reloading is done
         currentlyFiring = false;
         _ReloadingFrame.SetActive(false);
+        GetComponentInChildren<Animator>().SetBool("reloading", false);
         yield return null;
     }
 

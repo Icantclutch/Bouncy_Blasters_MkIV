@@ -52,6 +52,8 @@ public class PlayerData : NetworkBehaviour
     
     public static bool hostSpawned = false;
 
+    public GameObject firstPersonModels = null;
+    public GameObject playerModel = null;
     /*
     public PlayerData(int teamNum = 0, string name = "Name")
     {
@@ -132,6 +134,11 @@ public class PlayerData : NetworkBehaviour
     {
         if (team >= 0)
         {
+            if (hasAuthority)
+            {
+                //firstPersonModels.SetActive(true);
+                //playerModel.SetActive(false);
+            }
             //transform.Find("Player").gameObject.SetActive(true);
             KillStreakUpdate();
             GetComponent<Shooting>().enabled = true;
