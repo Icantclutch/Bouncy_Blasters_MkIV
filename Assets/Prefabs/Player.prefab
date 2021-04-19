@@ -432,7 +432,7 @@ Transform:
   m_GameObject: {fileID: 223696043967608076}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 100, y: 189, z: 100}
+  m_LocalScale: {x: 100, y: 210, z: 100}
   m_Children:
   - {fileID: 2067527153399927780}
   m_Father: {fileID: 4357171600822209690}
@@ -3017,7 +3017,7 @@ CapsuleCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 1
-  m_Height: 3.832011
+  m_Height: 4.2
   m_Direction: 1
   m_Center: {x: 0, y: -0.0130923595, z: 0}
 --- !u!114 &6945677312891480047
@@ -5631,7 +5631,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1e7f9a5f33419e84190738ec8e5ef901, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.3
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1e7f9a5f33419e84190738ec8e5ef901, type: 3}
       propertyPath: m_LocalPosition.z
@@ -5669,6 +5669,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7237397249877552894, guid: 1e7f9a5f33419e84190738ec8e5ef901, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: b1be2f0eec3641b4e9245607239fa5fa, type: 2}
     - target: {fileID: -3086669283058942448, guid: 1e7f9a5f33419e84190738ec8e5ef901, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -5897,31 +5901,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3276419310146556289, guid: 07af888e356288149b75bd3ba44b9d49, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.035
+      value: 0.075
       objectReference: {fileID: 0}
     - target: {fileID: 3276419310146556289, guid: 07af888e356288149b75bd3ba44b9d49, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.096
+      value: -1.592
       objectReference: {fileID: 0}
     - target: {fileID: 3276419310146556289, guid: 07af888e356288149b75bd3ba44b9d49, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.742
+      value: 2.507
       objectReference: {fileID: 0}
     - target: {fileID: 3276419310146556289, guid: 07af888e356288149b75bd3ba44b9d49, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.18882625
+      value: 0.04028691
       objectReference: {fileID: 0}
     - target: {fileID: 3276419310146556289, guid: 07af888e356288149b75bd3ba44b9d49, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.67891586
+      value: -0.8691379
       objectReference: {fileID: 0}
     - target: {fileID: 3276419310146556289, guid: 07af888e356288149b75bd3ba44b9d49, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.6841894
+      value: 0.4763381
       objectReference: {fileID: 0}
     - target: {fileID: 3276419310146556289, guid: 07af888e356288149b75bd3ba44b9d49, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.1878903
+      value: 0.12680067
       objectReference: {fileID: 0}
     - target: {fileID: 3276419310146556289, guid: 07af888e356288149b75bd3ba44b9d49, type: 3}
       propertyPath: m_RootOrder
@@ -5929,15 +5933,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3276419310146556289, guid: 07af888e356288149b75bd3ba44b9d49, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 90.43399
+      value: 123.047
       objectReference: {fileID: 0}
     - target: {fileID: 3276419310146556289, guid: 07af888e356288149b75bd3ba44b9d49, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -154.487
+      value: -340.5
       objectReference: {fileID: 0}
     - target: {fileID: 3276419310146556289, guid: 07af888e356288149b75bd3ba44b9d49, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: -5.38501
+      value: -174.658
       objectReference: {fileID: 0}
     - target: {fileID: 5648506594582031905, guid: 07af888e356288149b75bd3ba44b9d49, type: 3}
       propertyPath: m_Materials.Array.data[0]
