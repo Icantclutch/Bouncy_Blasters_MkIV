@@ -67,7 +67,7 @@ public class RaycastReflection : MonoBehaviour
         {
             nReflections = shooting.currentFireMode.maxBounces;
             barrel = shooting.GetComponentInChildren<BlasterController>().currentBlaster.transform.Find("Barrel");
-            Debug.Log(barrel);
+            //Debug.Log(barrel);
         }
         else
         {

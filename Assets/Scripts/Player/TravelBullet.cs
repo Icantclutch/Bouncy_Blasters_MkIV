@@ -106,7 +106,10 @@ public class TravelBullet : RaycastBullet
 
                 if (!newHit.rayHit.transform.CompareTag("Player"))
                 {
-                    Instantiate(bulletDirtEffect, pos, Quaternion.FromToRotation(Vector3.up, reflection));
+                    if (bulletDirtEffect != null)
+                    {
+                        Instantiate(bulletDirtEffect, pos, Quaternion.FromToRotation(Vector3.up, reflection));
+                    }
                 }
 
                 //Disable floor penalty if at the second bounce point
