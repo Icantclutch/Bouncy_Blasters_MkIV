@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 112000000, guid: cf726e98c3d615d4b9c5df609880465c, type: 2}
+  m_LightingDataAsset: {fileID: 112000000, guid: 9573da9ba9f465e4ab5b457c63c92a80, type: 2}
   m_LightingSettings: {fileID: 4890085278179872738, guid: 8ce0cb46088ee264995c16bc63945c79, type: 2}
 --- !u!196 &4
 NavMeshSettings:
@@ -1598,6 +1598,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -9066036377195869999, guid: 5d42b0c274559da4ea8fe9ed7b1583d1, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2848923827784990478, guid: 5d42b0c274559da4ea8fe9ed7b1583d1, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -1628,7 +1632,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3863105202424735448, guid: 5d42b0c274559da4ea8fe9ed7b1583d1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.26
+      value: 5.47
       objectReference: {fileID: 0}
     - target: {fileID: 3863105202424735448, guid: 5d42b0c274559da4ea8fe9ed7b1583d1, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1670,7 +1674,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Jump Pad-01
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -9066036377195869999, guid: 5d42b0c274559da4ea8fe9ed7b1583d1, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 5d42b0c274559da4ea8fe9ed7b1583d1, type: 3}
 --- !u!1001 &83720889
 PrefabInstance:
@@ -2543,7 +2548,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Jump Pad-01 (4)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -9066036377195869999, guid: 5d42b0c274559da4ea8fe9ed7b1583d1, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 5d42b0c274559da4ea8fe9ed7b1583d1, type: 3}
 --- !u!1 &139005069
 GameObject:
@@ -12824,7 +12830,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Jump Pad-01 (3)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -9066036377195869999, guid: 5d42b0c274559da4ea8fe9ed7b1583d1, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 5d42b0c274559da4ea8fe9ed7b1583d1, type: 3}
 --- !u!1001 &686551442
 PrefabInstance:
@@ -20694,7 +20701,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Jump Pad-01 (1)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -9066036377195869999, guid: 5d42b0c274559da4ea8fe9ed7b1583d1, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 5d42b0c274559da4ea8fe9ed7b1583d1, type: 3}
 --- !u!1001 &1203186748
 PrefabInstance:
@@ -23535,7 +23543,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Jump Pad-01 (2)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -9066036377195869999, guid: 5d42b0c274559da4ea8fe9ed7b1583d1, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 5d42b0c274559da4ea8fe9ed7b1583d1, type: 3}
 --- !u!1001 &1396413531
 PrefabInstance:
@@ -27357,15 +27366,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7679539863931823636, guid: 3e20f9bd199f77b4d8e177ef38ae5aff, type: 3}
       propertyPath: m_BoundingSphereOverride.x
-      value: 1.1e-44
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7679539863931823636, guid: 3e20f9bd199f77b4d8e177ef38ae5aff, type: 3}
       propertyPath: m_BoundingSphereOverride.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7679539863931823636, guid: 3e20f9bd199f77b4d8e177ef38ae5aff, type: 3}
       propertyPath: m_BoundingSphereOverride.w
-      value: 7.34695e-40
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7679539863931823636, guid: 3e20f9bd199f77b4d8e177ef38ae5aff, type: 3}
       propertyPath: m_Intensity
@@ -40861,7 +40870,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8234117782506567686, guid: 286e4a410ae797b4d9b0c28195028f01, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8234117782506567687, guid: 286e4a410ae797b4d9b0c28195028f01, type: 3}
       propertyPath: m_LocalPosition.x
