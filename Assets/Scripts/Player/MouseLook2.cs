@@ -69,7 +69,7 @@ public class MouseLook2 : NetworkBehaviour
         if (hasAuthority)
         {
             //eyes.gameObject.SetActive(true);
-            for (int i = 0; i < eyes.childCount; i++)
+            for (int i = 0; i < eyes.childCount-1; i++)
             {
                 eyes.GetChild(i).gameObject.SetActive(true);
             }
