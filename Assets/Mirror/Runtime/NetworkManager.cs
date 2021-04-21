@@ -825,6 +825,7 @@ namespace Mirror
             // It will be re-enabled in FinishScene.
             Transport.activeTransport.enabled = false;
 
+
             loadingSceneAsync = SceneManager.LoadSceneAsync(newSceneName);
 
             // ServerChangeScene can be called when stopping the server

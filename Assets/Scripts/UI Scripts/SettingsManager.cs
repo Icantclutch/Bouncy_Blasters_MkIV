@@ -192,7 +192,8 @@ public class SettingsManager : MonoBehaviour, ISaveable
         PlayerPrefs.SetFloat("masterVolume", currVolume);
         PlayerPrefs.SetInt("fullscreen", windowType);
         PlayerPrefs.SetInt("qualitylevel", videoQuality);
-        SceneManager.LoadScene("Title Screen");
+        StaticClass.CrossSceneInformation = "Title Screen";
+        SceneManager.LoadScene("Loading Screen");
     }
 
 
