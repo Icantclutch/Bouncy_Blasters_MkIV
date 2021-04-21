@@ -192,6 +192,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &600786675343566412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2006172996717934132}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 651249f9aea576849a4140351007570d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wallInstance: {fileID: 6597105257801268643}
+  normalImage: {fileID: 4802668617429675091}
+  aimImage: {fileID: 1218291559821390682}
+  isHit: 0
 --- !u!65 &5844591564489259436
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -554,6 +570,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a39486be79bdfdd4fbeaa112df1822a9, type: 3}
+--- !u!1 &2006172996717934132 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8244754174035737466, guid: a39486be79bdfdd4fbeaa112df1822a9, type: 3}
+  m_PrefabInstance: {fileID: 7618994953427602766}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5347454650852701833 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2560826521411271623, guid: a39486be79bdfdd4fbeaa112df1822a9, type: 3}
