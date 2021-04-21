@@ -136,8 +136,8 @@ public class PlayerData : NetworkBehaviour
         {
             if (hasAuthority)
             {
-                //firstPersonModels.SetActive(true);
-                //playerModel.SetActive(false);
+                firstPersonModels.SetActive(true);
+                playerModel.SetActive(false);
             }
             //transform.Find("Player").gameObject.SetActive(true);
             KillStreakUpdate();

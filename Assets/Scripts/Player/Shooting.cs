@@ -321,7 +321,7 @@ public class Shooting : NetworkBehaviour
         GameObject bulletPrefab = NetworkManager.singleton.spawnPrefabs.Find(bu => bu.name.Equals(bullet));
         //Summon the bullet
         //Debug.Log(GetComponent<BlasterController>().currentBlaster);
-        Transform barrel = GetComponentInChildren<BlasterController>().currentBlaster.transform.Find("Barrel");
+        Transform barrel = GetComponentInChildren<BlasterController>().currentBlaster.GetComponentInChildren<Barrel>().transform;
         Ray ray = new Ray(eyes.transform.position, eyes.transform.forward);
         RaycastHit hit;
         Quaternion rotation;

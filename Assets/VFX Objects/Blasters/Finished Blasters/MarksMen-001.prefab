@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6381188358814353184}
+  - component: {fileID: 1492263114177936451}
   m_Layer: 0
   m_Name: Barrel
   m_TagString: Barrel
@@ -31,6 +32,19 @@ Transform:
   m_Father: {fileID: 1660064855697391605}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1492263114177936451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 47102299693241130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfa5f954483819846b1f60a15834a244, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shootingEffect: {fileID: 1437726177697108192}
 --- !u!1 &130099781380197461
 GameObject:
   m_ObjectHideFlags: 0
@@ -1359,6 +1373,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 001c5cab4356db64ba0ea33e66f2db90, type: 3}
+--- !u!1 &1437726177697108192 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1563824981019471338, guid: 001c5cab4356db64ba0ea33e66f2db90, type: 3}
+  m_PrefabInstance: {fileID: 450367520762150154}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2248794105504908499 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1834465386632477145, guid: 001c5cab4356db64ba0ea33e66f2db90, type: 3}
