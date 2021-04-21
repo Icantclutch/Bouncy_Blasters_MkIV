@@ -123,7 +123,14 @@ public class RaycastReflection : MonoBehaviour
                         lineRenderer.material = greenMat;
                         break;
                     }
-
+                    if (hit.transform.CompareTag("Wall"))
+                    {
+                        if(hit.transform.GetComponentInParent<WallCollisionSetting>() != null)
+                        {
+                            hit.transform.GetComponentInParent<WallCollisionSetting>().ActivateWall();
+                        }
+                       
+                    }
                     //Generate the reflection
                     Vector3 reflection = Vector3.Reflect(ray.direction, hit.normal);
 

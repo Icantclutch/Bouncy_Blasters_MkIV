@@ -105,6 +105,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6101870187445238396}
+  - component: {fileID: 7886225925936261177}
   m_Layer: 11
   m_Name: 360 wall with tree
   m_TagString: Untagged
@@ -132,6 +133,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7886225925936261177
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2420490382460040202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 651249f9aea576849a4140351007570d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wallInstance: {fileID: 881261185281025898}
+  normalImage: {fileID: 1140954708010530565}
+  aimImage: {fileID: 5637289028106812580}
+  isHit: 0
 --- !u!1 &4381978863165852321
 GameObject:
   m_ObjectHideFlags: 0
