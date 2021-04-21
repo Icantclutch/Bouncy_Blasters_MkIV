@@ -1600,7 +1600,27 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -9066036377195869999, guid: 5d42b0c274559da4ea8fe9ed7b1583d1, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -9066036377195869999, guid: 5d42b0c274559da4ea8fe9ed7b1583d1, type: 3}
+      propertyPath: m_Center.y
+      value: -0.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 405733812613685664, guid: 5d42b0c274559da4ea8fe9ed7b1583d1, type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 405733812613685664, guid: 5d42b0c274559da4ea8fe9ed7b1583d1, type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[0].m_Value
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 405733812613685664, guid: 5d42b0c274559da4ea8fe9ed7b1583d1, type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[0].m_Name
+      value: Spawn rate
+      objectReference: {fileID: 0}
+    - target: {fileID: 405733812613685664, guid: 5d42b0c274559da4ea8fe9ed7b1583d1, type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[0].m_Overridden
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2848923827784990478, guid: 5d42b0c274559da4ea8fe9ed7b1583d1, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -1674,8 +1694,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: Jump Pad-01
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: -9066036377195869999, guid: 5d42b0c274559da4ea8fe9ed7b1583d1, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5d42b0c274559da4ea8fe9ed7b1583d1, type: 3}
 --- !u!1001 &83720889
 PrefabInstance:
@@ -2276,7 +2295,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 528737392268197053, guid: 8850bbe8c5d0a024d836baf8eb5bf1f6, type: 3}
       propertyPath: m_BoundingSphereOverride.w
-      value: 14.6275835
+      value: 14.676595
       objectReference: {fileID: 0}
     - target: {fileID: 528737392268197053, guid: 8850bbe8c5d0a024d836baf8eb5bf1f6, type: 3}
       propertyPath: m_Range
@@ -2476,6 +2495,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 405733812613685664, guid: 5d42b0c274559da4ea8fe9ed7b1583d1, type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 405733812613685664, guid: 5d42b0c274559da4ea8fe9ed7b1583d1, type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[0].m_Value
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 405733812613685664, guid: 5d42b0c274559da4ea8fe9ed7b1583d1, type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[0].m_Name
+      value: Spawn rate
+      objectReference: {fileID: 0}
+    - target: {fileID: 405733812613685664, guid: 5d42b0c274559da4ea8fe9ed7b1583d1, type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[0].m_Overridden
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2848923827784990478, guid: 5d42b0c274559da4ea8fe9ed7b1583d1, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -2548,8 +2583,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: Jump Pad-01 (4)
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: -9066036377195869999, guid: 5d42b0c274559da4ea8fe9ed7b1583d1, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5d42b0c274559da4ea8fe9ed7b1583d1, type: 3}
 --- !u!1 &139005069
 GameObject:
@@ -7152,7 +7186,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 528737392268197053, guid: 8850bbe8c5d0a024d836baf8eb5bf1f6, type: 3}
       propertyPath: m_BoundingSphereOverride.w
-      value: 25.114702
+      value: 25.117086
       objectReference: {fileID: 0}
     - target: {fileID: 528737392268197053, guid: 8850bbe8c5d0a024d836baf8eb5bf1f6, type: 3}
       propertyPath: m_Range
@@ -12758,6 +12792,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 405733812613685664, guid: 5d42b0c274559da4ea8fe9ed7b1583d1, type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 405733812613685664, guid: 5d42b0c274559da4ea8fe9ed7b1583d1, type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[0].m_Value
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 405733812613685664, guid: 5d42b0c274559da4ea8fe9ed7b1583d1, type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[0].m_Name
+      value: Spawn rate
+      objectReference: {fileID: 0}
+    - target: {fileID: 405733812613685664, guid: 5d42b0c274559da4ea8fe9ed7b1583d1, type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[0].m_Overridden
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2848923827784990478, guid: 5d42b0c274559da4ea8fe9ed7b1583d1, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -12830,8 +12880,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: Jump Pad-01 (3)
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: -9066036377195869999, guid: 5d42b0c274559da4ea8fe9ed7b1583d1, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5d42b0c274559da4ea8fe9ed7b1583d1, type: 3}
 --- !u!1001 &686551442
 PrefabInstance:
@@ -15490,7 +15539,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 528737392268197053, guid: 8850bbe8c5d0a024d836baf8eb5bf1f6, type: 3}
       propertyPath: m_BoundingSphereOverride.w
-      value: 13.690643
+      value: 13.715269
       objectReference: {fileID: 0}
     - target: {fileID: 5787785903356258417, guid: 8850bbe8c5d0a024d836baf8eb5bf1f6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -16103,7 +16152,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 528737392268197053, guid: 8850bbe8c5d0a024d836baf8eb5bf1f6, type: 3}
       propertyPath: m_BoundingSphereOverride.w
-      value: 14.691796
+      value: 14.693734
       objectReference: {fileID: 0}
     - target: {fileID: 528737392268197053, guid: 8850bbe8c5d0a024d836baf8eb5bf1f6, type: 3}
       propertyPath: m_Range
@@ -16675,7 +16724,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 528737392268197053, guid: 8850bbe8c5d0a024d836baf8eb5bf1f6, type: 3}
       propertyPath: m_BoundingSphereOverride.w
-      value: 24.70027
+      value: 24.72134
       objectReference: {fileID: 0}
     - target: {fileID: 528737392268197053, guid: 8850bbe8c5d0a024d836baf8eb5bf1f6, type: 3}
       propertyPath: m_Range
@@ -20641,6 +20690,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 405733812613685664, guid: 5d42b0c274559da4ea8fe9ed7b1583d1, type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 405733812613685664, guid: 5d42b0c274559da4ea8fe9ed7b1583d1, type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[0].m_Value
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 405733812613685664, guid: 5d42b0c274559da4ea8fe9ed7b1583d1, type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[0].m_Name
+      value: Spawn rate
+      objectReference: {fileID: 0}
+    - target: {fileID: 405733812613685664, guid: 5d42b0c274559da4ea8fe9ed7b1583d1, type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[0].m_Overridden
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2848923827784990478, guid: 5d42b0c274559da4ea8fe9ed7b1583d1, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -20713,8 +20778,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: Jump Pad-01 (1)
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: -9066036377195869999, guid: 5d42b0c274559da4ea8fe9ed7b1583d1, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5d42b0c274559da4ea8fe9ed7b1583d1, type: 3}
 --- !u!1001 &1203186748
 PrefabInstance:
@@ -23483,6 +23547,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 405733812613685664, guid: 5d42b0c274559da4ea8fe9ed7b1583d1, type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 405733812613685664, guid: 5d42b0c274559da4ea8fe9ed7b1583d1, type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[0].m_Value
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 405733812613685664, guid: 5d42b0c274559da4ea8fe9ed7b1583d1, type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[0].m_Name
+      value: Spawn rate
+      objectReference: {fileID: 0}
+    - target: {fileID: 405733812613685664, guid: 5d42b0c274559da4ea8fe9ed7b1583d1, type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[0].m_Overridden
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2848923827784990478, guid: 5d42b0c274559da4ea8fe9ed7b1583d1, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -23555,8 +23635,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: Jump Pad-01 (2)
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: -9066036377195869999, guid: 5d42b0c274559da4ea8fe9ed7b1583d1, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5d42b0c274559da4ea8fe9ed7b1583d1, type: 3}
 --- !u!1001 &1396413531
 PrefabInstance:
