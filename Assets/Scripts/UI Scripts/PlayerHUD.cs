@@ -158,8 +158,8 @@ public class PlayerHUD : MonoBehaviour
         //Set the bar color and display here
         float BarDisplayVal = ((float)Charge) / ((float)100);
         float Max = Mathf.Max(0, 0.75f - BarDisplayVal);
-        //Color newColor = new Color(BarDisplayVal, 0, Max, 1);
-        //_playerHealthBar.color = newColor;
+        Color newColor = new Color(BarDisplayVal, 0, Max, 1);
+        _playerHealthBar.color = newColor;
         _playerHealthBar.fillAmount = BarDisplayVal;
         _playerHealthText.text = Charge.ToString();
     }
