@@ -324,6 +324,11 @@ public class PlayerMovement : NetworkBehaviour
 		speed = moveSpeed;
     }
 
+	public void SetGravity(float gravity1)
+	{
+		gravity = gravity1;
+	}
+
 	public void SetJumpHeight(float jump)
     {
 		jumpHeight = jump;
