@@ -2,11 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
+using UnityEngine.Audio;
+
 
 public class PlayerAudioController : NetworkBehaviour
 {
     [SerializeField]
     private List<AudioClip> _sounds;
+    public AudioMixerGroup sfx;
+    
     
 
     /// <summary>
@@ -28,6 +32,7 @@ public class PlayerAudioController : NetworkBehaviour
     {
         if(soundIndex >= 0 && soundIndex < _sounds.Count)
         {
+            GetComponent<AudioSource>().outputAudioMixerGroup = sfx;
             GetComponent<AudioSource>().PlayOneShot(_sounds[soundIndex]);
         }
     }
@@ -52,6 +57,7 @@ public class PlayerAudioController : NetworkBehaviour
         
         if (soundIndex >= 0 && soundIndex < _sounds.Count)
         {
+            GetComponent<AudioSource>().outputAudioMixerGroup = sfx;
             GetComponent<AudioSource>().PlayOneShot(_sounds[soundIndex]);
         }
     }
