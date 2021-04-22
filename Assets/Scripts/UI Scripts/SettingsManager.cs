@@ -216,7 +216,6 @@ public class SettingsManager : MonoBehaviour, ISaveable
             sd.LoadFromJson(json);
 
             a_settingManager.LoadFromSaveData(sd);
-            Debug.Log("Load Complete");
         }
     }
 
