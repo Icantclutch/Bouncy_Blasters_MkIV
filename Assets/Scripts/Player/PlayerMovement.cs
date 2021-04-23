@@ -199,7 +199,7 @@ public class PlayerMovement : NetworkBehaviour
 		movementDirection = transform.TransformDirection(movementDirection);
 		movementDirection *= speed;
 
-		if(movementDirection.magnitude > 0.1)
+		if(movementDirection.magnitude > 0.1 && grounded)
         {
 			GetComponent<PlayerAnimationController>().SetIsRunning(true);
 		}

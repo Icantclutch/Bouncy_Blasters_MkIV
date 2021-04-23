@@ -92,6 +92,7 @@ public class RaycastReflection : MonoBehaviour
             if (barrel)
             {
                 //Set the first point of the line at the current barrel position  
+                //Bugged
                 lineRenderer.SetPosition(0, barrel.position);
 
                 bouncePoints.Add(barrel.position);
