@@ -72,6 +72,7 @@ public class PlayerAnimationController : NetworkBehaviour
     {
         isRunning = newBool;
         GetComponentInChildren<Animator>().SetBool("running", isRunning);
+        
     }
 
     public void SetIsRunning(bool isRun)
@@ -86,11 +87,33 @@ public class PlayerAnimationController : NetworkBehaviour
         if(Mathf.Abs(_xVelocity - _targetXVel) > animChangeSpeed)
         {
             _xVelocity += Mathf.Sign(_targetXVel - _xVelocity) * animChangeSpeed;
+            //Debug.Log(_xVelocity);
         }
 
         if (Mathf.Abs(_yVelocity - _targetYVel) > animChangeSpeed)
         {
             _yVelocity += Mathf.Sign(_targetYVel - _yVelocity) * animChangeSpeed;
+            //Debug.Log(_yVelocity);
+        }
+
+        if (isServer)
+        {
+            if (isRunning)
+            {
+                if (Mathf.Abs(_xVelocity) > 10 || Mathf.Abs(_yVelocity) > 10)
+                {
+                    GetComponent<PlayerAudioController>().RpcSetLoop(16);
+                }
+                else
+                {
+                    GetComponent<PlayerAudioController>().RpcSetLoop(15);
+                }
+
+            }
+            else
+            {
+                GetComponent<PlayerAudioController>().RpcStopLoop();
+            }
         }
     }
 }

@@ -56,5 +56,22 @@ public class PlayerAudioController : NetworkBehaviour
         }
     }
 
-    
+    [ClientRpc]
+    public void RpcSetLoop(int soundIndex)
+    {
+        GetComponent<AudioSource>().loop = true;
+        if (GetComponent<AudioSource>().clip != _sounds[soundIndex] || !GetComponent<AudioSource>().isPlaying)
+        {
+            GetComponent<AudioSource>().clip = _sounds[soundIndex];
+            GetComponent<AudioSource>().Play();
+        }
+    }
+
+    [ClientRpc]
+    public void RpcStopLoop()
+    {
+        //GetComponent<AudioSource>().clip = _sounds[soundIndex];
+        //GetComponent<AudioSource>().loop = true;
+        GetComponent<AudioSource>().Stop();
+    }
 }
