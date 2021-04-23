@@ -209,7 +209,11 @@ public class GameManagement : NetworkBehaviour
         //Debug.Log("Update scoreboard");
         string debugScoreboard = "";
         //creating a clone of the player list so changes wont  effect original list
-        PlayerData localPlayer = GetComponent<LobbyManager>().GetLocalPlayer().GetComponent<PlayerData>();
+        PlayerData localPlayer;
+        if (GetComponent<LobbyManager>().GetLocalPlayer())
+        {
+            localPlayer = GetComponent<LobbyManager>().GetLocalPlayer().GetComponent<PlayerData>();
+        }
         List<PlayerData> tempPlayers = new List<PlayerData>(GetComponent<LobbyManager>().players);
 
         //Determine the winnign team
