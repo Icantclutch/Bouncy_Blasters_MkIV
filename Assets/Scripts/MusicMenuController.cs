@@ -32,12 +32,13 @@ public class MusicMenuController : MonoBehaviour
             SceneManager.GetActiveScene().name == "Angle Alley" ||
             SceneManager.GetActiveScene().name == "Maze Mayhem" ||
             SceneManager.GetActiveScene().name == "Super Nova" ||
-            SceneManager.GetActiveScene().name == "Tutorial2")
+            SceneManager.GetActiveScene().name == "Tutorial2" &&
+            music !=null)
         {
             music.mute = true;
             listener.enabled = false;
         }
-        else
+        else if(music != null)
         {
             music.mute = false;
             listener.enabled = true;
