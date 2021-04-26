@@ -4,13 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using Mirror;
 
-[RequireComponent(typeof(NetworkTransform))]
-[RequireComponent(typeof(NetworkIdentity))]
 public class MovingWall : NetworkBehaviour
 {
     //Clock used to track cycles
     [SyncVar]
-    public float clock;
+    float clock;
+    //How fast the wall completes a cycle
     [SyncVar]
     public float SpeedMultiplier;
 
@@ -33,19 +32,20 @@ public class MovingWall : NetworkBehaviour
     [Server]
     private void Start()
     {
-        clock = startValue/SpeedMultiplier;
+        clock = startValue;
         startPos = transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.position = startPos + Vector3.Lerp(fullyDown, fullyUp, MovementCycle.Evaluate((clock * SpeedMultiplier) % 1f));
-    }
+        //Tick clock
+        if (isServer)
+        {
+            clock += Time.deltaTime;
+        }
 
-    [Server]
-    private void FixedUpdate()
-    {
-        clock += Time.fixedDeltaTime;
+        //Lerp transform between up and down position
+        transform.position = startPos + Vector3.Lerp(fullyDown, fullyUp, MovementCycle.Evaluate((clock * SpeedMultiplier) % 1f));
     }
 }
