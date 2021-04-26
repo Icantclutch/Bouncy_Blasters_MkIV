@@ -5,5 +5,5 @@ using UnityEngine;
 
 public class ControllerSupport : MonoBehaviour
 {
-   //if(isgamepad)
+   
 }

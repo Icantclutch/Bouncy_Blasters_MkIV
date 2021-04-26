@@ -313,7 +313,6 @@ public class GameManagement : NetworkBehaviour
             {
                 MatchEnd();
             }
-            //TestAchievement
             HeatMap.StoreAndSave();
         }
         //If Team A reaches the score cap

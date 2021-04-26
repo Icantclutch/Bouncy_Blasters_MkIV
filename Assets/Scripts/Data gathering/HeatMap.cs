@@ -63,6 +63,7 @@ public class HeatMap : MonoBehaviour
     {
         //check if the singleton exists 
         //if not then the heatmap is not set up
+        //
         if (!singleton)
         {
             return;
