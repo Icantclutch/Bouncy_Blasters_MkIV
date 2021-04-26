@@ -41,15 +41,15 @@ public class BlasterController : MonoBehaviour
             //Disable the shooting effect after the set duration
             if(_shootingEffectTimer <= 0 && currentBlaster)
             {
-                currentBlaster.GetComponentInChildren<Barrel>().shootingEffect.SetActive(false);
-                /*foreach (Transform child in currentBlaster.transform)
+                
+                foreach (Transform child in currentBlaster.transform)
                 {
                     if (child.tag == "Barrel")
                     {
                         child.Find("Blaster Firing-VFX Graph").gameObject.SetActive(false);
                         break;
                     }
-                }*/
+                }
             }
         }
     }
@@ -61,15 +61,14 @@ public class BlasterController : MonoBehaviour
     {
         if(_shootingEffectTimer <= 0)
         {
-            currentBlaster.GetComponentInChildren<Barrel>().shootingEffect.SetActive(true);
-            /*foreach (Transform child in currentBlaster.transform)
+            foreach (Transform child in currentBlaster.transform)
             {
                 if (child.tag == "Barrel")
                 {
                     child.Find("Blaster Firing-VFX Graph").gameObject.SetActive(true);
                     break;
                 }
-            }*/
+            }
         }
         _shootingEffectTimer = _shotingEffectTime;
         

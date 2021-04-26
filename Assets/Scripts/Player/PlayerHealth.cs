@@ -114,12 +114,12 @@ public class PlayerHealth : HitInteraction
     private void Respawn()
     {
         //Rpc_DeathSounds();
-        GetComponent<PlayerAudioController>().RpcOnAllClients(13);
+        GetComponent<PlayerAudioController>().RpcOnAllClients(7);
         GetComponent<Shooting>().Rpc_GetNewLoadout();
         GetComponent<Shooting>().Rpc_FullReload();
         //Teleport the player
         Rpc_TeleportPlayer();
-        GetComponent<PlayerAudioController>().RpcOnAllClients(13);
+        GetComponent<PlayerAudioController>().RpcOnAllClients(7);
         currentCharge = 0;
     }
 
@@ -169,7 +169,7 @@ public class PlayerHealth : HitInteraction
     [Command]
     private void CmdRespawnEffects()
     {
-        GetComponent<PlayerAudioController>().RpcOnAllClients(14);
+        GetComponent<PlayerAudioController>().RpcOnAllClients(8);
     }
 
     [Server]

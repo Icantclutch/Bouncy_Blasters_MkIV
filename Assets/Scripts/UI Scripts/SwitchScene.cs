@@ -26,8 +26,6 @@ public class SwitchScene : MonoBehaviour
 
     private void SwapScene()
     {
-        StaticClass.CrossSceneInformation = _sceneName;
-        SceneManager.LoadScene("Loading Screen");
-        //SceneManager.LoadScene(_sceneName);
+        SceneManager.LoadScene(_sceneName);
     }
 }

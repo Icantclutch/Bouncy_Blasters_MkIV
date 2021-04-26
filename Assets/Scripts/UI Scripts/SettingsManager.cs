@@ -12,8 +12,7 @@ using UnityEngine.SocialPlatforms;
 public class SettingsManager : MonoBehaviour, ISaveable
 {
 
-    public AudioMixerGroup musicMixer;
-    public AudioMixerGroup SFXMixer;
+    public AudioMixer masterMixer;
     public Slider VolumeSlider;
     public Dropdown QualityDrop;
     public Toggle FullscreenToggle;
@@ -21,8 +20,7 @@ public class SettingsManager : MonoBehaviour, ISaveable
     public Slider SensitiviySlider;
 
     private int videoQuality;
-    private float currMusicVolume;
-    private float currSFXVolume;
+    private float currVolume;
     private int windowType;
     private float sensitivity;
 
@@ -63,7 +61,7 @@ public class SettingsManager : MonoBehaviour, ISaveable
 
         LoadJsonData(this);
 
-          currMusicVolume = PlayerPrefs.GetFloat("MusicVolume", currMusicVolume);
+          currVolume = PlayerPrefs.GetFloat("masterVolume", currVolume);
           windowType = PlayerPrefs.GetInt("fullscreen", windowType);
           videoQuality = PlayerPrefs.GetInt("qualitylevel", videoQuality);
 
@@ -78,14 +76,11 @@ public class SettingsManager : MonoBehaviour, ISaveable
         
         
 
-        musicMixer.audioMixer.SetFloat("MusicVolume", currMusicVolume);
-        VolumeSlider.value = currMusicVolume;
+        masterMixer.SetFloat("MasterVolume", currVolume);
+        VolumeSlider.value = currVolume;
+       
 
-        SFXMixer.audioMixer.SetFloat("SFXVolume", currMusicVolume);
-        VolumeSlider.value = currSFXVolume;
-
-
-
+       
 
         QualitySettings.SetQualityLevel(videoQuality);
         QualityDrop.value = videoQuality;
@@ -119,19 +114,11 @@ public class SettingsManager : MonoBehaviour, ISaveable
         //opacitySlider.value = currSlider;
     }
 
-    public void SetMusicVolume (float musicVolume)
+    public void SetMasterVolume (float masterVolume)
     {
-        VolumeSlider.value = currMusicVolume;
-        currMusicVolume = musicVolume;
-        musicMixer.audioMixer.SetFloat("MusicVolume", currMusicVolume);
-
-    }
-
-    public void SetSFXVolume(float sfxVolume)
-    {
-        VolumeSlider.value = currSFXVolume;
-        currMusicVolume = sfxVolume;
-        musicMixer.audioMixer.SetFloat("SFXVolume", currMusicVolume);
+        VolumeSlider.value = currVolume;
+        currVolume = masterVolume;
+        masterMixer.SetFloat("MasterVolume", currVolume);
 
     }
 
@@ -202,11 +189,10 @@ public class SettingsManager : MonoBehaviour, ISaveable
     public void OnButtonPress()
     {
         SaveJsonData(this);
-        PlayerPrefs.SetFloat("MusicVolume", currMusicVolume);
+        PlayerPrefs.SetFloat("masterVolume", currVolume);
         PlayerPrefs.SetInt("fullscreen", windowType);
         PlayerPrefs.SetInt("qualitylevel", videoQuality);
-        StaticClass.CrossSceneInformation = "Title Screen";
-        SceneManager.LoadScene("Loading Screen");
+        SceneManager.LoadScene("Title Screen");
     }
 
 
@@ -229,6 +215,7 @@ public class SettingsManager : MonoBehaviour, ISaveable
             sd.LoadFromJson(json);
 
             a_settingManager.LoadFromSaveData(sd);
+            Debug.Log("Load Complete");
         }
     }
 
@@ -236,7 +223,7 @@ public class SettingsManager : MonoBehaviour, ISaveable
     {
         a_SaveData.videoQuality = videoQuality;
         a_SaveData.windowType = windowType;
-        a_SaveData.currMusicVolume = currMusicVolume;
+        a_SaveData.currVolume = currVolume;
         a_SaveData.sensitivity = sensitivity;
     }
 
@@ -244,7 +231,7 @@ public class SettingsManager : MonoBehaviour, ISaveable
     {
         videoQuality = a_SaveData.videoQuality;
         windowType = a_SaveData.windowType;
-        currMusicVolume = a_SaveData.currMusicVolume;
+        currVolume = a_SaveData.currVolume;
         sensitivity = a_SaveData.sensitivity;
     }
 }

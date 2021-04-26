@@ -65,8 +65,7 @@ public class Weapon : ScriptableObject
         //Audio clip
         [NonSerialized]
         public AudioClip firingSound;
-        public int shotSoundIndexMin;
-        public int shotSoundIndexMax;
+        public int shotSoundIndex;
         public int reloadSoundIndex;
         
     }

@@ -5,7 +5,6 @@ using System;
 using System.Net.Sockets;
 using System.IO;
 using UnityEngine.UI;
-using UnityEngine.SocialPlatforms;
 
 
 //BY DEFAULT THE "OWNERSHIP" OF THE TWITCH CHAT IN GAME
@@ -47,22 +46,6 @@ public class TwitchChat : MonoBehaviour
     //public Transform camLookGrenade;
     //private float timeGrenade = 3;
     //--------------------
-    private int Vote1 = 0;
-    private int Vote2 = 0;
-    private string Vote1Phrase = "";
-    private string Vote2Phrase = "";
-    private bool InVote = false;
-    public Text twitchChat;
-    public Text twitchChatVote1;
-    public Text twitchChatVote2;
-    private GameObject _gameManager = null;
-    private List<string> alreadyVoted = new List<string>();
-
-    private float savedSpeed = 0f;
-    private float savedJumpHeight = 0f;
-    private float savedGravity = 0f;
-
-    //_gameManager.GetComponentInChildren<GameManagement>().MatchTimer.ToString()
 
     //CONNECT ON START
     //For testing this is fine / prompt the password in the future
@@ -82,9 +65,6 @@ public class TwitchChat : MonoBehaviour
             }
         }
 
-        _gameManager = GameObject.FindGameObjectWithTag("Management");
-        //_gameManager.GetComponentInChildren<GameManagement>().MatchTimer.ToString();
-
         if (!_lobbyManager)
         {
             _lobbyManager = GameObject.FindGameObjectWithTag("Management").GetComponent<LobbyManager>();
@@ -92,138 +72,6 @@ public class TwitchChat : MonoBehaviour
         ReadChat();
         //Runs to prevent a disconnect
         //KeepConnectionAlive();
-    }
-
-    //Creates the vote event
-    private void CreateVote()
-    {
-        if (InVote == false)
-        {
-            InVote = true;
-            Vote1Phrase = "earthquake";
-            Vote2Phrase = "max ammo";
-            twitchChat.text = "Twitch Vote | Type In Chat!";
-            twitchChatVote1.text = "'" + Vote1Phrase + "'";
-            twitchChatVote2.text = "'" + Vote2Phrase + "'";
-            StartCoroutine(StartVote());
-        }
-    }
-
-    private void doWinning(string winningEvent)
-    {
-        if (winningEvent == "earthquake")
-        {
-            print("EARTHQUAKE BEING GIVEN");
-            foreach (PlayerData Data in _lobbyManager.players)
-            {
-                //Data.GetComponent<Shooting>().Rpc_FullReload();
-                Data.GetComponent<PlayerEffects>().AlertText("EARTHQUAKE!");
-            }
-        }
-        else if (winningEvent == "max ammo")
-        {
-            print("MAX AMMO BEING GIVEN");
-            foreach (PlayerData Data in _lobbyManager.players)
-            {
-                Data.GetComponent<Shooting>().Rpc_FullReload();
-                Data.GetComponent<PlayerEffects>().AlertText("Max Ammo Granted!");
-            }
-        }
-        else if (winningEvent == "speed boost")
-        {
-            print("SPEED BOOST BEING GIVEN");
-            foreach (PlayerData Data in _lobbyManager.players)
-            {
-                var temp = Data.GetComponent<PlayerMovement>();
-                savedSpeed = temp.speed;
-                temp.SetMoveSpeed(temp.speed * 2f);
-                Data.GetComponent<PlayerEffects>().AlertText("Super Speed Granted!");
-            }
-        }
-        else if (winningEvent == "super jump")
-        {
-            print("SUPER JUMP BEING GIVEN");
-            foreach (PlayerData Data in _lobbyManager.players)
-            {
-                var temp = Data.GetComponent<PlayerMovement>();
-                savedJumpHeight = temp.jumpHeight;
-                temp.SetJumpHeight(temp.jumpHeight * 2f);
-                Data.GetComponent<PlayerEffects>().AlertText("Super Jumping Granted!");
-            }
-        }
-        else if (winningEvent == "low gravity")
-        {
-            print("LOW GRAVITY BEING GIVEN");
-            foreach (PlayerData Data in _lobbyManager.players)
-            {
-                var temp = Data.GetComponent<PlayerMovement>();
-                savedGravity = temp.gravity;
-                temp.SetGravity(temp.gravity * 2f);
-                Data.GetComponent<PlayerEffects>().AlertText("Low Gravity Enabled!");
-            }
-        }
-
-    }
-
-    private void ReturnToOriginal()
-    {
-        //Returning speed to normal
-        foreach (PlayerData Data in _lobbyManager.players)
-        {
-            var temp = Data.GetComponent<PlayerMovement>();
-            temp.SetMoveSpeed(savedSpeed);
-            temp.SetJumpHeight(savedJumpHeight);
-            temp.SetGravity(savedGravity);
-        }
-    }
-
-
-    private string DecideWinner()
-    {
-        if (Vote1 > Vote2)
-        {
-            return Vote1Phrase;
-        }
-        else
-        {
-            return Vote2Phrase;
-        }
-    }
-
-    private void EndVote()
-    {
-        string winner = DecideWinner();
-        doWinning(winner);
-        Vote1Phrase = "CAPS";
-        Vote2Phrase = "CAPS";
-        alreadyVoted = new List<String>();
-        //twitchChat.text = "WINNER: " + winner + "!";
-        twitchChat.text = "";
-        twitchChatVote1.text = "";
-        twitchChatVote2.text = "";
-        //Do event
-    }
-
-    private void ResetVote()
-    {
-        twitchChat.text = "";
-        twitchChatVote1.text = "";
-        twitchChatVote2.text = "";
-        InVote = false;
-    }
-
-    IEnumerator StartVote()
-    {
-        //Set firing so you can't shoot while reloading
-        yield return new WaitForSeconds(25);
-        EndVote();
-
-        yield return new WaitForSeconds(10);
-        ResetVote();
-
-        yield return new WaitForSeconds(10);
-        ReturnToOriginal();
-        yield return null;
     }
 
     private void Connect()
@@ -280,7 +128,7 @@ public class TwitchChat : MonoBehaviour
         //If host then set
         if (_lobbyManager.isServer)
         {
-            username = name.ToLower();
+            username = name;
             password = oauth;
             //channelName = name;
             Connect();
@@ -289,32 +137,88 @@ public class TwitchChat : MonoBehaviour
 
     //Twitch Events
     //Loading screens
+    //
 
     private void Input(string viewerName, string viewerMessage)
     {
-        print("MESSAGE SENT: " + viewerMessage.ToLower());
-        if (viewerMessage.ToLower() == "start")
+        if (viewerMessage.ToLower() == "test")
         {
-            CreateVote();
+            print("JOIN EVENT");
         }
 
-        if (viewerMessage.ToLower() == Vote1Phrase)
+        if (viewerMessage.ToLower() == "hitmarker")
         {
-            if (!alreadyVoted.Contains(viewerName))
+            foreach (PlayerData Data in _lobbyManager.players)
             {
-                Vote1 = Vote1 + 1;
-                alreadyVoted.Add(viewerName);
+                Data.GetComponent<PlayerEffects>().CreateHitmarker(5);
             }
         }
 
-        if (viewerMessage.ToLower() == Vote2Phrase)
+        if (viewerMessage.ToLower() == "reload")
         {
-            if (!alreadyVoted.Contains(viewerName))
+            foreach (PlayerData Data in _lobbyManager.players)
             {
-                Vote2 = Vote2 + 1;
-                alreadyVoted.Add(viewerName);
+                Data.GetComponent<Shooting>().Rpc_FullReload();
             }
         }
+
+        //EVENTS
+        //Low Gravity (change PlayerMovement.JumpHeight)
+
+        //Super speed (sprint increase too) (change PlayerMovement.Speed)
+
+        //Earth Quake
+
+        //Team randomize
+
+        //if (viewerMessage.ToLower() == "pool")
+        //{
+        //    print("Creating Particle Pooler");
+        //    objectSpawner.SetActive(true);
+
+        //    //Move the camera if the camera exists
+        //    if (camMain != null)
+        //    {
+        //        CameraShaking toUseShake = camMain.GetComponent<CameraShaking>();
+        //        if (toUseShake != null)
+        //        {
+        //            toUseShake.AddCameraTween(camPosSpawner, camLookSpawner, timeToMoveCam);
+        //        }
+        //    }
+        //}
+
+        //Camera Movement
+        //if (viewerMessage.ToLower() == "camtest")
+        //{
+        //    print("Camera Test");
+
+        //    //Move the camera if the camera exists
+        //    if (camMain != null)
+        //    {
+        //        CameraShaking toUseShake = camMain.GetComponent<CameraShaking>();
+        //        if (toUseShake != null)
+        //        {
+        //            toUseShake.AddCameraTween(camPosTest, camLookTest, timeToMoveCamTest);
+        //        }
+        //    }
+        //}
+
+        //Camera Movement
+        //if (viewerMessage.ToLower() == "grenade")
+        //{
+        //    print("Running grenade Test");
+
+        //    //Move the camera if the camera exists
+        //    if (camMain != null)
+        //    {
+        //        CameraShaking toUseShake = camMain.GetComponent<CameraShaking>();
+        //        if (toUseShake != null)
+        //        {
+        //            Instantiate(GrenadePrefab);
+        //            toUseShake.AddCameraTween(camPosGrenade, camLookGrenade, timeGrenade);
+        //        }
+        //    }
+        //}
     }
 
     private void KeepConnectionAlive()

@@ -45,26 +45,6 @@ public class PlayerAnimationController : NetworkBehaviour
     {
         _usingPistol = newBool;
     }
-    [SyncVar(hook = nameof(FallingUpdated))]
-    private bool _falling = false;
-
-    private void FallingUpdated(bool oldBool, bool newBool)
-    {
-        _falling = newBool;
-        GetComponentInChildren<Animator>().SetBool("falling", _falling);
-    }
-
-    public void SetFalling(bool newBool)
-    {
-        _falling = newBool;
-    }
-
-    [ClientRpc]
-    public void SetJump()
-    {
-        GetComponentInChildren<Animator>().SetTrigger("jump");
-    }
-
     [SyncVar(hook = nameof(IsRunningUpdated))]
     private bool isRunning = false;
 
@@ -72,11 +52,6 @@ public class PlayerAnimationController : NetworkBehaviour
     {
         isRunning = newBool;
         GetComponentInChildren<Animator>().SetBool("running", isRunning);
-        if (!isRunning)
-        {
-            GetComponent<PlayerAudioController>().RpcStopLoop();
-        }
-        
     }
 
     public void SetIsRunning(bool isRun)
@@ -91,33 +66,11 @@ public class PlayerAnimationController : NetworkBehaviour
         if(Mathf.Abs(_xVelocity - _targetXVel) > animChangeSpeed)
         {
             _xVelocity += Mathf.Sign(_targetXVel - _xVelocity) * animChangeSpeed;
-            //Debug.Log(_xVelocity);
         }
 
         if (Mathf.Abs(_yVelocity - _targetYVel) > animChangeSpeed)
         {
             _yVelocity += Mathf.Sign(_targetYVel - _yVelocity) * animChangeSpeed;
-            //Debug.Log(_yVelocity);
-        }
-
-        if (isServer)
-        {
-            if (isRunning)
-            {
-                if (Mathf.Abs(_xVelocity) > 10 || Mathf.Abs(_yVelocity) > 10)
-                {
-                    GetComponent<PlayerAudioController>().RpcSetLoop(16);
-                }
-                else
-                {
-                    GetComponent<PlayerAudioController>().RpcSetLoop(15);
-                }
-
-            }
-            else
-            {
-                
-            }
         }
     }
 }

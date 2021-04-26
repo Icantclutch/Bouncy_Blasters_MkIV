@@ -24,7 +24,6 @@ namespace Mirror.Examples.Additive
         IEnumerator LoadSubScenes()
         {
             logger.Log("Loading Scenes");
-            print("Loading Scenes");
 
             foreach (string sceneName in subScenes)
             {

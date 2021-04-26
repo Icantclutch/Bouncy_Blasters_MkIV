@@ -6,11 +6,10 @@ using UnityEngine;
 public class SaveData
 {
 
-    public float currMusicVolume;
+    public float currVolume;
     public int videoQuality;
     public int windowType;
     public float sensitivity;
-    public float currSFXVolume;
 
     public string ToJson()
     {
