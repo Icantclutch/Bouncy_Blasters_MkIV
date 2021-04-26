@@ -10,21 +10,29 @@ public class PlayerAudioController : NetworkBehaviour
     [SerializeField]
     private List<AudioClip> _sounds;
     public AudioMixerGroup sfx;
-    
-    
+
+
 
     /// <summary>
     /// Plays a oneshot of the sound on all clients
     /// <para>
     /// 0: Bullet hits another player<br/>
     /// 1: Bullet hits local player<br/>
-    /// 2: Shooting bullet<br/>
-    /// 3: Autoblaster shooting<br/>
-    /// 4: Pistol shooting<br/>
-    /// 5: Rifle Reload<br/>
-    /// 6: Pistol Reload<br/>
-    /// 7: Teleport to Respawn Room<br/>
-    /// 8: Teleport out of Respawn Room<br/>
+    /// 2: Small Rifle shooting<br/>
+    /// 3: Rifle shooting<br/>
+    /// 4: Large Rifle shooting<br/>
+    /// 5: Low pistol shooting<br/>
+    /// 6: pistol shooting<br/>
+    /// 7: high pistol shooting<br/>
+    /// 8: Teleport surge<br/>
+    /// 9: Teleport surge<br/>
+    /// 10: Empty magazine<br/>
+    /// 11: Rifle reloading<br/>
+    /// 12: Pistol reloading<br/>
+    /// 13: Teleport to the respawn room<br/>
+    /// 14: Teleport out of the respawn room<br/>
+    /// 15: Run<br/>
+    /// 16: Sprint<br/>
     /// </para>
     /// </summary>
     [ClientRpc]
@@ -42,13 +50,21 @@ public class PlayerAudioController : NetworkBehaviour
     /// <para>
     /// 0: Bullet hits another player<br/>
     /// 1: Bullet hits local player<br/>
-    /// 2: Shooting bullet<br/>
-    /// 3: Autoblaster shooting<br/>
-    /// 4: Pistol shooting<br/>
-    /// 5: Rifle Reload<br/>
-    /// 6: Pistol Reload<br/>
-    /// 7: Teleport to Respawn Room<br/>
-    /// 8: Teleport out of Respawn Room<br/>
+    /// 2: Small Rifle shooting<br/>
+    /// 3: Rifle shooting<br/>
+    /// 4: Large Rifle shooting<br/>
+    /// 5: Low pistol shooting<br/>
+    /// 6: pistol shooting<br/>
+    /// 7: high pistol shooting<br/>
+    /// 8: Teleport surge<br/>
+    /// 9: Teleport surge<br/>
+    /// 10: Empty magazine<br/>
+    /// 11: Rifle reloading<br/>
+    /// 12: Pistol reloading<br/>
+    /// 13: Teleport to the respawn room<br/>
+    /// 14: Teleport out of the respawn room<br/>
+    /// 15: Run<br/>
+    /// 16: Sprint<br/>
     /// </para>
     /// </summary>
     [TargetRpc]
@@ -78,6 +94,9 @@ public class PlayerAudioController : NetworkBehaviour
     {
         //GetComponent<AudioSource>().clip = _sounds[soundIndex];
         //GetComponent<AudioSource>().loop = true;
-        GetComponent<AudioSource>().Stop();
+        if (GetComponent<AudioSource>().isPlaying)
+        {
+            GetComponent<AudioSource>().Stop();
+        }
     }
 }

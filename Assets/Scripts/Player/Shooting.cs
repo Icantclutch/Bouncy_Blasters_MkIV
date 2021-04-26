@@ -304,8 +304,18 @@ public class Shooting : NetworkBehaviour
             
             //Subtract from the ammo
             playerWeapons[currentWeapon].currentAmmo -= currentFireMode.ammoUsedEachShot;
+            int soundIndex = -1;
+            if (currentFireMode.shotSoundIndexMin == currentFireMode.shotSoundIndexMax)
+            {
+                soundIndex = currentFireMode.shotSoundIndexMin;
+            }
+            else
+            {
+                soundIndex = UnityEngine.Random.Range(currentFireMode.shotSoundIndexMin, currentFireMode.shotSoundIndexMax+1);
+            }
+
             //Fire bullet over server
-            Cmd_ServerFireBullet(currentFireMode.bulletPrefabName, currentFireMode.bulletDamage, currentFireMode.maxBounces, currentFireMode.fireSpeed, currentFireMode.shotSoundIndex);
+            Cmd_ServerFireBullet(currentFireMode.bulletPrefabName, currentFireMode.bulletDamage, currentFireMode.maxBounces, currentFireMode.fireSpeed, soundIndex);
             //Wait
             yield return new WaitForSeconds(60 / currentFireMode.fireRate);
         }

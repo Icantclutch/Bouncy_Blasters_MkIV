@@ -72,6 +72,10 @@ public class PlayerAnimationController : NetworkBehaviour
     {
         isRunning = newBool;
         GetComponentInChildren<Animator>().SetBool("running", isRunning);
+        if (!isRunning)
+        {
+            GetComponent<PlayerAudioController>().RpcStopLoop();
+        }
         
     }
 
@@ -112,7 +116,7 @@ public class PlayerAnimationController : NetworkBehaviour
             }
             else
             {
-                GetComponent<PlayerAudioController>().RpcStopLoop();
+                
             }
         }
     }
