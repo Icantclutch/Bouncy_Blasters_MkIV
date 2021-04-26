@@ -8,7 +8,10 @@ public class MovingWall : NetworkBehaviour
 {
     [SyncVar]
     float clock;
+<<<<<<< HEAD
     //How fast the wall completes a cycle
+=======
+>>>>>>> parent of 5d237103 (Wall Moving)
     [SyncVar]
     public float SpeedMultiplier;
 
@@ -33,13 +36,19 @@ public class MovingWall : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
+<<<<<<< HEAD
         //Tick clock
+=======
+>>>>>>> parent of 5d237103 (Wall Moving)
         if (isServer)
         {
             clock += Time.deltaTime;
         }
 
+<<<<<<< HEAD
         //Lerp transform between up and down position
+=======
+>>>>>>> parent of 5d237103 (Wall Moving)
         transform.position = startPos + Vector3.Lerp(fullyDown, fullyUp, MovementCycle.Evaluate((clock * SpeedMultiplier) % 1f));
     }
 }
