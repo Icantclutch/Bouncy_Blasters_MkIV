@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class PlayerSpawnSystem
+public class PlayerSpawnSystem : NetworkBehaviour
 {
     //List of all of the spawn points in the scene
     private static List<PlayerSpawnPoint> spawnPoints = new List<PlayerSpawnPoint>();

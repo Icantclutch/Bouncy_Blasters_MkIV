@@ -7,7 +7,11 @@ public class PlayerAudioController : NetworkBehaviour
 {
     [SerializeField]
     private List<AudioClip> _sounds;
+<<<<<<< HEAD
     
+=======
+    public Dictionary<string, AudioClip> soundsD;
+>>>>>>> parent of 64a14082 (Merge branch 'main' of https://github.com/Icantclutch/Bouncy_Blasters_MkIV into main)
 
     /// <summary>
     /// Plays a oneshot of the sound on all clients
@@ -26,7 +30,7 @@ public class PlayerAudioController : NetworkBehaviour
     [ClientRpc]
     public void RpcOnAllClients(int soundIndex)
     {
-        if(soundIndex >= 0 && soundIndex < _sounds.Count)
+        if(soundIndex < _sounds.Count)
         {
             GetComponent<AudioSource>().PlayOneShot(_sounds[soundIndex]);
         }
@@ -49,12 +53,38 @@ public class PlayerAudioController : NetworkBehaviour
     [TargetRpc]
     public void RpcOnPlayerClient(int soundIndex)
     {
-        
-        if (soundIndex >= 0 && soundIndex < _sounds.Count)
+        //Debug.Log(_sounds.Count);
+        if (soundIndex < _sounds.Count)
         {
+<<<<<<< HEAD
+=======
+            //Debug.Log(soundIndex);
+>>>>>>> parent of 64a14082 (Merge branch 'main' of https://github.com/Icantclutch/Bouncy_Blasters_MkIV into main)
             GetComponent<AudioSource>().PlayOneShot(_sounds[soundIndex]);
         }
     }
 
+<<<<<<< HEAD
     
+=======
+    [ClientRpc]
+    public void RpcOnAllClientsD(string soundName)
+    {
+        if (soundsD[soundName])
+        {
+            GetComponent<AudioSource>().PlayOneShot(soundsD[soundName]);
+        }
+    }
+
+    [TargetRpc]
+    public void RpcOnPlayerClientD(string soundName)
+    {
+        //Debug.Log(_sounds.Count);
+        if (soundsD[soundName])
+        {
+            Debug.Log(soundName);
+            GetComponent<AudioSource>().PlayOneShot(soundsD[soundName]);
+        }
+    }
+>>>>>>> parent of 64a14082 (Merge branch 'main' of https://github.com/Icantclutch/Bouncy_Blasters_MkIV into main)
 }

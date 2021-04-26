@@ -113,8 +113,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -4.863}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -212.45, y: 58.97}
-  m_SizeDelta: {x: 200, y: 40.795578}
+  m_AnchoredPosition: {x: -211, y: 76}
+  m_SizeDelta: {x: 200, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &195928323
 CanvasRenderer:
@@ -137,7 +137,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.7411765, g: 0.9058824, b: 0, a: 1}
+  m_Color: {r: 0.99765027, g: 1, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -148,7 +148,7 @@ MonoBehaviour:
     m_Font: {fileID: 12800000, guid: 6f392e0ce90485540a665c59b725b8a9, type: 3}
     m_FontSize: 60
     m_FontStyle: 0
-    m_BestFit: 1
+    m_BestFit: 0
     m_MinSize: 3
     m_MaxSize: 60
     m_Alignment: 4
@@ -432,11 +432,19 @@ Transform:
   m_GameObject: {fileID: 223696043967608076}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
+<<<<<<< HEAD
   m_LocalScale: {x: 100, y: 189, z: 100}
   m_Children:
   - {fileID: 2067527153399927780}
   m_Father: {fileID: 4357171600822209690}
   m_RootOrder: 8
+=======
+  m_LocalScale: {x: 100, y: 105, z: 100}
+  m_Children:
+  - {fileID: 2067527153399927780}
+  m_Father: {fileID: 4357171600822209690}
+  m_RootOrder: 4
+>>>>>>> parent of 64a14082 (Merge branch 'main' of https://github.com/Icantclutch/Bouncy_Blasters_MkIV into main)
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &4463230840613676441
 MeshRenderer:
@@ -562,6 +570,85 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &807955057146051220
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7226278315505074687}
+  - component: {fileID: 6030700915943290239}
+  - component: {fileID: 5920281709211481435}
+  m_Layer: 5
+  m_Name: FullscreenText (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &7226278315505074687
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 807955057146051220}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 410147660120126091}
+  m_RootOrder: 20
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -864.32, y: 314}
+  m_SizeDelta: {x: 160, y: 30}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &6030700915943290239
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 807955057146051220}
+  m_CullTransparentMesh: 0
+--- !u!114 &5920281709211481435
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 807955057146051220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: 6f392e0ce90485540a665c59b725b8a9, type: 3}
+    m_FontSize: 25
+    m_FontStyle: 1
+    m_BestFit: 1
+    m_MinSize: 0
+    m_MaxSize: 40
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 0
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 1
+    m_LineSpacing: 2
+  m_Text: Fullscreen
 --- !u!1 &934937796997537865
 GameObject:
   m_ObjectHideFlags: 0
@@ -708,7 +795,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 10497
+    m_Bits: 2305
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 8400000, guid: 9e1ac789e857fce49976fdf7f2744f8a, type: 2}
   m_TargetDisplay: 1
@@ -792,7 +879,7 @@ MonoBehaviour:
   clearDepth: 1
   volumeLayerMask:
     serializedVersion: 2
-    m_Bits: 2049
+    m_Bits: 1
   volumeAnchorOverride: {fileID: 0}
   antialiasing: 0
   SMAAQuality: 2
@@ -877,81 +964,9 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+<<<<<<< HEAD
 --- !u!1 &2179249037405130221
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8025839057522458706}
-  - component: {fileID: 5746398218511644868}
-  - component: {fileID: 810892701021980727}
-  m_Layer: 5
-  m_Name: WeaponImg
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &8025839057522458706
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2179249037405130221}
-  m_LocalRotation: {x: -0, y: -0, z: 0.039187465, w: -0.9992319}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 914317380476718237}
-  m_RootOrder: 12
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -4.492}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -208.21, y: 117.5}
-  m_SizeDelta: {x: 213.51926, y: 86.47489}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &5746398218511644868
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2179249037405130221}
-  m_CullTransparentMesh: 0
---- !u!114 &810892701021980727
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2179249037405130221}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.8776965, g: 1, b: 0, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 38bc0e4b4028dc24083114f852e214e7, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 1
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
+=======
 --- !u!1 &2187169954643799169
 GameObject:
   m_ObjectHideFlags: 0
@@ -986,8 +1001,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -3.842}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -208.9, y: 172.8}
-  m_SizeDelta: {x: 230.88306, y: 32.436207}
+  m_AnchoredPosition: {x: -206, y: 136}
+  m_SizeDelta: {x: 289.12024, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2634634993943313894
 CanvasRenderer:
@@ -1010,7 +1025,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.99765027, g: 1, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1021,7 +1036,7 @@ MonoBehaviour:
     m_Font: {fileID: 12800000, guid: 6f392e0ce90485540a665c59b725b8a9, type: 3}
     m_FontSize: 60
     m_FontStyle: 0
-    m_BestFit: 1
+    m_BestFit: 0
     m_MinSize: 3
     m_MaxSize: 60
     m_Alignment: 4
@@ -1032,6 +1047,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: <Weapon>
 --- !u!1 &2883384655006920927
+>>>>>>> parent of 64a14082 (Merge branch 'main' of https://github.com/Icantclutch/Bouncy_Blasters_MkIV into main)
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1097,7 +1113,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 5dd49b3eacc540408c98eee0de38e0f1, type: 3}
+    m_Font: {fileID: 12800000, guid: 6f392e0ce90485540a665c59b725b8a9, type: 3}
     m_FontSize: 26
     m_FontStyle: 0
     m_BestFit: 0
@@ -1231,7 +1247,10 @@ RectTransform:
   - {fileID: 7176038128401774833}
   - {fileID: 5090409745927149155}
   - {fileID: 763446702647956138}
+<<<<<<< HEAD
   - {fileID: 8025839057522458706}
+=======
+>>>>>>> parent of 64a14082 (Merge branch 'main' of https://github.com/Icantclutch/Bouncy_Blasters_MkIV into main)
   m_Father: {fileID: 2349851022982101160}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1506,7 +1525,11 @@ Transform:
   - {fileID: 1747439325472559287}
   - {fileID: 4245990468475851427}
   m_Father: {fileID: 4357171600822209690}
+<<<<<<< HEAD
   m_RootOrder: 4
+=======
+  m_RootOrder: 2
+>>>>>>> parent of 64a14082 (Merge branch 'main' of https://github.com/Icantclutch/Bouncy_Blasters_MkIV into main)
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4079957155875908113
 GameObject:
@@ -1726,7 +1749,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 5dd49b3eacc540408c98eee0de38e0f1, type: 3}
+    m_Font: {fileID: 12800000, guid: 6f392e0ce90485540a665c59b725b8a9, type: 3}
     m_FontSize: 26
     m_FontStyle: 0
     m_BestFit: 0
@@ -1830,7 +1853,6 @@ GameObject:
   - component: {fileID: 4357171599448871527}
   - component: {fileID: 4357171599448871526}
   - component: {fileID: 1612589732}
-  - component: {fileID: 8132072361576839784}
   m_Layer: 10
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1845,9 +1867,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4357171599448871525}
-  m_LocalRotation: {x: 1.1622647e-16, y: 4.9092674e-16, z: -7.2164497e-16, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.33333343, z: 0.5}
+  m_LocalScale: {x: 0.5, y: 0.33333334, z: 0.5}
   m_Children: []
   m_Father: {fileID: 4357171599887525653}
   m_RootOrder: 0
@@ -1883,7 +1905,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 14135
+    m_Bits: 1847
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -2008,102 +2030,6 @@ MonoBehaviour:
       data1: 0
       data2: 0
   defaultFrameSettings: 0
---- !u!82 &8132072361576839784
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4357171599448871525}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 24300002, guid: 8c49c1b677947704f82bc0755557ae7e, type: 2}
-  m_audioClip: {fileID: 8300000, guid: 4b728637afb2c16438cd9d291a4b238e, type: 3}
-  m_PlayOnAwake: 1
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 1
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!1 &4357171599887525652
 GameObject:
   m_ObjectHideFlags: 0
@@ -2130,13 +2056,17 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4357171599887525652}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.7, z: 0}
+  m_LocalPosition: {x: 0, y: 1.181, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4357171599448871520}
   - {fileID: 668657270864927548}
   m_Father: {fileID: 4357171600822209690}
+<<<<<<< HEAD
   m_RootOrder: 2
+=======
+  m_RootOrder: 1
+>>>>>>> parent of 64a14082 (Merge branch 'main' of https://github.com/Icantclutch/Bouncy_Blasters_MkIV into main)
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6214388488504359305
 MonoBehaviour:
@@ -2202,10 +2132,6 @@ GameObject:
   - component: {fileID: 6945677312891480047}
   - component: {fileID: 375166679451465527}
   - component: {fileID: 122829152720230117}
-  - component: {fileID: 4800925777966370050}
-  - component: {fileID: 5694816680855956993}
-  - component: {fileID: 500073537180877334}
-  - component: {fileID: 7972809506322440478}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -2222,18 +2148,26 @@ Transform:
   m_GameObject: {fileID: 4357171600822209692}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.71, y: 2.742, z: -13.52}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1.8, z: 1}
   m_Children:
+<<<<<<< HEAD
   - {fileID: 4609587726767700814}
   - {fileID: 3325739571707211012}
   - {fileID: 4357171599887525653}
+=======
+>>>>>>> parent of 64a14082 (Merge branch 'main' of https://github.com/Icantclutch/Bouncy_Blasters_MkIV into main)
   - {fileID: 1167241961864678031}
+  - {fileID: 4357171599887525653}
   - {fileID: 2349851022982101160}
-  - {fileID: 5057086069982133004}
   - {fileID: 7164985317577078470}
+  - {fileID: 5377081797794707132}
   - {fileID: 410147660120126091}
+<<<<<<< HEAD
   - {fileID: 5377081797794707132}
   - {fileID: 1477309121840450915}
+=======
+  - {fileID: 6744026740494728167}
+>>>>>>> parent of 64a14082 (Merge branch 'main' of https://github.com/Icantclutch/Bouncy_Blasters_MkIV into main)
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2297,7 +2231,7 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5
-  m_Height: 3.6
+  m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0.02584729, z: 0}
 --- !u!114 &4357171600822209668
@@ -2644,20 +2578,12 @@ MonoBehaviour:
   _playerHealthText: {fileID: 1137195457}
   _playerHealthBar: {fileID: 7475530590193673194}
   _playerWeaponText: {fileID: 4906504091849385099}
-  _playerWeaponImg: {fileID: 810892701021980727}
   _matchTimer: {fileID: 1223673162211753598}
   _preMatchTimer: {fileID: 6907264047762866712}
   _networkManager: {fileID: 0}
   _anim: {fileID: 2815871287118780556}
   _mapAnim: {fileID: 6369741634890806445}
   _miniMap: {fileID: 4000303876575561082}
-  weaponImages:
-  - {fileID: 21300000, guid: 0b299450e6247d44fbb9c2c3d9b171f9, type: 3}
-  - {fileID: 21300000, guid: 5bd33d19f25ec204b8baed382a5d545a, type: 3}
-  - {fileID: 21300000, guid: 38bc0e4b4028dc24083114f852e214e7, type: 3}
-  - {fileID: 21300000, guid: 1ee33f97e7f224848965c339a898514e, type: 3}
-  - {fileID: 21300000, guid: e7318805345478e44ac1da641595d43e, type: 3}
-  - {fileID: 21300000, guid: 26ecacdf358159b43bc768c86ba5a818, type: 3}
   _matchEndText: {fileID: 7806698170884759555}
   _endMatchButton: {fileID: 6754390539715972224}
   scoreboardTeamLocations:
@@ -2715,7 +2641,11 @@ CapsuleCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 1
+<<<<<<< HEAD
   m_Height: 3.832011
+=======
+  m_Height: 2.1288948
+>>>>>>> parent of 64a14082 (Merge branch 'main' of https://github.com/Icantclutch/Bouncy_Blasters_MkIV into main)
   m_Direction: 1
   m_Center: {x: 0, y: -0.0130923595, z: 0}
 --- !u!114 &6945677312891480047
@@ -2773,12 +2703,13 @@ MonoBehaviour:
   opacitySlider: {fileID: 431262425872479170}
   minimap: {fileID: 3704974113150453730}
   minimapMask: {fileID: 7856928118581016107}
---- !u!114 &4800925777966370050
-MonoBehaviour:
+--- !u!1 &4384819657786414322
+GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+<<<<<<< HEAD
   m_GameObject: {fileID: 4357171600822209692}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -2840,6 +2771,8 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+=======
+>>>>>>> parent of 64a14082 (Merge branch 'main' of https://github.com/Icantclutch/Bouncy_Blasters_MkIV into main)
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7164985317577078470}
@@ -2864,6 +2797,7 @@ Transform:
   - {fileID: 8282507388377988668}
   - {fileID: 1741333313093712988}
   m_Father: {fileID: 4357171600822209690}
+<<<<<<< HEAD
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4469479408273960022
@@ -2901,6 +2835,45 @@ RectTransform:
   m_Father: {fileID: 8272519307996290918}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+=======
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4469479408273960022
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7737545836525083406}
+  - component: {fileID: 7192549640031724794}
+  - component: {fileID: 8331863886870689261}
+  - component: {fileID: 7856928118581016107}
+  - component: {fileID: 3574563000008797631}
+  m_Layer: 5
+  m_Name: MiniMapMask
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &7737545836525083406
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4469479408273960022}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 2424511346514244567}
+  m_Father: {fileID: 8272519307996290918}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+>>>>>>> parent of 64a14082 (Merge branch 'main' of https://github.com/Icantclutch/Bouncy_Blasters_MkIV into main)
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -203.90067, y: -178.46625}
@@ -3213,7 +3186,11 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_EffectDistance: {x: -2, y: 2}
   m_UseGraphicAlpha: 1
+<<<<<<< HEAD
 --- !u!1 &6158499926630089977
+=======
+--- !u!1 &5596967782324079950
+>>>>>>> parent of 64a14082 (Merge branch 'main' of https://github.com/Icantclutch/Bouncy_Blasters_MkIV into main)
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3221,20 +3198,32 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
+<<<<<<< HEAD
   - component: {fileID: 1477309121840450915}
   m_Layer: 0
   m_Name: SM_baseMesh_Automatic_Blaster-object (Missing Prefab)
+=======
+  - component: {fileID: 6994367259480995102}
+  - component: {fileID: 5828270952747438271}
+  m_Layer: 10
+  m_Name: Blasters
+>>>>>>> parent of 64a14082 (Merge branch 'main' of https://github.com/Icantclutch/Bouncy_Blasters_MkIV into main)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+<<<<<<< HEAD
 --- !u!4 &1477309121840450915
+=======
+--- !u!4 &6994367259480995102
+>>>>>>> parent of 64a14082 (Merge branch 'main' of https://github.com/Icantclutch/Bouncy_Blasters_MkIV into main)
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+<<<<<<< HEAD
   m_GameObject: {fileID: 6158499926630089977}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -3243,6 +3232,43 @@ Transform:
   m_Father: {fileID: 4357171600822209690}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+=======
+  m_GameObject: {fileID: 5596967782324079950}
+  m_LocalRotation: {x: -0.025808038, y: 0.7351951, z: -0.6549139, w: 0.17294481}
+  m_LocalPosition: {x: -1.048, y: -0.62, z: 2.641}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 2297214666214278612}
+  - {fileID: 7247217405196714474}
+  - {fileID: 1388323568987200986}
+  - {fileID: 1928642589372398242}
+  - {fileID: 6807425407191278153}
+  - {fileID: 5431191313552282009}
+  m_Father: {fileID: 3207992098850157718}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 72.564, y: 105.953, z: -61.963}
+--- !u!114 &5828270952747438271
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5596967782324079950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b8468e77450dc04b9b3364116c9dd93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blasters:
+  - {fileID: 1489152425632030574}
+  - {fileID: 8059360281311517520}
+  - {fileID: 1733745405477816160}
+  - {fileID: 1263324136840323096}
+  - {fileID: 6139257295653746931}
+  - {fileID: 4617499230050241315}
+  currentBlaster: {fileID: 0}
+  _shotingEffectTime: 1
+>>>>>>> parent of 64a14082 (Merge branch 'main' of https://github.com/Icantclutch/Bouncy_Blasters_MkIV into main)
 --- !u!1 &6200394319100493827
 GameObject:
   m_ObjectHideFlags: 0
@@ -3510,11 +3536,15 @@ RectTransform:
   m_Children:
   - {fileID: 5346746444704809946}
   m_Father: {fileID: 410147660120126091}
+<<<<<<< HEAD
   m_RootOrder: 20
+=======
+  m_RootOrder: 21
+>>>>>>> parent of 64a14082 (Merge branch 'main' of https://github.com/Icantclutch/Bouncy_Blasters_MkIV into main)
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 153.00006, y: 97.00002}
+  m_AnchoredPosition: {x: 22, y: 49}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &2038717483915977102
@@ -3610,7 +3640,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!1 &7244830047698165517
+--- !u!1 &7524532649634274016
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3618,20 +3648,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5057086069982133004}
-  m_Layer: 0
-  m_Name: SM_baseMesh_Automatic_Blaster-object (Missing Prefab)
+  - component: {fileID: 7176038128401774833}
+  - component: {fileID: 6809345906955102643}
+  m_Layer: 5
+  m_Name: SprintBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &5057086069982133004
-Transform:
+  m_IsActive: 0
+--- !u!224 &7176038128401774833
+RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+<<<<<<< HEAD
   m_GameObject: {fileID: 7244830047698165517}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -3663,6 +3695,8 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+=======
+>>>>>>> parent of 64a14082 (Merge branch 'main' of https://github.com/Icantclutch/Bouncy_Blasters_MkIV into main)
   m_GameObject: {fileID: 7524532649634274016}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -3757,7 +3791,7 @@ RectTransform:
   m_GameObject: {fileID: 7829333130226488999}
   m_LocalRotation: {x: 0, y: -1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 0.5555556, z: 1}
   m_Children:
   - {fileID: 7465269725314948943}
   m_Father: {fileID: 7164985317577078470}
@@ -3861,6 +3895,42 @@ RectTransform:
   m_Father: {fileID: 7737545836525083406}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+<<<<<<< HEAD
+=======
+--- !u!1 &8047590803137001872
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2424511346514244567}
+  - component: {fileID: 4871776457090893306}
+  - component: {fileID: 2633470982199654642}
+  - component: {fileID: 3704974113150453730}
+  m_Layer: 5
+  m_Name: MiniMap
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2424511346514244567
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8047590803137001872}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7737545836525083406}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+>>>>>>> parent of 64a14082 (Merge branch 'main' of https://github.com/Icantclutch/Bouncy_Blasters_MkIV into main)
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 202, y: 176.4}
@@ -4084,7 +4154,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8845466092278203780}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 19, z: 0}
+  m_LocalPosition: {x: 0, y: 4.7, z: 0}
   m_LocalScale: {x: 3.7539704, y: 3.7539704, z: 0.62566173}
   m_Children: []
   m_Father: {fileID: 7164985317577078470}
@@ -4266,11 +4336,15 @@ RectTransform:
   m_Children:
   - {fileID: 2360032860183476600}
   m_Father: {fileID: 410147660120126091}
+<<<<<<< HEAD
   m_RootOrder: 21
+=======
+  m_RootOrder: 22
+>>>>>>> parent of 64a14082 (Merge branch 'main' of https://github.com/Icantclutch/Bouncy_Blasters_MkIV into main)
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 153.00006, y: 37.99999}
+  m_AnchoredPosition: {x: 267, y: 49}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &8342874672632272677
@@ -4423,15 +4497,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 767108457257536216, guid: 6446b35c3cecaa744a1246885a8864d1, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 1.1622647e-16
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 767108457257536216, guid: 6446b35c3cecaa744a1246885a8864d1, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 4.9092674e-16
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 767108457257536216, guid: 6446b35c3cecaa744a1246885a8864d1, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -7.2164497e-16
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 767108457257536216, guid: 6446b35c3cecaa744a1246885a8864d1, type: 3}
       propertyPath: m_LocalRotation.w
@@ -4453,13 +4527,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 767108457257536216, guid: 6446b35c3cecaa744a1246885a8864d1, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3236940050571465240, guid: 6446b35c3cecaa744a1246885a8864d1, type: 3}
       propertyPath: reflectable.m_Bits
-      value: 13313
+      value: 1025
       objectReference: {fileID: 0}
     - target: {fileID: 3236940050571465240, guid: 6446b35c3cecaa744a1246885a8864d1, type: 3}
       propertyPath: redMat
@@ -4487,6 +4557,89 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 767108457257536216, guid: 6446b35c3cecaa744a1246885a8864d1, type: 3}
   m_PrefabInstance: {fileID: 280029312620057060}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &310164391632511535
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 6994367259480995102}
+    m_Modifications:
+    - target: {fileID: 1660064855697391605, guid: 0cde37b7b715d794ebf4fd4f86111722, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1660064855697391605, guid: 0cde37b7b715d794ebf4fd4f86111722, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1660064855697391605, guid: 0cde37b7b715d794ebf4fd4f86111722, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1660064855697391605, guid: 0cde37b7b715d794ebf4fd4f86111722, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1660064855697391605, guid: 0cde37b7b715d794ebf4fd4f86111722, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1660064855697391605, guid: 0cde37b7b715d794ebf4fd4f86111722, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1660064855697391605, guid: 0cde37b7b715d794ebf4fd4f86111722, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1660064855697391605, guid: 0cde37b7b715d794ebf4fd4f86111722, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1660064855697391605, guid: 0cde37b7b715d794ebf4fd4f86111722, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1660064855697391605, guid: 0cde37b7b715d794ebf4fd4f86111722, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1660064855697391605, guid: 0cde37b7b715d794ebf4fd4f86111722, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036309399890535759, guid: 0cde37b7b715d794ebf4fd4f86111722, type: 3}
+      propertyPath: m_Name
+      value: MarksMen-001
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036309399890535759, guid: 0cde37b7b715d794ebf4fd4f86111722, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8764315823313098887, guid: 0cde37b7b715d794ebf4fd4f86111722, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8764315823313098887, guid: 0cde37b7b715d794ebf4fd4f86111722, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8764315823313098887, guid: 0cde37b7b715d794ebf4fd4f86111722, type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0cde37b7b715d794ebf4fd4f86111722, type: 3}
+--- !u!1 &1733745405477816160 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2036309399890535759, guid: 0cde37b7b715d794ebf4fd4f86111722, type: 3}
+  m_PrefabInstance: {fileID: 310164391632511535}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1388323568987200986 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1660064855697391605, guid: 0cde37b7b715d794ebf4fd4f86111722, type: 3}
+  m_PrefabInstance: {fileID: 310164391632511535}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1962423199268205583
 PrefabInstance:
@@ -4566,84 +4719,175 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ae9cbfba1a221f64d81af8717880ec87, type: 3}
   m_PrefabInstance: {fileID: 1962423199268205583}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &3003302784476646127
+--- !u!1001 &2773378503010608893
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 4357171600822209690}
+    m_TransformParent: {fileID: 6994367259480995102}
     m_Modifications:
-    - target: {fileID: -8679921383154817045, guid: 64b40590bd31e624a8ba8915bea77339, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 64b40590bd31e624a8ba8915bea77339, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 64b40590bd31e624a8ba8915bea77339, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 64b40590bd31e624a8ba8915bea77339, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 64b40590bd31e624a8ba8915bea77339, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 64b40590bd31e624a8ba8915bea77339, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 64b40590bd31e624a8ba8915bea77339, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 64b40590bd31e624a8ba8915bea77339, type: 3}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 64b40590bd31e624a8ba8915bea77339, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 64b40590bd31e624a8ba8915bea77339, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 64b40590bd31e624a8ba8915bea77339, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: 64b40590bd31e624a8ba8915bea77339, type: 3}
+    - target: {fileID: 4032198955380868837, guid: a8418589469c375468639439974e8db3, type: 3}
       propertyPath: m_Name
-      value: PlayerModelSkeleton
+      value: Pistol
       objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: 64b40590bd31e624a8ba8915bea77339, type: 3}
+    - target: {fileID: 4032198955380868837, guid: a8418589469c375468639439974e8db3, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5866666021909216657, guid: 64b40590bd31e624a8ba8915bea77339, type: 3}
-      propertyPath: m_Controller
+    - target: {fileID: 4377198922479557727, guid: a8418589469c375468639439974e8db3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4377198922479557727, guid: a8418589469c375468639439974e8db3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4377198922479557727, guid: a8418589469c375468639439974e8db3, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4377198922479557727, guid: a8418589469c375468639439974e8db3, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4377198922479557727, guid: a8418589469c375468639439974e8db3, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4377198922479557727, guid: a8418589469c375468639439974e8db3, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4377198922479557727, guid: a8418589469c375468639439974e8db3, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4377198922479557727, guid: a8418589469c375468639439974e8db3, type: 3}
+      propertyPath: m_RootOrder
+<<<<<<< HEAD
+      value: 1
+=======
+      value: 3
+>>>>>>> parent of 64a14082 (Merge branch 'main' of https://github.com/Icantclutch/Bouncy_Blasters_MkIV into main)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4377198922479557727, guid: a8418589469c375468639439974e8db3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4377198922479557727, guid: a8418589469c375468639439974e8db3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 4377198922479557727, guid: a8418589469c375468639439974e8db3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5742147483487113184, guid: a8418589469c375468639439974e8db3, type: 3}
+      propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 9100000, guid: a4f7c807a35ca1b4a9e18f505a39a929, type: 2}
-    - target: {fileID: 5866666021909216657, guid: 64b40590bd31e624a8ba8915bea77339, type: 3}
-      propertyPath: m_Avatar
+      objectReference: {fileID: 0}
+    - target: {fileID: 5742147483487113184, guid: a8418589469c375468639439974e8db3, type: 3}
+      propertyPath: m_Materials.Array.data[1]
       value: 
-      objectReference: {fileID: 9000000, guid: 16aee3f4384b4224bbb5d3791b5ab97b, type: 3}
+      objectReference: {fileID: 0}
+    - target: {fileID: 5742147483487113184, guid: a8418589469c375468639439974e8db3, type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 64b40590bd31e624a8ba8915bea77339, type: 3}
---- !u!4 &7626758532931386362 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -4577223465745911531, guid: 64b40590bd31e624a8ba8915bea77339, type: 3}
-  m_PrefabInstance: {fileID: 3003302784476646127}
+  m_SourcePrefab: {fileID: 100100000, guid: a8418589469c375468639439974e8db3, type: 3}
+--- !u!1 &1263324136840323096 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4032198955380868837, guid: a8418589469c375468639439974e8db3, type: 3}
+  m_PrefabInstance: {fileID: 2773378503010608893}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &3325739571707211012 stripped
+--- !u!4 &1928642589372398242 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 64b40590bd31e624a8ba8915bea77339, type: 3}
-  m_PrefabInstance: {fileID: 3003302784476646127}
+  m_CorrespondingSourceObject: {fileID: 4377198922479557727, guid: a8418589469c375468639439974e8db3, type: 3}
+  m_PrefabInstance: {fileID: 2773378503010608893}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &2862359245413605329
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 6994367259480995102}
+    m_Modifications:
+    - target: {fileID: 7773810979152152248, guid: beee930b70cea534bbab226a9e576b48, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7773810979152152248, guid: beee930b70cea534bbab226a9e576b48, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7773810979152152248, guid: beee930b70cea534bbab226a9e576b48, type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8253446009720694562, guid: beee930b70cea534bbab226a9e576b48, type: 3}
+      propertyPath: m_Name
+      value: Shorgun-001 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8253446009720694562, guid: beee930b70cea534bbab226a9e576b48, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8773559383225548184, guid: beee930b70cea534bbab226a9e576b48, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8773559383225548184, guid: beee930b70cea534bbab226a9e576b48, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8773559383225548184, guid: beee930b70cea534bbab226a9e576b48, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8773559383225548184, guid: beee930b70cea534bbab226a9e576b48, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8773559383225548184, guid: beee930b70cea534bbab226a9e576b48, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8773559383225548184, guid: beee930b70cea534bbab226a9e576b48, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8773559383225548184, guid: beee930b70cea534bbab226a9e576b48, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8773559383225548184, guid: beee930b70cea534bbab226a9e576b48, type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8773559383225548184, guid: beee930b70cea534bbab226a9e576b48, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8773559383225548184, guid: beee930b70cea534bbab226a9e576b48, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8773559383225548184, guid: beee930b70cea534bbab226a9e576b48, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: beee930b70cea534bbab226a9e576b48, type: 3}
+--- !u!1 &6139257295653746931 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8253446009720694562, guid: beee930b70cea534bbab226a9e576b48, type: 3}
+  m_PrefabInstance: {fileID: 2862359245413605329}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &6807425407191278153 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8773559383225548184, guid: beee930b70cea534bbab226a9e576b48, type: 3}
+  m_PrefabInstance: {fileID: 2862359245413605329}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3176399244906266783
 PrefabInstance:
@@ -4714,11 +4958,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3770420991313447022, guid: d0c6bc28ce103d844979b0ba9cd3019f, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -72
+      value: -200
       objectReference: {fileID: 0}
     - target: {fileID: 3770420991313447022, guid: d0c6bc28ce103d844979b0ba9cd3019f, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -55
+      value: 175
       objectReference: {fileID: 0}
     - target: {fileID: 3770420991313447022, guid: d0c6bc28ce103d844979b0ba9cd3019f, type: 3}
       propertyPath: m_SizeDelta.x
@@ -4730,7 +4974,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3770420991313447022, guid: d0c6bc28ce103d844979b0ba9cd3019f, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 3770420991313447022, guid: d0c6bc28ce103d844979b0ba9cd3019f, type: 3}
       propertyPath: m_AnchorMin.y
@@ -4738,7 +4982,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3770420991313447022, guid: d0c6bc28ce103d844979b0ba9cd3019f, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 3770420991313447022, guid: d0c6bc28ce103d844979b0ba9cd3019f, type: 3}
       propertyPath: m_AnchorMax.y
@@ -4754,6 +4998,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d0c6bc28ce103d844979b0ba9cd3019f, type: 3}
+<<<<<<< HEAD
 --- !u!1001 &4067369351529913509
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4835,6 +5080,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 16aee3f4384b4224bbb5d3791b5ab97b, type: 3}
   m_PrefabInstance: {fileID: 4067369351529913509}
   m_PrefabAsset: {fileID: 0}
+=======
+>>>>>>> parent of 64a14082 (Merge branch 'main' of https://github.com/Icantclutch/Bouncy_Blasters_MkIV into main)
 --- !u!1001 &5071350800799742344
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4844,6 +5091,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 50597441643063677, guid: 74b91d58c3c6f454dbccb78ea51914bf, type: 3}
       propertyPath: m_Controller
+<<<<<<< HEAD
       value: 
       objectReference: {fileID: 9100000, guid: a4f7c807a35ca1b4a9e18f505a39a929, type: 2}
     - target: {fileID: 6220578080517288711, guid: 74b91d58c3c6f454dbccb78ea51914bf, type: 3}
@@ -4950,50 +5198,53 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3209504072623736229, guid: 07af888e356288149b75bd3ba44b9d49, type: 3}
       propertyPath: m_Materials.Array.data[2]
+=======
+>>>>>>> parent of 64a14082 (Merge branch 'main' of https://github.com/Icantclutch/Bouncy_Blasters_MkIV into main)
       value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3276419310146556289, guid: 07af888e356288149b75bd3ba44b9d49, type: 3}
+      objectReference: {fileID: 9100000, guid: a4f7c807a35ca1b4a9e18f505a39a929, type: 2}
+    - target: {fileID: 6220578080517288711, guid: 74b91d58c3c6f454dbccb78ea51914bf, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.035
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3276419310146556289, guid: 07af888e356288149b75bd3ba44b9d49, type: 3}
+    - target: {fileID: 6220578080517288711, guid: 74b91d58c3c6f454dbccb78ea51914bf, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.096
+      value: -1.002
       objectReference: {fileID: 0}
-    - target: {fileID: 3276419310146556289, guid: 07af888e356288149b75bd3ba44b9d49, type: 3}
+    - target: {fileID: 6220578080517288711, guid: 74b91d58c3c6f454dbccb78ea51914bf, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.742
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3276419310146556289, guid: 07af888e356288149b75bd3ba44b9d49, type: 3}
+    - target: {fileID: 6220578080517288711, guid: 74b91d58c3c6f454dbccb78ea51914bf, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.18882625
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3276419310146556289, guid: 07af888e356288149b75bd3ba44b9d49, type: 3}
+    - target: {fileID: 6220578080517288711, guid: 74b91d58c3c6f454dbccb78ea51914bf, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.67891586
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3276419310146556289, guid: 07af888e356288149b75bd3ba44b9d49, type: 3}
+    - target: {fileID: 6220578080517288711, guid: 74b91d58c3c6f454dbccb78ea51914bf, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.6841894
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3276419310146556289, guid: 07af888e356288149b75bd3ba44b9d49, type: 3}
+    - target: {fileID: 6220578080517288711, guid: 74b91d58c3c6f454dbccb78ea51914bf, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.1878903
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 3276419310146556289, guid: 07af888e356288149b75bd3ba44b9d49, type: 3}
+    - target: {fileID: 6220578080517288711, guid: 74b91d58c3c6f454dbccb78ea51914bf, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3276419310146556289, guid: 07af888e356288149b75bd3ba44b9d49, type: 3}
+    - target: {fileID: 6220578080517288711, guid: 74b91d58c3c6f454dbccb78ea51914bf, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 90.43399
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3276419310146556289, guid: 07af888e356288149b75bd3ba44b9d49, type: 3}
+    - target: {fileID: 6220578080517288711, guid: 74b91d58c3c6f454dbccb78ea51914bf, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -154.487
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3276419310146556289, guid: 07af888e356288149b75bd3ba44b9d49, type: 3}
+    - target: {fileID: 6220578080517288711, guid: 74b91d58c3c6f454dbccb78ea51914bf, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+<<<<<<< HEAD
       value: -5.38501
       objectReference: {fileID: 0}
     - target: {fileID: 5648506594582031905, guid: 07af888e356288149b75bd3ba44b9d49, type: 3}
@@ -5033,11 +5284,117 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8157946615709189697, guid: 07af888e356288149b75bd3ba44b9d49, type: 3}
+=======
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6220578080517288711, guid: 74b91d58c3c6f454dbccb78ea51914bf, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5555556
+      objectReference: {fileID: 0}
+    - target: {fileID: 6708180239763122621, guid: 74b91d58c3c6f454dbccb78ea51914bf, type: 3}
+      propertyPath: m_Name
+      value: AM_Player_Base Variant
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 74b91d58c3c6f454dbccb78ea51914bf, type: 3}
+--- !u!4 &3207992098850157718 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7702313690035817758, guid: 74b91d58c3c6f454dbccb78ea51914bf, type: 3}
+  m_PrefabInstance: {fileID: 5071350800799742344}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1167241961864678031 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6220578080517288711, guid: 74b91d58c3c6f454dbccb78ea51914bf, type: 3}
+  m_PrefabInstance: {fileID: 5071350800799742344}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &5374866629988921754
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 6994367259480995102}
+    m_Modifications:
+    - target: {fileID: 128399869805043715, guid: fdec027a4fcde19428e604fdfa2d1ed7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 128399869805043715, guid: fdec027a4fcde19428e604fdfa2d1ed7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 128399869805043715, guid: fdec027a4fcde19428e604fdfa2d1ed7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 128399869805043715, guid: fdec027a4fcde19428e604fdfa2d1ed7, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 128399869805043715, guid: fdec027a4fcde19428e604fdfa2d1ed7, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 128399869805043715, guid: fdec027a4fcde19428e604fdfa2d1ed7, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 128399869805043715, guid: fdec027a4fcde19428e604fdfa2d1ed7, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 128399869805043715, guid: fdec027a4fcde19428e604fdfa2d1ed7, type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 128399869805043715, guid: fdec027a4fcde19428e604fdfa2d1ed7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 128399869805043715, guid: fdec027a4fcde19428e604fdfa2d1ed7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 128399869805043715, guid: fdec027a4fcde19428e604fdfa2d1ed7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 757725881943718585, guid: fdec027a4fcde19428e604fdfa2d1ed7, type: 3}
+      propertyPath: m_Name
+      value: SMG-002
+      objectReference: {fileID: 0}
+    - target: {fileID: 757725881943718585, guid: fdec027a4fcde19428e604fdfa2d1ed7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2623322702957408700, guid: fdec027a4fcde19428e604fdfa2d1ed7, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2623322702957408700, guid: fdec027a4fcde19428e604fdfa2d1ed7, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2623322702957408700, guid: fdec027a4fcde19428e604fdfa2d1ed7, type: 3}
+>>>>>>> parent of 64a14082 (Merge branch 'main' of https://github.com/Icantclutch/Bouncy_Blasters_MkIV into main)
       propertyPath: m_Materials.Array.data[2]
       value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+<<<<<<< HEAD
   m_SourcePrefab: {fileID: 100100000, guid: 07af888e356288149b75bd3ba44b9d49, type: 3}
+=======
+  m_SourcePrefab: {fileID: 100100000, guid: fdec027a4fcde19428e604fdfa2d1ed7, type: 3}
+--- !u!1 &4617499230050241315 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 757725881943718585, guid: fdec027a4fcde19428e604fdfa2d1ed7, type: 3}
+  m_PrefabInstance: {fileID: 5374866629988921754}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &5431191313552282009 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 128399869805043715, guid: fdec027a4fcde19428e604fdfa2d1ed7, type: 3}
+  m_PrefabInstance: {fileID: 5374866629988921754}
+  m_PrefabAsset: {fileID: 0}
+>>>>>>> parent of 64a14082 (Merge branch 'main' of https://github.com/Icantclutch/Bouncy_Blasters_MkIV into main)
 --- !u!1001 &6089849507278170695
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5093,10 +5450,6 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 75
       objectReference: {fileID: 0}
-    - target: {fileID: 1838033248983451077, guid: a0404dd6c944786409b8afa4423b0446, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 22.400024
-      objectReference: {fileID: 0}
     - target: {fileID: 2836122096120444233, guid: a0404dd6c944786409b8afa4423b0446, type: 3}
       propertyPath: m_AnchorMin.y
       value: 1
@@ -5120,38 +5473,6 @@ PrefabInstance:
     - target: {fileID: 2836122096120444233, guid: a0404dd6c944786409b8afa4423b0446, type: 3}
       propertyPath: m_SizeDelta.y
       value: 75
-      objectReference: {fileID: 0}
-    - target: {fileID: 3545869490924276778, guid: a0404dd6c944786409b8afa4423b0446, type: 3}
-      propertyPath: m_Color.r
-      value: 0.31359026
-      objectReference: {fileID: 0}
-    - target: {fileID: 3545869490924276778, guid: a0404dd6c944786409b8afa4423b0446, type: 3}
-      propertyPath: m_Color.g
-      value: 0.54570794
-      objectReference: {fileID: 0}
-    - target: {fileID: 3545869490924276778, guid: a0404dd6c944786409b8afa4423b0446, type: 3}
-      propertyPath: m_Color.b
-      value: 0.8207547
-      objectReference: {fileID: 0}
-    - target: {fileID: 3545869490924276778, guid: a0404dd6c944786409b8afa4423b0446, type: 3}
-      propertyPath: m_Color.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3938114906295847862, guid: a0404dd6c944786409b8afa4423b0446, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 35.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 3938114906295847862, guid: a0404dd6c944786409b8afa4423b0446, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 143.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3938114906295847862, guid: a0404dd6c944786409b8afa4423b0446, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 1296.1763
-      objectReference: {fileID: 0}
-    - target: {fileID: 3938114906295847862, guid: a0404dd6c944786409b8afa4423b0446, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 64.80883
       objectReference: {fileID: 0}
     - target: {fileID: 7121387125134762814, guid: a0404dd6c944786409b8afa4423b0446, type: 3}
       propertyPath: m_Name
@@ -5231,23 +5552,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8029180860296494844, guid: a0404dd6c944786409b8afa4423b0446, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 358.69
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8029180860296494844, guid: a0404dd6c944786409b8afa4423b0446, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 159
+      value: -150
       objectReference: {fileID: 0}
     - target: {fileID: 8029180860296494844, guid: a0404dd6c944786409b8afa4423b0446, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 717.38135
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 8029180860296494844, guid: a0404dd6c944786409b8afa4423b0446, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 501.76837
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 8029180860296494844, guid: a0404dd6c944786409b8afa4423b0446, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8029180860296494844, guid: a0404dd6c944786409b8afa4423b0446, type: 3}
       propertyPath: m_AnchorMin.y
@@ -5255,7 +5576,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8029180860296494844, guid: a0404dd6c944786409b8afa4423b0446, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8029180860296494844, guid: a0404dd6c944786409b8afa4423b0446, type: 3}
       propertyPath: m_AnchorMax.y
@@ -5268,10 +5589,6 @@ PrefabInstance:
     - target: {fileID: 8029180860296494844, guid: a0404dd6c944786409b8afa4423b0446, type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8208394040391347376, guid: a0404dd6c944786409b8afa4423b0446, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 22.400024
       objectReference: {fileID: 0}
     - target: {fileID: 9114054490307496516, guid: a0404dd6c944786409b8afa4423b0446, type: 3}
       propertyPath: m_AnchorMin.y
@@ -5333,196 +5650,158 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8208394040391347376, guid: a0404dd6c944786409b8afa4423b0446, type: 3}
   m_PrefabInstance: {fileID: 6089849507278170695}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &6289213304627306420
+--- !u!1001 &7086601671265788645
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 7626758532931386362}
+    m_TransformParent: {fileID: 4357171600822209690}
     m_Modifications:
-    - target: {fileID: 178422800393467568, guid: 07af888e356288149b75bd3ba44b9d49, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 178422800393467568, guid: 07af888e356288149b75bd3ba44b9d49, type: 3}
-      propertyPath: m_Materials.Array.data[1]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 178422800393467568, guid: 07af888e356288149b75bd3ba44b9d49, type: 3}
-      propertyPath: m_Materials.Array.data[2]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1039846215999016633, guid: 07af888e356288149b75bd3ba44b9d49, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1039846215999016633, guid: 07af888e356288149b75bd3ba44b9d49, type: 3}
-      propertyPath: m_Materials.Array.data[1]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1039846215999016633, guid: 07af888e356288149b75bd3ba44b9d49, type: 3}
-      propertyPath: m_Materials.Array.data[2]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3209504072623736229, guid: 07af888e356288149b75bd3ba44b9d49, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3209504072623736229, guid: 07af888e356288149b75bd3ba44b9d49, type: 3}
-      propertyPath: m_Materials.Array.data[1]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3209504072623736229, guid: 07af888e356288149b75bd3ba44b9d49, type: 3}
-      propertyPath: m_Materials.Array.data[2]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3276419310146556289, guid: 07af888e356288149b75bd3ba44b9d49, type: 3}
+    - target: {fileID: -8679921383154817045, guid: db77df3e27e71144cbc5edff59b7eb93, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.035
+      value: 0.53
       objectReference: {fileID: 0}
-    - target: {fileID: 3276419310146556289, guid: 07af888e356288149b75bd3ba44b9d49, type: 3}
+    - target: {fileID: -8679921383154817045, guid: db77df3e27e71144cbc5edff59b7eb93, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.096
+      value: 0.348
       objectReference: {fileID: 0}
-    - target: {fileID: 3276419310146556289, guid: 07af888e356288149b75bd3ba44b9d49, type: 3}
+    - target: {fileID: -8679921383154817045, guid: db77df3e27e71144cbc5edff59b7eb93, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.742
+      value: 0.65
       objectReference: {fileID: 0}
-    - target: {fileID: 3276419310146556289, guid: 07af888e356288149b75bd3ba44b9d49, type: 3}
+    - target: {fileID: -8679921383154817045, guid: db77df3e27e71144cbc5edff59b7eb93, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.18882668
-      objectReference: {fileID: 0}
-    - target: {fileID: 3276419310146556289, guid: 07af888e356288149b75bd3ba44b9d49, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0.6789145
-      objectReference: {fileID: 0}
-    - target: {fileID: 3276419310146556289, guid: 07af888e356288149b75bd3ba44b9d49, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0.6841907
-      objectReference: {fileID: 0}
-    - target: {fileID: 3276419310146556289, guid: 07af888e356288149b75bd3ba44b9d49, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.18789022
-      objectReference: {fileID: 0}
-    - target: {fileID: 3276419310146556289, guid: 07af888e356288149b75bd3ba44b9d49, type: 3}
-      propertyPath: m_RootOrder
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 3276419310146556289, guid: 07af888e356288149b75bd3ba44b9d49, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 90.43399
-      objectReference: {fileID: 0}
-    - target: {fileID: 3276419310146556289, guid: 07af888e356288149b75bd3ba44b9d49, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: -154.487
-      objectReference: {fileID: 0}
-    - target: {fileID: 3276419310146556289, guid: 07af888e356288149b75bd3ba44b9d49, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: -5.38501
-      objectReference: {fileID: 0}
-    - target: {fileID: 5648506594582031905, guid: 07af888e356288149b75bd3ba44b9d49, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5648506594582031905, guid: 07af888e356288149b75bd3ba44b9d49, type: 3}
-      propertyPath: m_Materials.Array.data[1]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5648506594582031905, guid: 07af888e356288149b75bd3ba44b9d49, type: 3}
-      propertyPath: m_Materials.Array.data[2]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6374072268766959022, guid: 07af888e356288149b75bd3ba44b9d49, type: 3}
-      propertyPath: m_Name
-      value: Blasters
-      objectReference: {fileID: 0}
-    - target: {fileID: 7658607987009806831, guid: 07af888e356288149b75bd3ba44b9d49, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 7658607987009806831, guid: 07af888e356288149b75bd3ba44b9d49, type: 3}
-      propertyPath: m_Materials.Array.data[1]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 7658607987009806831, guid: 07af888e356288149b75bd3ba44b9d49, type: 3}
-      propertyPath: m_Materials.Array.data[2]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 8157946615709189697, guid: 07af888e356288149b75bd3ba44b9d49, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 8157946615709189697, guid: 07af888e356288149b75bd3ba44b9d49, type: 3}
-      propertyPath: m_Materials.Array.data[1]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 8157946615709189697, guid: 07af888e356288149b75bd3ba44b9d49, type: 3}
-      propertyPath: m_Materials.Array.data[2]
-      value: 
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 07af888e356288149b75bd3ba44b9d49, type: 3}
---- !u!1001 &6515890346863695200
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 3494195959256249822}
-    m_Modifications:
-    - target: {fileID: 8448165951874729186, guid: c549487c91069d74db7de49902663a5c, type: 3}
-      propertyPath: m_Name
-      value: SM_Helmet_Prefab
-      objectReference: {fileID: 0}
-    - target: {fileID: 8663261463954786463, guid: c549487c91069d74db7de49902663a5c, type: 3}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9112535221214600792, guid: c549487c91069d74db7de49902663a5c, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9112535221214600792, guid: c549487c91069d74db7de49902663a5c, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.259
-      objectReference: {fileID: 0}
-    - target: {fileID: 9112535221214600792, guid: c549487c91069d74db7de49902663a5c, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.193
-      objectReference: {fileID: 0}
-    - target: {fileID: 9112535221214600792, guid: c549487c91069d74db7de49902663a5c, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.10156559
-      objectReference: {fileID: 0}
-    - target: {fileID: 9112535221214600792, guid: c549487c91069d74db7de49902663a5c, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -9.3132213e-10
-      objectReference: {fileID: 0}
-    - target: {fileID: 9112535221214600792, guid: c549487c91069d74db7de49902663a5c, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0.0000000675354
-      objectReference: {fileID: 0}
-    - target: {fileID: 9112535221214600792, guid: c549487c91069d74db7de49902663a5c, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.9948289
-      objectReference: {fileID: 0}
-    - target: {fileID: 9112535221214600792, guid: c549487c91069d74db7de49902663a5c, type: 3}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9112535221214600792, guid: c549487c91069d74db7de49902663a5c, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 11.659
-      objectReference: {fileID: 0}
-    - target: {fileID: 9112535221214600792, guid: c549487c91069d74db7de49902663a5c, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9112535221214600792, guid: c549487c91069d74db7de49902663a5c, type: 3}
+    - target: {fileID: -8679921383154817045, guid: db77df3e27e71144cbc5edff59b7eb93, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: db77df3e27e71144cbc5edff59b7eb93, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: db77df3e27e71144cbc5edff59b7eb93, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: db77df3e27e71144cbc5edff59b7eb93, type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: db77df3e27e71144cbc5edff59b7eb93, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: db77df3e27e71144cbc5edff59b7eb93, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: db77df3e27e71144cbc5edff59b7eb93, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: db77df3e27e71144cbc5edff59b7eb93, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5555556
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: db77df3e27e71144cbc5edff59b7eb93, type: 3}
+      propertyPath: m_Name
+      value: SM_baseMesh_Automatic_Blaster-object
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: db77df3e27e71144cbc5edff59b7eb93, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
+<<<<<<< HEAD
   m_SourcePrefab: {fileID: 100100000, guid: c549487c91069d74db7de49902663a5c, type: 3}
+=======
+  m_SourcePrefab: {fileID: 100100000, guid: db77df3e27e71144cbc5edff59b7eb93, type: 3}
+--- !u!1001 &7088418334573694133
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 6994367259480995102}
+    m_Modifications:
+    - target: {fileID: 489862385245801823, guid: f9b219c2bc025204289c3129dc07dca3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 489862385245801823, guid: f9b219c2bc025204289c3129dc07dca3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 489862385245801823, guid: f9b219c2bc025204289c3129dc07dca3, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 489862385245801823, guid: f9b219c2bc025204289c3129dc07dca3, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 489862385245801823, guid: f9b219c2bc025204289c3129dc07dca3, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 489862385245801823, guid: f9b219c2bc025204289c3129dc07dca3, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 489862385245801823, guid: f9b219c2bc025204289c3129dc07dca3, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 489862385245801823, guid: f9b219c2bc025204289c3129dc07dca3, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 489862385245801823, guid: f9b219c2bc025204289c3129dc07dca3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 489862385245801823, guid: f9b219c2bc025204289c3129dc07dca3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 489862385245801823, guid: f9b219c2bc025204289c3129dc07dca3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 974896909507794917, guid: f9b219c2bc025204289c3129dc07dca3, type: 3}
+      propertyPath: m_Name
+      value: Laser Blaster-001
+      objectReference: {fileID: 0}
+    - target: {fileID: 974896909507794917, guid: f9b219c2bc025204289c3129dc07dca3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6579302096073032277, guid: f9b219c2bc025204289c3129dc07dca3, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6579302096073032277, guid: f9b219c2bc025204289c3129dc07dca3, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6579302096073032277, guid: f9b219c2bc025204289c3129dc07dca3, type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f9b219c2bc025204289c3129dc07dca3, type: 3}
+--- !u!1 &8059360281311517520 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 974896909507794917, guid: f9b219c2bc025204289c3129dc07dca3, type: 3}
+  m_PrefabInstance: {fileID: 7088418334573694133}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &7247217405196714474 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 489862385245801823, guid: f9b219c2bc025204289c3129dc07dca3, type: 3}
+  m_PrefabInstance: {fileID: 7088418334573694133}
+  m_PrefabAsset: {fileID: 0}
+>>>>>>> parent of 64a14082 (Merge branch 'main' of https://github.com/Icantclutch/Bouncy_Blasters_MkIV into main)
 --- !u!1001 &8612184695631169568
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5530,32 +5809,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4357171600822209690}
     m_Modifications:
-    - target: {fileID: 1091744920617592649, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
-      propertyPath: m_FontData.m_Font
-      value: 
-      objectReference: {fileID: 12800000, guid: 5dd49b3eacc540408c98eee0de38e0f1, type: 3}
-    - target: {fileID: 1091744920617592649, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
-      propertyPath: m_FontData.m_BestFit
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1091744920617592649, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
-      propertyPath: m_Color.r
-      value: 0.9716981
-      objectReference: {fileID: 0}
-    - target: {fileID: 1091744920617592649, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
-      propertyPath: m_Color.g
-      value: 0.9716981
-      objectReference: {fileID: 0}
-    - target: {fileID: 1091744920617592649, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
-      propertyPath: m_Color.b
-      value: 0.9716981
-      objectReference: {fileID: 0}
-    - target: {fileID: 1215387882403243037, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: f4aefcd1305dc71498c7d0e935f5b7dd, type: 3}
     - target: {fileID: 1470882319137043103, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
       propertyPath: m_RootOrder
+<<<<<<< HEAD
       value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 1470882319137043103, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
@@ -5573,6 +5829,9 @@ PrefabInstance:
     - target: {fileID: 1470882319137043103, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
       propertyPath: m_SizeDelta.y
       value: 29.534676
+=======
+      value: 19
+>>>>>>> parent of 64a14082 (Merge branch 'main' of https://github.com/Icantclutch/Bouncy_Blasters_MkIV into main)
       objectReference: {fileID: 0}
     - target: {fileID: 6020351406556087361, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
       propertyPath: m_AnchorMax.x
@@ -5584,6 +5843,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6243194740799596944, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
       propertyPath: m_RootOrder
+<<<<<<< HEAD
       value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 6243194740799596944, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
@@ -5625,6 +5885,9 @@ PrefabInstance:
     - target: {fileID: 7280767252789358485, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
       propertyPath: m_SizeDelta.x
       value: -18.702637
+=======
+      value: 18
+>>>>>>> parent of 64a14082 (Merge branch 'main' of https://github.com/Icantclutch/Bouncy_Blasters_MkIV into main)
       objectReference: {fileID: 0}
     - target: {fileID: 8229628230764440891, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
       propertyPath: m_IsActive
@@ -5632,6 +5895,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8229628230847746106, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
       propertyPath: m_AnchoredPosition.x
+<<<<<<< HEAD
       value: -835.64
       objectReference: {fileID: 0}
     - target: {fileID: 8229628230847746106, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
@@ -5645,15 +5909,22 @@ PrefabInstance:
     - target: {fileID: 8229628230847746106, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
       propertyPath: m_SizeDelta.y
       value: 36.396545
+=======
+      value: -864.32
+      objectReference: {fileID: 0}
+    - target: {fileID: 8229628230847746106, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 314
+>>>>>>> parent of 64a14082 (Merge branch 'main' of https://github.com/Icantclutch/Bouncy_Blasters_MkIV into main)
       objectReference: {fileID: 0}
     - target: {fileID: 8229628230847746107, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
       propertyPath: m_FontData.m_FontStyle
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8229628230847746107, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
       propertyPath: m_FontData.m_Font
       value: 
-      objectReference: {fileID: 12800000, guid: 5dd49b3eacc540408c98eee0de38e0f1, type: 3}
+      objectReference: {fileID: 12800000, guid: 6f392e0ce90485540a665c59b725b8a9, type: 3}
     - target: {fileID: 8229628230847746107, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
       propertyPath: m_FontData.m_BestFit
       value: 1
@@ -5686,18 +5957,6 @@ PrefabInstance:
       propertyPath: m_FontData.m_VerticalOverflow
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 8229628230885017738, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
-      propertyPath: m_Color.r
-      value: 0.32694018
-      objectReference: {fileID: 0}
-    - target: {fileID: 8229628230885017738, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
-      propertyPath: m_Color.g
-      value: 0.745283
-      objectReference: {fileID: 0}
-    - target: {fileID: 8229628230885017738, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
-      propertyPath: m_Color.b
-      value: 0.37983826
-      objectReference: {fileID: 0}
     - target: {fileID: 8229628230885017741, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
       propertyPath: m_AnchorMax.x
       value: 1
@@ -5718,25 +5977,25 @@ PrefabInstance:
       propertyPath: m_Color.b
       value: 0.8207547
       objectReference: {fileID: 0}
-    - target: {fileID: 8229628230918638544, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 3e4dafe22d8befe4fa4da3ed7aa62f56, type: 3}
-    - target: {fileID: 8229628230918638544, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
-      propertyPath: m_Type
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8229628230918638546, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8229628230999523534, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
       propertyPath: m_AnchoredPosition.y
+<<<<<<< HEAD
       value: 263
       objectReference: {fileID: 0}
     - target: {fileID: 8229628230999523534, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -635
+=======
+      value: 261
+      objectReference: {fileID: 0}
+    - target: {fileID: 8229628230999523534, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -677
+>>>>>>> parent of 64a14082 (Merge branch 'main' of https://github.com/Icantclutch/Bouncy_Blasters_MkIV into main)
       objectReference: {fileID: 0}
     - target: {fileID: 8229628230999523535, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -5752,12 +6011,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8229628231037282480, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
       propertyPath: m_FontData.m_FontStyle
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8229628231037282480, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
       propertyPath: m_FontData.m_Font
       value: 
-      objectReference: {fileID: 12800000, guid: 5dd49b3eacc540408c98eee0de38e0f1, type: 3}
+      objectReference: {fileID: 12800000, guid: 6f392e0ce90485540a665c59b725b8a9, type: 3}
     - target: {fileID: 8229628231037282480, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
       propertyPath: m_FontData.m_BestFit
       value: 1
@@ -5780,6 +6039,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8229628231037282483, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
       propertyPath: m_AnchoredPosition.y
+<<<<<<< HEAD
       value: 268
       objectReference: {fileID: 0}
     - target: {fileID: 8229628231037282483, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
@@ -5805,6 +6065,13 @@ PrefabInstance:
     - target: {fileID: 8229628231098758052, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
       propertyPath: m_Color.b
       value: 0.37983826
+=======
+      value: 261
+      objectReference: {fileID: 0}
+    - target: {fileID: 8229628231037282483, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -864.32
+>>>>>>> parent of 64a14082 (Merge branch 'main' of https://github.com/Icantclutch/Bouncy_Blasters_MkIV into main)
       objectReference: {fileID: 0}
     - target: {fileID: 8229628231098758055, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
       propertyPath: m_AnchorMax.x
@@ -5828,10 +6095,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8229628231132142643, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -635
+      value: -677
       objectReference: {fileID: 0}
     - target: {fileID: 8229628231132142643, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
       propertyPath: m_AnchoredPosition.y
+<<<<<<< HEAD
       value: 358.19
       objectReference: {fileID: 0}
     - target: {fileID: 8229628231132142643, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
@@ -5857,6 +6125,9 @@ PrefabInstance:
     - target: {fileID: 8229628231376842895, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
       propertyPath: m_Color.b
       value: 0.19784619
+=======
+      value: 366.21008
+>>>>>>> parent of 64a14082 (Merge branch 'main' of https://github.com/Icantclutch/Bouncy_Blasters_MkIV into main)
       objectReference: {fileID: 0}
     - target: {fileID: 8229628231531628666, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
       propertyPath: m_AnchorMin.x
@@ -5870,10 +6141,13 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
+<<<<<<< HEAD
     - target: {fileID: 8229628231531628667, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: f4aefcd1305dc71498c7d0e935f5b7dd, type: 3}
+=======
+>>>>>>> parent of 64a14082 (Merge branch 'main' of https://github.com/Icantclutch/Bouncy_Blasters_MkIV into main)
     - target: {fileID: 8229628231589023760, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -5920,7 +6194,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8229628231864302251, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
       propertyPath: m_RootOrder
+<<<<<<< HEAD
       value: 7
+=======
+      value: 5
+>>>>>>> parent of 64a14082 (Merge branch 'main' of https://github.com/Icantclutch/Bouncy_Blasters_MkIV into main)
       objectReference: {fileID: 0}
     - target: {fileID: 8229628231864302251, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -5985,14 +6263,14 @@ PrefabInstance:
     - target: {fileID: 8229628231881384096, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
       propertyPath: m_FontData.m_Font
       value: 
-      objectReference: {fileID: 12800000, guid: 5dd49b3eacc540408c98eee0de38e0f1, type: 3}
+      objectReference: {fileID: 12800000, guid: 6f392e0ce90485540a665c59b725b8a9, type: 3}
     - target: {fileID: 8229628231881384096, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
       propertyPath: m_FontData.m_BestFit
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8229628231881384096, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
       propertyPath: m_FontData.m_FontStyle
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8229628231881384096, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
       propertyPath: m_Color.r
@@ -6020,19 +6298,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8229628231881384099, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
       propertyPath: m_AnchoredPosition.y
+<<<<<<< HEAD
       value: 358.19
       objectReference: {fileID: 0}
     - target: {fileID: 8229628231881384099, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -823.43
+=======
+      value: 362.42
+      objectReference: {fileID: 0}
+    - target: {fileID: 8229628231881384099, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -858.16
+>>>>>>> parent of 64a14082 (Merge branch 'main' of https://github.com/Icantclutch/Bouncy_Blasters_MkIV into main)
       objectReference: {fileID: 0}
     - target: {fileID: 8229628231881384099, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 154.86038
+      value: 172.3223
       objectReference: {fileID: 0}
     - target: {fileID: 8229628231881384099, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 28.998974
+      value: 27.577518
       objectReference: {fileID: 0}
     - target: {fileID: 8229628232283633191, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
       propertyPath: m_IsActive
@@ -6040,11 +6326,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8229628232496344950, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
       propertyPath: m_AnchoredPosition.x
+<<<<<<< HEAD
       value: -635
       objectReference: {fileID: 0}
     - target: {fileID: 8229628232496344950, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 314.98004
+=======
+      value: -677
+      objectReference: {fileID: 0}
+    - target: {fileID: 8229628232496344950, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 314
+>>>>>>> parent of 64a14082 (Merge branch 'main' of https://github.com/Icantclutch/Bouncy_Blasters_MkIV into main)
       objectReference: {fileID: 0}
     - target: {fileID: 8229628232496344951, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
       propertyPath: m_Colors.m_NormalColor.g
@@ -6062,34 +6356,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8229628232769406100, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -9.359985
-      objectReference: {fileID: 0}
-    - target: {fileID: 8229628232769406100, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: -18.702637
-      objectReference: {fileID: 0}
-    - target: {fileID: 8229628232769406101, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
-      propertyPath: m_Color.r
-      value: 0.735849
-      objectReference: {fileID: 0}
-    - target: {fileID: 8229628232769406101, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
-      propertyPath: m_Color.g
-      value: 0.2719517
-      objectReference: {fileID: 0}
-    - target: {fileID: 8229628232769406101, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
-      propertyPath: m_Color.b
-      value: 0.19784619
-      objectReference: {fileID: 0}
     - target: {fileID: 8229628232774389927, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8229628232809907110, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: f4aefcd1305dc71498c7d0e935f5b7dd, type: 3}
     - target: {fileID: 8229628232809907113, guid: c24dec77cfae6884a9e65c80ee2a2424, type: 3}
       propertyPath: m_AnchorMin.x
       value: 1

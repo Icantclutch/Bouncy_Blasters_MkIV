@@ -16,9 +16,9 @@ public class RaycastReflection : MonoBehaviour
     private PlayerMovement movement;
 
     //a ray  
-    public Ray ray;
+    private Ray ray;
     //a RaycastHit variable, to gather informartion about the ray's collision  
-    public RaycastHit hit;
+    private RaycastHit hit;
 
     //reflection direction  
     private Vector3 inDirection;
@@ -61,17 +61,21 @@ public class RaycastReflection : MonoBehaviour
             movement.Aiming(false);
         }
 
-        Transform barrel = null;
+
         //Update reflections based on player's gun
         if (shooting.active)
         {
             nReflections = shooting.currentFireMode.maxBounces;
+<<<<<<< HEAD
             barrel = shooting.GetComponentInChildren<BlasterController>().currentBlaster.transform.Find("Barrel");
+=======
+>>>>>>> parent of 64a14082 (Merge branch 'main' of https://github.com/Icantclutch/Bouncy_Blasters_MkIV into main)
         }
         else
         {
             nReflections = 4;
         }
+<<<<<<< HEAD
 
         //cast a new ray forward, from the current attached game object position  
         ray = new Ray(goTransform.position, goTransform.forward);
@@ -105,6 +109,29 @@ public class RaycastReflection : MonoBehaviour
         lineRenderer.material = redMat;
 
         
+=======
+
+        
+
+        //cast a new ray forward, from the current attached game object position  
+        ray = new Ray(goTransform.position, goTransform.forward);
+
+        //represent the ray using a line that can only be viewed at the scene tab  
+        Debug.DrawRay(goTransform.position, goTransform.forward * 100, Color.magenta);
+
+        //set the number of points to be the same as the number of reflections  
+        nPoints = nReflections;
+        //make the lineRenderer have nPoints  
+        lineRenderer.positionCount = nPoints;
+        //Set the first point of the line at the current attached game object position  
+        lineRenderer.SetPosition(0, goTransform.position);
+        //Set the color to red
+        lineRenderer.material = redMat;
+
+        //Get bounce points
+        List<Vector3> bouncePoints = new List<Vector3>();
+        bouncePoints.Add(goTransform.position);
+>>>>>>> parent of 64a14082 (Merge branch 'main' of https://github.com/Icantclutch/Bouncy_Blasters_MkIV into main)
 
         //Loop through reflections
         for (int i = 0; i <= nReflections; i++)

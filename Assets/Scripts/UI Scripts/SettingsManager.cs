@@ -4,9 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
-//using UnityEngine.Assertions;
-//using NUnit.Framework;
-using UnityEngine.SocialPlatforms;
 
 [System.Serializable]
 public class SettingsManager : MonoBehaviour, ISaveable
@@ -104,6 +101,7 @@ public class SettingsManager : MonoBehaviour, ISaveable
     {
 
         SaveJsonData(this);
+
     }
 
 
@@ -126,6 +124,7 @@ public class SettingsManager : MonoBehaviour, ISaveable
     {
         videoQuality = quality;
         QualitySettings.SetQualityLevel(videoQuality);
+
     }
 
     public void WindowMode(bool isFullscreen)
@@ -140,51 +139,6 @@ public class SettingsManager : MonoBehaviour, ISaveable
             windowType = 0;
         }
     }
-
-    //[Test]
-    //public void LocationsClose(Vector3 pos1, Vector3 pos2)
-    //{
-    //    float dist = Vector3.Distance(pos1, pos2);
-    //    bool close = false;
-    //    if (dist < 5.0f)
-    //    {
-    //        close = true;
-    //    }
-    //    NUnit.Framework.Assert.IsTrue(close);
-    //}
-    ////Testing for settings manager
-    //[Test]
-    //public void DataCheck()
-    //{
-    //    //Get the current Settings Manager
-    //    SettingsManager tester = this;
-    //    SaveData sd = new SaveData();
-    //    //Chance current data to 5
-    //    currVolume = 5;
-    //    float testVol = 10;
-    //    tester.PopulateSaveData(sd);
-
-    //    //Set the volume through the player prefab process
-    //    PlayerPrefs.SetFloat("masterVolume", currVolume);
-    //    LoadFromSaveData(sd);
-    //    NUnit.Framework.Assert.AreEqual(sd.currVolume, testVol);
-    //}
-
-
-    //[UnityTest]
-    //public IEnumerator LocationsClose(Vector3 pos1, Vector3 pos2)
-    //{
-    //    float dist = Vector3.Distance(pos1, pos2);
-    //    bool close = false;
-
-    //    if (dist < 5.0f)
-    //    {
-    //        close = true;
-    //    }
-
-    //    yield return new WaitForFixedUpdate();
-    //    Assert.IsTrue(close);
-    //}
 
     public void OnButtonPress()
     {

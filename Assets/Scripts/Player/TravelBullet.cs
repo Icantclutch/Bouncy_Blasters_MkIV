@@ -5,11 +5,8 @@ using System.Linq;
 using Mirror;
 using System;
 
-//Bullet that uses a constant raycast
-//Constantly updates path
 public class TravelBullet : RaycastBullet
 {
-    [System.Serializable]
     public class RayInfo
     {
         public RaycastHit rayHit;
@@ -25,8 +22,6 @@ public class TravelBullet : RaycastBullet
 
     //Next direction the bullet should bounce
     protected Vector3 nextDir;
-    //Next direction the bullet should bounce
-    protected Vector3 forcedDir = Vector3.zero;
 
     //For when the bullet needs to stop
     [SyncVar]
@@ -41,11 +36,11 @@ public class TravelBullet : RaycastBullet
     [Server]
     public override void Initialize(List<int> damage, int bounces, float fireSpeed, int playerId)
     {
-        bulletInfos = new List<RayInfo>();
         base.Initialize(damage, bounces, fireSpeed, playerId);
         laserDestroyA = transform.position;
         nextDir = transform.forward;
         laserDestroyB = nextDir * 10000;
+        //Vel(transform.forward, myShot.speed);
     }
 
     [Server]
@@ -69,18 +64,9 @@ public class TravelBullet : RaycastBullet
             {
                 //Calls from bulletInfo that stores a class RayInfo
                 //RayInfo holds the Ray and the Rayhit from the collision
-                //Retrieve the RayInfo
-                RayInfo newHit = bulletInfos[myShot.numBounces];
-                RaycastHit rayHit = newHit.rayHit;
-                Ray rayPass = newHit.rayPass;
-
-                Vector3 reflection = Vector3.Reflect(rayPass.direction, rayHit.normal);
-                Quaternion rot = Quaternion.FromToRotation(Vector3.up, rayHit.normal);
-                Vector3 pos = rayHit.point;
-                Instantiate(bulletCollisionEffect, pos, rot);
-
-                if (newHit.rayHit.transform != null)
+                if (bulletInfos.Count >= 1)
                 {
+<<<<<<< HEAD
                     if (newHit.rayHit.transform != NetworkIdentity.spawned[Convert.ToUInt32(myShot.playerID)].transform || myShot.numBounces > 0)
                     {
                         //If the hit is on a player and floor is active, reduce the bounce count
@@ -109,6 +95,21 @@ public class TravelBullet : RaycastBullet
                     Instantiate(bulletDirtEffect, pos, Quaternion.FromToRotation(Vector3.up, reflection));
                 }
 
+=======
+                    //Retrieve the RayInfo
+                    RayInfo newHit = bulletInfos[0];
+                    RaycastHit rayHit = newHit.rayHit;
+                    Ray rayPass = newHit.rayPass;
+                    bulletInfos.RemoveAt(0);
+
+                    Vector3 reflection = Vector3.Reflect(rayPass.direction, rayHit.normal);
+                    Quaternion rot = Quaternion.FromToRotation(Vector3.up, rayHit.normal);
+                    Vector3 pos = rayHit.point;
+                    Instantiate(bulletCollisionEffect, pos, rot);
+                    Instantiate(bulletDirtEffect, pos, Quaternion.FromToRotation(Vector3.up, reflection));
+                }
+
+>>>>>>> parent of 64a14082 (Merge branch 'main' of https://github.com/Icantclutch/Bouncy_Blasters_MkIV into main)
                 //Disable floor penalty if at the second bounce point
                 if (transform.position == secondBounce)
                 {
@@ -118,11 +119,6 @@ public class TravelBullet : RaycastBullet
                 //Continue if there are still 2 positions
                 if (nextDir != Vector3.zero && myShot.numBounces < myShot.maxBounces)
                 {
-                    if(forcedDir != Vector3.zero)
-                    {
-                        nextDir = forcedDir;
-                        forcedDir = Vector3.zero;
-                    }
                     //Reset lerping
                     laserDestroyA = laserDestroyB;
                     laserDestroyB = Vector3.zero;
@@ -146,7 +142,6 @@ public class TravelBullet : RaycastBullet
     [Server]
     public override void Vel(Vector3 vel, float speed)
     {
-
         bulletSpeed = speed;
 
         //Create ray that transfers through loops and raycasthit
@@ -156,27 +151,17 @@ public class TravelBullet : RaycastBullet
         float rayLength = 100;// - Vector3.Distance(laserDestroyA, transform.position);
 
         //Cast ray
-        bool result = Physics.Raycast(ray, out hit, rayLength, reflectable);
-
-        //Update bulletInfos
-        if (bulletInfos.Count != myShot.numBounces + 1)
-            bulletInfos.Add(new RayInfo(hit, ray));
-        else
-            bulletInfos[myShot.numBounces] = new RayInfo(hit, ray);
-
-        //Check result
-        if (result)
+        if (Physics.Raycast(ray, out hit, rayLength, reflectable))
         {
             if (hit.transform.gameObject.tag == "OverchargeArea")
                 return;
             if (hit.point == laserDestroyB)
                 return;
 
-            //Recalculate the lerp
             destroyLerp = Vector3.Distance(laserDestroyA, transform.position) / Vector3.Distance(laserDestroyA, laserDestroyB);
             destroyLerp = (destroyLerp * Vector3.Distance(laserDestroyA, laserDestroyB)) / Vector3.Distance(laserDestroyA, hit.point);
 
-            //Update laserdetroyb
+            //Add hit point to the list of line points
             laserDestroyB = hit.point;
             //Set second bounce if this is the second bounce
             if (myShot.numBounces == 1)
@@ -187,7 +172,7 @@ public class TravelBullet : RaycastBullet
             {
                 floor = true;
             }
-
+            
 
             //If it hits a NoBounce object, end the bouncing; otherwise, generate the reflection
             nextDir = (hit.transform.CompareTag("NoBounce")) ? Vector3.zero : Vector3.Reflect(ray.direction, hit.normal);
@@ -197,6 +182,35 @@ public class TravelBullet : RaycastBullet
             //If endpoint hasn't been set, set it to 100 away
             laserDestroyB = laserDestroyA + (ray.direction * rayLength);
             nextDir = Vector3.zero;
+
+            //Add effects (shouldn't need since there is no collision)
+            //Rayhits.Add(new RayInfo(hit, ray));
+        }
+    }
+
+    [Server]
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.transform != NetworkIdentity.spawned[Convert.ToUInt32(myShot.playerID)].transform || myShot.numBounces > 0)
+        {
+            //If the hit is on a player and floor is active, reduce the bounce count
+            if (other.transform.CompareTag("Player") && floor)
+            {
+                myShot.numBounces = 0;
+            }
+
+            //Check to see if it hit something
+            if (other.transform.GetComponent<HitInteraction>() && !stopBullet)
+            {
+                //Send hit message
+                other.transform.SendMessage("Hit", myShot, SendMessageOptions.DontRequireReceiver);
+
+                //If its an enemy, break
+                if (other.transform.CompareTag("Player"))
+                {
+                    DestroyBullet();
+                }
+            }
         }
     }
 
@@ -225,10 +239,5 @@ public class TravelBullet : RaycastBullet
     protected void Rpc_DisableParticles()
     {
         GetComponentInChildren<ParticleSystem>().Stop();
-    }
-
-    public void SetNextReflectionDirection(Vector3 nextReflection)
-    {
-        forcedDir = nextReflection;
     }
 }

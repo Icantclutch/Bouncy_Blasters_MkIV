@@ -7,7 +7,6 @@ public class BlasterController : MonoBehaviour
 
     public List<GameObject> blasters;
     public GameObject currentBlaster = null;
-    public int currentBlasterIndex;
 
     [SerializeField]
     private float _shotingEffectTime = 1.5f;
@@ -15,30 +14,24 @@ public class BlasterController : MonoBehaviour
 
     private void Start()
     {
-        int i = 0;
-        //Sets the first active blaster model as the currentBlaster
         foreach (GameObject blaster in blasters)
         {
-            if(currentBlaster != null && currentBlaster != blaster)
+            if(currentBlaster != null)
             {
                 blaster.SetActive(false);
             }
             else if (blaster.activeSelf)
             {
                 currentBlaster = blaster;
-                currentBlasterIndex = i;
             }
-            ++i;
         }
     }
 
     private void Update()
     {
-        //Keep the shooting effect enabled for a set duration
         if(_shootingEffectTimer > 0)
         {
             _shootingEffectTimer -= Time.deltaTime;
-            //Disable the shooting effect after the set duration
             if(_shootingEffectTimer <= 0 && currentBlaster)
             {
                 
@@ -54,9 +47,6 @@ public class BlasterController : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Enables the shooting particle effect and sets the duration it should be active for
-    /// </summary>
     public void StartShootingEffect()
     {
         if(_shootingEffectTimer <= 0)
@@ -78,17 +68,14 @@ public class BlasterController : MonoBehaviour
     /// Swaps weapon model based on game object name
     /// (can be unreliable)
     /// </summary>
-    public bool SwapTo(string blasterName)
+    public bool swapTo(string blasterName)
     {
-        int i = 0;
-        //Loop throught the list of blaster models
         foreach(GameObject blaster in blasters)
         {
             if (blaster.name.Contains(blasterName))
             {
                 if(blaster != currentBlaster)
                 {
-                    //Disable previous blaster model
                     if(currentBlaster != null)
                     {
                         currentBlaster.SetActive(false);
@@ -96,7 +83,6 @@ public class BlasterController : MonoBehaviour
 
                     blaster.SetActive(true);
                     currentBlaster = blaster;
-                    currentBlasterIndex = i;
                     return true;
                 }
                 else
@@ -104,7 +90,6 @@ public class BlasterController : MonoBehaviour
                     return true;
                 }
             }
-            ++i;
         }
 
         return false;
@@ -120,14 +105,13 @@ public class BlasterController : MonoBehaviour
     /// 5: SMG<br/>
     /// </para>
     /// </summary>
-    public bool SwapTo(int blasterIndex)
+    public bool swapTo(int blasterIndex)
     {
         
             if (blasterIndex < blasters.Count && blasterIndex >= 0)
             {
                 if (blasters[blasterIndex] != currentBlaster)
                 {
-                    //Disable previous blaster model
                     if (currentBlaster != null)
                     {
                         currentBlaster.SetActive(false);
@@ -135,7 +119,6 @@ public class BlasterController : MonoBehaviour
 
                     blasters[blasterIndex].SetActive(true);
                     currentBlaster = blasters[blasterIndex];
-                currentBlasterIndex = blasterIndex;
                     return true;
                 }
                 else
@@ -147,5 +130,6 @@ public class BlasterController : MonoBehaviour
 
         return false;
     }
+
 
 }

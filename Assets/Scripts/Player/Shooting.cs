@@ -317,6 +317,7 @@ public class Shooting : NetworkBehaviour
         //Fetch Bullet Prefab from Network Manager
         GameObject bulletPrefab = NetworkManager.singleton.spawnPrefabs.Find(bu => bu.name.Equals(bullet));
         //Summon the bullet
+<<<<<<< HEAD
         //Debug.Log(GetComponent<BlasterController>().currentBlaster);
         Transform barrel = GetComponentInChildren<BlasterController>().currentBlaster.transform.Find("Barrel");
         Ray ray = new Ray(eyes.transform.position, eyes.transform.forward);
@@ -334,16 +335,15 @@ public class Shooting : NetworkBehaviour
             rotation = Quaternion.LookRotation(direction);
         }
         GameObject b = Instantiate(bulletPrefab, barrel.position, rotation);
+=======
+        GameObject b = Instantiate(bulletPrefab, eyes.transform.position, eyes.transform.rotation);
+>>>>>>> parent of 64a14082 (Merge branch 'main' of https://github.com/Icantclutch/Bouncy_Blasters_MkIV into main)
         //Spawn on server
         NetworkServer.Spawn(b);
         //Get the player's id
         int playerID = Convert.ToInt32(GetComponent<NetworkIdentity>().netId);
         //Assign it its properties
         b.GetComponent<Bullet>().Initialize(damage, bounces, fireSpeed, playerID);
-        if (b.GetComponent<TravelBullet>())
-        {
-            b.GetComponent<TravelBullet>().SetNextReflectionDirection(nextReflection);
-        }
         //Play the firing audio
         //GetComponent<AudioSource>().PlayOneShot(fireMode.firingSound, .5f);
         GetComponent<PlayerAudioController>().RpcOnAllClients(soundIndex);
@@ -369,15 +369,7 @@ public class Shooting : NetworkBehaviour
     [ClientRpc]
     void Rpc_UpdateWeaponModel(int index)
     {
-        GetComponentInChildren<BlasterController>().SwapTo(index);
-        if (index == 3)
-        {
-            GetComponent<PlayerAnimationController>().SetUsingPistol(true);
-        }
-        else
-        {
-            GetComponent<PlayerAnimationController>().SetUsingPistol(false);
-        }
+        GetComponentInChildren<BlasterController>().swapTo(index);
     }
     [ClientRpc]
     void Rpc_ShootingEffects()
@@ -431,16 +423,7 @@ public class Shooting : NetworkBehaviour
         {
             playerWeapons[0].weapon = GameObject.FindGameObjectWithTag("Management").GetComponent<LoadoutManager>().loadouts[newWeapon];
             FullReload();
-            int index = playerWeapons[currentWeapon].weapon.modelIndex;
-            GetComponentInChildren<BlasterController>().SwapTo(index);
-            if(index == 3)
-            {
-                GetComponent<PlayerAnimationController>().SetUsingPistol(true);
-            }
-            else
-            {
-                GetComponent<PlayerAnimationController>().SetUsingPistol(false);
-            }
+            GetComponentInChildren<BlasterController>().swapTo(playerWeapons[currentWeapon].weapon.modelIndex);
         }
         
     }

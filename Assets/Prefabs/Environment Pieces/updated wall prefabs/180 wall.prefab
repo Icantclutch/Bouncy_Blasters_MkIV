@@ -25,8 +25,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1714902443188569763}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -0.19, y: 8.9, z: 1.65}
-  m_LocalScale: {x: 1.3660485, y: 1.2296873, z: 2}
+  m_LocalPosition: {x: -0.08, y: 10.13, z: 1.95}
+  m_LocalScale: {x: 1.549186, y: 1.4094, z: 2}
   m_Children: []
   m_Father: {fileID: 851057259732287617}
   m_RootOrder: 3
@@ -107,8 +107,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4729103429617764952}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -0.19, y: 8.9, z: 1.65}
-  m_LocalScale: {x: 1.3660487, y: 1.2296875, z: 2}
+  m_LocalPosition: {x: -0.08, y: 10.13, z: 1.95}
+  m_LocalScale: {x: 1.5491862, y: 1.4094001, z: 2}
   m_Children: []
   m_Father: {fileID: 851057259732287617}
   m_RootOrder: 2
@@ -178,6 +178,19 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 2212009239438826721, guid: c0ca5c588f0042742994573b42a8de78, type: 3}
+--- !u!114 &3645485301234974693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6315947402868157920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 651249f9aea576849a4140351007570d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wallInstance: {fileID: 0}
 --- !u!1 &8407910377278740586
 GameObject:
   m_ObjectHideFlags: 0
@@ -187,8 +200,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 851057259732287617}
-  - component: {fileID: 8474299822304005005}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: 180 wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -213,6 +225,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+<<<<<<< HEAD
 --- !u!114 &8474299822304005005
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -229,6 +242,8 @@ MonoBehaviour:
   normal: {fileID: 4729103429617764952}
   aim: {fileID: 1714902443188569763}
   scriptObject: {fileID: 0}
+=======
+>>>>>>> parent of 64a14082 (Merge branch 'main' of https://github.com/Icantclutch/Bouncy_Blasters_MkIV into main)
 --- !u!1001 &6586419222653227185
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -299,10 +314,6 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 4ca5d026236e8334aa218e1a64d8b871, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: 4ca5d026236e8334aa218e1a64d8b871, type: 3}
-      propertyPath: m_Layer
-      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ca5d026236e8334aa218e1a64d8b871, type: 3}
@@ -378,10 +389,6 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: d49761857cbbaef4282412dd228b189c, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: d49761857cbbaef4282412dd228b189c, type: 3}
-      propertyPath: m_Layer
-      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d49761857cbbaef4282412dd228b189c, type: 3}

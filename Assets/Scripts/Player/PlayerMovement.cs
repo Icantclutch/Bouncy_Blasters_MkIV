@@ -62,7 +62,14 @@ public class PlayerMovement : NetworkBehaviour
 	private float _distToGround;
 
 
-	
+	[SyncVar(hook = nameof(HandleisRunningUpdated))]
+	private bool isRunning = false;
+
+    private void HandleisRunningUpdated(bool oldBool, bool newBool)
+    {
+		isRunning = newBool;
+		GetComponentInChildren<Animator>().SetBool("running", isRunning);
+	}
 
     void Awake()
 	{
@@ -83,7 +90,7 @@ public class PlayerMovement : NetworkBehaviour
 		_sprintSlider.GetComponent<Slider>().maxValue = _maxSprintTime;
 
 		StartingFov = MainCamera.fieldOfView;
-		FovSpeed = 0.3f;
+		FovSpeed = 3;
 	}
 
 	[Client]
@@ -119,11 +126,11 @@ public class PlayerMovement : NetworkBehaviour
                 PlayerJumps();
 
 				//Code for sprint modifier
-				if (Input.GetKey(Keybinds.Sprint) && _sprintTime > 0 && movementDirection != Vector3.zero)
+				if (Input.GetKeyDown(Keybinds.Sprint) && _sprintTime > 0)
 				{
 					EnableSprint();
 				}
-				else if (Input.GetKeyUp(Keybinds.Sprint) || _sprintTime <= 0 || movementDirection == Vector3.zero)
+				else if (Input.GetKeyUp(Keybinds.Sprint) || _sprintTime <= 0)
 				{
 					DisableSprint();
 				}
@@ -132,6 +139,8 @@ public class PlayerMovement : NetworkBehaviour
 			{
 				DisableSprint();
 			}
+
+
 		}
 
 		//Debug control to respawn the player
@@ -197,11 +206,11 @@ public class PlayerMovement : NetworkBehaviour
 
 		if(movementDirection.magnitude > 0.1)
         {
-			GetComponent<PlayerAnimationController>().SetIsRunning(true);
-		}
+			isRunning = true;
+        }
         else
         {
-			GetComponent<PlayerAnimationController>().SetIsRunning(false);
+			isRunning = false;
 		}
 
 		/*
@@ -223,8 +232,9 @@ public class PlayerMovement : NetworkBehaviour
         else 
 		{
 			//Allow for velocity to be uncapped
+
         }
-		GetComponent<PlayerAnimationController>().SetVelocity(rbody.velocity.x, rbody.velocity.z);
+		
 	}
 
 	//A Function that draws a raycast below the player to see if it hits the ground beneath the player
@@ -267,14 +277,12 @@ public class PlayerMovement : NetworkBehaviour
     {
         if (_isSprinting)
         {
-			SprintFov();
 			_sprintTime -= Time.deltaTime;
         }
         else
         {
 			if(_sprintTime < _maxSprintTime)
             {
-				ResetFov();
 				_sprintTime += Time.deltaTime;
             }
         }
@@ -288,7 +296,7 @@ public class PlayerMovement : NetworkBehaviour
 			_isSprinting = !_isSprinting;
 			speed *= sprintModifier;
 			GetComponent<Shooting>().active = false;
-			//SprintFov();
+			SprintFov();
 			_sprintTime -= Time.deltaTime;
 		}
 	}
@@ -299,7 +307,7 @@ public class PlayerMovement : NetworkBehaviour
 		if (_isSprinting)
 		{
 			_isSprinting = !_isSprinting;
-			//ResetFov();
+			ResetFov();
 			speed /= sprintModifier;
 			if(!inRespawnRoom)
 				GetComponent<Shooting>().active = true;
@@ -338,24 +346,14 @@ public class PlayerMovement : NetworkBehaviour
 
 	//call to reset the FOV
 	public void ResetFov()
-	{ 
-		MainCamera.fieldOfView -= FovSpeed;
-		if (MainCamera.fieldOfView <= StartingFov )
-		{
-			MainCamera.fieldOfView = StartingFov;
-
-		}
-	}
+    {
+		MainCamera.fieldOfView = StartingFov;
+    }
 
 	//increase Fov slighly
 	public void SprintFov()
     {
 		MainCamera.fieldOfView += FovSpeed;
-		if(MainCamera.fieldOfView >= StartingFov + 10)
-        {
-			MainCamera.fieldOfView = StartingFov + 10;
-
-		}
     }
 
 }

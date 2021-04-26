@@ -110,15 +110,11 @@ public class GameManagement : NetworkBehaviour
           
         }
 
-        if(isServer && _preMatchTimer >= 0)
+        if(isServer && _preMatchTimer > 0)
         {
             if(_preMatchTimer > _preMatchWaitTime - 0.5)
                 UpdateScoreBoard();
             _preMatchTimer -= Time.deltaTime;
-            if(_preMatchTimer < 0)
-            {
-                _preMatchTimer = -1;
-            }
         }
         
         //If the game is paused, freeze the match timer

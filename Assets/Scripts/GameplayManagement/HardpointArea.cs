@@ -41,7 +41,6 @@ public class HardpointArea : NetworkBehaviour
         }
     }
 
-    //Clear the occupants from the overcharge point as it will be disabled when the point "moves"
     private void OnDisable()
     {
         _occupants.Clear();
@@ -51,7 +50,7 @@ public class HardpointArea : NetworkBehaviour
     {
         
     }
-    //Assigns points to all players in the overcharge point if they are a part of the controlling team
+
     private void AssignPoints()
     {
         if (_occupants != null)
@@ -66,10 +65,11 @@ public class HardpointArea : NetworkBehaviour
                 }
             }
         }
+        
+
     }
 
-    /*Checks to see if the overcharge point is controlled by team 1, 2, or if it is contested/empty as -1.
-     * Team 0 is not used since that used to be the team for Free For All*/
+
     private void CompareAreaController()
     {
         if ((_numTeamAPlayers == 0 && _numTeamBPlayers == 0) || _numTeamAPlayers == _numTeamBPlayers )
@@ -106,6 +106,7 @@ public class HardpointArea : NetworkBehaviour
         }
         
     }
+
     private void OnTriggerExit(Collider other)
     {
         if(other.isTrigger == false)

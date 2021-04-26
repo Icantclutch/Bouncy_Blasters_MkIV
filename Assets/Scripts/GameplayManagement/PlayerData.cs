@@ -130,8 +130,13 @@ public class PlayerData : NetworkBehaviour
 
     public void SpawnPlayer(bool partialSpawn = false, bool prematch = false)
     {
-        if (team >= 0)
+        //transform.Find("Player").gameObject.SetActive(true);
+        KillStreakUpdate();
+        GetComponent<Shooting>().enabled = true;
+        GetComponent<Shooting>().GetNewLoadout();
+        if (!partialSpawn)
         {
+<<<<<<< HEAD
             //transform.Find("Player").gameObject.SetActive(true);
             KillStreakUpdate();
             GetComponent<Shooting>().enabled = true;
@@ -139,27 +144,29 @@ public class PlayerData : NetworkBehaviour
             if (!partialSpawn)
             {
                 GetComponent<Shooting>().active = true;
+=======
+            GetComponent<Shooting>().active = true;
+>>>>>>> parent of 64a14082 (Merge branch 'main' of https://github.com/Icantclutch/Bouncy_Blasters_MkIV into main)
 
-                GetComponent<PlayerMovement>().enabled = true;
-                GetComponent<PlayerReference>().enabled = true;
-            }
-            //GetComponent<MouseLook2>().enabled = true;
-            GetComponent<PlayerHUD>().enabled = true;
-            //Stops the players momentum
-            //Should prevent them from falling through the floor
-            GetComponent<Rigidbody>().velocity = new Vector3(0, 0);
-            /*if (!PlayerSpawnSystem.SpawnPlayer(gameObject, true, true)) 
-            {
-                if (PlayerSpawnSystem.SpawnPlayer(gameObject))
-                {
-                    _spawned = true;
-                }
-            }
-            else
-            {
-                //_spawned = true;
-            }*/
+            GetComponent<PlayerMovement>().enabled = true;
+            GetComponent<PlayerReference>().enabled = true;
         }
+        //GetComponent<MouseLook2>().enabled = true;
+        GetComponent<PlayerHUD>().enabled = true;
+        //Stops the players momentum
+        //Should prevent them from falling through the floor
+        GetComponent<Rigidbody>().velocity = new Vector3(0, 0);
+        /*if (!PlayerSpawnSystem.SpawnPlayer(gameObject, true, true)) 
+        {
+            if (PlayerSpawnSystem.SpawnPlayer(gameObject))
+            {
+                _spawned = true;
+            }
+        }
+        else
+        {
+            //_spawned = true;
+        }*/
         if (!prematch || partialSpawn)
         {
             StartCoroutine(DelaySpawn());
@@ -182,14 +189,8 @@ public class PlayerData : NetworkBehaviour
             {
                 _spawned = true;
             }
-            if (team >= 0)
-            {
-                GetComponent<MouseLook2>().enabled = true;
-            }
-            else
-            {
-                GetComponent<SpectatorMovement>().enabled = true;
-            }
+
+            GetComponent<MouseLook2>().enabled = true;
         }
     }
 

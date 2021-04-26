@@ -37,7 +37,7 @@ public class HardpointManager : NetworkBehaviour
 
     public void InitializeHardPoints()
     {
-        Invoke("Rpc_InitializeHardPoints", 0.5f);
+        Invoke("Rpc_InitializeHardPoints", 2f);
     }
 
     [ClientRpc]

@@ -5,6 +5,7 @@ using UnityEngine;
 public class WallCollisionSetting : MonoBehaviour
 {
     public GameObject wallInstance;
+<<<<<<< HEAD
     public GameObject normal;
     public GameObject aim;
     //public RaycastHit getHit;
@@ -12,9 +13,19 @@ public class WallCollisionSetting : MonoBehaviour
     private RaycastReflection rayScript;
     bool ishit;
     private void Start()
+=======
+    //public Ray myRay;
+    //private RaycastReflection rayScript;
+
+    //GameObject aimRay = GameObject.Find("RaycastReflection");
+
+    
+    void detectCollision(Collider col)
+>>>>>>> parent of 64a14082 (Merge branch 'main' of https://github.com/Icantclutch/Bouncy_Blasters_MkIV into main)
     {
         rayScript = scriptObject.GetComponent<RaycastReflection>();
     }
+<<<<<<< HEAD
 
     private void Update()
     {
@@ -36,4 +47,7 @@ public class WallCollisionSetting : MonoBehaviour
 
 
 
+=======
+    
+>>>>>>> parent of 64a14082 (Merge branch 'main' of https://github.com/Icantclutch/Bouncy_Blasters_MkIV into main)
 }

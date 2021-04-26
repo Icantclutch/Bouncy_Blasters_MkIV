@@ -25,11 +25,6 @@ public class LobbyGameSettings : MonoBehaviour
     private GameObject _OverchargeLabel = null;
 
     [SerializeField]
-    private InputField _TwitchUsername = null;
-    [SerializeField]
-    private InputField _TwitchOauth = null;
-
-    [SerializeField]
     private OnlineLobbyButtons _lobbyButtons = null;
 
     private GameObject _gameManager;
@@ -58,11 +53,7 @@ public class LobbyGameSettings : MonoBehaviour
                 {
                     button.interactable = true;
                 }
-                foreach (InputField Input in GetComponentsInChildren<InputField>())
-                {
-                    Input.interactable = true;
-                }
-                foreach (Dropdown d in GetComponentsInChildren<Dropdown>())
+                foreach(Dropdown d in GetComponentsInChildren<Dropdown>())
                 {
                     d.interactable = true;
                 }
@@ -73,15 +64,6 @@ public class LobbyGameSettings : MonoBehaviour
                 foreach (Button button in GetComponentsInChildren<Button>())
                 {
                     button.interactable = false;
-                }
-                foreach (InputField Input in GetComponentsInChildren<InputField>())
-                {
-                    Input.interactable = false;
-                    //Set placeholder text to "Host | Hidden"
-                    Text PlaceHolderUsername = Input.transform.Find("Placeholder").GetComponent<Text>();
-                    Text PlaceHolderOauth = Input.transform.Find("Placeholder").GetComponent<Text>();
-                    PlaceHolderOauth.text = "Host Only | Hidden";
-                    PlaceHolderUsername.text = "Host Only | Hidden";
                 }
                 foreach (Dropdown d in GetComponentsInChildren<Dropdown>())
                 {
@@ -150,16 +132,6 @@ public class LobbyGameSettings : MonoBehaviour
     public int GetMatchScoreSetting()
     {
         return int.Parse(_maxGameScore.captionText.text);
-    }
-
-    public string GetTwitchUsername()
-    {
-        return _TwitchUsername.text.ToString(); //_TwitchUsername.text;
-    }
-
-    public string GetTwitchOauth()
-    {
-        return _TwitchOauth.text.ToString();
     }
 
     public int GetMatchTimeSetting()
