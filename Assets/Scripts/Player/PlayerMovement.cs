@@ -117,7 +117,7 @@ public class PlayerMovement : NetworkBehaviour
             {
                 //Single Event Physics can be done in update
                 PlayerJumps();
-
+				GetComponent<PlayerAnimationController>().SetFalling(false);
 				//Code for sprint modifier
 				if (Input.GetKey(Keybinds.Sprint) && _sprintTime > 0 && movementDirection != Vector3.zero)
 				{
@@ -127,6 +127,10 @@ public class PlayerMovement : NetworkBehaviour
 				{
 					DisableSprint();
 				}
+			}
+            else
+            {
+				GetComponent<PlayerAnimationController>().SetFalling(true);
 			}
 			if (Input.GetKeyUp(Keybinds.Sprint) || _sprintTime <= 0)
 			{
@@ -195,7 +199,7 @@ public class PlayerMovement : NetworkBehaviour
 		movementDirection = transform.TransformDirection(movementDirection);
 		movementDirection *= speed;
 
-		if(movementDirection.magnitude > 0.1)
+		if(movementDirection.magnitude > 0.1 && grounded)
         {
 			GetComponent<PlayerAnimationController>().SetIsRunning(true);
 		}
@@ -256,7 +260,8 @@ public class PlayerMovement : NetworkBehaviour
 			canJump = false;
 			hasJumped = true;
 			//rbody.AddForce(0, gravity * 0.5f * jumpHeight, 0, ForceMode.Impulse);
-			
+			GetComponent<PlayerAnimationController>().SetJump();
+			GetComponent<PlayerAnimationController>().SetFalling(true);
 			rbody.AddForce(0, CalculateJumpVerticalSpeed(), 0, ForceMode.VelocityChange);
 			//rbody.velocity += new Vector3(0, CalculateJumpVerticalSpeed(), 0);
 		}
@@ -318,6 +323,11 @@ public class PlayerMovement : NetworkBehaviour
     {
 		speed = moveSpeed;
     }
+
+	public void SetGravity(float gravity1)
+	{
+		gravity = gravity1;
+	}
 
 	public void SetJumpHeight(float jump)
     {

@@ -15,7 +15,6 @@ MonoBehaviour:
   name: Marksman Blaster
   ammoCount: 10
   reserveAmmo: 50
-  weaponImg: {fileID: 21300000, guid: 38bc0e4b4028dc24083114f852e214e7, type: 3}
   modeSwapKey: 0
   fireModes:
   - key: 1
@@ -26,6 +25,7 @@ MonoBehaviour:
     fireSpeed: 1
     fireRate: 250
     bulletPrefabName: TravelBullet
-    shotSoundIndex: 2
-    reloadSoundIndex: 5
+    shotSoundIndexMin: 4
+    shotSoundIndexMax: 4
+    reloadSoundIndex: 11
   modelIndex: 2

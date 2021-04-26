@@ -4,36 +4,50 @@ using UnityEngine;
 
 public class WallCollisionSetting : MonoBehaviour
 {
-    public GameObject wallInstance;
-    public GameObject normal;
-    public GameObject aim;
-    //public RaycastHit getHit;
-    public GameObject scriptObject;
-    private RaycastReflection rayScript;
-    bool ishit;
+    [SerializeField]
+    private GameObject wallInstance;
+
+    [SerializeField]
+    private GameObject normalImage;
+
+    [SerializeField]
+    private GameObject aimImage;
+
+    [SerializeField]
+    private bool isHit = false;
+    
+
+
+
+
+   
     private void Start()
     {
-        rayScript = scriptObject.GetComponent<RaycastReflection>();
+        
     }
 
     private void Update()
     {
-        if(rayScript.hit.collider.name == wallInstance.name)
+        if (isHit)
         {
-            if(normal.active == true)
-            {
-                normal.SetActive(false);
-                aim.SetActive(true);
-            }
-            else
-            {
-                Debug.Log("Wall error");
-            }
+            normalImage.SetActive(false);
+            aimImage.SetActive(true);
+            
         }
-
-
+        else
+        {
+            normalImage.SetActive(true);
+            aimImage.SetActive(false);
+           
+        }
+        isHit = false;
     }
 
+    public void ActivateWall()
+    {
+        isHit = true;
+        Debug.Log("Hitting Wall");
+    }
 
 
 }

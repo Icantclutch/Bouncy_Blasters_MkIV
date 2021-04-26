@@ -82,7 +82,8 @@ public class Shooting : NetworkBehaviour
         //Switch held weapon
         if (Input.GetKeyDown(Keybinds.SwapWeapon))
         {
-            Cmd_SwapWeapon();
+            StartCoroutine(StartSwap());
+            //Cmd_SwapWeapon();
         }
 
         //Loop through any existing weapons to tick down cooldowns
@@ -120,11 +121,12 @@ public class Shooting : NetworkBehaviour
                 
                 if(_rechargeHoldTime <= 0 && !currentlyFiring)
                 {
+                    Debug.Log("Recharge");
                     StartCoroutine(Recharge());
                 }
-                else if(_rechargeHoldTime <= 0.5)
+                else if(_rechargeHoldTime <= 0.5 && _rechargeHoldTime > 0)
                 {
-                    //Debug.Log("Disabling Movement");
+                    Debug.Log("Disabling Movement");
                     GetComponent<Rigidbody>().velocity = new Vector3(0, GetComponent<Rigidbody>().velocity.y, 0);
                     myMovement.active = false;
                 }
@@ -239,6 +241,7 @@ public class Shooting : NetworkBehaviour
         //Set firing so you can't shoot while reloading
         currentlyFiring = true;
         _ReloadingFrame.SetActive(true);
+        GetComponentInChildren<Animator>().SetBool("reloading", true);
         Cmd_ServerReload(currentFireMode.reloadSoundIndex);
         yield return new WaitForSeconds(2);
 
@@ -260,6 +263,7 @@ public class Shooting : NetworkBehaviour
         //Disable firing when reloading is done
         currentlyFiring = false;
         _ReloadingFrame.SetActive(false);
+        GetComponentInChildren<Animator>().SetBool("reloading", false);
         yield return null;
     }
 
@@ -277,7 +281,7 @@ public class Shooting : NetworkBehaviour
 
         //Improve once animations are implemented
         //While loop to recharge ammo to max reserves
-        while (playerWeapons[currentWeapon].currentReserve < playerWeapons[currentWeapon].weapon.reserveAmmo && Input.GetKey(Keybinds.Reload))
+        while (playerWeapons[currentWeapon].currentReserve < playerWeapons[currentWeapon].weapon.reserveAmmo)
         {
             playerWeapons[currentWeapon].currentReserve++;
             yield return null;
@@ -301,13 +305,24 @@ public class Shooting : NetworkBehaviour
             
             //Subtract from the ammo
             playerWeapons[currentWeapon].currentAmmo -= currentFireMode.ammoUsedEachShot;
+            int soundIndex = -1;
+            if (currentFireMode.shotSoundIndexMin == currentFireMode.shotSoundIndexMax)
+            {
+                soundIndex = currentFireMode.shotSoundIndexMin;
+            }
+            else
+            {
+                soundIndex = UnityEngine.Random.Range(currentFireMode.shotSoundIndexMin, currentFireMode.shotSoundIndexMax+1);
+            }
+            GetComponentInChildren<Animator>().SetTrigger("shooting");
             //Fire bullet over server
-            Cmd_ServerFireBullet(currentFireMode.bulletPrefabName, currentFireMode.bulletDamage, currentFireMode.maxBounces, currentFireMode.fireSpeed, currentFireMode.shotSoundIndex);
+            Cmd_ServerFireBullet(currentFireMode.bulletPrefabName, currentFireMode.bulletDamage, currentFireMode.maxBounces, currentFireMode.fireSpeed, soundIndex);
             //Wait
             yield return new WaitForSeconds(60 / currentFireMode.fireRate);
         }
         //We are no longer firing
         currentlyFiring = false;
+        GetComponentInChildren<Animator>().ResetTrigger("shooting");
     }
 
     //Server reference for firing bullets
@@ -318,12 +333,12 @@ public class Shooting : NetworkBehaviour
         GameObject bulletPrefab = NetworkManager.singleton.spawnPrefabs.Find(bu => bu.name.Equals(bullet));
         //Summon the bullet
         //Debug.Log(GetComponent<BlasterController>().currentBlaster);
-        Transform barrel = GetComponentInChildren<BlasterController>().currentBlaster.transform.Find("Barrel");
+        Transform barrel = GetComponentInChildren<BlasterController>().currentBlaster.GetComponentInChildren<Barrel>().transform;
         Ray ray = new Ray(eyes.transform.position, eyes.transform.forward);
         RaycastHit hit;
         Quaternion rotation;
         Vector3 nextReflection = Vector3.zero;
-        if (Physics.Raycast(ray, out hit, 100)) {
+        if (Physics.Raycast(ray, out hit, 100, bulletPrefab.GetComponent<RaycastBullet>().reflectable)) {
             Vector3 direction = hit.point - barrel.position;
             rotation = Quaternion.LookRotation(direction);
             nextReflection = (hit.transform.CompareTag("NoBounce")) ? Vector3.zero : Vector3.Reflect(ray.direction, hit.normal);
@@ -350,7 +365,14 @@ public class Shooting : NetworkBehaviour
 
         Rpc_ShootingEffects();
     }
-
+    IEnumerator StartSwap()
+    {
+        GetComponentInChildren<Animator>().SetBool("swapped out", true);
+        yield return new WaitForSeconds(1);
+        Cmd_SwapWeapon();
+        yield return new WaitForSeconds(0.1f);
+        GetComponentInChildren<Animator>().SetBool("swapped out", false);
+    }
     [Command]
     void Cmd_SwapWeapon()
     {

@@ -22,6 +22,9 @@ public class PlayerEffects : NetworkBehaviour
     private GameObject _killFeedPrefab = null;
 
     [SerializeField]
+    private GameObject _textDisplay = null;
+
+    [SerializeField]
     private GameObject _blastedPrefab = null;
 
     [SerializeField]
@@ -99,6 +102,15 @@ public class PlayerEffects : NetworkBehaviour
         Color tempColor = new Color(1, (1f / (DamageDealt / 6)), (1f / (DamageDealt / 6)));
         Clone.GetComponent<Text>().color = tempColor;
         StartCoroutine(MoveObject(Clone, Clone.transform.position + new Vector3(Random.Range(30, 50) + Rot, Random.Range(30, 50) + Rot, 0), 1.5f));
+    }
+
+    [TargetRpc]
+    public void AlertText(string _text)
+    {
+        GameObject Clone = Instantiate(_textDisplay, _canvas.transform);
+        //Set damage text
+        Clone.GetComponent<Text>().text = _text;
+        Destroy(Clone, 7f);
     }
 
 
