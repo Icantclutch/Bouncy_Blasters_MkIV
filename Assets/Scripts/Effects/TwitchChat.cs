@@ -61,6 +61,7 @@ public class TwitchChat : MonoBehaviour
     private float savedSpeed = 0f;
     private float savedJumpHeight = 0f;
     private float savedGravity = 0f;
+    private string[] options = new string[] { "low gravity", "super jump", "speed boost", "max ammo" };
 
     //_gameManager.GetComponentInChildren<GameManagement>().MatchTimer.ToString()
 
@@ -94,14 +95,25 @@ public class TwitchChat : MonoBehaviour
         //KeepConnectionAlive();
     }
 
+    private void PickRandomFromList()
+    {
+        int chosen1 = UnityEngine.Random.Range(0, options.Length);
+        int chosen2 = UnityEngine.Random.Range(0, options.Length);
+        while (chosen2 == chosen1)
+        {
+            chosen2 = UnityEngine.Random.Range(0, options.Length);
+        }
+        Vote1Phrase = options[chosen1];
+        Vote2Phrase = options[chosen2];
+    }
+
     //Creates the vote event
     private void CreateVote()
     {
         if (InVote == false)
         {
             InVote = true;
-            Vote1Phrase = "earthquake";
-            Vote2Phrase = "max ammo";
+            PickRandomFromList();
             twitchChat.text = "Twitch Vote | Type In Chat!";
             twitchChatVote1.text = "'" + Vote1Phrase + "'";
             twitchChatVote2.text = "'" + Vote2Phrase + "'";
