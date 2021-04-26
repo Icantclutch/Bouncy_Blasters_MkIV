@@ -16,6 +16,7 @@ public class SettingsManager : MonoBehaviour, ISaveable
     public AudioMixerGroup SFXMixer;
     public AudioMixer MasterMixer;
     public Slider VolumeSlider;
+    public Slider SFXSlider;
     public Dropdown QualityDrop;
     public Toggle FullscreenToggle;
 
@@ -76,14 +77,15 @@ public class SettingsManager : MonoBehaviour, ISaveable
         {
             SensitiviySlider.value = sensitivity;
         }
-        
-        
 
+
+        //Debug.Log(PlayerPrefs.GetFloat("MusicVolume", currMusicVolume));
         musicMixer.audioMixer.SetFloat("MusicVolume", currMusicVolume);
         VolumeSlider.value = currMusicVolume;
+       // Debug.Log(PlayerPrefs.GetFloat("MusicVolume", currMusicVolume));
 
         SFXMixer.audioMixer.SetFloat("SFXVolume", currSFXVolume);
-        VolumeSlider.value = currSFXVolume;
+        SFXSlider.value = currSFXVolume;
 
 
 
@@ -108,7 +110,6 @@ public class SettingsManager : MonoBehaviour, ISaveable
 
     private void FixedUpdate()
     {
-
         SaveJsonData(this);
     }
 
@@ -128,11 +129,12 @@ public class SettingsManager : MonoBehaviour, ISaveable
 
     }
 
+    
     public void SetSFXVolume(float sfxVolume)
     {
-        VolumeSlider.value = currSFXVolume;
-        currMusicVolume = sfxVolume;
-        musicMixer.audioMixer.SetFloat("SFXVolume", currMusicVolume);
+        SFXSlider.value = currSFXVolume;
+        currSFXVolume = sfxVolume;
+        SFXMixer.audioMixer.SetFloat("SFXVolume", currSFXVolume);
 
     }
 
