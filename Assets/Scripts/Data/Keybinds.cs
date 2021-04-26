@@ -27,6 +27,9 @@ public static class Keybinds
 
 
     //public static KeyCode j = KeyCode.Joystick1Button0;
+<<<<<<< HEAD
+>>>>>>> parent of aa632a1c (progression and controller)
+=======
 >>>>>>> parent of aa632a1c (progression and controller)
 }
 
