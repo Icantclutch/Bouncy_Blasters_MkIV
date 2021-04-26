@@ -22,6 +22,9 @@ public class PlayerEffects : NetworkBehaviour
     private GameObject _killFeedPrefab = null;
 
     [SerializeField]
+    private GameObject _textDisplay = null;
+
+    [SerializeField]
     private GameObject _blastedPrefab = null;
 
     [SerializeField]
@@ -29,6 +32,9 @@ public class PlayerEffects : NetworkBehaviour
 
     private float _growSize = 0.75f;
 
+
+    //Creates a hitmarker.
+    //Run from PlayerHealth and tells client they hit someone
     [TargetRpc]
     public void CreateHitmarker(int DamageDealt)
     {
@@ -51,6 +57,9 @@ public class PlayerEffects : NetworkBehaviour
         StartCoroutine(HitMarkerEffect(Clone, 1, 0, 0.5f));
     }
 
+
+    //Creates the kill marker and adds it to
+    //the function
     [TargetRpc]
     public void CreateKillmarker()
     {
@@ -58,6 +67,8 @@ public class PlayerEffects : NetworkBehaviour
         StartCoroutine(HitMarkerEffect(Clone, 1, 0, 0.5f));
     }
 
+
+    //Creates a death display that starts center of the screen and tweens up
     [TargetRpc]
     public void ShowDeathDisplay()
     {
@@ -67,6 +78,8 @@ public class PlayerEffects : NetworkBehaviour
         StartCoroutine(MoveObject(Clone, Clone.transform.position + new Vector3(0,600,0), TimeToDestroy));
     }
 
+    //Returns a random hint
+    //Can add more before release
     private string ReturnRandomHint()
     {
         string[] Hints = new string[] { 
@@ -76,6 +89,9 @@ public class PlayerEffects : NetworkBehaviour
             "Watch out for crowded areas! Lots of blasters are in play!",};
         return Hints[Random.Range(0, Hints.Length)];
     }
+
+    //Creates a pop up near health bar
+    //Allows players to know how much damage they took
     public void DamageTakenText(int DamageDealt)
     {
         GameObject Clone = Instantiate(_damageTakenText, _canvas.transform);
@@ -86,6 +102,15 @@ public class PlayerEffects : NetworkBehaviour
         Color tempColor = new Color(1, (1f / (DamageDealt / 6)), (1f / (DamageDealt / 6)));
         Clone.GetComponent<Text>().color = tempColor;
         StartCoroutine(MoveObject(Clone, Clone.transform.position + new Vector3(Random.Range(30, 50) + Rot, Random.Range(30, 50) + Rot, 0), 1.5f));
+    }
+
+    [TargetRpc]
+    public void AlertText(string _text)
+    {
+        GameObject Clone = Instantiate(_textDisplay, _canvas.transform);
+        //Set damage text
+        Clone.GetComponent<Text>().text = _text;
+        Destroy(Clone, 7f);
     }
 
 
@@ -112,6 +137,14 @@ public class PlayerEffects : NetworkBehaviour
         Bar.GetComponent<RectTransform>().sizeDelta = new Vector2(Val, 40);
         Destroy(Clone, 10f);
     }
+
+    /// <summary>
+    /// Creates a tween effect that later destroys it after the lerp is complete
+    /// </summary>
+    /// <param name="go"> Game object to move </param>
+    /// <param name="end"> End vector 3 position to go to</param>
+    /// <param name="lerpTime"> Time it takes to lerp (move to point) </param>
+    /// <returns></returns>
     public IEnumerator MoveObject(GameObject go, Vector3 end, float lerpTime)
     {
         float _timeStartedLerping = Time.time;
@@ -134,6 +167,8 @@ public class PlayerEffects : NetworkBehaviour
         Destroy(go);
     }
 
+
+    //Creates a color changing X that is a hitmarker
     public IEnumerator HitMarkerEffect(GameObject go, float start, float end, float lerpTime)
     {
         float _timeStartedLerping = Time.time;

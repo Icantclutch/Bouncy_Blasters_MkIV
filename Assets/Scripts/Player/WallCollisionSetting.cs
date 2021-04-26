@@ -4,49 +4,50 @@ using UnityEngine;
 
 public class WallCollisionSetting : MonoBehaviour
 {
-    public GameObject wallInstance;
-<<<<<<< HEAD
-    public GameObject normal;
-    public GameObject aim;
-    //public RaycastHit getHit;
-    public GameObject scriptObject;
-    private RaycastReflection rayScript;
-    private void Start()
-=======
-    //public Ray myRay;
-    //private RaycastReflection rayScript;
+    [SerializeField]
+    private GameObject wallInstance;
 
-    //GameObject aimRay = GameObject.Find("RaycastReflection");
+    [SerializeField]
+    private GameObject normalImage;
 
+    [SerializeField]
+    private GameObject aimImage;
+
+    [SerializeField]
+    private bool isHit = false;
     
-    void detectCollision(Collider col)
->>>>>>> parent of 64a14082 (Merge branch 'main' of https://github.com/Icantclutch/Bouncy_Blasters_MkIV into main)
+
+
+
+
+   
+    private void Start()
     {
-        rayScript = scriptObject.GetComponent<RaycastReflection>();
+        
     }
-<<<<<<< HEAD
 
     private void Update()
     {
-        if(rayScript.hit.collider.name == wallInstance.name)
+        if (isHit)
         {
-            if(normal.active == true)
-            {
-                normal.SetActive(false);
-                aim.SetActive(true);
-            }
-            else
-            {
-                Debug.Log("Wall error");
-            }
+            normalImage.SetActive(false);
+            aimImage.SetActive(true);
+            
         }
+        else
+        {
+            normalImage.SetActive(true);
+            aimImage.SetActive(false);
+           
+        }
+        isHit = false;
+    }
 
-
+    public void ActivateWall()
+    {
+        isHit = true;
+        Debug.Log("Hitting Wall");
     }
 
 
-
-=======
-    
->>>>>>> parent of 64a14082 (Merge branch 'main' of https://github.com/Icantclutch/Bouncy_Blasters_MkIV into main)
 }

@@ -69,7 +69,7 @@ public class MouseLook2 : NetworkBehaviour
         if (hasAuthority)
         {
             //eyes.gameObject.SetActive(true);
-            for (int i = 0; i < eyes.childCount; i++)
+            for (int i = 0; i < eyes.childCount-1; i++)
             {
                 eyes.GetChild(i).gameObject.SetActive(true);
             }
@@ -108,7 +108,22 @@ public class MouseLook2 : NetworkBehaviour
         {
             pause = !pause;
             GetComponent<Shooting>().active = !pause;
-            Cursor.visible = pause;
+            if (pause)
+            {
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.Confined;
+            }
+            else
+            {
+                Cursor.visible = false;
+                Cursor.lockState = CursorLockMode.Locked;
+            }
+ 
+          
+            if(GameObject.FindGameObjectWithTag("Management").GetComponent<GameManagement>().PreMatchTimer >= 0)
+            {
+                GetComponent<Shooting>().active = false;
+            }
 
             Settings.gameObject.SetActive(pause);
         }

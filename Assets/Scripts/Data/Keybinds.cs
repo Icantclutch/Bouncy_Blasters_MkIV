@@ -18,19 +18,9 @@ public static class Keybinds
     public static KeyCode Crouch = KeyCode.LeftControl; //Left control crouch
     public static KeyCode Sprint = KeyCode.LeftShift;
     public static string Horizontal = "Horizontal"; //Left/Right movement axis
-    public static string Vertical = "Vertical"; //Forward/Bakc movement axis
+    public static string Vertical = "Vertical"; //Forward/Back movement axis
     public static string MouseX = "Mouse X"; //Mouse Horizontal
     public static string MouseY = "Mouse Y"; //Mouse Vertical
-<<<<<<< HEAD
-=======
-
-
-
-    //public static KeyCode j = KeyCode.Joystick1Button0;
-<<<<<<< HEAD
->>>>>>> parent of aa632a1c (progression and controller)
-=======
->>>>>>> parent of aa632a1c (progression and controller)
 }
 
 

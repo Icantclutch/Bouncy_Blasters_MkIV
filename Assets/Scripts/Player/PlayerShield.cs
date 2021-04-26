@@ -8,12 +8,15 @@ public class PlayerShield : HitInteraction
     [SerializeField]
     private float _shieldVisibilityTime = 2f;
     private float _timer = 0;
+
+    //Activate shield mesh and let parent know it has been hit
     public override void Hit(Bullet.Shot shot)
     {
         transform.parent.SendMessage("Hit", shot, SendMessageOptions.DontRequireReceiver);
         Rpc_ShowShield();
     }
 
+    //Activate the shield mesh on all clients
     [ClientRpc]
     public void Rpc_ShowShield()
     {

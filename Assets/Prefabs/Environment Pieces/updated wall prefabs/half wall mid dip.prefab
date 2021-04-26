@@ -9,11 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5462600094150458725}
-<<<<<<< HEAD
+  - component: {fileID: 5192874772223916906}
   m_Layer: 11
-=======
-  m_Layer: 0
->>>>>>> parent of 64a14082 (Merge branch 'main' of https://github.com/Icantclutch/Bouncy_Blasters_MkIV into main)
   m_Name: half wall mid dip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,6 +35,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5192874772223916906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 922405662000965158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 651249f9aea576849a4140351007570d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wallInstance: {fileID: 5943347475419672792}
+  normalImage: {fileID: 8379783107216939183}
+  aimImage: {fileID: 7221777542178694385}
+  isHit: 0
 --- !u!64 &7393441164569444057
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -77,8 +90,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7221777542178694385}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0.06, y: 5.62, z: -0.03}
-  m_LocalScale: {x: 2.19675, y: 1, z: 1}
+  m_LocalPosition: {x: 0.21000001, y: 3.07, z: -0.03}
+  m_LocalScale: {x: 2.3909426, y: 0.71424085, z: 1}
   m_Children: []
   m_Father: {fileID: 5462600094150458725}
   m_RootOrder: 3
@@ -159,8 +172,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8379783107216939183}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0.35, y: 5.62, z: -0.03}
-  m_LocalScale: {x: 2.19675, y: 1, z: 1}
+  m_LocalPosition: {x: 0.5, y: 3.07, z: -0.03}
+  m_LocalScale: {x: 2.3909426, y: 0.71424085, z: 1}
   m_Children: []
   m_Father: {fileID: 5462600094150458725}
   m_RootOrder: 2
@@ -279,6 +292,10 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: ea981e4691bc493489531c8d2796b6a7, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ea981e4691bc493489531c8d2796b6a7, type: 3}
 --- !u!4 &77566029546277992 stripped
@@ -356,6 +373,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 940749cff16a108469e2d4d6d8d60aa5, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 940749cff16a108469e2d4d6d8d60aa5, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 940749cff16a108469e2d4d6d8d60aa5, type: 3}
