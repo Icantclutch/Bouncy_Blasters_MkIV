@@ -65,9 +65,10 @@ public class SettingsManager : MonoBehaviour, ISaveable
 
         LoadJsonData(this);
 
-          currMusicVolume = PlayerPrefs.GetFloat("MusicVolume", currMusicVolume);
-          windowType = PlayerPrefs.GetInt("fullscreen", windowType);
-          videoQuality = PlayerPrefs.GetInt("qualitylevel", videoQuality);
+        currMusicVolume = PlayerPrefs.GetFloat("MusicVolume", currMusicVolume);
+        windowType = PlayerPrefs.GetInt("fullscreen", windowType);
+        videoQuality = PlayerPrefs.GetInt("qualitylevel", videoQuality);
+        currSFXVolume = PlayerPrefs.GetFloat("SFXVolume", currSFXVolume);
 
         if (sensitivity == -100)
         {
@@ -208,6 +209,7 @@ public class SettingsManager : MonoBehaviour, ISaveable
         PlayerPrefs.SetFloat("MusicVolume", currMusicVolume);
         PlayerPrefs.SetInt("fullscreen", windowType);
         PlayerPrefs.SetInt("qualitylevel", videoQuality);
+        PlayerPrefs.SetFloat("SFXVolume", currSFXVolume);
         StaticClass.CrossSceneInformation = "Title Screen";
         SceneManager.LoadScene("Loading Screen");
     }
@@ -241,6 +243,7 @@ public class SettingsManager : MonoBehaviour, ISaveable
         a_SaveData.windowType = windowType;
         a_SaveData.currMusicVolume = currMusicVolume;
         a_SaveData.sensitivity = sensitivity;
+        a_SaveData.currSFXVolume = currSFXVolume;
     }
 
     public void LoadFromSaveData(SaveData a_SaveData)
@@ -249,5 +252,6 @@ public class SettingsManager : MonoBehaviour, ISaveable
         windowType = a_SaveData.windowType;
         currMusicVolume = a_SaveData.currMusicVolume;
         sensitivity = a_SaveData.sensitivity;
+        currSFXVolume = a_SaveData.currSFXVolume;
     }
 }
