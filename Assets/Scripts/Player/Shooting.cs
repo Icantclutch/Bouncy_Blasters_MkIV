@@ -82,7 +82,8 @@ public class Shooting : NetworkBehaviour
         //Switch held weapon
         if (Input.GetKeyDown(Keybinds.SwapWeapon))
         {
-            Cmd_SwapWeapon();
+            StartCoroutine(StartSwap());
+            //Cmd_SwapWeapon();
         }
 
         //Loop through any existing weapons to tick down cooldowns
@@ -313,7 +314,7 @@ public class Shooting : NetworkBehaviour
             {
                 soundIndex = UnityEngine.Random.Range(currentFireMode.shotSoundIndexMin, currentFireMode.shotSoundIndexMax+1);
             }
-
+            GetComponentInChildren<Animator>().SetTrigger("shooting");
             //Fire bullet over server
             Cmd_ServerFireBullet(currentFireMode.bulletPrefabName, currentFireMode.bulletDamage, currentFireMode.maxBounces, currentFireMode.fireSpeed, soundIndex);
             //Wait
@@ -321,6 +322,7 @@ public class Shooting : NetworkBehaviour
         }
         //We are no longer firing
         currentlyFiring = false;
+        GetComponentInChildren<Animator>().ResetTrigger("shooting");
     }
 
     //Server reference for firing bullets
@@ -363,7 +365,14 @@ public class Shooting : NetworkBehaviour
 
         Rpc_ShootingEffects();
     }
-
+    IEnumerator StartSwap()
+    {
+        GetComponentInChildren<Animator>().SetBool("swapped out", true);
+        yield return new WaitForSeconds(1);
+        Cmd_SwapWeapon();
+        yield return new WaitForSeconds(0.1f);
+        GetComponentInChildren<Animator>().SetBool("swapped out", false);
+    }
     [Command]
     void Cmd_SwapWeapon()
     {
