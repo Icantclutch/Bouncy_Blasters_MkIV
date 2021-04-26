@@ -8,7 +8,6 @@ public class LoadoutWeaponButton : MonoBehaviour
     public Weapon wep;
 
     private GameObject[] _statBars;
-    private Text _ToChange;
     List<int> stats;
 
    
@@ -25,12 +24,11 @@ public class LoadoutWeaponButton : MonoBehaviour
 
     }
 
-    public void SetupButton(Text _txtObj)
+    public void SetupButton()
     {
-        _ToChange = _txtObj;
         GetComponent<Button>().onClick.AddListener(SetStats);
-        //GetComponentInChildren<Text>().text = wep.name;
-
+        GetComponentInChildren<Text>().text = wep.name;
+     
         stats = new List<int>(5);
         //Initializing the stats List
         stats.Add(0);stats.Add(0);stats.Add(0);stats.Add(0);stats.Add(0);
@@ -53,7 +51,6 @@ public class LoadoutWeaponButton : MonoBehaviour
 
         //number of Ricochets
         stats[4] = (ricochets - 1);
-        _ToChange.text = wep.name;
 
         //Debug.Log("Press button");
 

@@ -21,8 +21,6 @@ public class LoadoutMenuButtons : MonoBehaviour
     [SerializeField]
     private List<Sprite> _weaponIcons = null;
 
-    public Text _toPassText;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -48,12 +46,13 @@ public class LoadoutMenuButtons : MonoBehaviour
             Button b = Instantiate(_weaponButtonPrefab, gameObject.transform);
             b.GetComponent<LoadoutWeaponButton>().wep = _weaponList[i];
             b.GetComponent<Button>().image.sprite = _weaponIcons[i];
-            b.GetComponent<LoadoutWeaponButton>().SetupButton(_toPassText);
+            b.GetComponent<LoadoutWeaponButton>().SetupButton();
         }
     }
 
     public void UpdateLoadoutStats(List<int> stats)
     {
+  
         for(int i = 0; i < stats.Count; i++)
         {
             _statSliderList[i].value = stats[i];
