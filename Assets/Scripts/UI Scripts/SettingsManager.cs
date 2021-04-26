@@ -4,12 +4,16 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
+//using UnityEngine.Assertions;
+//using NUnit.Framework;
+using UnityEngine.SocialPlatforms;
 
 [System.Serializable]
 public class SettingsManager : MonoBehaviour, ISaveable
 {
 
-    public AudioMixer masterMixer;
+    public AudioMixerGroup musicMixer;
+    public AudioMixerGroup SFXMixer;
     public Slider VolumeSlider;
     public Dropdown QualityDrop;
     public Toggle FullscreenToggle;
@@ -17,7 +21,8 @@ public class SettingsManager : MonoBehaviour, ISaveable
     public Slider SensitiviySlider;
 
     private int videoQuality;
-    private float currVolume;
+    private float currMusicVolume;
+    private float currSFXVolume;
     private int windowType;
     private float sensitivity;
 
@@ -58,7 +63,7 @@ public class SettingsManager : MonoBehaviour, ISaveable
 
         LoadJsonData(this);
 
-          currVolume = PlayerPrefs.GetFloat("masterVolume", currVolume);
+          currMusicVolume = PlayerPrefs.GetFloat("MusicVolume", currMusicVolume);
           windowType = PlayerPrefs.GetInt("fullscreen", windowType);
           videoQuality = PlayerPrefs.GetInt("qualitylevel", videoQuality);
 
@@ -73,11 +78,14 @@ public class SettingsManager : MonoBehaviour, ISaveable
         
         
 
-        masterMixer.SetFloat("MasterVolume", currVolume);
-        VolumeSlider.value = currVolume;
-       
+        musicMixer.audioMixer.SetFloat("MusicVolume", currMusicVolume);
+        VolumeSlider.value = currMusicVolume;
 
-       
+        SFXMixer.audioMixer.SetFloat("SFXVolume", currMusicVolume);
+        VolumeSlider.value = currSFXVolume;
+
+
+
 
         QualitySettings.SetQualityLevel(videoQuality);
         QualityDrop.value = videoQuality;
@@ -101,7 +109,6 @@ public class SettingsManager : MonoBehaviour, ISaveable
     {
 
         SaveJsonData(this);
-
     }
 
 
@@ -112,11 +119,19 @@ public class SettingsManager : MonoBehaviour, ISaveable
         //opacitySlider.value = currSlider;
     }
 
-    public void SetMasterVolume (float masterVolume)
+    public void SetMusicVolume (float musicVolume)
     {
-        VolumeSlider.value = currVolume;
-        currVolume = masterVolume;
-        masterMixer.SetFloat("MasterVolume", currVolume);
+        VolumeSlider.value = currMusicVolume;
+        currMusicVolume = musicVolume;
+        musicMixer.audioMixer.SetFloat("MusicVolume", currMusicVolume);
+
+    }
+
+    public void SetSFXVolume(float sfxVolume)
+    {
+        VolumeSlider.value = currSFXVolume;
+        currMusicVolume = sfxVolume;
+        musicMixer.audioMixer.SetFloat("SFXVolume", currMusicVolume);
 
     }
 
@@ -124,7 +139,6 @@ public class SettingsManager : MonoBehaviour, ISaveable
     {
         videoQuality = quality;
         QualitySettings.SetQualityLevel(videoQuality);
-
     }
 
     public void WindowMode(bool isFullscreen)
@@ -140,13 +154,59 @@ public class SettingsManager : MonoBehaviour, ISaveable
         }
     }
 
+    //[Test]
+    //public void LocationsClose(Vector3 pos1, Vector3 pos2)
+    //{
+    //    float dist = Vector3.Distance(pos1, pos2);
+    //    bool close = false;
+    //    if (dist < 5.0f)
+    //    {
+    //        close = true;
+    //    }
+    //    NUnit.Framework.Assert.IsTrue(close);
+    //}
+    ////Testing for settings manager
+    //[Test]
+    //public void DataCheck()
+    //{
+    //    //Get the current Settings Manager
+    //    SettingsManager tester = this;
+    //    SaveData sd = new SaveData();
+    //    //Chance current data to 5
+    //    currVolume = 5;
+    //    float testVol = 10;
+    //    tester.PopulateSaveData(sd);
+
+    //    //Set the volume through the player prefab process
+    //    PlayerPrefs.SetFloat("masterVolume", currVolume);
+    //    LoadFromSaveData(sd);
+    //    NUnit.Framework.Assert.AreEqual(sd.currVolume, testVol);
+    //}
+
+
+    //[UnityTest]
+    //public IEnumerator LocationsClose(Vector3 pos1, Vector3 pos2)
+    //{
+    //    float dist = Vector3.Distance(pos1, pos2);
+    //    bool close = false;
+
+    //    if (dist < 5.0f)
+    //    {
+    //        close = true;
+    //    }
+
+    //    yield return new WaitForFixedUpdate();
+    //    Assert.IsTrue(close);
+    //}
+
     public void OnButtonPress()
     {
         SaveJsonData(this);
-        PlayerPrefs.SetFloat("masterVolume", currVolume);
+        PlayerPrefs.SetFloat("MusicVolume", currMusicVolume);
         PlayerPrefs.SetInt("fullscreen", windowType);
         PlayerPrefs.SetInt("qualitylevel", videoQuality);
-        SceneManager.LoadScene("Title Screen");
+        StaticClass.CrossSceneInformation = "Title Screen";
+        SceneManager.LoadScene("Loading Screen");
     }
 
 
@@ -169,7 +229,6 @@ public class SettingsManager : MonoBehaviour, ISaveable
             sd.LoadFromJson(json);
 
             a_settingManager.LoadFromSaveData(sd);
-            Debug.Log("Load Complete");
         }
     }
 
@@ -177,7 +236,7 @@ public class SettingsManager : MonoBehaviour, ISaveable
     {
         a_SaveData.videoQuality = videoQuality;
         a_SaveData.windowType = windowType;
-        a_SaveData.currVolume = currVolume;
+        a_SaveData.currMusicVolume = currMusicVolume;
         a_SaveData.sensitivity = sensitivity;
     }
 
@@ -185,7 +244,7 @@ public class SettingsManager : MonoBehaviour, ISaveable
     {
         videoQuality = a_SaveData.videoQuality;
         windowType = a_SaveData.windowType;
-        currVolume = a_SaveData.currVolume;
+        currMusicVolume = a_SaveData.currMusicVolume;
         sensitivity = a_SaveData.sensitivity;
     }
 }

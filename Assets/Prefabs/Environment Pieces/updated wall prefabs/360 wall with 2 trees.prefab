@@ -25,8 +25,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 782897593846690681}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0.01, y: 16.65, z: 0.04}
-  m_LocalScale: {x: 0.70071894, y: 0.6722336, z: 1}
+  m_LocalPosition: {x: 0.01, y: 7.7899985, z: 0.04}
+  m_LocalScale: {x: 0.665704, y: 0.6275771, z: 1}
   m_Children: []
   m_Father: {fileID: 3350737596505581824}
   m_RootOrder: 6
@@ -105,7 +105,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3350737596505581824}
-  m_Layer: 0
+  - component: {fileID: 3564156173389409535}
+  m_Layer: 11
   m_Name: 360 wall with 2 trees
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -133,6 +134,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3564156173389409535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6609397086355810166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 651249f9aea576849a4140351007570d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wallInstance: {fileID: 7961139133513141344}
+  normalImage: {fileID: 7772619297320148199}
+  aimImage: {fileID: 782897593846690681}
+  isHit: 0
 --- !u!64 &4978603361569554985
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -172,8 +189,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7772619297320148199}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0.01, y: 16.650002, z: 0.04}
-  m_LocalScale: {x: 0.70071894, y: 0.6722336, z: 1}
+  m_LocalPosition: {x: 0.01, y: 7.79, z: 0.04}
+  m_LocalScale: {x: 0.665704, y: 0.6275771, z: 1}
   m_Children: []
   m_Father: {fileID: 3350737596505581824}
   m_RootOrder: 5
@@ -253,7 +270,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7097433549932135701}
   - component: {fileID: 5268899160809236122}
-  m_Layer: 2
+  m_Layer: 12
   m_Name: Sphere
   m_TagString: NoBounce
   m_Icon: {fileID: 0}
@@ -386,6 +403,10 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 14c8f8bc594a1254086e3a73a1a226cc, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 14c8f8bc594a1254086e3a73a1a226cc, type: 3}
 --- !u!1 &5119445529040126503 stripped
@@ -456,6 +477,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 74caa558631f1c44e91cc0333b4ca4e8, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 74caa558631f1c44e91cc0333b4ca4e8, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 74caa558631f1c44e91cc0333b4ca4e8, type: 3}
@@ -563,6 +588,10 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 14c8f8bc594a1254086e3a73a1a226cc, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 14c8f8bc594a1254086e3a73a1a226cc, type: 3}
 --- !u!1 &6633837116838246464 stripped
@@ -649,6 +678,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: dd33048f011bc7e438517e188596c1fd, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: dd33048f011bc7e438517e188596c1fd, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd33048f011bc7e438517e188596c1fd, type: 3}

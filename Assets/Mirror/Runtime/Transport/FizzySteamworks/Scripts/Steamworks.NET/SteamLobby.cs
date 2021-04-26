@@ -104,6 +104,7 @@ public class SteamLobby : MonoBehaviour
 
     public void ExitLobby()
     {
+        UnityEngine.Debug.Log("Leaving Steam Lobby:"+ lobbyId);
         SteamMatchmaking.LeaveLobby(lobbyId);
     }
 
@@ -216,6 +217,7 @@ public class SteamLobby : MonoBehaviour
         //Get the lobby host's Steam ID
         //UnityEngine.Debug.Log(HostAddressKey);
         string hostAddress = SteamMatchmaking.GetLobbyData(new CSteamID(callback.m_ulSteamIDLobby), HostAddressKey);
+        lobbyId = new CSteamID(callback.m_ulSteamIDLobby);
         //UnityEngine.Debug.Log(callback.m_ulSteamIDLobby);
         //UnityEngine.Debug.Log(hostAddress);
 
@@ -275,6 +277,8 @@ public class SteamLobby : MonoBehaviour
 
         
     }
+
+    //Displays found lobbies to the lobby browser
     void DisplayLobbies()
     {
         ClearLobbyBrowser();

@@ -8,19 +8,25 @@ using Mirror;
 [RequireComponent(typeof(NetworkIdentity))]
 public class MovingWall : NetworkBehaviour
 {
+    //Clock used to track cycles
     [SyncVar]
     public float clock;
     [SyncVar]
     public float SpeedMultiplier;
 
+    //The curve representing the y-axis movement of the wall
     public AnimationCurve MovementCycle;
 
+    //THe value on the curve the wall starts at, in a range of 0-1
     [SyncVar, Range(0,1)]
     public float startValue = 0f;
+    //Recorded starting position
     [SyncVar]
     Vector3 startPos;
+    //The relative position when fully up (typically Vector3.zero)
     [SyncVar]
     public Vector3 fullyUp;
+    //The relative position when fully down
     [SyncVar]
     public Vector3 fullyDown;
 
