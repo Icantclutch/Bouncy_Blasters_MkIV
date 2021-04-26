@@ -14,6 +14,7 @@ public class SettingsManager : MonoBehaviour, ISaveable
 
     public AudioMixerGroup musicMixer;
     public AudioMixerGroup SFXMixer;
+    public AudioMixer MasterMixer;
     public Slider VolumeSlider;
     public Dropdown QualityDrop;
     public Toggle FullscreenToggle;
@@ -81,7 +82,7 @@ public class SettingsManager : MonoBehaviour, ISaveable
         musicMixer.audioMixer.SetFloat("MusicVolume", currMusicVolume);
         VolumeSlider.value = currMusicVolume;
 
-        SFXMixer.audioMixer.SetFloat("SFXVolume", currMusicVolume);
+        SFXMixer.audioMixer.SetFloat("SFXVolume", currSFXVolume);
         VolumeSlider.value = currSFXVolume;
 
 
