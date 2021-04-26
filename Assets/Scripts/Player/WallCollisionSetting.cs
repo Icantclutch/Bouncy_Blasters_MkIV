@@ -11,7 +11,6 @@ public class WallCollisionSetting : MonoBehaviour
     //public RaycastHit getHit;
     public GameObject scriptObject;
     private RaycastReflection rayScript;
-    bool ishit;
     private void Start()
 =======
     //public Ray myRay;
