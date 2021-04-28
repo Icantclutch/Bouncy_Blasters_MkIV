@@ -108,6 +108,7 @@ public class PlayerData : NetworkBehaviour
     [TargetRpc]
     public void RpcSpawnPlayer(bool partialSpawn, bool prematch)
     {
+        GetComponent<PlayerEffects>().LoadingScreen(false);
         //transform.Find("Player").gameObject.SetActive(true);
         PlayerInfoDisplay.SetLocalPlayerTeam(team);
 
