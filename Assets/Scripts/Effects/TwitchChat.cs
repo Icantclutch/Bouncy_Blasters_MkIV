@@ -94,14 +94,28 @@ public class TwitchChat : MonoBehaviour
         //KeepConnectionAlive();
     }
 
+    private void SetRandomVoteOptions()
+    {
+        List<string> optionList = new List<string>();
+        optionList.Add("max ammo"); optionList.Add("speed boost"); optionList.Add("low gravity"); optionList.Add("super jump");
+        // fill them
+        int random1 = UnityEngine.Random.Range(0, optionList.Count);
+        int random2 = UnityEngine.Random.Range(0, optionList.Count);
+        while (random1 == random2)
+        {
+            random2 = UnityEngine.Random.Range(0, optionList.Count);
+        }
+        Vote1Phrase = optionList[random1];
+        Vote2Phrase = optionList[random2];
+    }
+
     //Creates the vote event
     private void CreateVote()
     {
         if (InVote == false)
         {
             InVote = true;
-            Vote1Phrase = "earthquake";
-            Vote2Phrase = "max ammo";
+            SetRandomVoteOptions();
             twitchChat.text = "Twitch Vote | Type In Chat!";
             twitchChatVote1.text = "'" + Vote1Phrase + "'";
             twitchChatVote2.text = "'" + Vote2Phrase + "'";
@@ -113,7 +127,6 @@ public class TwitchChat : MonoBehaviour
     {
         if (winningEvent == "earthquake")
         {
-            print("EARTHQUAKE BEING GIVEN");
             foreach (PlayerData Data in _lobbyManager.players)
             {
                 //Data.GetComponent<Shooting>().Rpc_FullReload();
@@ -122,7 +135,6 @@ public class TwitchChat : MonoBehaviour
         }
         else if (winningEvent == "max ammo")
         {
-            print("MAX AMMO BEING GIVEN");
             foreach (PlayerData Data in _lobbyManager.players)
             {
                 Data.GetComponent<Shooting>().Rpc_FullReload();
@@ -131,7 +143,6 @@ public class TwitchChat : MonoBehaviour
         }
         else if (winningEvent == "speed boost")
         {
-            print("SPEED BOOST BEING GIVEN");
             foreach (PlayerData Data in _lobbyManager.players)
             {
                 var temp = Data.GetComponent<PlayerMovement>();
@@ -142,7 +153,6 @@ public class TwitchChat : MonoBehaviour
         }
         else if (winningEvent == "super jump")
         {
-            print("SUPER JUMP BEING GIVEN");
             foreach (PlayerData Data in _lobbyManager.players)
             {
                 var temp = Data.GetComponent<PlayerMovement>();
@@ -153,7 +163,6 @@ public class TwitchChat : MonoBehaviour
         }
         else if (winningEvent == "low gravity")
         {
-            print("LOW GRAVITY BEING GIVEN");
             foreach (PlayerData Data in _lobbyManager.players)
             {
                 var temp = Data.GetComponent<PlayerMovement>();
