@@ -14,9 +14,7 @@ public class SettingsManager : MonoBehaviour, ISaveable
 
     public AudioMixerGroup musicMixer;
     public AudioMixerGroup SFXMixer;
-    public AudioMixer MasterMixer;
     public Slider VolumeSlider;
-    public Slider SFXSlider;
     public Dropdown QualityDrop;
     public Toggle FullscreenToggle;
 
@@ -65,10 +63,9 @@ public class SettingsManager : MonoBehaviour, ISaveable
 
         LoadJsonData(this);
 
-        currMusicVolume = PlayerPrefs.GetFloat("MusicVolume", currMusicVolume);
-        windowType = PlayerPrefs.GetInt("fullscreen", windowType);
-        videoQuality = PlayerPrefs.GetInt("qualitylevel", videoQuality);
-        currSFXVolume = PlayerPrefs.GetFloat("SFXVolume", currSFXVolume);
+          currMusicVolume = PlayerPrefs.GetFloat("MusicVolume", currMusicVolume);
+          windowType = PlayerPrefs.GetInt("fullscreen", windowType);
+          videoQuality = PlayerPrefs.GetInt("qualitylevel", videoQuality);
 
         if (sensitivity == -100)
         {
@@ -78,15 +75,14 @@ public class SettingsManager : MonoBehaviour, ISaveable
         {
             SensitiviySlider.value = sensitivity;
         }
+        
+        
 
-
-        //Debug.Log(PlayerPrefs.GetFloat("MusicVolume", currMusicVolume));
         musicMixer.audioMixer.SetFloat("MusicVolume", currMusicVolume);
         VolumeSlider.value = currMusicVolume;
-       // Debug.Log(PlayerPrefs.GetFloat("MusicVolume", currMusicVolume));
 
-        SFXMixer.audioMixer.SetFloat("SFXVolume", currSFXVolume);
-        SFXSlider.value = currSFXVolume;
+        SFXMixer.audioMixer.SetFloat("SFXVolume", currMusicVolume);
+        VolumeSlider.value = currSFXVolume;
 
 
 
@@ -111,6 +107,7 @@ public class SettingsManager : MonoBehaviour, ISaveable
 
     private void FixedUpdate()
     {
+
         SaveJsonData(this);
     }
 
@@ -130,12 +127,11 @@ public class SettingsManager : MonoBehaviour, ISaveable
 
     }
 
-    
     public void SetSFXVolume(float sfxVolume)
     {
-        SFXSlider.value = currSFXVolume;
-        currSFXVolume = sfxVolume;
-        SFXMixer.audioMixer.SetFloat("SFXVolume", currSFXVolume);
+        VolumeSlider.value = currSFXVolume;
+        currMusicVolume = sfxVolume;
+        musicMixer.audioMixer.SetFloat("SFXVolume", currMusicVolume);
 
     }
 
@@ -209,9 +205,11 @@ public class SettingsManager : MonoBehaviour, ISaveable
         PlayerPrefs.SetFloat("MusicVolume", currMusicVolume);
         PlayerPrefs.SetInt("fullscreen", windowType);
         PlayerPrefs.SetInt("qualitylevel", videoQuality);
-        PlayerPrefs.SetFloat("SFXVolume", currSFXVolume);
-        StaticClass.CrossSceneInformation = "Title Screen";
-        SceneManager.LoadScene("Loading Screen");
+       // StaticClass.CrossSceneInformation = "Title Screen";
+        SceneManager.LoadScene("Title Screen");
+
+        //StaticClass.CrossSceneInformation = "Title Screen";
+        //SceneManager.LoadScene("Loading Screen");
     }
 
 
@@ -243,7 +241,6 @@ public class SettingsManager : MonoBehaviour, ISaveable
         a_SaveData.windowType = windowType;
         a_SaveData.currMusicVolume = currMusicVolume;
         a_SaveData.sensitivity = sensitivity;
-        a_SaveData.currSFXVolume = currSFXVolume;
     }
 
     public void LoadFromSaveData(SaveData a_SaveData)
@@ -252,6 +249,5 @@ public class SettingsManager : MonoBehaviour, ISaveable
         windowType = a_SaveData.windowType;
         currMusicVolume = a_SaveData.currMusicVolume;
         sensitivity = a_SaveData.sensitivity;
-        currSFXVolume = a_SaveData.currSFXVolume;
     }
 }
