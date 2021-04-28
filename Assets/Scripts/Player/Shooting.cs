@@ -418,7 +418,7 @@ public class Shooting : NetworkBehaviour
         switch (key)
         {
             case Weapon.FireKey.PrimaryFire: //Primary fire key
-                return Input.GetKeyDown(Keybinds.PrimaryFire);
+                return Keybinds.PrimaryFire(false);
             case Weapon.FireKey.SecondaryFire: //Secondary fire key
                 return Input.GetKeyDown(Keybinds.SecondaryFire);
             case Weapon.FireKey.GrenadeFire: //Grenade fire key
@@ -435,7 +435,7 @@ public class Shooting : NetworkBehaviour
         switch (key)
         {
             case Weapon.FireKey.PrimaryFire: //Primary fire key
-                return Input.GetKey(Keybinds.PrimaryFire);
+                return Keybinds.PrimaryFire(true);
             case Weapon.FireKey.SecondaryFire: //Secondary fire key
                 return Input.GetKey(Keybinds.SecondaryFire);
             case Weapon.FireKey.GrenadeFire: //Grenade fire key
