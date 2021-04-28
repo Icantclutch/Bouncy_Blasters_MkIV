@@ -26,6 +26,7 @@ public class PlayerAnimationController : NetworkBehaviour
     }
 
     //Sets the target velocity that the animation blend tree will use
+    [Command]
     public void SetVelocity(float x, float y)
     {
         _targetXVel = x;
