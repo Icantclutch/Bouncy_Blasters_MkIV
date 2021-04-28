@@ -36,12 +36,14 @@ public class PlayerAnimationController : NetworkBehaviour
     [SyncVar(hook = nameof(UsingPistolUpdated))]
     private bool _usingPistol = false;
 
+    
     private void UsingPistolUpdated(bool oldBool, bool newBool)
     {
         _usingPistol = newBool;
         GetComponentInChildren<Animator>().SetBool("pistol", _usingPistol);
     }
 
+    [Command]
     public void SetUsingPistol(bool newBool)
     {
         _usingPistol = newBool;
@@ -54,7 +56,7 @@ public class PlayerAnimationController : NetworkBehaviour
         _falling = newBool;
         GetComponentInChildren<Animator>().SetBool("falling", _falling);
     }
-
+    [Command]
     public void SetFalling(bool newBool)
     {
         _falling = newBool;
@@ -79,7 +81,7 @@ public class PlayerAnimationController : NetworkBehaviour
         }
         
     }
-
+    [Command]
     public void SetIsRunning(bool isRun)
     {
         isRunning = isRun;
