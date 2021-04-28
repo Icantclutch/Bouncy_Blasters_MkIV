@@ -55,6 +55,8 @@ public class Shooting : NetworkBehaviour
     [SerializeField]
     private GameObject _ReloadingFrame;
 
+    private LayerMask _reflectable;
+
     private void Start()
     {
         myReference = GetComponent<PlayerReference>();
@@ -338,7 +340,11 @@ public class Shooting : NetworkBehaviour
         RaycastHit hit;
         Quaternion rotation;
         Vector3 nextReflection = Vector3.zero;
-        if (Physics.Raycast(ray, out hit, 100, bulletPrefab.GetComponent<RaycastBullet>().reflectable)) {
+        if (bulletPrefab.GetComponent<RaycastBullet>())
+        {
+            _reflectable = bulletPrefab.GetComponent<RaycastBullet>().reflectable;
+        }
+        if (Physics.Raycast(ray, out hit, 100, _reflectable)) {
             Vector3 direction = hit.point - barrel.position;
             rotation = Quaternion.LookRotation(direction);
             nextReflection = (hit.transform.CompareTag("NoBounce")) ? Vector3.zero : Vector3.Reflect(ray.direction, hit.normal);

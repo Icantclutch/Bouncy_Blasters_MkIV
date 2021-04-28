@@ -63,6 +63,8 @@ public class MouseLook2 : NetworkBehaviour
             eyes.GetChild(i).gameObject.SetActive(false);
         }
         UI.SetActive(false);
+        Settings.gameObject.SetActive(false);
+        
     }
     public void OnEnable()
     {
@@ -74,6 +76,9 @@ public class MouseLook2 : NetworkBehaviour
                 eyes.GetChild(i).gameObject.SetActive(true);
             }
             UI.SetActive(true);
+            Settings.gameObject.SetActive(true);
+            pause = true;
+            GetComponent<Shooting>().active = !pause;
         }
         
     }
