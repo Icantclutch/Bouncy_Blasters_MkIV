@@ -79,6 +79,8 @@ public class MouseLook2 : NetworkBehaviour
             Settings.gameObject.SetActive(true);
             pause = true;
             GetComponent<Shooting>().active = !pause;
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.Confined;
         }
         
     }
@@ -107,6 +109,7 @@ public class MouseLook2 : NetworkBehaviour
         else
         {
             Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
 
         if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P))
