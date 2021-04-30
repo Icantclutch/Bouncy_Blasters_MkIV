@@ -57,7 +57,7 @@ public class SteamLobby : MonoBehaviour
 
     private bool lobbyFound = false;
 
-    
+    public bool joinInprogress = false;
 
     private void Start()
     {
@@ -238,7 +238,7 @@ public class SteamLobby : MonoBehaviour
         for (int i = 0; i < pCallback.m_nLobbiesMatching; ++i)
         {
             //Make sure lobby is for bouncy blasters
-            if (SteamMatchmaking.GetLobbyData(SteamMatchmaking.GetLobbyByIndex(i), GameKey) == GameName)
+            if (SteamMatchmaking.GetLobbyData(SteamMatchmaking.GetLobbyByIndex(i), GameKey) == GameName && SteamMatchmaking.GetLobbyData(SteamMatchmaking.GetLobbyByIndex(i), "Map") == "Lobby")
             {
                 //ToDo - Check gamemode
                 
