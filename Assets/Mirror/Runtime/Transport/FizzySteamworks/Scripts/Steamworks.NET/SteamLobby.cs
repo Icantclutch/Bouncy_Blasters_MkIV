@@ -238,7 +238,7 @@ public class SteamLobby : MonoBehaviour
         for (int i = 0; i < pCallback.m_nLobbiesMatching; ++i)
         {
             //Make sure lobby is for bouncy blasters
-            if (SteamMatchmaking.GetLobbyData(SteamMatchmaking.GetLobbyByIndex(i), GameKey) == GameName && SteamMatchmaking.GetLobbyData(SteamMatchmaking.GetLobbyByIndex(i), "Map") == "Lobby")
+            if (SteamMatchmaking.GetLobbyData(SteamMatchmaking.GetLobbyByIndex(i), GameKey) == GameName && (!joinInprogress && SteamMatchmaking.GetLobbyData(SteamMatchmaking.GetLobbyByIndex(i), "Map") == "Lobby"))
             {
                 //ToDo - Check gamemode
                 
