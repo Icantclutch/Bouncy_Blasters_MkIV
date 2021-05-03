@@ -161,6 +161,8 @@ public class PlayerHealth : HitInteraction
         yield return new WaitForSeconds(2);
         PlayerSpawnSystem.SpawnPlayer(gameObject);
         GetComponent<Shooting>().active = true;
+        GetComponent<Shooting>().GetNewLoadout();
+        GetComponent<Shooting>().FullReload();
         GetComponent<PlayerMovement>().inRespawnRoom = false;
         _isDead = false;
         SetIsDead(_isDead);
