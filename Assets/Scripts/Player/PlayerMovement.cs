@@ -119,11 +119,11 @@ public class PlayerMovement : NetworkBehaviour
                 PlayerJumps();
 				GetComponent<PlayerAnimationController>().SetFalling(false);
 				//Code for sprint modifier
-				if (Input.GetKey(Keybinds.Sprint) || Input.GetButton(Keybinds.controlSprint) && _sprintTime > 0 && movementDirection != Vector3.zero)
+				if ((Input.GetKey(Keybinds.Sprint) || Input.GetButton(Keybinds.controlSprint)) && _sprintTime > 0 && movementDirection != Vector3.zero)
 				{
 					EnableSprint();
 				}
-				else if (Input.GetKeyUp(Keybinds.Sprint) || Input.GetButtonUp(Keybinds.controlSprint) || _sprintTime <= 0 || movementDirection == Vector3.zero)
+				else if ((Input.GetKeyUp(Keybinds.Sprint) || Input.GetButtonUp(Keybinds.controlSprint)) || _sprintTime <= 0 || movementDirection == Vector3.zero)
 				{
 					DisableSprint();
 				}
