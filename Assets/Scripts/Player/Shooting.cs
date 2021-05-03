@@ -206,10 +206,11 @@ public class Shooting : NetworkBehaviour
                     }
                 }
             }
-            else if(playerWeapons[currentWeapon].currentCooldown <= 0 && playerWeapons[currentWeapon].currentAmmo == 0)
+            else if(playerWeapons[currentWeapon].currentCooldown <= 0 && playerWeapons[currentWeapon].currentAmmo == 0 && playerWeapons[currentWeapon].currentReserve > 0)
             {
                 if(GetButtonFired(currentFireMode.key) || GetButtonHeld(currentFireMode.key))
                 {
+                    GetComponent<PlayerAudioController>().RpcOnAllClients(10);
                     StartCoroutine(Reload());
                 }
             }
