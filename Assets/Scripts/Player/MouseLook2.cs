@@ -63,6 +63,8 @@ public class MouseLook2 : NetworkBehaviour
             eyes.GetChild(i).gameObject.SetActive(false);
         }
         UI.SetActive(false);
+        Settings.gameObject.SetActive(false);
+        
     }
     public void OnEnable()
     {
@@ -74,6 +76,11 @@ public class MouseLook2 : NetworkBehaviour
                 eyes.GetChild(i).gameObject.SetActive(true);
             }
             UI.SetActive(true);
+            Settings.gameObject.SetActive(true);
+            pause = true;
+            GetComponent<Shooting>().active = !pause;
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.Confined;
         }
         
     }
@@ -102,6 +109,7 @@ public class MouseLook2 : NetworkBehaviour
         else
         {
             Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
 
         if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P))

@@ -122,6 +122,13 @@ public class MyNetworkManager : NetworkManager
                 player.identity.GetComponent<PlayerData>().RpcSpawnPlayer();
             }*/
         }
+        else if (sceneName.Contains("OnlineLobby Scene"))
+        {
+            //Update steam lobby data
+            
+            GetComponent<SteamLobby>().SetLobbyMatchData("Pre-game", "Lobby");
+            
+        }
 
     }
 
