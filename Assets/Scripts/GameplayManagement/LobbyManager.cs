@@ -19,7 +19,7 @@ public class LobbyManager : NetworkBehaviour
     private NetworkManager networkManager;
 
     
-    public int minPlayersNeeded = 2;
+    public int minPlayersNeeded = 1;
     public int numOfTeams = 2;
     [SyncVar]
     public string mapName = "RicochetTest";
@@ -147,6 +147,7 @@ public class LobbyManager : NetworkBehaviour
             //Create teams
             List<PlayerData> teamAPlayers = new List<PlayerData>();
             List<PlayerData> teamBPlayers = new List<PlayerData>();
+
             foreach (PlayerData player in players)
             {
                 if(player.team == 1)
@@ -157,6 +158,8 @@ public class LobbyManager : NetworkBehaviour
                 {
                     teamBPlayers.Add(player);
                 }
+                //SHow loading screen
+                player.GetComponent<PlayerEffects>().LoadingScreen(true);
             }
             teamA = new Team("Nova",teamAPlayers);
             teamA.teamScore = 0;
@@ -222,6 +225,7 @@ public class LobbyManager : NetworkBehaviour
         {
             //player.RpcSpawnPlayer();
             player.GetComponent<Shooting>().Rpc_FullReload();
+            player.GetComponent<PlayerEffects>().LoadingScreen(false);
         }
     }
 
