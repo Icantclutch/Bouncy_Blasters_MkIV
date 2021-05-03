@@ -110,14 +110,14 @@ public class Shooting : NetworkBehaviour
                 NormalWeaponFire();
             }
 
-            //Reload if button is pressed and there is any reserve ammo
-            if (Input.GetKeyDown(Keybinds.Reload) && playerWeapons[currentWeapon].currentReserve > 0 &&
+            //Reload if button is pressed an    d there is any reserve ammo
+            if (Input.GetKeyDown(Keybinds.Reload) || Input.GetButton(Keybinds.controlReload) && playerWeapons[currentWeapon].currentReserve > 0 &&
                 playerWeapons[currentWeapon].currentAmmo != playerWeapons[currentWeapon].weapon.ammoCount)
             {
                 StartCoroutine(Reload());
                 
             }
-            if (Input.GetKey(Keybinds.Recharge) && playerWeapons[currentWeapon].currentReserve < playerWeapons[currentWeapon].weapon.reserveAmmo && myMovement.grounded)
+            if (Input.GetKey(Keybinds.Recharge) || Input.GetButton(Keybinds.controlRecharge) && playerWeapons[currentWeapon].currentReserve < playerWeapons[currentWeapon].weapon.reserveAmmo && myMovement.grounded)
             {
                 _rechargeHoldTime -= Time.deltaTime;
                 
