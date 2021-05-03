@@ -24,10 +24,11 @@ public static class Keybinds
 
 
     //ABXY controls
-    public static KeyCode controlJump = KeyCode.JoystickButton0;
-    public static KeyCode controlCrouch = KeyCode.JoystickButton1;
-    public static KeyCode controlReload = KeyCode.JoystickButton2;
-    public static KeyCode controlSwap = KeyCode.JoystickButton3;
+    public static string controlJump = "A Button";
+    public static string controlRecharge = "B Button";
+    public static string controlReload = "X Button";
+    public static string controlSwap = "Y Button";
+    public static string controlSprint = "LS Button";
 
     //start button to see menu
     public static KeyCode controlStart = KeyCode.JoystickButton7;
@@ -44,8 +45,18 @@ public static class Keybinds
        {
 
        }
-
+    
        */
+
+    /*
+    public static bool Reload(bool press)
+    {
+        Debug.Log("reloading");
+        return ((press) ? Input.GetKey(_reload) : Input.GetKeyDown(_reload) || Input.GetButton("Reload"));
+    }
+
+    */
+
 }
 
 
