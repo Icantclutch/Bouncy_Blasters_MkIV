@@ -27,17 +27,11 @@ public class SettingsManager : MonoBehaviour, ISaveable
     private int windowType;
     private float sens;
     private int savedResolution;
-   
-
-    public Slider opacitySlider;
-    public RawImage minimap;
     
 
     Resolution[] resolutionsList;
     public Dropdown resolutionsDrop;
 
-    //Auto-generated to fix compiler error
-    private float currSlider;
 
     private void Start()
     {
@@ -100,12 +94,7 @@ public class SettingsManager : MonoBehaviour, ISaveable
     }
 
 
-    public void setOpacity(float mapSlider)
-    {
-        currSlider = mapSlider;
-        //minimap.color = new Color(255.0f, 255.0f, 255.0f, currSlider);
-        //opacitySlider.value = currSlider;
-    }
+
 
     public void SetMusicVolume (float musicVolume)
     {
