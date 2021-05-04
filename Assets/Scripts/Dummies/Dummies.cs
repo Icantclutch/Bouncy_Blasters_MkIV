@@ -32,7 +32,8 @@ public class Dummies : MonoBehaviour
         
         Death();
         dummyMove();
-        
+        this.gameObject.GetComponent<Rigidbody>().freezeRotation = true;
+
     }
 
     //get charge and getMax are so that the dummy health script can access the currentCharge and maxCharge
@@ -85,14 +86,16 @@ public class Dummies : MonoBehaviour
         {
            
 
-            if (agent.remainingDistance < .5f && atDest2 == true)
+            if (agent.remainingDistance < 1.0f && atDest2 == true)
             {
+                Debug.Log("headed to dest 1");
                 atDest2 = false;
                 agent.SetDestination(destination2.transform.position);
 
             }
-            else if (agent.remainingDistance < .5f && atDest2 == false)
+            else if (agent.remainingDistance < 1.0f && atDest2 == false)
             {
+                Debug.Log("headed to dest 2");
                 atDest2 = true;
                 agent.SetDestination(destination1.transform.position);
             }

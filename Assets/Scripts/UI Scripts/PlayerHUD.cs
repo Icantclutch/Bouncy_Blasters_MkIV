@@ -166,7 +166,19 @@ public class PlayerHUD : MonoBehaviour
 
     public void DeclareWinState(string state)
     {
-       _matchEndText.text = state;
+       if(state == "You Win!")
+        {
+            _matchEndText.color = Color.green;
+        }
+       else if (state == "You Lose!")
+        {
+            _matchEndText.color = Color.red;
+        }
+        else
+        {
+            _matchEndText.color = new Color(255,164,0);
+        }
+        _matchEndText.text = state;
     }
 
     public void LeaveMatch()

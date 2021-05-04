@@ -16,16 +16,18 @@ public class SettingsManager : MonoBehaviour, ISaveable
     public AudioMixerGroup SFXMixer;
     public Slider VolumeSlider;
     public Slider SFXSlider;
+    public Slider sensSlider;
     public Dropdown QualityDrop;
     public Toggle FullscreenToggle;
 
-    public Slider SensitiviySlider;
 
     private int videoQuality;
     private float currMusicVolume;
     private float currSFXVolume;
     private int windowType;
-    private float sensitivity;
+    private float sens;
+    private int savedResolution;
+   
 
     public Slider opacitySlider;
     public RawImage minimap;
@@ -39,52 +41,36 @@ public class SettingsManager : MonoBehaviour, ISaveable
 
     private void Start()
     {
-        resolutionsList = Screen.resolutions;
-        resolutionsDrop.ClearOptions();
-
-        int currentResolution = 0;
-
-        List<string> options = new List<string>();
-        for(int i = 0; i < resolutionsList.Length; i++)
-        {
-            string option = resolutionsList[i].width + "x" + resolutionsList[i].height;
-            options.Add(option);
-
-            if (resolutionsList[i].width == Screen.currentResolution.width &&
-                resolutionsList[i].height == Screen.currentResolution.height)
-            {
-                currentResolution = i;
-            }
-        }
-
-
-        resolutionsDrop.AddOptions(options);
-        resolutionsDrop.value = currentResolution;
-        resolutionsDrop.RefreshShownValue();
-
         LoadJsonData(this);
 
-          currMusicVolume = PlayerPrefs.GetFloat("MusicVolume", currMusicVolume);
-          windowType = PlayerPrefs.GetInt("fullscreen", windowType);
-          videoQuality = PlayerPrefs.GetInt("qualitylevel", videoQuality);
-        currSFXVolume = PlayerPrefs.GetFloat("SFXVolume", currSFXVolume);
+        savedResolution = PlayerPrefs.GetInt("Resolution", savedResolution);
+        makeResolutions();
+    
 
-        if (sensitivity == -100)
-        {
-            sensitivity = SensitiviySlider.value;
-        }
-        else
-        {
-            SensitiviySlider.value = sensitivity;
-        }
-        
-        
+
+        currMusicVolume = PlayerPrefs.GetFloat("MusicVolume", currMusicVolume);
+        windowType = PlayerPrefs.GetInt("fullscreen", windowType);
+        videoQuality = PlayerPrefs.GetInt("qualitylevel", videoQuality);
+        currSFXVolume = PlayerPrefs.GetFloat("SFXVolume", currSFXVolume);
+        sens = PlayerPrefs.GetFloat("Sensitivity", sens);
+
+
+       // Debug.Log(PlayerPrefs.GetInt("Resolution", savedResolution));
+        resolutionsDrop.value = savedResolution;
+      
 
         musicMixer.audioMixer.SetFloat("MusicVolume", currMusicVolume);
         VolumeSlider.value = currMusicVolume;
 
         SFXMixer.audioMixer.SetFloat("SFXVolume", currSFXVolume);
         SFXSlider.value = currSFXVolume;
+
+        if(GameObject.FindGameObjectWithTag("Player") != null)
+        {
+            GameObject.FindGameObjectWithTag("Player").GetComponent<MouseLook2>().sens = sens;
+        }
+        
+        sensSlider.value = sens - 5;
 
 
 
@@ -142,6 +128,15 @@ public class SettingsManager : MonoBehaviour, ISaveable
         videoQuality = quality;
         QualitySettings.SetQualityLevel(videoQuality);
     }
+    public void setResolution(int res)
+    {
+        savedResolution = res;
+        Screen.SetResolution(resolutionsList[savedResolution].width, resolutionsList[savedResolution].height, Screen.fullScreen);
+        //Debug.Log("non player pref: " + savedResolution);
+        PlayerPrefs.SetInt("Resolution", savedResolution);
+
+
+    }
 
     public void WindowMode(bool isFullscreen)
     {
@@ -154,6 +149,46 @@ public class SettingsManager : MonoBehaviour, ISaveable
         {
             windowType = 0;
         }
+    }
+
+    public void changeSensitivity(float sensitivity)
+    {
+        
+        sens = 5 + sensitivity;
+        sensSlider.value = sens - 5;
+
+        if (GameObject.FindGameObjectWithTag("Player") != null)
+        {
+            GameObject.FindGameObjectWithTag("Player").GetComponent<MouseLook2>().sens = sens;
+        }
+    }
+
+    private int makeResolutions()
+    {
+        resolutionsList = Screen.resolutions;
+        resolutionsDrop.ClearOptions();
+
+        int currentResolution = 0;
+
+        List<string> options = new List<string>();
+        for (int i = 0; i < resolutionsList.Length; i++)
+        {
+            string option = resolutionsList[i].width + "x" + resolutionsList[i].height;
+            options.Add(option);
+
+            if (resolutionsList[i].width == Screen.currentResolution.width &&
+                resolutionsList[i].height == Screen.currentResolution.height)
+            {
+                currentResolution = i;
+            }
+        }
+
+
+        resolutionsDrop.AddOptions(options);
+        
+        resolutionsDrop.RefreshShownValue();
+        return currentResolution;
+
     }
 
     //[Test]
@@ -208,7 +243,9 @@ public class SettingsManager : MonoBehaviour, ISaveable
         PlayerPrefs.SetInt("fullscreen", windowType);
         PlayerPrefs.SetInt("qualitylevel", videoQuality);
         PlayerPrefs.SetFloat("SFXVolume", currSFXVolume);
-       // StaticClass.CrossSceneInformation = "Title Screen";
+        PlayerPrefs.SetFloat("Sensitivity", sens);
+        PlayerPrefs.SetInt("Resolution", savedResolution);
+        // StaticClass.CrossSceneInformation = "Title Screen";
         SceneManager.LoadScene("Title Screen");
 
 
@@ -244,8 +281,9 @@ public class SettingsManager : MonoBehaviour, ISaveable
         a_SaveData.videoQuality = videoQuality;
         a_SaveData.windowType = windowType;
         a_SaveData.currMusicVolume = currMusicVolume;
-        a_SaveData.sensitivity = sensitivity;
+        a_SaveData.sensitivity = sens;
         a_SaveData.currSFXVolume = currSFXVolume;
+        a_SaveData.savedResolution = savedResolution;
     }
 
     public void LoadFromSaveData(SaveData a_SaveData)
@@ -253,7 +291,8 @@ public class SettingsManager : MonoBehaviour, ISaveable
         videoQuality = a_SaveData.videoQuality;
         windowType = a_SaveData.windowType;
         currMusicVolume = a_SaveData.currMusicVolume;
-        sensitivity = a_SaveData.sensitivity;
+        sens = a_SaveData.sensitivity;
         currSFXVolume = a_SaveData.currSFXVolume;
+        savedResolution = a_SaveData.savedResolution;
     }
 }
