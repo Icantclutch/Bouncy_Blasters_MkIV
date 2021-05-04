@@ -103,10 +103,13 @@ public class TravelBullet : RaycastBullet
                         }
                     }
 
-                if (newHit.rayHit.transform)
-                {
-                    if(!newHit.rayHit.transform.CompareTag("Player"))
-                        Instantiate(bulletDirtEffect, pos, Quaternion.FromToRotation(Vector3.up, reflection));
+                    if (!newHit.rayHit.transform.CompareTag("Player"))
+                    {
+                        if (bulletDirtEffect != null)
+                        {
+                            Instantiate(bulletDirtEffect, pos, Quaternion.FromToRotation(Vector3.up, reflection));
+                        }
+                    }
                 }
 
                 
