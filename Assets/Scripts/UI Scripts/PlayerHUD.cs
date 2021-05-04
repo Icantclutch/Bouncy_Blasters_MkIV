@@ -158,15 +158,27 @@ public class PlayerHUD : MonoBehaviour
         //Set the bar color and display here
         float BarDisplayVal = ((float)Charge) / ((float)100);
         float Max = Mathf.Max(0, 0.75f - BarDisplayVal);
-        //Color newColor = new Color(BarDisplayVal, 0, Max, 1);
-        //_playerHealthBar.color = newColor;
+        Color newColor = new Color(BarDisplayVal, 0, Max, 1);
+        _playerHealthBar.color = newColor;
         _playerHealthBar.fillAmount = BarDisplayVal;
         _playerHealthText.text = Charge.ToString();
     }
 
     public void DeclareWinState(string state)
     {
-       _matchEndText.text = state;
+       if(state == "You Win!")
+        {
+            _matchEndText.color = Color.green;
+        }
+       else if (state == "You Lose!")
+        {
+            _matchEndText.color = Color.red;
+        }
+        else
+        {
+            _matchEndText.color = new Color(255,164,0);
+        }
+        _matchEndText.text = state;
     }
 
     public void LeaveMatch()

@@ -12,15 +12,18 @@ using UnityEngine.SocialPlatforms;
 public class SettingsManager : MonoBehaviour, ISaveable
 {
 
-    public AudioMixer masterMixer;
+    public AudioMixerGroup musicMixer;
+    public AudioMixerGroup SFXMixer;
     public Slider VolumeSlider;
+    public Slider SFXSlider;
     public Dropdown QualityDrop;
     public Toggle FullscreenToggle;
 
     public Slider SensitiviySlider;
 
     private int videoQuality;
-    private float currVolume;
+    private float currMusicVolume;
+    private float currSFXVolume;
     private int windowType;
     private float sensitivity;
 
@@ -61,9 +64,10 @@ public class SettingsManager : MonoBehaviour, ISaveable
 
         LoadJsonData(this);
 
-          currVolume = PlayerPrefs.GetFloat("masterVolume", currVolume);
+          currMusicVolume = PlayerPrefs.GetFloat("MusicVolume", currMusicVolume);
           windowType = PlayerPrefs.GetInt("fullscreen", windowType);
           videoQuality = PlayerPrefs.GetInt("qualitylevel", videoQuality);
+        currSFXVolume = PlayerPrefs.GetFloat("SFXVolume", currSFXVolume);
 
         if (sensitivity == -100)
         {
@@ -76,11 +80,14 @@ public class SettingsManager : MonoBehaviour, ISaveable
         
         
 
-        masterMixer.SetFloat("MasterVolume", currVolume);
-        VolumeSlider.value = currVolume;
-       
+        musicMixer.audioMixer.SetFloat("MusicVolume", currMusicVolume);
+        VolumeSlider.value = currMusicVolume;
 
-       
+        SFXMixer.audioMixer.SetFloat("SFXVolume", currSFXVolume);
+        SFXSlider.value = currSFXVolume;
+
+
+
 
         QualitySettings.SetQualityLevel(videoQuality);
         QualityDrop.value = videoQuality;
@@ -114,11 +121,19 @@ public class SettingsManager : MonoBehaviour, ISaveable
         //opacitySlider.value = currSlider;
     }
 
-    public void SetMasterVolume (float masterVolume)
+    public void SetMusicVolume (float musicVolume)
     {
-        VolumeSlider.value = currVolume;
-        currVolume = masterVolume;
-        masterMixer.SetFloat("MasterVolume", currVolume);
+        VolumeSlider.value = currMusicVolume;
+        currMusicVolume = musicVolume;
+        musicMixer.audioMixer.SetFloat("MusicVolume", currMusicVolume);
+
+    }
+
+    public void SetSFXVolume(float sfxVolume)
+    {
+        SFXSlider.value = currSFXVolume;
+        currSFXVolume = sfxVolume;
+        SFXMixer.audioMixer.SetFloat("SFXVolume", currSFXVolume);
 
     }
 
@@ -189,10 +204,16 @@ public class SettingsManager : MonoBehaviour, ISaveable
     public void OnButtonPress()
     {
         SaveJsonData(this);
-        PlayerPrefs.SetFloat("masterVolume", currVolume);
+        PlayerPrefs.SetFloat("MusicVolume", currMusicVolume);
         PlayerPrefs.SetInt("fullscreen", windowType);
         PlayerPrefs.SetInt("qualitylevel", videoQuality);
+        PlayerPrefs.SetFloat("SFXVolume", currSFXVolume);
+       // StaticClass.CrossSceneInformation = "Title Screen";
         SceneManager.LoadScene("Title Screen");
+
+
+        //StaticClass.CrossSceneInformation = "Title Screen";
+        //SceneManager.LoadScene("Loading Screen");
     }
 
 
@@ -215,7 +236,6 @@ public class SettingsManager : MonoBehaviour, ISaveable
             sd.LoadFromJson(json);
 
             a_settingManager.LoadFromSaveData(sd);
-            Debug.Log("Load Complete");
         }
     }
 
@@ -223,15 +243,17 @@ public class SettingsManager : MonoBehaviour, ISaveable
     {
         a_SaveData.videoQuality = videoQuality;
         a_SaveData.windowType = windowType;
-        a_SaveData.currVolume = currVolume;
+        a_SaveData.currMusicVolume = currMusicVolume;
         a_SaveData.sensitivity = sensitivity;
+        a_SaveData.currSFXVolume = currSFXVolume;
     }
 
     public void LoadFromSaveData(SaveData a_SaveData)
     {
         videoQuality = a_SaveData.videoQuality;
         windowType = a_SaveData.windowType;
-        currVolume = a_SaveData.currVolume;
+        currMusicVolume = a_SaveData.currMusicVolume;
         sensitivity = a_SaveData.sensitivity;
+        currSFXVolume = a_SaveData.currSFXVolume;
     }
 }

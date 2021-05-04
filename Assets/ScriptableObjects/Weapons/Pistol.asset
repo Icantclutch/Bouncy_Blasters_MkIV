@@ -15,17 +15,17 @@ MonoBehaviour:
   name: Pistol
   ammoCount: 10
   reserveAmmo: 30
-  weaponImg: {fileID: 21300000, guid: 5bd33d19f25ec204b8baed382a5d545a, type: 3}
   modeSwapKey: 0
   fireModes:
   - key: 1
     fireType: 1
     shotsFiredAtOnce: 1
     ammoUsedEachShot: 1
-    bulletDamage: 0b00000019000000
+    bulletDamage: 0500000019000000
     fireSpeed: 1
     fireRate: 350
     bulletPrefabName: TravelBullet
-    shotSoundIndex: 4
-    reloadSoundIndex: 6
+    shotSoundIndexMin: 5
+    shotSoundIndexMax: 7
+    reloadSoundIndex: 12
   modelIndex: 3

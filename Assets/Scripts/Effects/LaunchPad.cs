@@ -39,6 +39,7 @@ public class LaunchPad : MonoBehaviour
 
     void Launch()
     {
+        Debug.Log("Launch");
         Rigidbody targetRB = target.GetComponent<Rigidbody>();
         targetRB.velocity = new Vector3(targetRB.velocity.x, 0f, targetRB.velocity.z);
 

@@ -55,6 +55,8 @@ public class Shooting : NetworkBehaviour
     [SerializeField]
     private GameObject _ReloadingFrame;
 
+    private LayerMask _reflectable;
+
     private void Start()
     {
         myReference = GetComponent<PlayerReference>();
@@ -82,7 +84,8 @@ public class Shooting : NetworkBehaviour
         //Switch held weapon
         if (Input.GetKeyDown(Keybinds.SwapWeapon))
         {
-            Cmd_SwapWeapon();
+            StartCoroutine(StartSwap());
+            //Cmd_SwapWeapon();
         }
 
         //Loop through any existing weapons to tick down cooldowns
@@ -107,14 +110,14 @@ public class Shooting : NetworkBehaviour
                 NormalWeaponFire();
             }
 
-            //Reload if button is pressed and there is any reserve ammo
-            if (Input.GetKeyDown(Keybinds.Reload) && playerWeapons[currentWeapon].currentReserve > 0 &&
+            //Reload if button is pressed an    d there is any reserve ammo
+            if (Input.GetKeyDown(Keybinds.Reload) || Input.GetButton(Keybinds.controlReload) && playerWeapons[currentWeapon].currentReserve > 0 &&
                 playerWeapons[currentWeapon].currentAmmo != playerWeapons[currentWeapon].weapon.ammoCount)
             {
                 StartCoroutine(Reload());
                 
             }
-            if (Input.GetKey(Keybinds.Recharge) && playerWeapons[currentWeapon].currentReserve < playerWeapons[currentWeapon].weapon.reserveAmmo && myMovement.grounded)
+            if (Input.GetKey(Keybinds.Recharge) || Input.GetButton(Keybinds.controlRecharge) && playerWeapons[currentWeapon].currentReserve < playerWeapons[currentWeapon].weapon.reserveAmmo && myMovement.grounded)
             {
                 _rechargeHoldTime -= Time.deltaTime;
                 
@@ -203,10 +206,11 @@ public class Shooting : NetworkBehaviour
                     }
                 }
             }
-            else if(playerWeapons[currentWeapon].currentCooldown <= 0 && playerWeapons[currentWeapon].currentAmmo == 0)
+            else if(playerWeapons[currentWeapon].currentCooldown <= 0 && playerWeapons[currentWeapon].currentAmmo == 0 && playerWeapons[currentWeapon].currentReserve > 0)
             {
                 if(GetButtonFired(currentFireMode.key) || GetButtonHeld(currentFireMode.key))
                 {
+                    GetComponent<PlayerAudioController>().RpcOnAllClients(10);
                     StartCoroutine(Reload());
                 }
             }
@@ -304,13 +308,24 @@ public class Shooting : NetworkBehaviour
             
             //Subtract from the ammo
             playerWeapons[currentWeapon].currentAmmo -= currentFireMode.ammoUsedEachShot;
+            int soundIndex = -1;
+            if (currentFireMode.shotSoundIndexMin == currentFireMode.shotSoundIndexMax)
+            {
+                soundIndex = currentFireMode.shotSoundIndexMin;
+            }
+            else
+            {
+                soundIndex = UnityEngine.Random.Range(currentFireMode.shotSoundIndexMin, currentFireMode.shotSoundIndexMax+1);
+            }
+            GetComponentInChildren<Animator>().SetTrigger("shooting");
             //Fire bullet over server
-            Cmd_ServerFireBullet(currentFireMode.bulletPrefabName, currentFireMode.bulletDamage, currentFireMode.maxBounces, currentFireMode.fireSpeed, currentFireMode.shotSoundIndex);
+            Cmd_ServerFireBullet(currentFireMode.bulletPrefabName, currentFireMode.bulletDamage, currentFireMode.maxBounces, currentFireMode.fireSpeed, soundIndex);
             //Wait
             yield return new WaitForSeconds(60 / currentFireMode.fireRate);
         }
         //We are no longer firing
         currentlyFiring = false;
+        GetComponentInChildren<Animator>().ResetTrigger("shooting");
     }
 
     //Server reference for firing bullets
@@ -326,7 +341,11 @@ public class Shooting : NetworkBehaviour
         RaycastHit hit;
         Quaternion rotation;
         Vector3 nextReflection = Vector3.zero;
-        if (Physics.Raycast(ray, out hit, 100, bulletPrefab.GetComponent<RaycastBullet>().reflectable)) {
+        if (bulletPrefab.GetComponent<RaycastBullet>())
+        {
+            _reflectable = bulletPrefab.GetComponent<RaycastBullet>().reflectable;
+        }
+        if (Physics.Raycast(ray, out hit, 100, _reflectable)) {
             Vector3 direction = hit.point - barrel.position;
             rotation = Quaternion.LookRotation(direction);
             nextReflection = (hit.transform.CompareTag("NoBounce")) ? Vector3.zero : Vector3.Reflect(ray.direction, hit.normal);
@@ -353,7 +372,14 @@ public class Shooting : NetworkBehaviour
 
         Rpc_ShootingEffects();
     }
-
+    IEnumerator StartSwap()
+    {
+        GetComponentInChildren<Animator>().SetBool("swapped out", true);
+        yield return new WaitForSeconds(1);
+        Cmd_SwapWeapon();
+        yield return new WaitForSeconds(0.1f);
+        GetComponentInChildren<Animator>().SetBool("swapped out", false);
+    }
     [Command]
     void Cmd_SwapWeapon()
     {
@@ -393,7 +419,7 @@ public class Shooting : NetworkBehaviour
         switch (key)
         {
             case Weapon.FireKey.PrimaryFire: //Primary fire key
-                return Input.GetKeyDown(Keybinds.PrimaryFire);
+                return Keybinds.PrimaryFire(false);
             case Weapon.FireKey.SecondaryFire: //Secondary fire key
                 return Input.GetKeyDown(Keybinds.SecondaryFire);
             case Weapon.FireKey.GrenadeFire: //Grenade fire key
@@ -410,7 +436,7 @@ public class Shooting : NetworkBehaviour
         switch (key)
         {
             case Weapon.FireKey.PrimaryFire: //Primary fire key
-                return Input.GetKey(Keybinds.PrimaryFire);
+                return Keybinds.PrimaryFire(true);
             case Weapon.FireKey.SecondaryFire: //Secondary fire key
                 return Input.GetKey(Keybinds.SecondaryFire);
             case Weapon.FireKey.GrenadeFire: //Grenade fire key

@@ -798,6 +798,10 @@ namespace Mirror
         /// <para>Loading a scene manually wont set networkSceneName, so Mirror would still load it again on start.</para>
         /// </remarks>
         public static string networkSceneName { get; protected set; } = "";
+        public static class StaticClass
+        {
+            public static string CrossSceneInformation { get; set; }
+        }
 
         public static UnityEngine.AsyncOperation loadingSceneAsync;
 
@@ -825,6 +829,9 @@ namespace Mirror
             // It will be re-enabled in FinishScene.
             Transport.activeTransport.enabled = false;
 
+
+           // StaticClass.CrossSceneInformation = newSceneName;
+            //loadingSceneAsync = SceneManager.LoadSceneAsync("Loading Screen");
             loadingSceneAsync = SceneManager.LoadSceneAsync(newSceneName);
 
             // ServerChangeScene can be called when stopping the server

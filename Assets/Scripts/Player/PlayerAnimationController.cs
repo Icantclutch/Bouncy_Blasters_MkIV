@@ -26,6 +26,7 @@ public class PlayerAnimationController : NetworkBehaviour
     }
 
     //Sets the target velocity that the animation blend tree will use
+    [Command]
     public void SetVelocity(float x, float y)
     {
         _targetXVel = x;
@@ -35,12 +36,14 @@ public class PlayerAnimationController : NetworkBehaviour
     [SyncVar(hook = nameof(UsingPistolUpdated))]
     private bool _usingPistol = false;
 
+    
     private void UsingPistolUpdated(bool oldBool, bool newBool)
     {
         _usingPistol = newBool;
         GetComponentInChildren<Animator>().SetBool("pistol", _usingPistol);
     }
 
+    [Command]
     public void SetUsingPistol(bool newBool)
     {
         _usingPistol = newBool;
@@ -53,7 +56,7 @@ public class PlayerAnimationController : NetworkBehaviour
         _falling = newBool;
         GetComponentInChildren<Animator>().SetBool("falling", _falling);
     }
-
+    [Command]
     public void SetFalling(bool newBool)
     {
         _falling = newBool;
@@ -72,8 +75,13 @@ public class PlayerAnimationController : NetworkBehaviour
     {
         isRunning = newBool;
         GetComponentInChildren<Animator>().SetBool("running", isRunning);
+        if (!isRunning)
+        {
+            GetComponent<PlayerAudioController>().RpcStopLoop();
+        }
+        
     }
-
+    [Command]
     public void SetIsRunning(bool isRun)
     {
         isRunning = isRun;
@@ -86,11 +94,33 @@ public class PlayerAnimationController : NetworkBehaviour
         if(Mathf.Abs(_xVelocity - _targetXVel) > animChangeSpeed)
         {
             _xVelocity += Mathf.Sign(_targetXVel - _xVelocity) * animChangeSpeed;
+            //Debug.Log(_xVelocity);
         }
 
         if (Mathf.Abs(_yVelocity - _targetYVel) > animChangeSpeed)
         {
             _yVelocity += Mathf.Sign(_targetYVel - _yVelocity) * animChangeSpeed;
+            //Debug.Log(_yVelocity);
+        }
+
+        if (isServer)
+        {
+            if (isRunning)
+            {
+                if (Mathf.Abs(_xVelocity) > 10 || Mathf.Abs(_yVelocity) > 10)
+                {
+                    GetComponent<PlayerAudioController>().RpcSetLoop(16);
+                }
+                else
+                {
+                    GetComponent<PlayerAudioController>().RpcSetLoop(15);
+                }
+
+            }
+            else
+            {
+                
+            }
         }
     }
 }

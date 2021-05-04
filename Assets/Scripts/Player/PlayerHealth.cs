@@ -114,12 +114,12 @@ public class PlayerHealth : HitInteraction
     private void Respawn()
     {
         //Rpc_DeathSounds();
-        GetComponent<PlayerAudioController>().RpcOnAllClients(7);
+        GetComponent<PlayerAudioController>().RpcOnAllClients(13);
         GetComponent<Shooting>().Rpc_GetNewLoadout();
         GetComponent<Shooting>().Rpc_FullReload();
         //Teleport the player
         Rpc_TeleportPlayer();
-        GetComponent<PlayerAudioController>().RpcOnAllClients(7);
+        GetComponent<PlayerAudioController>().RpcOnAllClients(13);
         currentCharge = 0;
     }
 
@@ -161,6 +161,8 @@ public class PlayerHealth : HitInteraction
         yield return new WaitForSeconds(2);
         PlayerSpawnSystem.SpawnPlayer(gameObject);
         GetComponent<Shooting>().active = true;
+        GetComponent<Shooting>().GetNewLoadout();
+        GetComponent<Shooting>().FullReload();
         GetComponent<PlayerMovement>().inRespawnRoom = false;
         _isDead = false;
         SetIsDead(_isDead);
@@ -169,7 +171,7 @@ public class PlayerHealth : HitInteraction
     [Command]
     private void CmdRespawnEffects()
     {
-        GetComponent<PlayerAudioController>().RpcOnAllClients(8);
+        GetComponent<PlayerAudioController>().RpcOnAllClients(14);
     }
 
     [Server]

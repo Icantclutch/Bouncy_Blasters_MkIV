@@ -10,12 +10,12 @@ public class LoadoutWeaponButton : MonoBehaviour
     private GameObject[] _statBars;
     List<int> stats;
 
-   
+
 
     // Start is called before the first frame update
     void Start()
     {
-       
+
     }
 
     // Update is called once per frame
@@ -27,11 +27,11 @@ public class LoadoutWeaponButton : MonoBehaviour
     public void SetupButton()
     {
         GetComponent<Button>().onClick.AddListener(SetStats);
-        GetComponentInChildren<Text>().text = wep.name;
-     
+        //GetComponentInChildren<Text>().text = wep.name;
+
         stats = new List<int>(5);
         //Initializing the stats List
-        stats.Add(0);stats.Add(0);stats.Add(0);stats.Add(0);stats.Add(0);
+        stats.Add(0); stats.Add(0); stats.Add(0); stats.Add(0); stats.Add(0);
     }
 
     private void SetStats()
@@ -45,15 +45,13 @@ public class LoadoutWeaponButton : MonoBehaviour
 
         //Max Bullet Damage
         int ricochets = wep.fireModes[0].bulletDamage.Count;
-       
 
         stats[3] = (wep.fireModes[0].bulletDamage[ricochets - 1]);
 
         //number of Ricochets
         stats[4] = (ricochets - 1);
 
-        //Debug.Log("Press button");
-
-        GetComponentInParent<LoadoutMenuButtons>().UpdateLoadoutStats(stats);
+    //Debug.Log("Press button");
+    GetComponentInParent<LoadoutMenuButtons>().UpdateLoadoutStats(stats, wep.name);
     }
 }

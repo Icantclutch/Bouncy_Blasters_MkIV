@@ -30,7 +30,11 @@ public class PlayerEffects : NetworkBehaviour
     [SerializeField]
     private GameObject _enemyKilled = null;
 
+    [SerializeField]
+    private GameObject _loadingScreen = null;
+
     private float _growSize = 0.75f;
+
 
 
     //Creates a hitmarker.
@@ -55,6 +59,18 @@ public class PlayerEffects : NetworkBehaviour
         Dmg.GetComponent<Text>().color = tempColor;
         StartCoroutine(MoveObject(Dmg, Dmg.transform.position + new Vector3(Rot * -1, Random.Range(10, 25), 0), 0.4f));
         StartCoroutine(HitMarkerEffect(Clone, 1, 0, 0.5f));
+    }
+
+    [TargetRpc]
+    public void LoadingScreen(bool isShowing)
+    {
+        if (isShowing == true)
+        {
+            _loadingScreen.SetActive(true);
+        } else
+        {
+            _loadingScreen.SetActive(false);
+        }
     }
 
 

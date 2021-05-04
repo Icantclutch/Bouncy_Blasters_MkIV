@@ -119,11 +119,11 @@ public class PlayerMovement : NetworkBehaviour
                 PlayerJumps();
 				GetComponent<PlayerAnimationController>().SetFalling(false);
 				//Code for sprint modifier
-				if (Input.GetKey(Keybinds.Sprint) && _sprintTime > 0 && movementDirection != Vector3.zero)
+				if ((Input.GetKey(Keybinds.Sprint) || Input.GetButton(Keybinds.controlSprint)) && _sprintTime > 0 && movementDirection != Vector3.zero)
 				{
 					EnableSprint();
 				}
-				else if (Input.GetKeyUp(Keybinds.Sprint) || _sprintTime <= 0 || movementDirection == Vector3.zero)
+				else if ((Input.GetKeyUp(Keybinds.Sprint) || Input.GetButtonUp(Keybinds.controlSprint)) || _sprintTime <= 0 || movementDirection == Vector3.zero)
 				{
 					DisableSprint();
 				}
@@ -132,7 +132,7 @@ public class PlayerMovement : NetworkBehaviour
             {
 				GetComponent<PlayerAnimationController>().SetFalling(true);
 			}
-			if (Input.GetKeyUp(Keybinds.Sprint) || _sprintTime <= 0)
+			if (Input.GetKeyUp(Keybinds.Sprint) || Input.GetButtonUp(Keybinds.controlSprint) || _sprintTime <= 0)
 			{
 				DisableSprint();
 			}
@@ -199,7 +199,7 @@ public class PlayerMovement : NetworkBehaviour
 		movementDirection = transform.TransformDirection(movementDirection);
 		movementDirection *= speed;
 
-		if(movementDirection.magnitude > 0.1)
+		if(movementDirection.magnitude > 0.1 && grounded)
         {
 			GetComponent<PlayerAnimationController>().SetIsRunning(true);
 		}
@@ -255,7 +255,7 @@ public class PlayerMovement : NetworkBehaviour
 		}
 
 		//Jump check and jump functionality
-		if (canJump && Input.GetKeyDown(Keybinds.Jump))
+		if (canJump && Input.GetKeyDown(Keybinds.Jump) || Input.GetButton(Keybinds.controlJump))
 		{
 			canJump = false;
 			hasJumped = true;
@@ -323,6 +323,11 @@ public class PlayerMovement : NetworkBehaviour
     {
 		speed = moveSpeed;
     }
+
+	public void SetGravity(float gravity1)
+	{
+		gravity = gravity1;
+	}
 
 	public void SetJumpHeight(float jump)
     {

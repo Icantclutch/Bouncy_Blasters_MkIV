@@ -5,6 +5,7 @@ using System;
 using System.Net.Sockets;
 using System.IO;
 using UnityEngine.UI;
+using UnityEngine.SocialPlatforms;
 
 
 //BY DEFAULT THE "OWNERSHIP" OF THE TWITCH CHAT IN GAME
@@ -57,6 +58,10 @@ public class TwitchChat : MonoBehaviour
     private GameObject _gameManager = null;
     private List<string> alreadyVoted = new List<string>();
 
+    private float savedSpeed = 0f;
+    private float savedJumpHeight = 0f;
+    private float savedGravity = 0f;
+
     //_gameManager.GetComponentInChildren<GameManagement>().MatchTimer.ToString()
 
     //CONNECT ON START
@@ -89,14 +94,28 @@ public class TwitchChat : MonoBehaviour
         //KeepConnectionAlive();
     }
 
+    private void SetRandomVoteOptions()
+    {
+        List<string> optionList = new List<string>();
+        optionList.Add("max ammo"); optionList.Add("speed boost"); optionList.Add("low gravity"); optionList.Add("super jump");
+        // fill them
+        int random1 = UnityEngine.Random.Range(0, optionList.Count);
+        int random2 = UnityEngine.Random.Range(0, optionList.Count);
+        while (random1 == random2)
+        {
+            random2 = UnityEngine.Random.Range(0, optionList.Count);
+        }
+        Vote1Phrase = optionList[random1];
+        Vote2Phrase = optionList[random2];
+    }
+
     //Creates the vote event
     private void CreateVote()
     {
         if (InVote == false)
         {
             InVote = true;
-            Vote1Phrase = "earthquake";
-            Vote2Phrase = "max ammo";
+            SetRandomVoteOptions();
             twitchChat.text = "Twitch Vote | Type In Chat!";
             twitchChatVote1.text = "'" + Vote1Phrase + "'";
             twitchChatVote2.text = "'" + Vote2Phrase + "'";
@@ -108,23 +127,65 @@ public class TwitchChat : MonoBehaviour
     {
         if (winningEvent == "earthquake")
         {
-            print("EARTHQUAKE BEING GIVEN");
             foreach (PlayerData Data in _lobbyManager.players)
             {
-                Data.GetComponent<Shooting>().Rpc_FullReload();
-                Data.GetComponent<PlayerEffects>().AlertText("EARTHQUAKE");
+                //Data.GetComponent<Shooting>().Rpc_FullReload();
+                Data.GetComponent<PlayerEffects>().AlertText("EARTHQUAKE!");
             }
         }
         else if (winningEvent == "max ammo")
         {
-            print("MAX AMMO BEING GIVEN");
             foreach (PlayerData Data in _lobbyManager.players)
             {
                 Data.GetComponent<Shooting>().Rpc_FullReload();
-                Data.GetComponent<PlayerEffects>().AlertText("Max Ammo Granted");
+                Data.GetComponent<PlayerEffects>().AlertText("Max Ammo Granted!");
             }
         }
+        else if (winningEvent == "speed boost")
+        {
+            foreach (PlayerData Data in _lobbyManager.players)
+            {
+                var temp = Data.GetComponent<PlayerMovement>();
+                savedSpeed = temp.speed;
+                temp.SetMoveSpeed(temp.speed * 2f);
+                Data.GetComponent<PlayerEffects>().AlertText("Super Speed Granted!");
+            }
+        }
+        else if (winningEvent == "super jump")
+        {
+            foreach (PlayerData Data in _lobbyManager.players)
+            {
+                var temp = Data.GetComponent<PlayerMovement>();
+                savedJumpHeight = temp.jumpHeight;
+                temp.SetJumpHeight(temp.jumpHeight * 2f);
+                Data.GetComponent<PlayerEffects>().AlertText("Super Jumping Granted!");
+            }
+        }
+        else if (winningEvent == "low gravity")
+        {
+            foreach (PlayerData Data in _lobbyManager.players)
+            {
+                var temp = Data.GetComponent<PlayerMovement>();
+                savedGravity = temp.gravity;
+                temp.SetGravity(temp.gravity * 2f);
+                Data.GetComponent<PlayerEffects>().AlertText("Low Gravity Enabled!");
+            }
+        }
+
     }
+
+    private void ReturnToOriginal()
+    {
+        //Returning speed to normal
+        foreach (PlayerData Data in _lobbyManager.players)
+        {
+            var temp = Data.GetComponent<PlayerMovement>();
+            temp.SetMoveSpeed(savedSpeed);
+            temp.SetJumpHeight(savedJumpHeight);
+            temp.SetGravity(savedGravity);
+        }
+    }
+
 
     private string DecideWinner()
     {
@@ -140,13 +201,13 @@ public class TwitchChat : MonoBehaviour
 
     private void EndVote()
     {
-        print("Ending");
         string winner = DecideWinner();
         doWinning(winner);
         Vote1Phrase = "CAPS";
         Vote2Phrase = "CAPS";
         alreadyVoted = new List<String>();
-        twitchChat.text = "WINNER: " + winner + "!";
+        //twitchChat.text = "WINNER: " + winner + "!";
+        twitchChat.text = "";
         twitchChatVote1.text = "";
         twitchChatVote2.text = "";
         //Do event
@@ -154,7 +215,6 @@ public class TwitchChat : MonoBehaviour
 
     private void ResetVote()
     {
-        print("Resetting vote");
         twitchChat.text = "";
         twitchChatVote1.text = "";
         twitchChatVote2.text = "";
@@ -164,11 +224,14 @@ public class TwitchChat : MonoBehaviour
     IEnumerator StartVote()
     {
         //Set firing so you can't shoot while reloading
-        yield return new WaitForSeconds(30);
+        yield return new WaitForSeconds(25);
         EndVote();
 
         yield return new WaitForSeconds(10);
         ResetVote();
+
+        yield return new WaitForSeconds(10);
+        ReturnToOriginal();
         yield return null;
     }
 
@@ -226,7 +289,7 @@ public class TwitchChat : MonoBehaviour
         //If host then set
         if (_lobbyManager.isServer)
         {
-            username = name;
+            username = name.ToLower();
             password = oauth;
             //channelName = name;
             Connect();
@@ -248,7 +311,6 @@ public class TwitchChat : MonoBehaviour
         {
             if (!alreadyVoted.Contains(viewerName))
             {
-                print("Voted for 1");
                 Vote1 = Vote1 + 1;
                 alreadyVoted.Add(viewerName);
             }
@@ -258,7 +320,6 @@ public class TwitchChat : MonoBehaviour
         {
             if (!alreadyVoted.Contains(viewerName))
             {
-                print("Voted for 2");
                 Vote2 = Vote2 + 1;
                 alreadyVoted.Add(viewerName);
             }
