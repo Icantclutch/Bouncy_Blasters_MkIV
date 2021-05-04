@@ -112,7 +112,7 @@ public class MouseLook2 : NetworkBehaviour
             Cursor.visible = true;
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P) || Input.GetButton(Keybinds.controlPause))
         {
             pause = !pause;
             GetComponent<Shooting>().active = !pause;
@@ -167,7 +167,7 @@ public class MouseLook2 : NetworkBehaviour
             beginTimer = true;
         }
         //Handling a second zoom press within the alloted time window
-        else if (Input.GetKeyDown(Keybinds.Zoom) && doubleClickTimer < 0.25f)
+        else if ((Input.GetKeyDown(Keybinds.Zoom) || Input.GetButton(Keybinds.controlReset)) && doubleClickTimer < 0.25f)
         {
             //Change camera to look at horizon
             charTargetRot *= Quaternion.Euler(0f, 0f, 0f);

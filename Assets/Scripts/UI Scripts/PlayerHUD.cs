@@ -133,12 +133,12 @@ public class PlayerHUD : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E) || Input.GetButton(Keybinds.controlMap))
         {
             _anim.SetTrigger("Zoom");
             _mapAnim.SetTrigger("Start");
         }
-        if (Input.GetKeyUp(KeyCode.E))
+        if (Input.GetKeyUp(KeyCode.E) || Input.GetButtonUp(Keybinds.controlMap))
         {
             _anim.SetTrigger("Out");
             _mapAnim.SetTrigger("End");
