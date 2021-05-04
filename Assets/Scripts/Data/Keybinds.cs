@@ -29,24 +29,40 @@ public static class Keybinds
     public static string controlReload = "X Button";
     public static string controlSwap = "Y Button";
     public static string controlSprint = "LS Button";
+    public static string controlReset = "RS Button";
 
     //start button to see menu
-    public static KeyCode controlStart = KeyCode.JoystickButton7;
+    public static string controlPause = "Start Button";
 
+    //select to see map
+    public static string controlMap = "Select Button";
+
+    public static float triggerVal = Input.GetAxisRaw("Right Trigger");
     public static bool PrimaryFire(bool hold)
     {
-       
-        Debug.Log(Input.GetAxis("Right Trigger"));
-        return (((hold) ? Input.GetKey(_primaryFire) : Input.GetKeyDown(_primaryFire)) || //inline if statement
-        (Input.GetAxisRaw("Right Trigger") < 0));
-    }
-    /*
-       public static bool Zoom()
-       {
+        bool triggerFiring = false;
+        float newVal = Input.GetAxisRaw("Right Trigger");
 
-       }
-    
-       */
+        if (Mathf.Round(Input.GetAxisRaw("Right Trigger")) < 0)
+        {
+            triggerFiring = true;
+            //triggerVal = newVal;
+        }
+       
+
+        Debug.Log(triggerVal);
+        Debug.Log(newVal);
+        Debug.Log(triggerFiring);
+        return triggerFiring || Input.GetKeyDown(_primaryFire);
+    }
+
+
+    /*
+   public static bool PrimaryFire(bool hold)
+    {
+        return Input.GetButtonDown("Right Trigger") || Input.GetKeyDown(_primaryFire);
+    }
+
 
     /*
     public static bool Reload(bool press)
