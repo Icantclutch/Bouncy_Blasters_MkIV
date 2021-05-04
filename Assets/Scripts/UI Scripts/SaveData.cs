@@ -11,6 +11,7 @@ public class SaveData
     public int windowType;
     public float sensitivity;
     public float currSFXVolume;
+    public int savedResolution;
 
     public string ToJson()
     {
