@@ -1092,8 +1092,8 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4357171600822209693, guid: 15f26efee5296cf4e9e81750cb80f7b1, type: 3}
-        m_TargetAssemblyTypeName: MouseLook2, Assembly-CSharp
+      - m_Target: {fileID: 8229628231864302248}
+        m_TargetAssemblyTypeName: SettingsManager, Assembly-CSharp
         m_MethodName: changeSensitivity
         m_Mode: 0
         m_Arguments:
@@ -3310,12 +3310,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicMixer: {fileID: -6722310436255139353, guid: 8c49c1b677947704f82bc0755557ae7e, type: 2}
   SFXMixer: {fileID: 5222873690808390760, guid: 8c49c1b677947704f82bc0755557ae7e, type: 2}
-  MasterMixer: {fileID: 24100000, guid: 8c49c1b677947704f82bc0755557ae7e, type: 2}
   VolumeSlider: {fileID: 8229628231132142640}
   SFXSlider: {fileID: 8229628231546024526}
+  sensSlider: {fileID: 8229628230999523535}
   QualityDrop: {fileID: 8229628232283633189}
   FullscreenToggle: {fileID: 8229628232496344951}
-  SensitiviySlider: {fileID: 8229628230999523535}
+  resCheck: 0
   opacitySlider: {fileID: 0}
   minimap: {fileID: 0}
   resolutionsDrop: {fileID: 8229628232653300924}
@@ -4688,7 +4688,19 @@ MonoBehaviour:
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8229628231864302248}
+        m_TargetAssemblyTypeName: SettingsManager, Assembly-CSharp
+        m_MethodName: setResolution
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_AlphaFadeSpeed: 0.15
 --- !u!1 &8229628232769406103
 GameObject:

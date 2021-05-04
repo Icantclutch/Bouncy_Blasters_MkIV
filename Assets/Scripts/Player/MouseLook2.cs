@@ -29,6 +29,7 @@ public class MouseLook2 : NetworkBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        PlayerPrefs.GetFloat("Sensitivity", sens);
         doubleClickTimer = 0.25f;
         charTargetRot = gameObject.transform.localRotation;
         camTargetRot = eyes.localRotation;
@@ -145,6 +146,8 @@ public class MouseLook2 : NetworkBehaviour
     {
         sens = temp;
         sens+=sensitivity;
+        PlayerPrefs.SetFloat("Sensitivity", sens);
+    
     }
 
     private void ResetToHorizon()
