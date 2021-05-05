@@ -173,8 +173,21 @@ public class GameManagement : NetworkBehaviour
         {
             player.RpcSpawnPlayer(false, true);
         }
+        RpcDoorAnimation();
         yield return new WaitForSeconds(4);
         RpcOpenAnimation();
+    }
+
+    [ClientRpc]
+    public void RpcDoorAnimation()
+    {
+        if (GameObject.FindGameObjectWithTag("SpawnDoor"))
+        {
+            foreach (GameObject door in GameObject.FindGameObjectsWithTag("SpawnDoor"))
+            {
+                door.GetComponent<Animator>().SetBool("open", true);
+            }
+        }
     }
 
     [ClientRpc]
