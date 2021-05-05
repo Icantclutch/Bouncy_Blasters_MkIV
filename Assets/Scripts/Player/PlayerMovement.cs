@@ -139,10 +139,10 @@ public class PlayerMovement : NetworkBehaviour
 		}
 
 		//Debug control to respawn the player
-		if (Input.GetKeyUp(KeyCode.Return))
+		/*if (Input.GetKeyUp(KeyCode.Return))
 		{
 			PlayerSpawnSystem.SpawnPlayer(gameObject);
-		}
+		}*/
 	}
 
     [Client]
