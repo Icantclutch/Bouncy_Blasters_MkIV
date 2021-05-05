@@ -133,7 +133,7 @@ public class PlayerHUD : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.E) || Input.GetButton(Keybinds.controlMap))
+        if (Input.GetKeyDown(KeyCode.E) || Input.GetButtonDown(Keybinds.controlMap))
         {
             _anim.SetTrigger("Zoom");
             _mapAnim.SetTrigger("Start");

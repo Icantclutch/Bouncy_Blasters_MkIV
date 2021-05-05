@@ -50,7 +50,7 @@ public class RaycastReflection : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKey(Keybinds.Zoom))
+        if (Input.GetKey(Keybinds.Zoom) || Input.GetButton(Keybinds.controlAim))
         {
             lineRenderer.enabled = true;
             movement.Aiming(true);

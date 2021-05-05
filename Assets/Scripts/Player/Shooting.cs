@@ -82,7 +82,7 @@ public class Shooting : NetworkBehaviour
         //currentProjectile = activeFireMode.bulletPrefab;
 
         //Switch held weapon
-        if (Input.GetKeyDown(Keybinds.SwapWeapon))
+        if (Input.GetKeyDown(Keybinds.SwapWeapon) || Input.GetButton(Keybinds.controlSwap))
         {
             StartCoroutine(StartSwap());
             //Cmd_SwapWeapon();
@@ -419,7 +419,7 @@ public class Shooting : NetworkBehaviour
         switch (key)
         {
             case Weapon.FireKey.PrimaryFire: //Primary fire key
-                return Keybinds.PrimaryFire(false);
+                return (Input.GetKey(Keybinds.PrimaryFire) || Input.GetButton(Keybinds.controlShoot));
             case Weapon.FireKey.SecondaryFire: //Secondary fire key
                 return Input.GetKeyDown(Keybinds.SecondaryFire);
             case Weapon.FireKey.GrenadeFire: //Grenade fire key
@@ -436,7 +436,7 @@ public class Shooting : NetworkBehaviour
         switch (key)
         {
             case Weapon.FireKey.PrimaryFire: //Primary fire key
-                return Keybinds.PrimaryFire(true);
+                return (Input.GetKey(Keybinds.PrimaryFire) || Input.GetButton(Keybinds.controlShoot));
             case Weapon.FireKey.SecondaryFire: //Secondary fire key
                 return Input.GetKey(Keybinds.SecondaryFire);
             case Weapon.FireKey.GrenadeFire: //Grenade fire key

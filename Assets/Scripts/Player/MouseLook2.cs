@@ -165,7 +165,7 @@ public class MouseLook2 : NetworkBehaviour
             
         }
         //Starting the timer for a second zoom press
-        if (Input.GetKeyDown(Keybinds.Zoom) && doubleClickTimer == 0.25f)
+        if ((Input.GetKeyDown(Keybinds.Zoom) || Input.GetButton(Keybinds.controlReset)) && doubleClickTimer == 0.25f)
         {
             beginTimer = true;
         }
