@@ -173,7 +173,19 @@ public class GameManagement : NetworkBehaviour
         {
             player.RpcSpawnPlayer(false, true);
         }
+        yield return new WaitForSeconds(4);
+        RpcOpenAnimation();
     }
+
+    [ClientRpc]
+    public void RpcOpenAnimation()
+    {
+        if (GameObject.FindGameObjectWithTag("Petals"))
+        {
+            GameObject.FindGameObjectWithTag("Petals").GetComponent<Animator>().SetBool("open", true);
+        }
+    }
+
     [ClientRpc]
     public void RpcUpdateHostSpawned(bool spawned)
     {
