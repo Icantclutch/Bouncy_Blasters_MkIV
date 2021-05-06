@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 7634578832204872233}
   - component: {fileID: 6799489216327103884}
   - component: {fileID: 8770852784331702598}
-  - component: {fileID: 3391872153061475951}
+  - component: {fileID: 444838424078974831}
   m_Layer: 0
   m_Name: WallPanelPanel
   m_TagString: Untagged
@@ -165,8 +165,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &3391872153061475951
-MeshCollider:
+--- !u!65 &444838424078974831
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -175,10 +175,9 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -6014450966521003529, guid: 6a8f7a7edcf1e2744b9e79d3f37b9192, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 0.1287829, y: 0.12357332, z: 0.035582177}
+  m_Center: {x: 0.00000021979213, y: -0.011411161, z: 0.004163895}
 --- !u!1 &8563839621634658657
 GameObject:
   m_ObjectHideFlags: 0
