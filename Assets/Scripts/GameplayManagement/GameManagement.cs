@@ -174,7 +174,7 @@ public class GameManagement : NetworkBehaviour
             player.RpcSpawnPlayer(false, true);
         }
         RpcDoorAnimation();
-        yield return new WaitForSeconds(4);
+        yield return new WaitForSeconds(9);
         RpcOpenAnimation();
     }
 
