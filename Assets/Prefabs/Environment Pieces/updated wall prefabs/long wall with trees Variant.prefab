@@ -180,7 +180,7 @@ MonoBehaviour:
   normalImage: {fileID: 4802668617429675091}
   aimImage: {fileID: 1218291559821390682}
   isHit: 0
---- !u!65 &5844591564489259436
+--- !u!65 &4420387621071903959
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -191,8 +191,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 14.874979, y: 7.555932, z: 0.6064545}
-  m_Center: {x: -0.041445494, y: 3.8579469, z: 0.0022466034}
+  m_Size: {x: 0.1487498, y: 0.0755537, z: 0.0060624215}
+  m_Center: {x: -0.00041445717, y: 0.038576655, z: 0.000021445823}
 --- !u!1001 &7618994953427602766
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -259,7 +259,19 @@ PrefabInstance:
     - target: {fileID: 2968232503724167480, guid: a39486be79bdfdd4fbeaa112df1822a9, type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
-      objectReference: {fileID: 2100000, guid: 74ea542541707f94f88119e50728f126, type: 2}
+      objectReference: {fileID: 2100000, guid: 7f14d489ff7475940a0cc50999cb3f39, type: 2}
+    - target: {fileID: 2968232503724167480, guid: a39486be79bdfdd4fbeaa112df1822a9, type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: 2eaf878b08e289f4eb221c0a30566564, type: 2}
+    - target: {fileID: 2968232503724167480, guid: a39486be79bdfdd4fbeaa112df1822a9, type: 3}
+      propertyPath: m_Materials.Array.data[4]
+      value: 
+      objectReference: {fileID: 2100000, guid: 03f2566013a87bf439c4be227efc9642, type: 2}
+    - target: {fileID: 2968232503724167480, guid: a39486be79bdfdd4fbeaa112df1822a9, type: 3}
+      propertyPath: m_Materials.Array.data[3]
+      value: 
+      objectReference: {fileID: 2100000, guid: d6486a41a9ba24a48953f544bef0f004, type: 2}
     - target: {fileID: 3616878462441156845, guid: a39486be79bdfdd4fbeaa112df1822a9, type: 3}
       propertyPath: m_Name
       value: long wall with trees

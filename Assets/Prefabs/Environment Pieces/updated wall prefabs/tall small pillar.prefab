@@ -215,7 +215,7 @@ MonoBehaviour:
   normalImage: {fileID: 1520837912317232086}
   aimImage: {fileID: 1677262222082318660}
   isHit: 0
---- !u!65 &6750194968332310188
+--- !u!65 &4105049426914014787
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -226,8 +226,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.822455, y: 9.684305, z: 2.8813012}
-  m_Center: {x: 0, y: 4.9150763, z: -0.00000047683716}
+  m_Size: {x: 0.028224548, y: 0.09684306, z: 0.028813012}
+  m_Center: {x: 0, y: 0.04915076, z: -0.000000005122274}
 --- !u!1001 &2216003019441526575
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -360,11 +360,19 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: e9419e6a7818d6e4ab4a960a41a49515, type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
-      objectReference: {fileID: 2100000, guid: 6bf3beb3491ae8a478c4d685c9c3b343, type: 2}
+      objectReference: {fileID: 2100000, guid: 7f14d489ff7475940a0cc50999cb3f39, type: 2}
     - target: {fileID: -7511558181221131132, guid: e9419e6a7818d6e4ab4a960a41a49515, type: 3}
       propertyPath: m_Materials.Array.data[2]
       value: 
-      objectReference: {fileID: 2100000, guid: 16f9f72db98597c4bb2e48661ff8bf33, type: 2}
+      objectReference: {fileID: 2100000, guid: 2eaf878b08e289f4eb221c0a30566564, type: 2}
+    - target: {fileID: -7511558181221131132, guid: e9419e6a7818d6e4ab4a960a41a49515, type: 3}
+      propertyPath: m_Materials.Array.data[3]
+      value: 
+      objectReference: {fileID: 2100000, guid: 03f2566013a87bf439c4be227efc9642, type: 2}
+    - target: {fileID: -7511558181221131132, guid: e9419e6a7818d6e4ab4a960a41a49515, type: 3}
+      propertyPath: m_Materials.Array.data[4]
+      value: 
+      objectReference: {fileID: 2100000, guid: d6486a41a9ba24a48953f544bef0f004, type: 2}
     - target: {fileID: 919132149155446097, guid: e9419e6a7818d6e4ab4a960a41a49515, type: 3}
       propertyPath: m_Name
       value: sm_wall_squarepillartallsmall_screen_fixed
